@@ -62,6 +62,18 @@ public class StickerDialog extends JDialog {
 	Border border2;
 	Color[] colors =
 		{
+			Color.ORANGE,
+			Color.ORANGE,
+			Color.ORANGE,
+			Color.ORANGE,
+			Color.ORANGE,
+			Color.ORANGE,
+			Color.ORANGE,
+			Color.ORANGE,
+			Color.ORANGE,
+			Color.ORANGE
+		};
+			/*
 			Color.YELLOW,
 			Color.ORANGE,
 			Color.RED,
@@ -72,8 +84,10 @@ public class StickerDialog extends JDialog {
 			Color.BLACK,
 			Color.WHITE,
 			Color.PINK };
+			*/
 	String[] colorLabels =
 		{
+			/*
 			Local.getString("Yellow"),
 			Local.getString("Orange"),
 			Local.getString("Red"),
@@ -84,6 +98,18 @@ public class StickerDialog extends JDialog {
 			Local.getString("Black"),
 			Local.getString("White"),
 			Local.getString("Pink"),
+			*/
+			Local.getString("Orange"),
+			Local.getString("Orange"),
+			Local.getString("Orange"),
+			Local.getString("Orange"),
+			Local.getString("Orange"),
+			Local.getString("Orange"),
+			Local.getString("Orange"),
+			Local.getString("Orange"),
+			Local.getString("Orange"),
+			Local.getString("Orange"),
+			
 			Local.getString("Custom")+"..."};
 	String[] priorities = {
 			Local.getString("HIGHEST"),

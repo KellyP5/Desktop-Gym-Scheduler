@@ -37,7 +37,7 @@ public class NotesControlPanel extends JPanel {
     SearchPanel searchPanel = new SearchPanel();
     NotesListPanel notesListPanel = new NotesListPanel();
     BookmarksPanel bookmarksListPanel = new BookmarksPanel();
-    JTabbedPane tabbedPane = new JTabbedPane();
+    //JTabbedPane tabbedPane = new JTabbedPane();
     JToolBar toolBar = new JToolBar();
 
     NotesList notesList = null;
@@ -65,13 +65,13 @@ public class NotesControlPanel extends JPanel {
     }
 
     void jbInit() throws Exception {
-        tabbedPane.setFont(new java.awt.Font("Dialog", 1, 10));
-        tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                tabbedPane_stateChanged(e);
-            }
-        });
-        tabbedPane.setTabPlacement(JTabbedPane.BOTTOM);
+        //tabbedPane.setFont(new java.awt.Font("Dialog", 1, 10));
+        //tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
+            //public void stateChanged(ChangeEvent e) {
+                //tabbedPane_stateChanged(e);
+            //}
+        //});
+        //tabbedPane.setTabPlacement(JTabbedPane.BOTTOM);
         this.setLayout(borderLayout1);
         toolBar.setRequestFocusEnabled(false);
         toolBar.setFloatable(false);
@@ -148,14 +148,14 @@ public class NotesControlPanel extends JPanel {
         ppRemoveBkmrk.setIcon(
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removebookmark.png")));
         ppRemoveBkmrk.setEnabled(false);
-        tabbedPane.add(notesListPanel, Local.getString("Notes"));
-        tabbedPane.add(bookmarksListPanel, Local.getString("Bookmarks"));
-        tabbedPane.add(searchPanel, Local.getString("Search"));
+        //tabbedPane.add(notesListPanel, Local.getString("Notes"));
+        //tabbedPane.add(bookmarksListPanel, Local.getString("Bookmarks"));
+        //tabbedPane.add(searchPanel, Local.getString("Search"));
         this.add(toolBar, BorderLayout.NORTH);
         buttonsPanel.add(ppOpenB, null);
         toolBar.add(buttonsPanel, null);
         toolBar.addSeparator();        
-        this.add(tabbedPane, BorderLayout.CENTER);
+        //this.add(tabbedPane, BorderLayout.CENTER);
 
         PopupListener lst = new PopupListener();
         notesListPanel.notesList.addMouseListener(lst);
@@ -201,17 +201,17 @@ public class NotesControlPanel extends JPanel {
 
     void tabbedPane_stateChanged(ChangeEvent e) {
 	if(notesList!=null) notesList.clearSelection();
-        switch (tabbedPane.getSelectedIndex()) {
-            case 0 :
-                notesList = notesListPanel.notesList;
-                break;
-            case 1 :
-                notesList = bookmarksListPanel.notesList;
-                break;
-            case 2 :
-                notesList = searchPanel.notesList;
-                break;
-        }
+        //switch (tabbedPane.getSelectedIndex()) {
+           // case 0 :
+                //notesList = notesListPanel.notesList;
+                //break;
+            //case 1 :
+                //notesList = bookmarksListPanel.notesList;
+                //break;
+           // case 2 :
+                //notesList = searchPanel.notesList;
+                //break;
+        //}
 
 	ppAddBkmrk.setEnabled(false);
 	ppRemoveBkmrk.setEnabled(false);

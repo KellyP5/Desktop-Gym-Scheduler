@@ -168,7 +168,7 @@ public class AgendaPanel extends JPanel {
 						int last=sticker.lastIndexOf("<");
 						int backcolor=sticker.indexOf("#");
 						int fontcolor=sticker.indexOf("#", backcolor+1);
-						int sizeposition=sticker.indexOf("font-size")+10;
+						int sizeposition=sticker.indexOf("font-size")+11;
 						int size=Integer.parseInt(sticker.substring(sizeposition,sizeposition+2));
 						System.out.println(size+" "+sizeposition);
 						int sP=Integer.parseInt(pre_sticker.getAttributeValue("priority"));

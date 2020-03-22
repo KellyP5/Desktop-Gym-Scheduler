@@ -743,7 +743,7 @@ public class AppFrame extends JFrame {
 
         JFileChooser chooser = new JFileChooser();
         chooser.setFileHidingEnabled(false);
-        chooser.setDialogTitle(Local.getString("Pack project"));
+        chooser.setDialogTitle(Local.getString("Pack this project"));
         chooser.setAcceptAllFileFilterUsed(false);
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         //chooser.addChoosableFileFilter(new AllFilesFilter(AllFilesFilter.RTF));

@@ -31,7 +31,6 @@ public class WorkPanel extends JPanel {
 	JPanel panel = new JPanel();
 	CardLayout cardLayout1 = new CardLayout();
 
-	public JButton notesB = new JButton();
 	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
 	public ResourcesPanel filesPanel = new ResourcesPanel();
 	public JButton agendaB = new JButton();
@@ -145,31 +144,7 @@ public class WorkPanel extends JPanel {
 		tasksB.setMaximumSize(new Dimension(60, 80));
 		tasksB.setBackground(Color.white);
 
-		notesB.setFont(new java.awt.Font("Dialog", 1, 10));
-		notesB.setBackground(Color.white);
-		notesB.setBorder(null);
-		notesB.setMaximumSize(new Dimension(60, 80));
-		notesB.setMinimumSize(new Dimension(30, 30));
-		notesB.setOpaque(false);
-		notesB.setPreferredSize(new Dimension(60, 50));
-		notesB.setBorderPainted(false);
-		notesB.setContentAreaFilled(false);
-		notesB.setFocusPainted(false);
-		notesB.setHorizontalTextPosition(SwingConstants.CENTER);
-		notesB.setText(Local.getString("Notes"));
-		notesB.setVerticalAlignment(SwingConstants.TOP);
-		notesB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		notesB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				notesB_actionPerformed(e);
-			}
-		});
-		notesB.setIcon(
-			new ImageIcon(
-				main.java.memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/notes.png")));
-		notesB.setMargin(new Insets(0, 0, 0, 0));
-		notesB.setSelected(true);
+
 		this.setPreferredSize(new Dimension(1073, 300));
 
 		filesB.setSelected(true);
@@ -203,7 +178,6 @@ public class WorkPanel extends JPanel {
 		toolBar.add(agendaB, null);
 		toolBar.add(eventsB, null);
 		toolBar.add(tasksB, null);
-		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
 		currentB = agendaB;
 		// Default blue color
@@ -240,7 +214,6 @@ public class WorkPanel extends JPanel {
 	public void notesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("NOTES");
-		setCurrentButton(notesB);
 		Context.put("CURRENT_PANEL", "NOTES");
 	}
 

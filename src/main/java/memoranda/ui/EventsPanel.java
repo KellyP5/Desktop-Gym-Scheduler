@@ -132,7 +132,8 @@ public class EventsPanel extends JPanel {
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_remove.png")));
 
         this.setLayout(borderLayout1);
-        scrollPane.getViewport().setBackground(Color.white);
+        //scrollPane.getViewport().setBackground(Color.white);
+        scrollPane.getViewport().setBackground(Color.pink);
         eventsTable.setMaximumSize(new Dimension(32767, 32767));
         eventsTable.setRowHeight(24);
         eventPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));

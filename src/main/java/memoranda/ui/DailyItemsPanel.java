@@ -113,7 +113,7 @@ public class DailyItemsPanel extends JPanel {
     }
     void jbInit() throws Exception {
         border1 = BorderFactory.createEtchedBorder(Color.white, Color.gray);
-        border2 = BorderFactory.createEtchedBorder(Color.white, new Color(161, 161, 161));
+        border2 = BorderFactory.createEtchedBorder(Color.blue, new Color(161, 161, 161));
         this.setLayout(borderLayout1);
         splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setBorder(null);

@@ -91,7 +91,7 @@ public class AppFrame extends JFrame {
 
     static Vector exitListeners = new Vector();
 
-    public Action prjPackAction = new AbstractAction("Pack current project") {
+    public Action prjPackAction = new AbstractAction("Pack up current project") {
         public void actionPerformed(ActionEvent e) {
             doPrjPack();
         }

@@ -227,7 +227,7 @@ public class AgendaPanel extends JPanel {
 		historyForwardB.setPreferredSize(new Dimension(24, 24));
 		historyForwardB.setRequestFocusEnabled(false);
 		historyForwardB.setToolTipText(Local.getString("History forward"));
-		historyForwardB.setMinimumSize(new Dimension(24, 24));
+		historyForwardB.setMinimumSize(new Dimension(23, 24));
 		historyForwardB.setMaximumSize(new Dimension(24, 24));
 		historyForwardB.setText("");
 

@@ -152,7 +152,7 @@ public class App {
 		ImageIcon spl =
 			new ImageIcon(App.class.getResource("/ui/splash.png"));
 		JLabel l = new JLabel();
-		l.setSize(400, 300);
+		l.setSize(399, 299);
 		l.setIcon(spl);
 		splash.getContentPane().add(l);
 		splash.setSize(400, 300);

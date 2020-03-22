@@ -14,3 +14,11 @@ dependencies {
   compile 'net.sourceforge.nekohtml:nekohtml:1.9.+'
 }
 
+task FatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'main/java/memoranda/Start'
+    }
+    baseName = 'kjpetron_memoranda'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

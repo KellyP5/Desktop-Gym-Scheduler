@@ -3,6 +3,10 @@
 
 **GitHub Workflow** (due Feb 2nd)
   > Your Workflow
+  We will maintain a develop branch, and code on our own independent branches. Once we have implemented a task, we will then merge it into develop 
+  for per review(PR). Once develop has been updated, the team will be notified that they need to fetch and merge (git pull) the changes into thier
+  local repositorys. Any merge conflicts will be handled by the current user performing the pull request, and if need be, the team will assist as
+  needed.
 
 **Unit Tests Blackbox** (due start Sprint 2)
   > Your Blackbox testing policy 

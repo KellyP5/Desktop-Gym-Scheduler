@@ -104,7 +104,7 @@ public class TaskPanel extends JPanel {
         newTaskB.setEnabled(true);
         newTaskB.setMaximumSize(new Dimension(24, 24));
         newTaskB.setMinimumSize(new Dimension(24, 24));
-        newTaskB.setToolTipText(Local.getString("Create new task"));
+        newTaskB.setToolTipText(Local.getString("Create new task..."));
         newTaskB.setRequestFocusEnabled(false);
         newTaskB.setPreferredSize(new Dimension(24, 24));
         newTaskB.setFocusable(false);
@@ -156,7 +156,7 @@ public class TaskPanel extends JPanel {
         });
         removeTaskB.setPreferredSize(new Dimension(24, 24));
         removeTaskB.setRequestFocusEnabled(false);
-        removeTaskB.setToolTipText(Local.getString("Remove task"));
+        removeTaskB.setToolTipText(Local.getString("Remove this task"));
         removeTaskB.setMinimumSize(new Dimension(24, 24));
         removeTaskB.setMaximumSize(new Dimension(24, 24));
         removeTaskB.setIcon(

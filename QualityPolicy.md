@@ -1,12 +1,22 @@
 ### Quality Policy
-> Describe your Quality Policy in detail for this Sprint (remember what I ask you to do when I talk about the "In your Project" part in the lectures and what is mentioned after each assignment (in due course you will need to fill out all of them, check which ones are needed for each Deliverable). You should keep adding things to this file and adjusting your policy as you go.
 
-**GitHub Workflow** (due Feb 2nd)
-  > Your Workflow
-  We will maintain a develop branch, and code on our own independent branches. Once we have implemented a task, we will then merge it into develop 
-  for per review(PR). Once develop has been updated, the team will be notified that they need to fetch and merge (git pull) the changes into thier
-  local repositorys. Any merge conflicts will be handled by the current user performing the pull request, and if need be, the team will assist as
-  needed.
+**GitHub Workflow** 
+  > We will maintain a develop branch. The develop branch will be the branch where we merge all completed UserStories by a pull request. This will be enforced by github settings. Each user story will have its own branch, each task  will be created on its associated story branch.
+
+>The name of the branch will follow 'US#', where the # will be the one assigned on the taiga board. When a developer assigns themselves a task, they then branch from the
+>UserStory branch, and follows the convention of 'US#-Task#', where the numbers also correspond with the taiga board. 
+
+>Each commit message needs to describe what you are working on with US# and Task # (also include things like "Unit Test", be descriptive). Read the following for more information on commit messages: https://chris.beams.io/posts/git-commit/
+
+>At least one team member should approve a PullRequest, review it, and the reviewer should not be the member who started
+>the pull request.
+
+>Only one team member (Git master) is allowed to do the merge into Master (different person for each Sprint)! In case that person is not available for some reason, someone else is allowed to do it, but please provide a comment in the pull request for it.
+
+>The Git master is the one who should make sure that all Pull Requests are fast forwards and that all pull requests are approved by someone. Thus, talking to the team and making sure Pull Requests are done correctly. Then the Git master should only push the "merge" button on GitHub.
+
+>Branches will not be deleted after they are completed.
+
 
 **Unit Tests Blackbox** (due start Sprint 2)
   > Your Blackbox testing policy 

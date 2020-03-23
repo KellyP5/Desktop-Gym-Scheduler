@@ -274,7 +274,7 @@ public class AppFrame extends JFrame {
                 doExit();
             }
         });
-        jMenuHelp.setText(Local.getString("Help"));
+        jMenuHelp.setText(Local.getString("HELP"));
         
         jMenuHelpGuide.setText(Local.getString("Online user's guide"));
         jMenuHelpGuide.setIcon(new ImageIcon(AppFrame.class.getResource(

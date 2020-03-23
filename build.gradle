@@ -13,4 +13,18 @@ dependencies {
   compile 'com.io7m.xom:xom:1.2.+'
   compile 'net.sourceforge.nekohtml:nekohtml:1.9.+'
 }
+jar {
+  manifest {
+    attributes "Main-Class": "main.java.memoranda.Start"
+  }
 
+}
+task fatJar(type: Jar) {
+  manifest {
+    attributes 'Main-Class': 'cmain.java.memoranda.Start',
+    'Implementation-Title' : 'mbarrill_memoranda.jar'
+  }
+  baseName = 'mbarrill_memoranda.jar'
+  from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+  with jar
+}

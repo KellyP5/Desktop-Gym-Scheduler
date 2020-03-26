@@ -1,4 +1,4 @@
-# Deliverable Information
+﻿# Deliverable Information
 
 ## 1: Basic Information
 
@@ -13,24 +13,38 @@
 ### Sprint Planning (For Sprint 1-4)
 Document your Sprint Planning here. Also check the kickoff document for more details on what needs to be done. This is just the documentation. 
 
-**Sprint Goal:** Your Sprint goal
+**Sprint Goal:** To begin to redesign the UI, using existing elements as much as possible,
+towards a Gym structure as well as fixing the most significant existing bugs
 
-**How many User Stories did you add to the Product Backlog:**  Number
+**How many User Stories did you add to the Product Backlog:**  3
 
-**How many User Stories did you add to this Sprint:** 
+**How many User Stories did you add to this Sprint:** 2, not including the User Stories given to us originally.
+
 > Answer the questions below about your Sprint Planning?
 
 **Why did you add exactly these US?**
 
-> Your Answer
+> Our goal for this sprint was to orient ourselves with the code base we're given, as well as start to target our GUI
+toward the Gym Scheduler system, so we added a User Story to design the GUI for a Login screen that will be the first
+screen a user sees when the program opens (after the splash image). This was chosen because it is the first contact the 
+user has with the system, so it makes sense to add it during the first sprint. The User Story is meant to get a basic GUI
+screen setup, and not necessarily the full functionality of logging into the system. This functionality will be added during
+a later sprint.
+> We also added a User Story to fix the bug with Memoranda where the program does not minimize correctly. Currently, if you
+minimize Memoranda, you cannot maximize it again and have to manually exit the program and re-run it. This is a major bug and
+needs to be fixed early on just so a user can comfortably use the program.
 
 **Why do you think you will get them done? (details)**
 
-> Your Answer
+> We chose User Stories that were a decent amount of work, but were still reasonable time-wise. Having a six-person team, we wanted enough
+work for all of us to have 3-4 tasks to do. Some of the tasks will of course be more time-consuming than others, but they have all been created
+and chosen with our short sprint timeframe in mind. 
 
 **Do you have a rough idea what you need to do? (if the answer is no then please let me know on Slack)**
 
-> Your Answer
+> We know exactly what we need to do. In this first sprint we are going to familiarize ourselves with the Memoranda program/codebase and start
+to move forward with progress toward our chosen project. Our User Stories were chosen and created specifically because they are good starting points
+for this project and are items that need to be taken care of early on.
 
 
 

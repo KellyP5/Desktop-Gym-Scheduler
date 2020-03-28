@@ -57,7 +57,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 | Date  | Attendees  |Minutes   | Burndown Info | TravisCI info | Additional Info  |
 |---|---|---|---|--|--|
-|   |   |   |   |  |  |
+|3/28|On call: Kelly P, Kelly E, Alex, Rita, Kevin S. On slack text: Kevin W  | 15  | 26% | N/A  | N/A  |
 |   |   |   |   |  |  |
 |   |   |   |   |  |  |
 

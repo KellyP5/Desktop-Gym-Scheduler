@@ -18,7 +18,7 @@ towards a Gym structure as well as fixing the most significant existing bugs
 
 **How many User Stories did you add to the Product Backlog:**  3
 
-**How many User Stories did you add to this Sprint:9 in total.
+**How many User Stories did you add to this Sprint:** 9 in total.
 
 > Answer the questions below about your Sprint Planning?
 

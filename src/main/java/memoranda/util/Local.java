@@ -101,6 +101,9 @@ public class Local {
     static String weekdaynames[] =
         { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 
+    static String beltnames[] =
+            { "white", "yellow", "orange", "purple", "blue", "blue stripe", "green", "green stripe", "brown1", "brown2", "brown3", "black1", "black2", "black3"};
+
     public static String getString(String key) {
         if ((messages == null) || (disabled)) {
             return key;
@@ -120,6 +123,10 @@ public class Local {
             localmonthnames[i] = getString(monthnames[i]);
         }
         return localmonthnames;
+    }
+
+    public static String[] getBeltNames() {
+        return beltnames;
     }
 
     public static String[] getWeekdayNames() {

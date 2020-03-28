@@ -272,6 +272,12 @@ public class PreferencesDialog extends JDialog {
 				closeHideRB_actionPerformed(e);
 			}
 		});
+		gbc = new GridBagConstraints();
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		gbc.insets = new Insets(2, 0, 0, 10);
+		gbc.anchor = GridBagConstraints.WEST;
+		GeneralPanel.add(closeHideRB, gbc);
 		jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel4.setText(Local.getString("Startup:"));
 		gbc = new GridBagConstraints();

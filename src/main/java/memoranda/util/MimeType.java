@@ -119,36 +119,41 @@ public class MimeType {
     }
 
     public ImageIcon getIcon() {
-       String ip = getIconPath();
-       ImageIcon icon = null;
-       if (ip.equals("")) {
-        ip = "/util/icons/mimetypes/"+getMimeTypeId()+".png";
-        try {
-          icon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource(ip));
+        String ip = getIconPath();
+        ImageIcon icon = null;
+
+        if (ip.equals("")) {
+            ip = "/ui/icons/mimetypes/"+getMimeTypeId()+".png";
+            System.out.println("[DEBUG] String ip: " + ip);
+            try {
+                icon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource(ip));
+            }
+            catch (Exception ex) {
+                System.out.println("[DEBUG] String ip: " + ip);
+                ip = "/ui/icons/mimetypes/"+getMimeTypeId().split("/")[0]+"/default.png";
+                try {
+                    System.out.println("[DEBUG] String ip: " + ip);
+                    icon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource(ip));
+                }
+                catch (Exception ex2) {
+                    icon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/util/icons/mimetypes/default.png"));
+                }
+            }
         }
-        catch (Exception ex) {
-          ip = "/util/icons/mimetypes/"+getMimeTypeId().split("/")[0]+"/default.png";
-          try {
-            icon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource(ip));
-          }
-          catch (Exception ex2) {
-            icon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/util/icons/mimetypes/default.png"));
-          }
-        }
-      }
-      else
-        try {
-            icon = new ImageIcon(ip);
-          }
-          catch (Exception ex) {
-          ip = "/util/icons/mimetypes/"+getMimeTypeId().split("/")[0]+"/default.png";
-          try {
-            icon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource(ip));
-          }
-          catch (Exception ex2) {
-            icon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/util/icons/mimetypes/default.png"));
-          }
-        }
-      return icon;
+        else
+            try {
+                icon = new ImageIcon(ip);
+            }
+            catch (Exception ex) {
+                ip = "/util/icons/mimetypes/"+getMimeTypeId().split("/")[0]+"/default.png";
+                try {
+                    icon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource(ip));
+                }
+                catch (Exception ex2) {
+                    System.out.println("[DEBUG] String ip: " + ip);
+                    icon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/mimetypes/default.png"));
+                }
+            }
+        return icon;
     }
 }

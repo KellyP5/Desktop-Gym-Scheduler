@@ -129,6 +129,13 @@ public class Local {
         return beltnames;
     }
 
+    public static String[] getRoomNames() {
+        return roomnames;
+    }
+
+    static String roomnames[] =
+            { "Room 1", "Room 2", "Room 3", "Room 4"};
+
     public static String[] getWeekdayNames() {
         String[] localwdnames = new String[7];
         String[] localnames = weekdaynames;

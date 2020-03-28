@@ -36,7 +36,7 @@ public class WorkPanel extends JPanel {
 	public ResourcesPanel filesPanel = new ResourcesPanel();
 	public JButton agendaB = new JButton();
 	public JButton tasksB = new JButton();
-	public JButton eventsB = new JButton();
+	public JButton classesB = new JButton();
 	public JButton filesB = new JButton();
 	JButton currentB = null;
 	Border border1;
@@ -94,31 +94,31 @@ public class WorkPanel extends JPanel {
 		agendaB.setMargin(new Insets(0, 0, 0, 0));
 		agendaB.setSelected(true);
 
-		eventsB.setBackground(Color.white);
-		eventsB.setMaximumSize(new Dimension(60, 80));
-		eventsB.setMinimumSize(new Dimension(30, 30));
+		classesB.setBackground(Color.white);
+		classesB.setMaximumSize(new Dimension(60, 80));
+		classesB.setMinimumSize(new Dimension(30, 30));
 
-		eventsB.setFont(new java.awt.Font("Dialog", 1, 10));
-		eventsB.setPreferredSize(new Dimension(50, 50));
-		eventsB.setBorderPainted(false);
-		eventsB.setContentAreaFilled(false);
-		eventsB.setFocusPainted(false);
-		eventsB.setHorizontalTextPosition(SwingConstants.CENTER);
-		eventsB.setText(Local.getString("Events"));
-		eventsB.setVerticalAlignment(SwingConstants.TOP);
-		eventsB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		eventsB.addActionListener(new java.awt.event.ActionListener() {
+		classesB.setFont(new java.awt.Font("Dialog", 1, 10));
+		classesB.setPreferredSize(new Dimension(50, 50));
+		classesB.setBorderPainted(false);
+		classesB.setContentAreaFilled(false);
+		classesB.setFocusPainted(false);
+		classesB.setHorizontalTextPosition(SwingConstants.CENTER);
+		classesB.setText(Local.getString("Classes"));
+		classesB.setVerticalAlignment(SwingConstants.TOP);
+		classesB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		classesB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				eventsB_actionPerformed(e);
+				classesB_actionPerformed(e);
 			}
 		});
-		eventsB.setIcon(
+		classesB.setIcon(
 			new ImageIcon(
 				main.java.memoranda.ui.AppFrame.class.getResource(
 					"/ui/icons/events.png")));
-		eventsB.setOpaque(false);
-		eventsB.setMargin(new Insets(0, 0, 0, 0));
-		//eventsB.setSelected(true);
+		classesB.setOpaque(false);
+		classesB.setMargin(new Insets(0, 0, 0, 0));
+		//classesB.setSelected(true);
 
 		tasksB.setSelected(true);
 		tasksB.setFont(new java.awt.Font("Dialog", 1, 10));
@@ -201,7 +201,7 @@ public class WorkPanel extends JPanel {
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
 		toolBar.add(agendaB, null);
-		toolBar.add(eventsB, null);
+		toolBar.add(classesB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
@@ -223,8 +223,8 @@ public class WorkPanel extends JPanel {
 				notesB_actionPerformed(null);
 			else if (pan.equals("TASKS"))
 				tasksB_actionPerformed(null);
-			else if (pan.equals("EVENTS"))
-				eventsB_actionPerformed(null);
+			else if (pan.equals("CLASSES"))
+				classesB_actionPerformed(null);
 			else if (pan.equals("FILES"))
 				filesB_actionPerformed(null);
 		}
@@ -251,11 +251,11 @@ public class WorkPanel extends JPanel {
 		Context.put("CURRENT_PANEL", "TASKS");
 	}
 
-	public void eventsB_actionPerformed(ActionEvent e) {
+	public void classesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
-		dailyItemsPanel.selectPanel("EVENTS");
-		setCurrentButton(eventsB);
-		Context.put("CURRENT_PANEL", "EVENTS");
+		dailyItemsPanel.selectPanel("CLASSES");
+		setCurrentButton(classesB);
+		Context.put("CURRENT_PANEL", "CLASSES");
 	}
 
 	public void filesB_actionPerformed(ActionEvent e) {

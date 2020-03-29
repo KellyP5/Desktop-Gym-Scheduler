@@ -11,12 +11,40 @@ public class LoginBox extends JFrame {
     JButton loginButton;
     JTextField user;
     JTextField pass;
+    ImageIcon globoLogo;
+    JLabel logo;
+    JLabel welcome;
+    JLabel slogan;
+    JLabel getStarted;
+    JLabel newUser;
+    JButton createAccount;
 
-    public LoginBox() {
-        login = new JPanel();
+    public LoginBox() {login = new JPanel();
         loginButton = new JButton("Login");
         user = new JTextField(20);
         pass = new JTextField(20);
+        globoLogo = new ImageIcon("src/main/resources/ui/globo.jpg");
+        logo = new JLabel();
+        welcome = new JLabel("Welcome to Globo Gym");
+        slogan = new JLabel("We're better than you and we know it");
+        getStarted = new JLabel("Sign in to get started");
+        newUser = new JLabel("New user?");
+        createAccount = new JButton("Create Account");
+
+        setTitle("Login");
+        setSize(300,500);
+
+        logo.setBounds(85,10,113,113);
+        logo.setIcon(globoLogo);
+
+        welcome.setBounds(50, 120, 200, 50);
+        welcome.setFont(new Font("Bodoni MT Black", Font.PLAIN, 16));
+
+        slogan.setBounds(20, 140, 250, 50);
+        slogan.setFont(new Font("Lucida Calligraphy", Font.PLAIN, 12));
+
+        getStarted.setBounds(95, 210, 200, 50);
+        getStarted.setFont(new Font("Bell MT", Font.PLAIN, 12));
 
         user.setText("Username");
         pass.setText("Password");
@@ -25,14 +53,25 @@ public class LoginBox extends JFrame {
 
         login.setLayout(null);
 
-        setSize(300,500);
-        user.setBounds(70,200,150,25);
-        pass.setBounds(70,240,150,25);
-        loginButton.setBounds(100,275,80,20);
+        user.setBounds(70,250,150,25);
+        pass.setBounds(70,290,150,25);
+
+        loginButton.setBounds(100,325,80,20);
+
+        newUser.setBounds(50, 400, 100, 20);
+
+        createAccount.setBounds(120, 400, 125, 20);
 
         login.add(loginButton);
         login.add(user);
         login.add(pass);
+        login.add(logo);
+        login.add(welcome);
+        login.add(slogan);
+        login.add(getStarted);
+        login.add(newUser);
+        login.add(createAccount);
+        login.setBackground(new java.awt.Color(230,230,230));
 
         getContentPane().add(login);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -203,7 +203,7 @@ public class DailyItemsPanel extends JPanel {
         mainPanel.add(editorsPanel, BorderLayout.CENTER);
         
         editorsPanel.add(agendaPanel, "AGENDA");
-        editorsPanel.add(eventsPanel, "EVENTS");
+        editorsPanel.add(eventsPanel, "CLASSES");
         editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(editorPanel, "NOTES");
         
@@ -478,6 +478,6 @@ public class DailyItemsPanel extends JPanel {
     }
 
     void alarmB_actionPerformed(ActionEvent e) {
-        parentPanel.eventsB_actionPerformed(null);
+        parentPanel.classesB_actionPerformed(null);
     }
 }

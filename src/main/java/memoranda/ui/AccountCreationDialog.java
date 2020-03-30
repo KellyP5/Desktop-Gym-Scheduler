@@ -15,11 +15,13 @@ public class AccountCreationDialog extends JFrame {
     JTextField user;
     JTextField pass;
     JLabel accountSelection;
+    ButtonGroup buttons;
     JRadioButton trainerButton;
     JRadioButton studentButton;
     JLabel fillOutForm;
     JLabel alreadyHaveAccount;
     JButton loginButton;
+    LoginBox loginBox;
 
     public AccountCreationDialog() {
 
@@ -37,6 +39,10 @@ public class AccountCreationDialog extends JFrame {
         accountSelection = new JLabel("Which type of account would you like to create?");
         alreadyHaveAccount = new JLabel("Already have an account?");
         loginButton = new JButton("Login");
+        buttons = new ButtonGroup(); // Ensures that only 1 option can be chosen
+        buttons.add(trainerButton);
+        buttons.add(studentButton);
+
 
         setTitle("Create Account");
         setSize(300, 500);
@@ -99,6 +105,58 @@ public class AccountCreationDialog extends JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
 
+        // When the cursor is in the First Name text field
+        firstName.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent focusEvent) {
+                if (firstName.getText().equals("First Name")) {
+                    // Clear out the text field so the user can type
+                    firstName.setText("");
+                    firstName.setForeground(Color.BLACK);
+                } else {
+                    // Highlight all characters in text box
+                    firstName.selectAll();
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent focusEvent) {
+                // When the user clicks/tabs away from First Name,
+                // if nothing was typed in the box, put the grayed out
+                // 'First Name' in the box as a prompt
+                if (firstName.getText().equals("")) {
+                    firstName.setText("First Name");
+                    firstName.setForeground(Color.LIGHT_GRAY);
+                }
+            }
+        });
+
+        // When the cursor is in the Last Name text field
+        lastName.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent focusEvent) {
+                // Clear out the text field so the user can type
+                if (lastName.getText().equals("Last Name")) {
+                    lastName.setText("");
+                    lastName.setForeground(Color.BLACK);
+                } else {
+                    // Highlight all characters in text box
+                    lastName.selectAll();
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent focusEvent) {
+                // When the user clicks/tabs away from Last Name, if
+                // nothing was typed in the box, then put the grayed
+                // out 'Last Name' back
+                if (lastName.getText().equals("")) {
+                    lastName.setText("Last Name");
+                    lastName.setForeground(Color.LIGHT_GRAY);
+                }
+            }
+        });
+
         // When the cursor is in the Username Text Field
         user.addFocusListener(new FocusListener() {
             @Override
@@ -150,5 +208,28 @@ public class AccountCreationDialog extends JFrame {
                 }
             }
         });
+
+        // For now when the Create button is pressed, the app is launched
+        // and no user authentication is done (will be added later)
+        createButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                App.init();
+                dispose(); // Close the account creation dialog
+            }
+        });
+
+        // If the user already has an account and wants to login,
+        // the Login button takes them back to the Login dialog box
+        loginButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                loginBox = new LoginBox();
+                dispose();
+            }
+        });
+
     }
 }

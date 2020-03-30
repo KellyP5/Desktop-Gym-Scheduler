@@ -87,6 +87,7 @@ public class LoginBox extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 App.init();
+                dispose(); // Close the login dialog box
             }
         });
 
@@ -106,7 +107,7 @@ public class LoginBox extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 createAcc = new AccountCreationDialog();
-
+                dispose();
             }
         });
 

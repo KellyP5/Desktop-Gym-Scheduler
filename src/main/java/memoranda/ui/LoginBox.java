@@ -17,6 +17,7 @@ public class LoginBox extends JFrame {
     JLabel getStarted;
     JLabel newUser;
     JButton createAccount;
+    AccountCreationDialog createAcc;
 
     public LoginBox() {
 
@@ -97,6 +98,15 @@ public class LoginBox extends JFrame {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     App.init();
                 }
+            }
+        });
+
+        createAccount.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                createAcc = new AccountCreationDialog();
+
             }
         });
 

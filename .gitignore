@@ -4,6 +4,11 @@
 # Log file
 *.log
 
+# Intellij
+.idea/
+*.iml
+*.iws
+
 ### Eclipse ###
 
 ### Eclipse Patch ###
@@ -22,3 +27,4 @@
 
 
 /bin/
+/out/

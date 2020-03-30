@@ -18,8 +18,9 @@ public class LoginBox extends JFrame {
     JLabel newUser;
     JButton createAccount;
 
-    public LoginBox() {login = new JPanel();
+    public LoginBox() {
 
+        login = new JPanel();
         loginButton = new JButton("Login");
         user = new JTextField(20);
         pass = new JTextField(20);
@@ -76,6 +77,7 @@ public class LoginBox extends JFrame {
         getContentPane().add(login);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
 
         // For now, start the app when the login button is pressed
         // Later functionality will include user authentication

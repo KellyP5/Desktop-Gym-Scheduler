@@ -77,7 +77,7 @@ public class LoginBox extends JFrame {
         getContentPane().add(login);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-
+        setLocationRelativeTo(null);
 
         // For now, start the app when the login button is pressed
         // Later functionality will include user authentication

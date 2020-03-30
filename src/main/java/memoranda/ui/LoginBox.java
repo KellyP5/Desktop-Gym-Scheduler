@@ -102,12 +102,27 @@ public class LoginBox extends JFrame {
             }
         });
 
+        // If the Create button is clicked, launch the
+        // account creation dialog
         createAccount.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 createAcc = new AccountCreationDialog();
                 dispose();
+            }
+        });
+
+        // If the enter key is pressed when the Create button is selected,
+        // launch the account creation dialog
+        createAccount.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    createAcc = new AccountCreationDialog();
+                    dispose();
+                }
             }
         });
 

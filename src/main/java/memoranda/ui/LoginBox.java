@@ -77,7 +77,26 @@ public class LoginBox extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
+        // For now, start the app when the login button is pressed
+        // Later functionality will include user authentication
+        loginButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                App.init();
+            }
+        });
 
+        // Allow an enter key press to start the app
+        loginButton.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    App.init();
+                }
+            }
+        });
 
         // When the cursor is in the Username Text Field
         user.addFocusListener(new FocusListener() {

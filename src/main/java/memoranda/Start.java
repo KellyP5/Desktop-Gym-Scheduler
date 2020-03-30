@@ -21,6 +21,7 @@ import main.java.memoranda.util.Configuration;
 public class Start {
     
     static App app = null;
+    static LoginBox login = null;
     
     static int DEFAULT_PORT = 19432;
     static boolean checkIfAlreadyStartet = true;
@@ -60,7 +61,8 @@ public class Start {
         
         //System.out.println(EventsScheduler.isEventScheduled());
         if ((args.length == 0) || (!args[0].equals("-m"))) {
-            app = new App(true);
+            login = new LoginBox();
+            //app = new App(true);
         }
         else
             app = new App(false);

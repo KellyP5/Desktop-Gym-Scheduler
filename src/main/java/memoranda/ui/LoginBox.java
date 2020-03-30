@@ -2,8 +2,7 @@ package main.java.memoranda.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 
 public class LoginBox extends JFrame {
 
@@ -19,7 +18,9 @@ public class LoginBox extends JFrame {
     JLabel newUser;
     JButton createAccount;
 
-    public LoginBox() {login = new JPanel();
+    public LoginBox() {
+
+        login = new JPanel();
         loginButton = new JButton("Login");
         user = new JTextField(20);
         pass = new JTextField(20);
@@ -76,6 +77,28 @@ public class LoginBox extends JFrame {
         getContentPane().add(login);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        setLocationRelativeTo(null);
+
+        // For now, start the app when the login button is pressed
+        // Later functionality will include user authentication
+        loginButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                App.init();
+            }
+        });
+
+        // Allow an enter key press to start the app
+        loginButton.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    App.init();
+                }
+            }
+        });
 
         // When the cursor is in the Username Text Field
         user.addFocusListener(new FocusListener() {

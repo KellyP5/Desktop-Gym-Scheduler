@@ -220,6 +220,18 @@ public class AccountCreationDialog extends JFrame {
             }
         });
 
+        // Allow an enter key press on the Create button to launch program
+        createButton.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    App.init();
+                    dispose();
+                }
+            }
+        });
+
         // If the user already has an account and wants to login,
         // the Login button takes them back to the Login dialog box
         loginButton.addMouseListener(new MouseAdapter() {
@@ -228,6 +240,19 @@ public class AccountCreationDialog extends JFrame {
                 super.mouseClicked(e);
                 loginBox = new LoginBox();
                 dispose();
+            }
+        });
+
+        // Allow an enter key press on the Login button
+        // to launch the Login dialog box
+        loginButton.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    loginBox = new LoginBox();
+                    dispose();
+                }
             }
         });
 

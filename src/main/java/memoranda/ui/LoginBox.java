@@ -2,8 +2,7 @@ package main.java.memoranda.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 
 public class LoginBox extends JFrame {
 
@@ -20,6 +19,7 @@ public class LoginBox extends JFrame {
     JButton createAccount;
 
     public LoginBox() {login = new JPanel();
+
         loginButton = new JButton("Login");
         user = new JTextField(20);
         pass = new JTextField(20);
@@ -76,6 +76,8 @@ public class LoginBox extends JFrame {
         getContentPane().add(login);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+
+
 
         // When the cursor is in the Username Text Field
         user.addFocusListener(new FocusListener() {

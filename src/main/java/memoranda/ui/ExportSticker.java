@@ -44,22 +44,27 @@ public class ExportSticker {
      * @param x the x
      */
     public ExportSticker(String x) {
-                //this.name = remove1(x);
-        }
+        this.name = remove1(x);
+    }
 
     /**
      * Function to eliminate special chars from a string
-     *
-     * @param input the input
-     * @return the string
      */
-    /*public static String remove1(String input) {
-            
+    public static String remove1(String input) {
 
-        }*/
+        String original = "áàäéèëíìïóòöúùuñÁÀÄÉÈËÍÌÏÓÒÖÚÙÜÑçÇ";
 
+        String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
+        String output = input;
+        for (int i=0; i<original.length(); i++) {
+
+            output = output.replace(original.charAt(i), ascii.charAt(i));
+        }
+        return output;
+    }
     /**
      * Export boolean.
+     *
      *
      * @param src the src
      * @return the boolean

@@ -27,6 +27,8 @@ public class App {
      */
     static AppFrame frame = null;
 
+    static LoginBox login;
+
     /**
      * The constant GUIDE_URL.
      */
@@ -137,7 +139,7 @@ public class App {
     /**
      * Init.
      */
-    void init() {
+    static void init() {
 
 
 

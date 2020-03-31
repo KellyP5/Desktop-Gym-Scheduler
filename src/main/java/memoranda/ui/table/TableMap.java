@@ -17,15 +17,31 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
+/**
+ * The type Table map.
+ */
 /*$Id: TableMap.java,v 1.3 2004/01/30 12:17:42 alexeya Exp $*/
 public class TableMap extends AbstractTableModel 
                       implements TableModelListener {
-    protected TableModel model; 
+    /**
+     * The Model.
+     */
+    protected TableModel model;
 
+    /**
+     * Gets model.
+     *
+     * @return the model
+     */
     public TableModel getModel() {
         return model;
     }
 
+    /**
+     * Sets model.
+     *
+     * @param model the model
+     */
     public void setModel(TableModel model) {
         this.model = model; 
         model.addTableModelListener(this); 

@@ -9,7 +9,7 @@
 package main.java.memoranda;
 
 /**
- * 
+ * The interface History listener.
  */
 /*$Id: HistoryListener.java,v 1.2 2004/01/30 12:17:41 alexeya Exp $*/
 public interface HistoryListener {
@@ -17,7 +17,12 @@ public interface HistoryListener {
     /*void historyWasRolledBack();
     
     void historyWasRolledForward();*/
-    
+
+    /**
+     * History was rolled to.
+     *
+     * @param item the item
+     */
     void historyWasRolledTo(HistoryItem item);
 
 }

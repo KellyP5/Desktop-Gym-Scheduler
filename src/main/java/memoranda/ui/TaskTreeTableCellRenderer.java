@@ -23,41 +23,91 @@ import main.java.memoranda.Task;
 import main.java.memoranda.date.CurrentDate;
 
 /**
- * 
+ * The type Task tree table cell renderer.
  */
 public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implements TreeCellRenderer, TableCellRenderer {
+    /**
+     * The Pr highest icon.
+     */
     static ImageIcon PR_HIGHEST_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
             .getResource("/ui/icons/pr_highest.png"));
+    /**
+     * The Pr high icon.
+     */
     static ImageIcon PR_HIGH_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
             .getResource("/ui/icons/pr_high.png"));
+    /**
+     * The Pr normal icon.
+     */
     static ImageIcon PR_NORMAL_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
             .getResource("/ui/icons/pr_normal.png"));
+    /**
+     * The Pr low icon.
+     */
     static ImageIcon PR_LOW_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
             .getResource("/ui/icons/pr_low.png"));
+    /**
+     * The Pr lowest icon.
+     */
     static ImageIcon PR_LOWEST_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
             .getResource("/ui/icons/pr_lowest.png"));
+    /**
+     * The Task active icon.
+     */
     static ImageIcon TASK_ACTIVE_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
             .getResource("/ui/icons/task_active.png"));
+    /**
+     * The Task scheduled icon.
+     */
     static ImageIcon TASK_SCHEDULED_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
             .getResource("/ui/icons/task_scheduled.png"));
+    /**
+     * The Task deadline icon.
+     */
     static ImageIcon TASK_DEADLINE_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
             .getResource("/ui/icons/task_deadline.png"));
+    /**
+     * The Task failed icon.
+     */
     static ImageIcon TASK_FAILED_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
             .getResource("/ui/icons/task_failed.png"));
+    /**
+     * The Task completed icon.
+     */
     static ImageIcon TASK_COMPLETED_ICON = new ImageIcon(main.java.memoranda.ui.AppFrame.class
             .getResource("/ui/icons/task_completed.png"));
-    // reusable cellrenderers
+    /**
+     * The Label.
+     */
+// reusable cellrenderers
     JLabel label = new JLabel();
-    //JLabel tree_label = new JLabel();
+    /**
+     * The Progress label.
+     */
+//JLabel tree_label = new JLabel();
     TaskProgressLabel progressLabel;
+    /**
+     * The Empty panel.
+     */
     JPanel empty_panel = new JPanel();
-    // get Task objects via table (maybe not most elegant solution)
+    /**
+     * The Table.
+     */
+// get Task objects via table (maybe not most elegant solution)
     TaskTable table;
-    
-    //SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.yyyy");
+
+    /**
+     * The Date format.
+     */
+//SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.yyyy");
     //  use localized date format, modified from default locale's short format if possible
     DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);//createModifiedShortFormat();
 
+    /**
+     * Instantiates a new Task tree table cell renderer.
+     *
+     * @param table the table
+     */
     public TaskTreeTableCellRenderer(TaskTable table) {
         super();
         this.table = table;
@@ -192,6 +242,10 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
     /**
      * Color representing task status, "light" color is useful for backgrounds
      * and other for text
+     *
+     * @param t     the t
+     * @param light the light
+     * @return the color for task status
      */
     public static Color getColorForTaskStatus(Task t, boolean light) {
         if (light) {
@@ -225,6 +279,12 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         return null;
     }
 
+    /**
+     * Gets status icon.
+     *
+     * @param t the t
+     * @return the status icon
+     */
     public static ImageIcon getStatusIcon(Task t) {
         switch (t.getStatus(CurrentDate.get())) {
         case Task.ACTIVE:
@@ -242,6 +302,12 @@ public class TaskTreeTableCellRenderer extends DefaultTreeCellRenderer implement
         return null;
     }
 
+    /**
+     * Gets priority icon.
+     *
+     * @param t the t
+     * @return the priority icon
+     */
     public static ImageIcon getPriorityIcon(Task t) {
         switch (t.getPriority()) {
         case Task.PRIORITY_NORMAL:

@@ -73,27 +73,51 @@ import main.java.memoranda.util.*;
  * </p>
  *
  * <p>Article about <a href="http://java.sun.com/products/jfc/tsc/articles/treetable1/">treetables</a>.</p>
- * 
- * @see	main.java.memoranda.ui.TaskTreeTableCellRenderer
- * @version $Id: TaskTable.java,v 1.26 2007/01/05 10:33:26 alexeya Exp $
- * @author $Author: alexeya $
+ *
+ * @author $Author : alexeya $
+ * @version $Id : TaskTable.java,v 1.26 2007/01/05 10:33:26 alexeya Exp $
+ * @see main.java.memoranda.ui.TaskTreeTableCellRenderer
  */
 public class TaskTable extends JTable {
 
+    /**
+     * The constant TASK_ID.
+     */
     public static final int TASK_ID = 100;
 
+    /**
+     * The constant TASK.
+     */
     public static final int TASK = 101;
 
+    /**
+     * The Tree.
+     */
     protected TreeTableCellRenderer tree;
 
+    /**
+     * The Model.
+     */
     protected TaskTableModel model;
-    
+
+    /**
+     * The Model adapter.
+     */
     protected TreeTableModelAdapter modelAdapter;
-    
+
+    /**
+     * The Renderer.
+     */
     protected TaskTreeTableCellRenderer renderer;
-	
-	protected ExpansionHandler expansion; 
-    
+
+    /**
+     * The Expansion.
+     */
+    protected ExpansionHandler expansion;
+
+    /**
+     * Instantiates a new Task table.
+     */
     public TaskTable() {
         super();
         initTable();
@@ -174,6 +198,9 @@ public class TaskTable extends JTable {
 		getTableHeader().setReorderingAllowed(false);
     }
 
+    /**
+     * Init column widths.
+     */
     void initColumnWidths() {
         for (int i = 0; i < 7; i++) {
             TableColumn column = getColumnModel().getColumn(i);
@@ -193,7 +220,10 @@ public class TaskTable extends JTable {
             }
         }
     }
-    
+
+    /**
+     * Table changed.
+     */
     public void tableChanged() {
 		model.fireUpdateCache();
 		model.fireTreeStructureChanged();
@@ -243,6 +273,8 @@ public class TaskTable extends JTable {
 
     /**
      * Returns the tree that is being shared between the model.
+     *
+     * @return the tree
      */
     public TreeTableCellRenderer getTree() {
         return tree;
@@ -251,11 +283,18 @@ public class TaskTable extends JTable {
     /**
      * A TreeCellRenderer that displays a JTree.
      */
-	 public class TreeTableCellRenderer extends JTree implements // {{{
+    public class TreeTableCellRenderer extends JTree implements // {{{
             TableCellRenderer {
-        /** Last table/tree row asked to renderer. */
+        /**
+         * Last table/tree row asked to renderer.
+         */
         protected int visibleRow;
 
+        /**
+         * Instantiates a new Tree table cell renderer.
+         *
+         * @param model the model
+         */
         public TreeTableCellRenderer(TreeModel model) {
             super(model);
             //ToolTipManager.sharedInstance().registerComponent(this);//XXX
@@ -333,7 +372,7 @@ public class TaskTable extends JTable {
     /**
      * TreeTableCellEditor implementation. Component returned is the JTree.
      */
-	 public class TreeTableCellEditor extends AbstractCellEditor implements //{{{
+    public class TreeTableCellEditor extends AbstractCellEditor implements //{{{
             TableCellEditor {
         public Component getTableCellEditorComponent(JTable table,
                 Object value, boolean isSelected, int r, int c) {
@@ -383,11 +422,16 @@ public class TaskTable extends JTable {
      * in the ListSelectionModel happens, the paths are updated in the
      * DefaultTreeSelectionModel.
      */
-	 public class ListToTreeSelectionModelWrapper extends // {{{
+    public class ListToTreeSelectionModelWrapper extends // {{{
             DefaultTreeSelectionModel {
-        /** Set to true when we are updating the ListSelectionModel. */
+        /**
+         * Set to true when we are updating the ListSelectionModel.
+         */
         protected boolean updatingListSelectionModel;
 
+        /**
+         * Instantiates a new List to tree selection model wrapper.
+         */
         public ListToTreeSelectionModelWrapper() {
             super();
             getListSelectionModel().addListSelectionListener(
@@ -398,6 +442,8 @@ public class TaskTable extends JTable {
          * Returns the list selection model. ListToTreeSelectionModelWrapper
          * listens for changes to this model and updates the selected paths
          * accordingly.
+         *
+         * @return the list selection model
          */
         public ListSelectionModel getListSelectionModel() {
             return listSelectionModel;
@@ -426,6 +472,8 @@ public class TaskTable extends JTable {
 
         /**
          * Creates and returns an instance of ListSelectionHandler.
+         *
+         * @return the list selection listener
          */
         protected ListSelectionListener createListSelectionListener() {
             return new ListSelectionHandler();
@@ -463,24 +511,24 @@ public class TaskTable extends JTable {
             }
         }
 
-	/**
-	 * Class responsible for calling updateSelectedPathsFromSelectedRows
-	 * when the selection of the list changse.
-	 */
-	class ListSelectionHandler implements ListSelectionListener {
+        /**
+         * Class responsible for calling updateSelectedPathsFromSelectedRows
+         * when the selection of the list changse.
+         */
+        class ListSelectionHandler implements ListSelectionListener {
             public void valueChanged(ListSelectionEvent e) {
                 updateSelectedPathsFromSelectedRows();
             }
         }
 	} // }}}
-	
-	
-	/**
-	 * Stores expanded treepaths so that they
-	 * can be restored after treeStructureChanged-method call
-	 * which collapses everything
-	 */
-	 class ExpansionHandler implements TreeExpansionListener { // {{{
+
+
+    /**
+     * Stores expanded treepaths so that they
+     * can be restored after treeStructureChanged-method call
+     * which collapses everything
+     */
+    class ExpansionHandler implements TreeExpansionListener { // {{{
 	
 		private java.util.Set expanded = new java.util.HashSet();
 		
@@ -501,24 +549,26 @@ public class TaskTable extends JTable {
 				}
 			}
 		}
-		
-		/**
-		 * Expands stored treepaths in JTree
-		 * <p>
-		 * If model has been changed (eg. project change) we
-		 * still try to expand paths whick do not exist.
-		 * We just assume that this is not causing problems,
-		 * and as a side effect it preserved tree expansion status
-		 * even after project has been changed to some other project 
-		 * and then back.
-		 * </p>
-		 * <p>
-		 * It is possible that there will be memory leak
-		 * if expanded paths have been removed from model, but
-		 * effect of this is quite insignificant.
-		 * </p>
-		 */
-		public void expand(JTree tree){
+
+        /**
+         * Expands stored treepaths in JTree
+         * <p>
+         * If model has been changed (eg. project change) we
+         * still try to expand paths whick do not exist.
+         * We just assume that this is not causing problems,
+         * and as a side effect it preserved tree expansion status
+         * even after project has been changed to some other project
+         * and then back.
+         * </p>
+         * <p>
+         * It is possible that there will be memory leak
+         * if expanded paths have been removed from model, but
+         * effect of this is quite insignificant.
+         * </p>
+         *
+         * @param tree the tree
+         */
+        public void expand(JTree tree){
 			Iterator iter = expanded.iterator();
 			while(iter.hasNext()){
 				tree.expandPath( (TreePath) iter.next() );

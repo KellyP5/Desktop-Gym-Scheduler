@@ -35,23 +35,73 @@ import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.Util;
 
+/**
+ * The type Events panel.
+ */
 /*$Id: EventsPanel.java,v 1.25 2005/02/19 10:06:25 rawsushi Exp $*/
 public class EventsPanel extends JPanel {
+    /**
+     * The Border layout 1.
+     */
     BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The History back b.
+     */
     JButton historyBackB = new JButton();
+    /**
+     * The Events tool bar.
+     */
     JToolBar eventsToolBar = new JToolBar();
+    /**
+     * The History forward b.
+     */
     JButton historyForwardB = new JButton();
+    /**
+     * The New event b.
+     */
     JButton newEventB = new JButton();
+    /**
+     * The Edit event b.
+     */
     JButton editEventB = new JButton();
+    /**
+     * The Remove event b.
+     */
     JButton removeEventB = new JButton();
+    /**
+     * The Scroll pane.
+     */
     JScrollPane scrollPane = new JScrollPane();
+    /**
+     * The Events table.
+     */
     EventsTable eventsTable = new EventsTable();
+    /**
+     * The Event pp menu.
+     */
     JPopupMenu eventPPMenu = new JPopupMenu();
+    /**
+     * The Pp edit event.
+     */
     JMenuItem ppEditEvent = new JMenuItem();
+    /**
+     * The Pp remove event.
+     */
     JMenuItem ppRemoveEvent = new JMenuItem();
+    /**
+     * The Pp new event.
+     */
     JMenuItem ppNewEvent = new JMenuItem();
+    /**
+     * The Parent panel.
+     */
     DailyItemsPanel parentPanel = null;
 
+    /**
+     * Instantiates a new Events panel.
+     *
+     * @param _parentPanel the parent panel
+     */
     public EventsPanel(DailyItemsPanel _parentPanel) {
         try {
             parentPanel = _parentPanel;
@@ -61,6 +111,12 @@ public class EventsPanel extends JPanel {
             new ExceptionDialog(ex);
         }
     }
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         eventsToolBar.setFloatable(false);
 
@@ -223,6 +279,11 @@ public class EventsPanel extends JPanel {
 		});
     }
 
+    /**
+     * Edit event b action performed.
+     *
+     * @param e the e
+     */
     void editEventB_actionPerformed(ActionEvent e) {
         EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("Event"));
         main.java.memoranda.Event ev =
@@ -304,6 +365,11 @@ public class EventsPanel extends JPanel {
 	saveEvents();
     }
 
+    /**
+     * New event b action performed.
+     *
+     * @param e the e
+     */
     void newEventB_actionPerformed(ActionEvent e) {
         Calendar cdate = CurrentDate.get().getCalendar();
         // round down to hour
@@ -312,7 +378,15 @@ public class EventsPanel extends JPanel {
         
     	newEventB_actionPerformed(e, null, cdate.getTime(), cdate.getTime());
     }
-    
+
+    /**
+     * New event b action performed.
+     *
+     * @param e         the e
+     * @param tasktext  the tasktext
+     * @param startDate the start date
+     * @param endDate   the end date
+     */
     void newEventB_actionPerformed(ActionEvent e, String tasktext, Date startDate, Date endDate) {
     	EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("New event"));
     	Dimension frmSize = App.getFrame().getSize();
@@ -391,6 +465,11 @@ public class EventsPanel extends JPanel {
         EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, dlg.workingDaysOnlyCB.isSelected());
     }
 
+    /**
+     * Remove event b action performed.
+     *
+     * @param e the e
+     */
     void removeEventB_actionPerformed(ActionEvent e) {
 		String msg;
 		main.java.memoranda.Event ev;
@@ -428,6 +507,9 @@ public class EventsPanel extends JPanel {
 */ saveEvents();  
   }
 
+    /**
+     * The type Popup listener.
+     */
     class PopupListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
@@ -450,12 +532,30 @@ public class EventsPanel extends JPanel {
         }
 
     }
+
+    /**
+     * Pp edit event action performed.
+     *
+     * @param e the e
+     */
     void ppEditEvent_actionPerformed(ActionEvent e) {
         editEventB_actionPerformed(e);
     }
+
+    /**
+     * Pp remove event action performed.
+     *
+     * @param e the e
+     */
     void ppRemoveEvent_actionPerformed(ActionEvent e) {
         removeEventB_actionPerformed(e);
     }
+
+    /**
+     * Pp new event action performed.
+     *
+     * @param e the e
+     */
     void ppNewEvent_actionPerformed(ActionEvent e) {
         newEventB_actionPerformed(e);
     }

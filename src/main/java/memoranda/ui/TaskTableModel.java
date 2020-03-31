@@ -35,24 +35,30 @@ import java.util.Hashtable;
 /**
  * JAVADOC:
  * <h1>TaskTableModel</h1>
- * 
- * @version $Id: TaskTableModel.java,v 1.7 2005/12/01 08:12:26 alexeya Exp $
- * @author $Author: alexeya $
+ *
+ * @author $Author : alexeya $
+ * @version $Id : TaskTableModel.java,v 1.7 2005/12/01 08:12:26 alexeya Exp $
  */
 public class TaskTableModel extends AbstractTreeTableModel implements TreeTableModel {
 
+    /**
+     * The Column names.
+     */
     String[] columnNames = {"", Local.getString("To-do"),
             Local.getString("Start date"), Local.getString("End date"),
             Local.getString("Priority"), Local.getString("Status"),
             "% " + Local.getString("done") };
 
+    /**
+     * The Listener list.
+     */
     protected EventListenerList listenerList = new EventListenerList();
 
     private boolean activeOnly = check_activeOnly();
-        
+
     /**
      * JAVADOC: Constructor of <code>TaskTableModel</code>
-     * 
+     *
      * @param root
      */
     public TaskTableModel(){
@@ -108,6 +114,12 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         return "";
     }
 
+    /**
+     * Gets status string.
+     *
+     * @param status the status
+     * @return the status string
+     */
     String getStatusString(int status) {
         switch (status) {
         case Task.ACTIVE:
@@ -128,6 +140,12 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         return "";
     }
 
+    /**
+     * Gets priority string.
+     *
+     * @param p the p
+     * @return the priority string
+     */
     String getPriorityString(int p) {
         switch (p) {
         case Task.PRIORITY_NORMAL:
@@ -195,16 +213,19 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
         }
         return null;
     }
-    
-    public void fireTreeStructureChanged(){	    
+
+    /**
+     * Fire tree structure changed.
+     */
+    public void fireTreeStructureChanged(){
 	    fireTreeStructureChanged( this,
 	    			new Object[]{getRoot()},
 				new int[0],
 				new Object[0]
 				);
     }
-    
-    
+
+
     /**
      * Update cached data
      */
@@ -212,12 +233,22 @@ public class TaskTableModel extends AbstractTreeTableModel implements TreeTableM
 		activeOnly = check_activeOnly();
     }
 
+    /**
+     * Check active only boolean.
+     *
+     * @return the boolean
+     */
     public static boolean check_activeOnly(){
 		Object o = Context.get("SHOW_ACTIVE_TASKS_ONLY");
 		if(o == null) return false;
 		return o.toString().equals("true");
 	}
 
+    /**
+     * Active only boolean.
+     *
+     * @return the boolean
+     */
     public boolean activeOnly(){
 		return activeOnly;
     }

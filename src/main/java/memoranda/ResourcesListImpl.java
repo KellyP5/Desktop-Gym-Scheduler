@@ -20,7 +20,7 @@ import nu.xom.Element;
 import nu.xom.Elements;
 
 /**
- *
+ * The type Resources list.
  */
 /*$Id: ResourcesListImpl.java,v 1.5 2007/03/20 06:21:46 alexeya Exp $*/
 public class ResourcesListImpl implements ResourcesList {
@@ -31,6 +31,9 @@ public class ResourcesListImpl implements ResourcesList {
 
     /**
      * Constructor for TaskListImpl.
+     *
+     * @param doc the doc
+     * @param prj the prj
      */
     public ResourcesListImpl(Document doc, Project prj) {
         _doc = doc;
@@ -38,6 +41,11 @@ public class ResourcesListImpl implements ResourcesList {
         _project = prj;
     }
 
+    /**
+     * Instantiates a new Resources list.
+     *
+     * @param prj the prj
+     */
     public ResourcesListImpl(Project prj) {
             _root = new Element("resources-list");
             _doc = new Document(_root);

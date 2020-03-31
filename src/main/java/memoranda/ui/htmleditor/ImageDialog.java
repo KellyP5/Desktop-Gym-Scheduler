@@ -32,41 +32,131 @@ import main.java.memoranda.ui.htmleditor.util.Local;
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
  * <p>Company: </p>
+ *
  * @author unascribed
  * @version 1.0
  */
 public class ImageDialog extends JDialog implements WindowListener {
+    /**
+     * The Header panel.
+     */
     JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    /**
+     * The Header.
+     */
     JLabel header = new JLabel();
+    /**
+     * The Area panel.
+     */
     JPanel areaPanel = new JPanel(new GridBagLayout());
+    /**
+     * The Gbc.
+     */
     GridBagConstraints gbc;
+    /**
+     * The J label 1.
+     */
     JLabel jLabel1 = new JLabel();
+    /**
+     * The File field.
+     */
     public JTextField fileField = new JTextField();
+    /**
+     * The Browse b.
+     */
     JButton browseB = new JButton();
+    /**
+     * The J label 2.
+     */
     JLabel jLabel2 = new JLabel();
+    /**
+     * The Alt field.
+     */
     public JTextField altField = new JTextField();
+    /**
+     * The J label 3.
+     */
     JLabel jLabel3 = new JLabel();
+    /**
+     * The Width field.
+     */
     public JTextField widthField = new JTextField();
+    /**
+     * The J label 4.
+     */
     JLabel jLabel4 = new JLabel();
+    /**
+     * The Height field.
+     */
     public JTextField heightField = new JTextField();
+    /**
+     * The J label 5.
+     */
     JLabel jLabel5 = new JLabel();
+    /**
+     * The Hspace field.
+     */
     public JTextField hspaceField = new JTextField();
+    /**
+     * The J label 6.
+     */
     JLabel jLabel6 = new JLabel();
+    /**
+     * The Vspace field.
+     */
     public JTextField vspaceField = new JTextField();
+    /**
+     * The J label 7.
+     */
     JLabel jLabel7 = new JLabel();
+    /**
+     * The Border field.
+     */
     public JTextField borderField = new JTextField();
+    /**
+     * The J label 8.
+     */
     JLabel jLabel8 = new JLabel();
+    /**
+     * The Aligns.
+     */
     String[] aligns = {"left", "right", "top", "middle", "bottom", "absmiddle",
-        "texttop", "baseline"}; 
-    // Note: align values are not localized because they are HTML keywords 
+        "texttop", "baseline"};
+    /**
+     * The Align cb.
+     */
+// Note: align values are not localized because they are HTML keywords
     public JComboBox alignCB = new JComboBox(aligns);
+    /**
+     * The J label 9.
+     */
     JLabel jLabel9 = new JLabel();
+    /**
+     * The Url field.
+     */
     public JTextField urlField = new JTextField();
+    /**
+     * The Buttons panel.
+     */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    /**
+     * The Ok b.
+     */
     JButton okB = new JButton();
+    /**
+     * The Cancel b.
+     */
     JButton cancelB = new JButton();
+    /**
+     * The Cancelled.
+     */
     public boolean CANCELLED = false;
 
+    /**
+     * Instantiates a new Image dialog.
+     *
+     * @param frame the frame
+     */
     public ImageDialog(Frame frame) {
         super(frame, Local.getString("Image"), true);
         try {
@@ -79,10 +169,18 @@ public class ImageDialog extends JDialog implements WindowListener {
         super.addWindowListener(this);
     }
 
+    /**
+     * Instantiates a new Image dialog.
+     */
     public ImageDialog() {
         this(null);
     }
 
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         this.setResizable(false);
         // three Panels, so used BorderLayout for this dialog.
@@ -288,10 +386,20 @@ public class ImageDialog extends JDialog implements WindowListener {
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
     void okB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
 
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
     void cancelB_actionPerformed(ActionEvent e) {
         CANCELLED = true;
         this.dispose();
@@ -316,7 +424,10 @@ public class ImageDialog extends JDialog implements WindowListener {
         }
     }
 
-    //java.io.File selectedFile = null;
+    /**
+     * Update preview.
+     */
+//java.io.File selectedFile = null;
     public void updatePreview() {
         try {
             if (new java.net.URL(fileField.getText()).getPath() != "")
@@ -345,6 +456,11 @@ public class ImageDialog extends JDialog implements WindowListener {
     public void windowDeactivated(WindowEvent e) {
     }
 
+    /**
+     * Browse b action performed.
+     *
+     * @param e the e
+     */
     void browseB_actionPerformed(ActionEvent e) {
         // Fix until Sun's JVM supports more locales...
         UIManager.put("FileChooser.lookInLabelText", Local

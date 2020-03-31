@@ -13,23 +13,68 @@ import javax.swing.JTextField;
 
 import main.java.memoranda.ui.htmleditor.util.Local;
 
+/**
+ * The type Continue search dialog.
+ */
 public class ContinueSearchDialog extends JPanel {
-  JPanel panel1 = new JPanel();
-  BorderLayout borderLayout1 = new BorderLayout();
-  FlowLayout flowLayout1 = new FlowLayout();
-  JButton cancelB = new JButton();
-  JButton continueB = new JButton();
-  JPanel buttonsPanel = new JPanel();
-  JLabel jLabel1 = new JLabel();
-  JTextField textF = new JTextField();
-  String text;
-  
-  Thread thread;
+    /**
+     * The Panel 1.
+     */
+    JPanel panel1 = new JPanel();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Flow layout 1.
+     */
+    FlowLayout flowLayout1 = new FlowLayout();
+    /**
+     * The Cancel b.
+     */
+    JButton cancelB = new JButton();
+    /**
+     * The Continue b.
+     */
+    JButton continueB = new JButton();
+    /**
+     * The Buttons panel.
+     */
+    JPanel buttonsPanel = new JPanel();
+    /**
+     * The J label 1.
+     */
+    JLabel jLabel1 = new JLabel();
+    /**
+     * The Text f.
+     */
+    JTextField textF = new JTextField();
+    /**
+     * The Text.
+     */
+    String text;
 
-  public boolean cont = false;
-  public boolean cancel = false;
+    /**
+     * The Thread.
+     */
+    Thread thread;
 
-  public ContinueSearchDialog(Thread t, String txt) {    
+    /**
+     * The Cont.
+     */
+    public boolean cont = false;
+    /**
+     * The Cancel.
+     */
+    public boolean cancel = false;
+
+    /**
+     * Instantiates a new Continue search dialog.
+     *
+     * @param t   the t
+     * @param txt the txt
+     */
+    public ContinueSearchDialog(Thread t, String txt) {
     try {
       text = txt;   
       thread = t;
@@ -40,8 +85,13 @@ public class ContinueSearchDialog extends JPanel {
     }
   }
 
-  
-  void jbInit() throws Exception {
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
   
     this.setLayout(borderLayout1);
     textF.setEditable(false);
@@ -78,13 +128,23 @@ public class ContinueSearchDialog extends JPanel {
     this.add(buttonsPanel,  BorderLayout.EAST);
   }
 
-  void cancelB_actionPerformed(ActionEvent e) {
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
+    void cancelB_actionPerformed(ActionEvent e) {
     cont = true;
     cancel = true;    
     thread.resume();
   }
 
-  void continueB_actionPerformed(ActionEvent e) {
+    /**
+     * Continue b action performed.
+     *
+     * @param e the e
+     */
+    void continueB_actionPerformed(ActionEvent e) {
      cont = true;     
      thread.resume();
   }

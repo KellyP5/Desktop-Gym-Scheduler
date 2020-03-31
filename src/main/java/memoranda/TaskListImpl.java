@@ -26,7 +26,7 @@ import nu.xom.Nodes;
 //import nux.xom.xquery.XQueryUtil;
 
 /**
- * 
+ * The type Task list.
  */
 /*$Id: TaskListImpl.java,v 1.14 2006/07/03 11:59:19 alexeya Exp $*/
 public class TaskListImpl implements TaskList {
@@ -40,9 +40,12 @@ public class TaskListImpl implements TaskList {
 	 * (ID => element) 
 	 */
 	private Hashtable elements = new Hashtable();
-    
+
     /**
      * Constructor for TaskListImpl.
+     *
+     * @param doc the doc
+     * @param prj the prj
      */
     public TaskListImpl(Document doc, Project prj) {
         _doc = doc;
@@ -50,8 +53,13 @@ public class TaskListImpl implements TaskList {
         _project = prj;
 		buildElements(_root);
     }
-    
-    public TaskListImpl(Project prj) {            
+
+    /**
+     * Instantiates a new Task list.
+     *
+     * @param prj the prj
+     */
+    public TaskListImpl(Project prj) {
             _root = new Element("tasklist");
             _doc = new Document(_root);
             _project = prj;

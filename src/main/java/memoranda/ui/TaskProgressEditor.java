@@ -14,18 +14,42 @@ import java.awt.event.*;
  * Editor for task progress
  */
 public class TaskProgressEditor extends JPanel implements TableCellEditor{
-	
-	JTable table;
-	Task current;
-	boolean isSelected;
-	int row;
-	int column;
-	
-	java.util.List listeners = new java.util.ArrayList();
-	
-	JLabel label = new JLabel();
-	
-	public TaskProgressEditor(){
+
+    /**
+     * The Table.
+     */
+    JTable table;
+    /**
+     * The Current.
+     */
+    Task current;
+    /**
+     * The Is selected.
+     */
+    boolean isSelected;
+    /**
+     * The Row.
+     */
+    int row;
+    /**
+     * The Column.
+     */
+    int column;
+
+    /**
+     * The Listeners.
+     */
+    java.util.List listeners = new java.util.ArrayList();
+
+    /**
+     * The Label.
+     */
+    JLabel label = new JLabel();
+
+    /**
+     * Instantiates a new Task progress editor.
+     */
+    public TaskProgressEditor(){
 		addMouseListener(new java.awt.event.MouseAdapter(){
 			public void mousePressed(java.awt.event.MouseEvent e){
 				if(e instanceof MouseEvent){

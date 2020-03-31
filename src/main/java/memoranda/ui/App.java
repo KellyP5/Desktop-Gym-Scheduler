@@ -12,7 +12,7 @@ import javax.swing.UIManager;
 
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.util.Configuration;
-import org.swingexplorer.Log;
+//import org.swingexplorer.Log;
 
 /**
  * 

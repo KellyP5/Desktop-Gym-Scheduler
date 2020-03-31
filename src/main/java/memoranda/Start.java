@@ -60,6 +60,7 @@ public class Start {
         
         //System.out.println(EventsScheduler.isEventScheduled());
         if ((args.length == 0) || (!args[0].equals("-m"))) {
+           // login = new LoginBox();
             app = new App(true);
         }
         else

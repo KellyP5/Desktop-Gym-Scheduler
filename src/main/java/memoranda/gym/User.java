@@ -66,7 +66,7 @@ public class User {
      * @param password password to check
      * @return true if correct password.
      */
-    boolean checkPassword(String password){
+    public boolean checkPassword(String password){
         if(this.password.compareTo(password)==0){
             return true;
         }
@@ -77,7 +77,7 @@ public class User {
      * Assigns the training rank.
      * @param trainingRank
      */
-    void setTrainingRank(Belt trainingRank){
+    public void setTrainingRank(Belt trainingRank){
         this.trainingRank = trainingRank;
     }
 
@@ -85,7 +85,7 @@ public class User {
      * Assigns the rank.
      * @param rank
      */
-    void setRank(Belt rank){
+    public void setRank(Belt rank){
         this.rank = rank;
     }
 

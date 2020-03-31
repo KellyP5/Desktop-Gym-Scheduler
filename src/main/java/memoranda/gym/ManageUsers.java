@@ -3,7 +3,7 @@ package main.java.memoranda.gym;
 import java.util.HashMap;
 
 public class ManageUsers {
-    HashMap<String, User> users;
+    private HashMap<String, User> users;
 
     public ManageUsers(){
         this.users = new HashMap<>();

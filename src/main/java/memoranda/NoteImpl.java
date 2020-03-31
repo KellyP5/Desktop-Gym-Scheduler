@@ -13,16 +13,19 @@ import nu.xom.Attribute;
 import nu.xom.Element;
 
 /**
- * 
+ * The type Note.
  */
 /*$Id: NoteImpl.java,v 1.6 2004/10/06 19:15:44 ivanrise Exp $*/
 public class NoteImpl implements Note, Comparable {
     
     private Element _el = null; 
     private Project _project;
-    
+
     /**
      * Constructor for NoteImpl.
+     *
+     * @param el      the el
+     * @param project the project
      */
     public NoteImpl(Element el, Project project) {
         _el = el;

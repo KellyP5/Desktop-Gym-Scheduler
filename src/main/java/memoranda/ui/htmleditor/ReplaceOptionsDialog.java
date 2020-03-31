@@ -24,17 +24,36 @@ import main.java.memoranda.ui.htmleditor.util.Local;
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
  * <p>Company: </p>
+ *
  * @author unascribed
  * @version 1.0
  */
-
 public class ReplaceOptionsDialog extends JDialog {
 
+    /**
+     * The constant YES_OPTION.
+     */
     public static final int YES_OPTION = 0;
+    /**
+     * The constant YES_TO_ALL_OPTION.
+     */
     public static final int YES_TO_ALL_OPTION = 1;
+    /**
+     * The constant NO_OPTION.
+     */
     public static final int NO_OPTION = 2;
+    /**
+     * The constant CANCEL_OPTION.
+     */
     public static final int CANCEL_OPTION = 3;
 
+    /**
+     * Show dialog int.
+     *
+     * @param comp the comp
+     * @param text the text
+     * @return the int
+     */
     public static int showDialog(Component comp, String text) {
         ReplaceOptionsDialog dlg = new ReplaceOptionsDialog(text);
         Dimension dlgSize = new Dimension(300, 150);
@@ -47,24 +66,72 @@ public class ReplaceOptionsDialog extends JDialog {
         return dlg.option;
     }
 
+    /**
+     * The Option.
+     */
     public int option = 0;
+    /**
+     * The Panel 1.
+     */
     JPanel panel1 = new JPanel();
+    /**
+     * The Border layout 1.
+     */
     BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Area panel.
+     */
     JPanel areaPanel = new JPanel();
+    /**
+     * The Buttons panel.
+     */
     JPanel buttonsPanel = new JPanel();
+    /**
+     * The Cancel b.
+     */
     JButton cancelB = new JButton();
+    /**
+     * The Yes all b.
+     */
     JButton yesAllB = new JButton();
+    /**
+     * The Flow layout 1.
+     */
     FlowLayout flowLayout1 = new FlowLayout(FlowLayout.LEFT);
+    /**
+     * The Border 1.
+     */
     Border border1;
 
+    /**
+     * The Border 2.
+     */
     Border border2;
 
-   
+
+    /**
+     * The Border layout 3.
+     */
     BorderLayout borderLayout3 = new BorderLayout();
+    /**
+     * The Text label.
+     */
     JLabel textLabel = new JLabel();
+    /**
+     * The Yes b.
+     */
     JButton yesB = new JButton();
+    /**
+     * The No b.
+     */
     JButton noB = new JButton();
 
+    /**
+     * Instantiates a new Replace options dialog.
+     *
+     * @param frame the frame
+     * @param text  the text
+     */
     public ReplaceOptionsDialog(Frame frame, String text) {
         super(frame, Local.getString("Replace"), true);
         try {
@@ -77,10 +144,20 @@ public class ReplaceOptionsDialog extends JDialog {
         }
     }
 
+    /**
+     * Instantiates a new Replace options dialog.
+     *
+     * @param text the text
+     */
     public ReplaceOptionsDialog(String text) {
         this(null, text);
     }
 
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         this.setResizable(false);
         textLabel.setIcon(new ImageIcon(main.java.memoranda.ui.htmleditor.HTMLEditor.class.getResource("/htmleditor/icons/findbig.png"))) ;
@@ -142,19 +219,41 @@ public class ReplaceOptionsDialog extends JDialog {
 
     }
 
+    /**
+     * Yes all b action performed.
+     *
+     * @param e the e
+     */
     void yesAllB_actionPerformed(ActionEvent e) {
         option = YES_TO_ALL_OPTION;
         this.dispose();
     }
 
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
     void cancelB_actionPerformed(ActionEvent e) {
         option = CANCEL_OPTION;
         this.dispose();
     }
+
+    /**
+     * Yes b action performed.
+     *
+     * @param e the e
+     */
     void yesB_actionPerformed(ActionEvent e) {
         option = YES_OPTION;
         this.dispose();
     }
+
+    /**
+     * No b action performed.
+     *
+     * @param e the e
+     */
     void noB_actionPerformed(ActionEvent e) {
         option = NO_OPTION;
         this.dispose();

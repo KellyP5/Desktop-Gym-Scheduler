@@ -59,51 +59,124 @@ import javax.swing.undo.UndoManager;
 import main.java.memoranda.ui.htmleditor.util.Local;
 
 /**
- *  
+ * The type Html editor.
  */
 public class HTMLEditor extends JPanel {
-	public HTMLEditorPane editor = new HTMLEditorPane("");
+    /**
+     * The Editor.
+     */
+    public HTMLEditorPane editor = new HTMLEditorPane("");
 
 
+    /**
+     * The J scroll pane 1.
+     */
     JScrollPane jScrollPane1 = new JScrollPane();
+    /**
+     * The Editor kit.
+     */
     public HTMLEditorKit editorKit = new HTMLEditorKit();
+    /**
+     * The Document.
+     */
     public HTMLDocument document = null;
 
-	boolean bold = false;
-	boolean italic = false;
-	boolean under = false;
-	boolean list = false;
+    /**
+     * The Bold.
+     */
+    boolean bold = false;
+    /**
+     * The Italic.
+     */
+    boolean italic = false;
+    /**
+     * The Under.
+     */
+    boolean under = false;
+    /**
+     * The List.
+     */
+    boolean list = false;
 
-	String currentTagName = "BODY";
-	Element currentParaElement = null;
+    /**
+     * The Current tag name.
+     */
+    String currentTagName = "BODY";
+    /**
+     * The Current para element.
+     */
+    Element currentParaElement = null;
 
-	Border border1, border2;
+    /**
+     * The Border 1.
+     */
+    Border border1, /**
+     * The Border 2.
+     */
+    border2;
 
-	Class cl = main.java.memoranda.ui.htmleditor.HTMLEditor.class;
+    /**
+     * The Cl.
+     */
+    Class cl = main.java.memoranda.ui.htmleditor.HTMLEditor.class;
 
-	String imagesDir = null;
-	String imagesPath = null;
+    /**
+     * The Images dir.
+     */
+    String imagesDir = null;
+    /**
+     * The Images path.
+     */
+    String imagesPath = null;
 
-	public void setImagesDir(String path) {
+    /**
+     * Sets images dir.
+     *
+     * @param path the path
+     */
+    public void setImagesDir(String path) {
 		imagesDir = path;
 	}
 
-	public String getImagesDir() {
+    /**
+     * Gets images dir.
+     *
+     * @return the images dir
+     */
+    public String getImagesDir() {
 		return imagesDir;
 	}
 
-	abstract class HTMLEditorAction extends AbstractAction {
-		HTMLEditorAction(String name, ImageIcon icon) {
+    /**
+     * The type Html editor action.
+     */
+    abstract class HTMLEditorAction extends AbstractAction {
+        /**
+         * Instantiates a new Html editor action.
+         *
+         * @param name the name
+         * @param icon the icon
+         */
+        HTMLEditorAction(String name, ImageIcon icon) {
 			super(name, icon);
 			super.putValue(Action.SHORT_DESCRIPTION, name);
 		}
-		HTMLEditorAction(String name) {
+
+        /**
+         * Instantiates a new Html editor action.
+         *
+         * @param name the name
+         */
+        HTMLEditorAction(String name) {
 			super(name);
 			super.putValue(Action.SHORT_DESCRIPTION, name);
 		}
 	}
 
-	public Action boldAction =
+    /**
+     * The Bold action.
+     */
+    public Action boldAction =
 		new HTMLEditorAction(
 			Local.getString("Bold"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/bold.png"))) {
@@ -112,7 +185,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action italicAction =
+    /**
+     * The Italic action.
+     */
+    public Action italicAction =
 		new HTMLEditorAction(
 			Local.getString("Italic"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/italic.png"))) {
@@ -121,7 +197,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action underAction =
+    /**
+     * The Under action.
+     */
+    public Action underAction =
 		new HTMLEditorAction(
 			Local.getString("Underline"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/underline.png"))) {
@@ -130,7 +209,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action ulAction =
+    /**
+     * The Ul action.
+     */
+    public Action ulAction =
 		new HTMLEditorAction(
 			Local.getString("Unordered list"),
 			new ImageIcon(
@@ -140,7 +222,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action olAction =
+    /**
+     * The Ol action.
+     */
+    public Action olAction =
 		new HTMLEditorAction(
 			Local.getString("Ordered list"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/listordered.png"))) {
@@ -149,7 +234,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action lAlignAction =
+    /**
+     * The L align action.
+     */
+    public Action lAlignAction =
 		new HTMLEditorAction(
 			Local.getString("Align left"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/alignleft.png"))) {
@@ -158,7 +246,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action cAlignAction =
+    /**
+     * The C align action.
+     */
+    public Action cAlignAction =
 		new HTMLEditorAction(
 			Local.getString("Align center"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/aligncenter.png"))) {
@@ -167,7 +258,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action rAlignAction =
+    /**
+     * The R align action.
+     */
+    public Action rAlignAction =
 		new HTMLEditorAction(
 			Local.getString("Align right"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/alignright.png"))) {
@@ -176,7 +270,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	/*
+    /**
+     * The Image action.
+     */
+    /*
 	 * public Action jAlignAction = new AbstractAction() { public void
 	 * actionPerformed(ActionEvent e) { jAlignActionB_actionPerformed(e); }
 	 */
@@ -189,7 +286,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action tableAction =
+    /**
+     * The Table action.
+     */
+    public Action tableAction =
 		new HTMLEditorAction(
 			Local.getString("Insert table"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/table.png"))) {
@@ -198,7 +298,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action linkAction =
+    /**
+     * The Link action.
+     */
+    public Action linkAction =
 		new HTMLEditorAction(
 			Local.getString("Insert hyperlink"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/link.png"))) {
@@ -207,7 +310,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action propsAction =
+    /**
+     * The Props action.
+     */
+    public Action propsAction =
 		new HTMLEditorAction(
 			Local.getString("Object properties"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/properties.png"))) {
@@ -216,14 +322,20 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action selectAllAction =
+    /**
+     * The Select all action.
+     */
+    public Action selectAllAction =
 		new HTMLEditorAction(Local.getString("Select all")) {
 		public void actionPerformed(ActionEvent e) {
 			editor.selectAll();
 		}
 	};
 
-	public Action insertHRAction =
+    /**
+     * The Insert hr action.
+     */
+    public Action insertHRAction =
 		new HTMLEditorAction(
 			Local.getString("Insert horizontal rule"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/hr.png"))) {
@@ -252,39 +364,66 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	CharTablePanel charTablePanel = new CharTablePanel(editor);
+    /**
+     * The Char table panel.
+     */
+    CharTablePanel charTablePanel = new CharTablePanel(editor);
 
-	boolean charTableShow = false;
+    /**
+     * The Char table show.
+     */
+    boolean charTableShow = false;
 
-	public JTabbedPane toolsPanel = new JTabbedPane();
-	public boolean toolsPanelShow = false;
+    /**
+     * The Tools panel.
+     */
+    public JTabbedPane toolsPanel = new JTabbedPane();
+    /**
+     * The Tools panel show.
+     */
+    public boolean toolsPanelShow = false;
 
-	public void showToolsPanel() {
+    /**
+     * Show tools panel.
+     */
+    public void showToolsPanel() {
 		if (toolsPanelShow)
 			return;
 		this.add(toolsPanel, BorderLayout.SOUTH);
 		toolsPanelShow = true;
 	}
 
-	public void hideToolsPanel() {
+    /**
+     * Hide tools panel.
+     */
+    public void hideToolsPanel() {
 		if (!toolsPanelShow)
 			return;
 		this.remove(charTablePanel);
 		toolsPanelShow = false;
 	}
 
-	void addCharTablePanel() {
+    /**
+     * Add char table panel.
+     */
+    void addCharTablePanel() {
 		showToolsPanel();
 		toolsPanel.addTab(Local.getString("Characters"), charTablePanel);
 	}
 
-	void removeCharTablePanel() {
+    /**
+     * Remove char table panel.
+     */
+    void removeCharTablePanel() {
 		toolsPanel.remove(charTablePanel);
 		if (toolsPanel.getTabCount() == 0)
 			hideToolsPanel();
 	}
 
-	public Action insCharAction =
+    /**
+     * The Ins char action.
+     */
+    public Action insCharAction =
 		new HTMLEditorAction(
 			Local.getString("Insert character"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/char.png"))) {
@@ -302,7 +441,10 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public Action findAction =
+    /**
+     * The Find action.
+     */
+    public Action findAction =
 		new HTMLEditorAction(
 			Local.getString("Find & Replace"),
 			new ImageIcon(cl.getResource("/htmleditor/icons/find.png"))) {
@@ -311,13 +453,25 @@ public class HTMLEditor extends JPanel {
 		}
 	};
 
-	public InsertTableCellAction insertTableCellAction =
+    /**
+     * The Insert table cell action.
+     */
+    public InsertTableCellAction insertTableCellAction =
 		new InsertTableCellAction();
-	public InsertTableRowAction insertTableRowAction =
+    /**
+     * The Insert table row action.
+     */
+    public InsertTableRowAction insertTableRowAction =
 		new InsertTableRowAction();
-	public BreakAction breakAction = new BreakAction();
+    /**
+     * The Break action.
+     */
+    public BreakAction breakAction = new BreakAction();
 
-	public Action cutAction = new HTMLEditorKit.CutAction();
+    /**
+     * The Cut action.
+     */
+    public Action cutAction = new HTMLEditorKit.CutAction();
 	/*
 	 * new AbstractAction() { public void actionPerformed(ActionEvent e) { if
 	 * (editor.getSelectedText() == null) return; doCopy();
@@ -325,18 +479,30 @@ public class HTMLEditor extends JPanel {
 	 *  
 	 */
 
-	public Action styleCopyAction = new HTMLEditorKit.CopyAction();
+    /**
+     * The Style copy action.
+     */
+    public Action styleCopyAction = new HTMLEditorKit.CopyAction();
 	//new DefaultEditorKit.CopyAction();
 
-	public Action copyAction = styleCopyAction;
+    /**
+     * The Copy action.
+     */
+    public Action copyAction = styleCopyAction;
 	/*
 	 * new AbstractAction() { public void actionPerformed(ActionEvent e) { if
 	 * (editor.getSelectedText() == null) return; doCopy(); }
 	 */
 
-	public Action stylePasteAction = new HTMLEditorKit.PasteAction();
+    /**
+     * The Style paste action.
+     */
+    public Action stylePasteAction = new HTMLEditorKit.PasteAction();
 
-		public Action pasteAction = //new HTMLEditorKit.PasteAction();
+    /**
+     * The Paste action.
+     */
+    public Action pasteAction = //new HTMLEditorKit.PasteAction();
 
 	new AbstractAction() {
 		public void actionPerformed(ActionEvent e) {
@@ -425,50 +591,118 @@ public class HTMLEditor extends JPanel {
 	 * copy); } catch (Exception ex) { ex.printStackTrace(); }
 	 */
 
-	public Action zoomInAction = new AbstractAction() {
+    /**
+     * The Zoom in action.
+     */
+    public Action zoomInAction = new AbstractAction() {
 		public void actionPerformed(ActionEvent e) {
 			doZoom(true);
 		}
 	};
 
-	public Action zoomOutAction = new AbstractAction() {
+    /**
+     * The Zoom out action.
+     */
+    public Action zoomOutAction = new AbstractAction() {
 		public void actionPerformed(ActionEvent e) {
 			doZoom(false);
 		}
 	};
 
-	/**
-	 * Listener for the edits on the current document.
-	 */
-	protected UndoableEditListener undoHandler = new UndoHandler();
+    /**
+     * Listener for the edits on the current document.
+     */
+    protected UndoableEditListener undoHandler = new UndoHandler();
 
-	/** UndoManager that we add edits to. */
-	protected UndoManager undo = new UndoManager();
+    /**
+     * UndoManager that we add edits to.
+     */
+    protected UndoManager undo = new UndoManager();
 
-	public UndoAction undoAction = new UndoAction();
-	public RedoAction redoAction = new RedoAction();
+    /**
+     * The Undo action.
+     */
+    public UndoAction undoAction = new UndoAction();
+    /**
+     * The Redo action.
+     */
+    public RedoAction redoAction = new RedoAction();
 
-	JButton jAlignActionB = new JButton();
-	public JToolBar editToolbar = new JToolBar();
-	JButton lAlignActionB = new JButton();
-	JButton olActionB = new JButton();
-	JButton linkActionB = new JButton();
-	JButton italicActionB = new JButton();
-	JButton propsActionB = new JButton();
-	JButton imageActionB = new JButton();
+    /**
+     * The J align action b.
+     */
+    JButton jAlignActionB = new JButton();
+    /**
+     * The Edit toolbar.
+     */
+    public JToolBar editToolbar = new JToolBar();
+    /**
+     * The L align action b.
+     */
+    JButton lAlignActionB = new JButton();
+    /**
+     * The Ol action b.
+     */
+    JButton olActionB = new JButton();
+    /**
+     * The Link action b.
+     */
+    JButton linkActionB = new JButton();
+    /**
+     * The Italic action b.
+     */
+    JButton italicActionB = new JButton();
+    /**
+     * The Props action b.
+     */
+    JButton propsActionB = new JButton();
+    /**
+     * The Image action b.
+     */
+    JButton imageActionB = new JButton();
 
-	public final int T_P = 0;
-	public final int T_H1 = 1;
-	public final int T_H2 = 2;
-	public final int T_H3 = 3;
-	public final int T_H4 = 4;
-	public final int T_H5 = 5;
-	public final int T_H6 = 6;
-	public final int T_PRE = 7;
-	//private final int T_ADDRESS = 8;
+    /**
+     * The T p.
+     */
+    public final int T_P = 0;
+    /**
+     * The T h 1.
+     */
+    public final int T_H1 = 1;
+    /**
+     * The T h 2.
+     */
+    public final int T_H2 = 2;
+    /**
+     * The T h 3.
+     */
+    public final int T_H3 = 3;
+    /**
+     * The T h 4.
+     */
+    public final int T_H4 = 4;
+    /**
+     * The T h 5.
+     */
+    public final int T_H5 = 5;
+    /**
+     * The T h 6.
+     */
+    public final int T_H6 = 6;
+    /**
+     * The T pre.
+     */
+    public final int T_PRE = 7;
+    /**
+     * The T blockq.
+     */
+//private final int T_ADDRESS = 8;
 	public final int T_BLOCKQ = 8; //9;
 
-	String[] elementTypes =
+    /**
+     * The Element types.
+     */
+    String[] elementTypes =
 		{
 			Local.getString("Paragraph"),
 			Local.getString("Header") + " 1",
@@ -480,19 +714,52 @@ public class HTMLEditor extends JPanel {
 			Local.getString("Preformatted"),
 		//"Address",
 		Local.getString("Blockquote")};
-	public JComboBox blockCB = new JComboBox(elementTypes);
-	boolean blockCBEventsLock = false;
+    /**
+     * The Block cb.
+     */
+    public JComboBox blockCB = new JComboBox(elementTypes);
+    /**
+     * The Block cb events lock.
+     */
+    boolean blockCBEventsLock = false;
 
-	public final int I_NORMAL = 0;
-	public final int I_EM = 1;
-	public final int I_STRONG = 2;
-	public final int I_CODE = 3;
-	public final int I_CITE = 4;
-	public final int I_SUPERSCRIPT = 5;
-	public final int I_SUBSCRIPT = 6;
-	public final int I_CUSTOM = 7;
+    /**
+     * The Normal.
+     */
+    public final int I_NORMAL = 0;
+    /**
+     * The Em.
+     */
+    public final int I_EM = 1;
+    /**
+     * The Strong.
+     */
+    public final int I_STRONG = 2;
+    /**
+     * The Code.
+     */
+    public final int I_CODE = 3;
+    /**
+     * The Cite.
+     */
+    public final int I_CITE = 4;
+    /**
+     * The Superscript.
+     */
+    public final int I_SUPERSCRIPT = 5;
+    /**
+     * The Subscript.
+     */
+    public final int I_SUBSCRIPT = 6;
+    /**
+     * The Custom.
+     */
+    public final int I_CUSTOM = 7;
 
-	String[] inlineTypes =
+    /**
+     * The Inline types.
+     */
+    String[] inlineTypes =
 		{
 			Local.getString("Normal"),
 			Local.getString("Emphasis"),
@@ -502,38 +769,110 @@ public class HTMLEditor extends JPanel {
 			Local.getString("Superscript"),
 			Local.getString("Subscript"),
 			Local.getString("Custom style") + "..." };
-	public JComboBox inlineCB = new JComboBox(inlineTypes);
-	boolean inlineCBEventsLock = false;
+    /**
+     * The Inline cb.
+     */
+    public JComboBox inlineCB = new JComboBox(inlineTypes);
+    /**
+     * The Inline cb events lock.
+     */
+    boolean inlineCBEventsLock = false;
 
-	JButton boldActionB = new JButton();
-	JButton ulActionB = new JButton();
-	JButton rAlignActionB = new JButton();
-	JButton tableActionB = new JButton();
-	JButton cAlignActionB = new JButton();
-	JButton underActionB = new JButton();
-	BorderLayout borderLayout1 = new BorderLayout();
-	JPopupMenu defaultPopupMenu = new JPopupMenu();
+    /**
+     * The Bold action b.
+     */
+    JButton boldActionB = new JButton();
+    /**
+     * The Ul action b.
+     */
+    JButton ulActionB = new JButton();
+    /**
+     * The R align action b.
+     */
+    JButton rAlignActionB = new JButton();
+    /**
+     * The Table action b.
+     */
+    JButton tableActionB = new JButton();
+    /**
+     * The C align action b.
+     */
+    JButton cAlignActionB = new JButton();
+    /**
+     * The Under action b.
+     */
+    JButton underActionB = new JButton();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Default popup menu.
+     */
+    JPopupMenu defaultPopupMenu = new JPopupMenu();
 	//JPopupMenu tablePopupMenu = new JPopupMenu();
 
-	JMenuItem jMenuItemUndo = new JMenuItem(undoAction);
-	JMenuItem jMenuItemRedo = new JMenuItem(redoAction);
+    /**
+     * The J menu item undo.
+     */
+    JMenuItem jMenuItemUndo = new JMenuItem(undoAction);
+    /**
+     * The J menu item redo.
+     */
+    JMenuItem jMenuItemRedo = new JMenuItem(redoAction);
 
-	JMenuItem jMenuItemCut = new JMenuItem(cutAction);
-	JMenuItem jMenuItemCopy = new JMenuItem(copyAction);
-	JMenuItem jMenuItemPaste = new JMenuItem(pasteAction);
-	JMenuItem jMenuItemProp = new JMenuItem(propsAction);
+    /**
+     * The J menu item cut.
+     */
+    JMenuItem jMenuItemCut = new JMenuItem(cutAction);
+    /**
+     * The J menu item copy.
+     */
+    JMenuItem jMenuItemCopy = new JMenuItem(copyAction);
+    /**
+     * The J menu item paste.
+     */
+    JMenuItem jMenuItemPaste = new JMenuItem(pasteAction);
+    /**
+     * The J menu item prop.
+     */
+    JMenuItem jMenuItemProp = new JMenuItem(propsAction);
 
-	JMenuItem jMenuItemInsCell = new JMenuItem(insertTableCellAction);
-	JMenuItem jMenuItemInsRow = new JMenuItem(insertTableRowAction);
+    /**
+     * The J menu item ins cell.
+     */
+    JMenuItem jMenuItemInsCell = new JMenuItem(insertTableCellAction);
+    /**
+     * The J menu item ins row.
+     */
+    JMenuItem jMenuItemInsRow = new JMenuItem(insertTableRowAction);
 
-	int currentCaret = 0;
+    /**
+     * The Current caret.
+     */
+    int currentCaret = 0;
 
-	int currentFontSize = 4;
-	JButton brActionB = new JButton();
-	JButton hrActionB = new JButton();
-	JButton insCharActionB = new JButton();
+    /**
+     * The Current font size.
+     */
+    int currentFontSize = 4;
+    /**
+     * The Br action b.
+     */
+    JButton brActionB = new JButton();
+    /**
+     * The Hr action b.
+     */
+    JButton hrActionB = new JButton();
+    /**
+     * The Ins char action b.
+     */
+    JButton insCharActionB = new JButton();
 
-	public HTMLEditor() {
+    /**
+     * Instantiates a new Html editor.
+     */
+    public HTMLEditor() {
 		try {
 			jbInit();
 		} catch (Exception ex) {
@@ -541,7 +880,12 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 
 		cutAction.putValue(
 			Action.SMALL_ICON,
@@ -967,7 +1311,10 @@ public class HTMLEditor extends JPanel {
 		this.requestFocusInWindow();
 	}
 
-	class PopupListener extends MouseAdapter {
+    /**
+     * The type Popup listener.
+     */
+    class PopupListener extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
 			maybeShowPopup(e);
 		}
@@ -1002,16 +1349,19 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	/**
-	 * Resets the undo manager.
-	 */
-	protected void resetUndoManager() {
+    /**
+     * Resets the undo manager.
+     */
+    protected void resetUndoManager() {
 		undo.discardAllEdits();
 		undoAction.update();
 		redoAction.update();
 	}
 
-	class UndoHandler implements UndoableEditListener {
+    /**
+     * The type Undo handler.
+     */
+    class UndoHandler implements UndoableEditListener {
 
 		/**
 		 * Messaged when the Document has created an edit, the edit is added to
@@ -1024,8 +1374,14 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	class UndoAction extends AbstractAction {
-		public UndoAction() {
+    /**
+     * The type Undo action.
+     */
+    class UndoAction extends AbstractAction {
+        /**
+         * Instantiates a new Undo action.
+         */
+        public UndoAction() {
 			super(Local.getString("Undo"));
 			setEnabled(false);
 			putValue(
@@ -1047,7 +1403,10 @@ public class HTMLEditor extends JPanel {
 			redoAction.update();
 		}
 
-		protected void update() {
+        /**
+         * Update.
+         */
+        protected void update() {
 			if (undo.canUndo()) {
 				setEnabled(true);
 				putValue(
@@ -1060,8 +1419,14 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	class RedoAction extends AbstractAction {
-		public RedoAction() {
+    /**
+     * The type Redo action.
+     */
+    class RedoAction extends AbstractAction {
+        /**
+         * Instantiates a new Redo action.
+         */
+        public RedoAction() {
 			super(Local.getString("Redo"));
 			setEnabled(false);
 			putValue(
@@ -1085,7 +1450,10 @@ public class HTMLEditor extends JPanel {
 			undoAction.update();
 		}
 
-		protected void update() {
+        /**
+         * Update.
+         */
+        protected void update() {
 			if (undo.canRedo()) {
 				setEnabled(true);
 				putValue(
@@ -1098,10 +1466,22 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	public class BlockAction extends AbstractAction {
-		int _type;
+    /**
+     * The type Block action.
+     */
+    public class BlockAction extends AbstractAction {
+        /**
+         * The Type.
+         */
+        int _type;
 
-		public BlockAction(int type, String name) {
+        /**
+         * Instantiates a new Block action.
+         *
+         * @param type the type
+         * @param name the name
+         */
+        public BlockAction(int type, String name) {
 			super(name);
 			_type = type;
 		}
@@ -1111,10 +1491,22 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	public class InlineAction extends AbstractAction {
-		int _type;
+    /**
+     * The type Inline action.
+     */
+    public class InlineAction extends AbstractAction {
+        /**
+         * The Type.
+         */
+        int _type;
 
-		public InlineAction(int type, String name) {
+        /**
+         * Instantiates a new Inline action.
+         *
+         * @param type the type
+         * @param name the name
+         */
+        public InlineAction(int type, String name) {
 			super(name);
 			_type = type;
 		}
@@ -1124,7 +1516,12 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	public String getContent() {
+    /**
+     * Gets content.
+     *
+     * @return the content
+     */
+    public String getContent() {
 		try {
 			return editor.getText();
 		} catch (Exception e) {
@@ -1133,7 +1530,12 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	public void boldActionB_actionPerformed(ActionEvent e) {
+    /**
+     * Bold action b action performed.
+     *
+     * @param e the e
+     */
+    public void boldActionB_actionPerformed(ActionEvent e) {
 		if (!bold) {
 			boldActionB.setBorder(border2);
 		} else {
@@ -1148,7 +1550,12 @@ public class HTMLEditor extends JPanel {
 		new StyledEditorKit.BoldAction().actionPerformed(e);
 	}
 
-	public void italicActionB_actionPerformed(ActionEvent e) {
+    /**
+     * Italic action b action performed.
+     *
+     * @param e the e
+     */
+    public void italicActionB_actionPerformed(ActionEvent e) {
 		if (!italic) {
 			italicActionB.setBorder(border2);
 		} else {
@@ -1163,7 +1570,12 @@ public class HTMLEditor extends JPanel {
 		new StyledEditorKit.ItalicAction().actionPerformed(e);
 	}
 
-	public void underActionB_actionPerformed(ActionEvent e) {
+    /**
+     * Under action b action performed.
+     *
+     * @param e the e
+     */
+    public void underActionB_actionPerformed(ActionEvent e) {
 		if (!under) {
 			underActionB.setBorder(border2);
 		} else {
@@ -1179,7 +1591,12 @@ public class HTMLEditor extends JPanel {
 		new StyledEditorKit.UnderlineAction().actionPerformed(e);
 	}
 
-	void editor_caretUpdate(CaretEvent e) {
+    /**
+     * Editor caret update.
+     *
+     * @param e the e
+     */
+    void editor_caretUpdate(CaretEvent e) {
 		currentCaret = e.getDot();
 		/*
 		 * currentParaElement =
@@ -1303,7 +1720,12 @@ public class HTMLEditor extends JPanel {
 
 	}
 
-	public void ulActionB_actionPerformed(ActionEvent e) {
+    /**
+     * Ul action b action performed.
+     *
+     * @param e the e
+     */
+    public void ulActionB_actionPerformed(ActionEvent e) {
 		String parentname =
 			document
 				.getParagraphElement(editor.getCaretPosition())
@@ -1335,7 +1757,12 @@ public class HTMLEditor extends JPanel {
 
 	}
 
-	public void olActionB_actionPerformed(ActionEvent e) {
+    /**
+     * Ol action b action performed.
+     *
+     * @param e the e
+     */
+    public void olActionB_actionPerformed(ActionEvent e) {
 		String parentname =
 			document
 				.getParagraphElement(editor.getCaretPosition())
@@ -1353,7 +1780,12 @@ public class HTMLEditor extends JPanel {
 		list = true;
 	}
 
-	void removeIfEmpty(Element elem) {
+    /**
+     * Remove if empty.
+     *
+     * @param elem the elem
+     */
+    void removeIfEmpty(Element elem) {
 		if (elem.getEndOffset() - elem.getStartOffset() < 2) {
 			try {
 				document.remove(elem.getStartOffset(), elem.getEndOffset());
@@ -1363,8 +1795,14 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	class ParaBreakAction extends AbstractAction {
-		ParaBreakAction() {
+    /**
+     * The type Para break action.
+     */
+    class ParaBreakAction extends AbstractAction {
+        /**
+         * Instantiates a new Para break action.
+         */
+        ParaBreakAction() {
 			super("ParaBreakAction");
 		}
 
@@ -1490,8 +1928,14 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	class BreakAction extends AbstractAction {
-		BreakAction() {
+    /**
+     * The type Break action.
+     */
+    class BreakAction extends AbstractAction {
+        /**
+         * Instantiates a new Break action.
+         */
+        BreakAction() {
 			super(
 				Local.getString("Insert break"),
 				new ImageIcon(cl.getResource("/htmleditor/icons/break.png")));
@@ -1523,8 +1967,14 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	class InsertTableRowAction extends AbstractAction {
-		InsertTableRowAction() {
+    /**
+     * The type Insert table row action.
+     */
+    class InsertTableRowAction extends AbstractAction {
+        /**
+         * Instantiates a new Insert table row action.
+         */
+        InsertTableRowAction() {
 			super(Local.getString("Insert table row"));
 			this.putValue(
 				Action.ACCELERATOR_KEY,
@@ -1567,13 +2017,22 @@ public class HTMLEditor extends JPanel {
 				.equals("TD");
 		}
 
-		public void update() {
+        /**
+         * Update.
+         */
+        public void update() {
 			this.setEnabled(isEnabled());
 		}
 	}
 
-	class InsertTableCellAction extends AbstractAction {
-		InsertTableCellAction() {
+    /**
+     * The type Insert table cell action.
+     */
+    class InsertTableCellAction extends AbstractAction {
+        /**
+         * Instantiates a new Insert table cell action.
+         */
+        InsertTableCellAction() {
 			super(Local.getString("Insert table cell"));
 			this.putValue(
 				Action.ACCELERATOR_KEY,
@@ -1605,12 +2064,20 @@ public class HTMLEditor extends JPanel {
 				.equals("TD");
 		}
 
-		public void update() {
+        /**
+         * Update.
+         */
+        public void update() {
 			this.setEnabled(isEnabled());
 		}
 	}
 
-	public void lAlignActionB_actionPerformed(ActionEvent e) {
+    /**
+     * L align action b action performed.
+     *
+     * @param e the e
+     */
+    public void lAlignActionB_actionPerformed(ActionEvent e) {
 		HTMLEditorKit.AlignmentAction aa =
 			new HTMLEditorKit.AlignmentAction(
 				"leftAlign",
@@ -1618,7 +2085,12 @@ public class HTMLEditor extends JPanel {
 		aa.actionPerformed(e);
 	}
 
-	public void cAlignActionB_actionPerformed(ActionEvent e) {
+    /**
+     * C align action b action performed.
+     *
+     * @param e the e
+     */
+    public void cAlignActionB_actionPerformed(ActionEvent e) {
 		HTMLEditorKit.AlignmentAction aa =
 			new HTMLEditorKit.AlignmentAction(
 				"centerAlign",
@@ -1626,7 +2098,12 @@ public class HTMLEditor extends JPanel {
 		aa.actionPerformed(e);
 	}
 
-	public void rAlignActionB_actionPerformed(ActionEvent e) {
+    /**
+     * R align action b action performed.
+     *
+     * @param e the e
+     */
+    public void rAlignActionB_actionPerformed(ActionEvent e) {
 		HTMLEditorKit.AlignmentAction aa =
 			new HTMLEditorKit.AlignmentAction(
 				"rightAlign",
@@ -1634,7 +2111,12 @@ public class HTMLEditor extends JPanel {
 		aa.actionPerformed(e);
 	}
 
-	public void jAlignActionB_actionPerformed(ActionEvent e) {
+    /**
+     * J align action b action performed.
+     *
+     * @param e the e
+     */
+    public void jAlignActionB_actionPerformed(ActionEvent e) {
 		HTMLEditorKit.AlignmentAction aa =
 			new HTMLEditorKit.AlignmentAction(
 				"justifyAlign",
@@ -1642,7 +2124,13 @@ public class HTMLEditor extends JPanel {
 		aa.actionPerformed(e);
 	}
 
-	public void insertHTML(String html, int location) {
+    /**
+     * Insert html.
+     *
+     * @param html     the html
+     * @param location the location
+     */
+    public void insertHTML(String html, int location) {
 		//assumes editor is already set to "text/html" type
 		try {
 			HTMLEditorKit kit = (HTMLEditorKit) editor.getEditorKit();
@@ -1654,7 +2142,12 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	public void imageActionB_actionPerformed(ActionEvent e) {
+    /**
+     * Image action b action performed.
+     *
+     * @param e the e
+     */
+    public void imageActionB_actionPerformed(ActionEvent e) {
 		/*
 		 * JFileChooser chooser = new JFileChooser();
 		 * chooser.setFileHidingEnabled(false); chooser.setDialogTitle("Choose
@@ -1775,7 +2268,12 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	public void tableActionB_actionPerformed(ActionEvent e) {
+    /**
+     * Table action b action performed.
+     *
+     * @param e the e
+     */
+    public void tableActionB_actionPerformed(ActionEvent e) {
 		TableDialog dlg = new TableDialog(null);
 		//dlg.setLocation(tableActionB.getLocationOnScreen());
 		Dimension dlgSize = dlg.getPreferredSize();
@@ -1872,7 +2370,12 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	public void linkActionB_actionPerformed(ActionEvent e) {
+    /**
+     * Link action b action performed.
+     *
+     * @param e the e
+     */
+    public void linkActionB_actionPerformed(ActionEvent e) {
 		LinkDialog dlg = new LinkDialog(null);
 		//dlg.setLocation(linkActionB.getLocationOnScreen());
 		Dimension dlgSize = dlg.getPreferredSize();
@@ -1913,7 +2416,16 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	void setLinkProperties(
+    /**
+     * Sets link properties.
+     *
+     * @param el     the el
+     * @param href   the href
+     * @param target the target
+     * @param title  the title
+     * @param name   the name
+     */
+    void setLinkProperties(
 		Element el,
 		String href,
 		String target,
@@ -1975,7 +2487,20 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	void setImageProperties(
+    /**
+     * Sets image properties.
+     *
+     * @param el     the el
+     * @param src    the src
+     * @param alt    the alt
+     * @param width  the width
+     * @param height the height
+     * @param hspace the hspace
+     * @param vspace the vspace
+     * @param border the border
+     * @param align  the align
+     */
+    void setImageProperties(
 		Element el,
 		String src,
 		String alt,
@@ -2058,7 +2583,15 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	void setElementProperties(Element el, String id, String cls, String sty) {
+    /**
+     * Sets element properties.
+     *
+     * @param el  the el
+     * @param id  the id
+     * @param cls the cls
+     * @param sty the sty
+     */
+    void setElementProperties(Element el, String id, String cls, String sty) {
 		ElementDialog dlg = new ElementDialog(null);
 		//dlg.setLocation(linkActionB.getLocationOnScreen());
 		Dimension dlgSize = dlg.getPreferredSize();
@@ -2087,7 +2620,12 @@ public class HTMLEditor extends JPanel {
 		document.setParagraphAttributes(el.getStartOffset(), 0, attrs, true);
 	}
 
-	void setTableProperties(Element td) {
+    /**
+     * Sets table properties.
+     *
+     * @param td the td
+     */
+    void setTableProperties(Element td) {
 		Element tr = td.getParentElement();
 		Element table = tr.getParentElement();
 
@@ -2352,7 +2890,12 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	void blockCB_actionPerformed(ActionEvent e) {
+    /**
+     * Block cb action performed.
+     *
+     * @param e the e
+     */
+    void blockCB_actionPerformed(ActionEvent e) {
 		if (blockCBEventsLock)
 			return;
 		int sel = blockCB.getSelectedIndex();
@@ -2452,7 +2995,12 @@ public class HTMLEditor extends JPanel {
 
 	}
 
-	public void propsActionB_actionPerformed(ActionEvent e) {
+    /**
+     * Props action b action performed.
+     *
+     * @param e the e
+     */
+    public void propsActionB_actionPerformed(ActionEvent e) {
 
 		/*
 		 * Element p = document.getParagraphElement(editor.getCaretPosition());
@@ -2576,7 +3124,14 @@ public class HTMLEditor extends JPanel {
 	 * el.getStartOffset(), attrs, true); }
 	 */
 
-	String setFontProperties(Element el, String text) {
+    /**
+     * Sets font properties.
+     *
+     * @param el   the el
+     * @param text the text
+     * @return the font properties
+     */
+    String setFontProperties(Element el, String text) {
 		FontDialog dlg = new FontDialog(null);
 		//dlg.setLocation(editor.getLocationOnScreen());
 		Dimension dlgSize = dlg.getSize();
@@ -2633,7 +3188,12 @@ public class HTMLEditor extends JPanel {
 			return null;
 	}
 
-	void inlineCB_actionPerformed(ActionEvent e) {
+    /**
+     * Inline cb action performed.
+     *
+     * @param e the e
+     */
+    void inlineCB_actionPerformed(ActionEvent e) {
 		if (inlineCBEventsLock)
 			return;
 		int sel = inlineCB.getSelectedIndex();
@@ -2709,7 +3269,12 @@ public class HTMLEditor extends JPanel {
 		}
 	}
 
-	void doZoom(boolean in) {
+    /**
+     * Do zoom.
+     *
+     * @param in the in
+     */
+    void doZoom(boolean in) {
 		/**
 		 * @todo: ZOOM
 		 */
@@ -2723,12 +3288,20 @@ public class HTMLEditor extends JPanel {
 
 	}
 
-	public void setDocument(Document doc) {
+    /**
+     * Sets document.
+     *
+     * @param doc the doc
+     */
+    public void setDocument(Document doc) {
 		this.document = (HTMLDocument) doc;
 		initEditor();
 	}
 
-	public void initEditor() {
+    /**
+     * Init editor.
+     */
+    public void initEditor() {
 		editor.setDocument(document);
 		//undo = new UndoManager();
 		resetUndoManager();
@@ -2737,11 +3310,21 @@ public class HTMLEditor extends JPanel {
 		editor.setCaretPosition(0);
 	}
 
-	public boolean isDocumentChanged() {
+    /**
+     * Is document changed boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isDocumentChanged() {
 		return undo.canUndo();
 	}
 
-	public void setStyleSheet(Reader r) {
+    /**
+     * Sets style sheet.
+     *
+     * @param r the r
+     */
+    public void setStyleSheet(Reader r) {
 		StyleSheet css = new StyleSheet();
 		try {
 			css.loadRules(r, null);
@@ -2755,12 +3338,18 @@ public class HTMLEditor extends JPanel {
 		}
 		editorKit.setStyleSheet(css);
 	}
-	
-	public void reload() {	
+
+    /**
+     * Reload.
+     */
+    public void reload() {
 		
 	}
 
-	void doFind() {
+    /**
+     * Do find.
+     */
+    void doFind() {
 		FindDialog dlg = new FindDialog();
 		//dlg.setLocation(linkActionB.getLocationOnScreen());
 		Dimension dlgSize = dlg.getSize();

@@ -13,40 +13,144 @@ import main.java.memoranda.NoteList;
 import main.java.memoranda.Project;
 import main.java.memoranda.ResourcesList;
 import main.java.memoranda.TaskList;
+
 /**
- * 
+ * The interface Storage.
  */
 /*$Id: Storage.java,v 1.4 2004/01/30 12:17:42 alexeya Exp $*/
 public interface Storage {
-            
-    TaskList openTaskList(Project prj);    
+
+    /**
+     * Open task list task list.
+     *
+     * @param prj the prj
+     * @return the task list
+     */
+    TaskList openTaskList(Project prj);
+
+    /**
+     * Store task list.
+     *
+     * @param tl  the tl
+     * @param prj the prj
+     */
     void storeTaskList(TaskList tl, Project prj);
-    
+
+    /**
+     * Open note list note list.
+     *
+     * @param prj the prj
+     * @return the note list
+     */
     NoteList openNoteList(Project prj);
+
+    /**
+     * Store note list.
+     *
+     * @param nl  the nl
+     * @param prj the prj
+     */
     void storeNoteList(NoteList nl, Project prj);
-    
-    void storeNote(Note note, javax.swing.text.Document doc);    
+
+    /**
+     * Store note.
+     *
+     * @param note the note
+     * @param doc  the doc
+     */
+    void storeNote(Note note, javax.swing.text.Document doc);
+
+    /**
+     * Open note javax . swing . text . document.
+     *
+     * @param note the note
+     * @return the javax . swing . text . document
+     */
     javax.swing.text.Document openNote(Note note);
+
+    /**
+     * Remove note.
+     *
+     * @param note the note
+     */
     void removeNote(Note note);
-    
+
+    /**
+     * Gets note url.
+     *
+     * @param note the note
+     * @return the note url
+     */
     String getNoteURL(Note note);
-    
-    void openProjectManager();    
+
+    /**
+     * Open project manager.
+     */
+    void openProjectManager();
+
+    /**
+     * Store project manager.
+     */
     void storeProjectManager();
-    
+
+    /**
+     * Open events manager.
+     */
     void openEventsManager();
+
+    /**
+     * Store events manager.
+     */
     void storeEventsManager();
-    
+
+    /**
+     * Open mime types list.
+     */
     void openMimeTypesList();
+
+    /**
+     * Store mime types list.
+     */
     void storeMimeTypesList();
-    
+
+    /**
+     * Create project storage.
+     *
+     * @param prj the prj
+     */
     void createProjectStorage(Project prj);
+
+    /**
+     * Remove project storage.
+     *
+     * @param prj the prj
+     */
     void removeProjectStorage(Project prj);
-   
+
+    /**
+     * Open resources list resources list.
+     *
+     * @param prj the prj
+     * @return the resources list
+     */
     ResourcesList openResourcesList(Project prj);
+
+    /**
+     * Store resources list.
+     *
+     * @param rl  the rl
+     * @param prj the prj
+     */
     void storeResourcesList(ResourcesList rl, Project prj);
-    
+
+    /**
+     * Restore context.
+     */
     void restoreContext();
-    void storeContext(); 
+
+    /**
+     * Store context.
+     */
+    void storeContext();
        
 }

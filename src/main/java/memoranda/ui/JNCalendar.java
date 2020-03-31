@@ -25,7 +25,7 @@ import main.java.memoranda.util.Configuration;
 import main.java.memoranda.util.Local;
 
 /**
- *  
+ * The type Jn calendar.
  */
 /*$Id: JNCalendar.java,v 1.8 2004/11/05 07:38:10 pbielen Exp $*/
 public class JNCalendar extends JTable {
@@ -33,17 +33,32 @@ public class JNCalendar extends JTable {
 	private CalendarDate _date = null;
 	private boolean ignoreChange = false;
 	private Vector selectionListeners = new Vector();
-	CalendarDate startPeriod = null;
-	CalendarDate endPeriod = null;
-	public JNCalendarCellRenderer renderer = new JNCalendarCellRenderer();
+    /**
+     * The Start period.
+     */
+    CalendarDate startPeriod = null;
+    /**
+     * The End period.
+     */
+    CalendarDate endPeriod = null;
+    /**
+     * The Renderer.
+     */
+    public JNCalendarCellRenderer renderer = new JNCalendarCellRenderer();
 
-	public JNCalendar() {
+    /**
+     * Instantiates a new Jn calendar.
+     */
+    public JNCalendar() {
 		this(CurrentDate.get());
 	}
-	/**
-	 * Constructor for JNCalendar.
-	 */
-	public JNCalendar(CalendarDate date) {
+
+    /**
+     * Constructor for JNCalendar.
+     *
+     * @param date the date
+     */
+    public JNCalendar(CalendarDate date) {
 		super();
 		/* table properties */
 		setCellSelectionEnabled(true);
@@ -87,20 +102,42 @@ public class JNCalendar extends JTable {
 		colSM.addListSelectionListener(lsl);
 	}
 
-	int getSelRow() {
+    /**
+     * Gets sel row.
+     *
+     * @return the sel row
+     */
+    int getSelRow() {
 		return this.getSelectedRow();
 	}
 
-	int getSelCol() {
+    /**
+     * Gets sel col.
+     *
+     * @return the sel col
+     */
+    int getSelCol() {
 		return this.getSelectedColumn();
 	}
 
-	public JNCalendar(CalendarDate date, CalendarDate sd, CalendarDate ed) {
+    /**
+     * Instantiates a new Jn calendar.
+     *
+     * @param date the date
+     * @param sd   the sd
+     * @param ed   the ed
+     */
+    public JNCalendar(CalendarDate date, CalendarDate sd, CalendarDate ed) {
 		this(date);
 		setSelectablePeriod(sd, ed);
 	}
 
-	public void set(CalendarDate date) {
+    /**
+     * Set.
+     *
+     * @param date the date
+     */
+    public void set(CalendarDate date) {
 		_date = date;
 		setCalendarParameters();
 		ignoreChange = true;
@@ -109,15 +146,31 @@ public class JNCalendar extends JTable {
 		doSelection();
 	}
 
-	public CalendarDate get() {
+    /**
+     * Get calendar date.
+     *
+     * @return the calendar date
+     */
+    public CalendarDate get() {
 		return _date;
 	}
 
-	public void addSelectionListener(ActionListener al) {
+    /**
+     * Add selection listener.
+     *
+     * @param al the al
+     */
+    public void addSelectionListener(ActionListener al) {
 		selectionListeners.add(al);
 	}
 
-	public void setSelectablePeriod(CalendarDate sd, CalendarDate ed) {
+    /**
+     * Sets selectable period.
+     *
+     * @param sd the sd
+     * @param ed the ed
+     */
+    public void setSelectablePeriod(CalendarDate sd, CalendarDate ed) {
 		startPeriod = sd;
 		endPeriod = ed;
 	}
@@ -147,7 +200,10 @@ public class JNCalendar extends JTable {
 		return renderer;
 	}
 
-	void doSelection() {
+    /**
+     * Do selection.
+     */
+    void doSelection() {
 		ignoreChange = true;
 		int selRow = getRow(_date.getDay());
 		int selCol = getCol(_date.getDay());
@@ -156,18 +212,39 @@ public class JNCalendar extends JTable {
 		ignoreChange = false;
 	}
 
-	int getRow(int day) {
+    /**
+     * Gets row.
+     *
+     * @param day the day
+     * @return the row
+     */
+    int getRow(int day) {
 		return ((day - 1) + firstDay) / 7;
 	}
 
-	int getCol(int day) {
+    /**
+     * Gets col.
+     *
+     * @param day the day
+     * @return the col
+     */
+    int getCol(int day) {
 		return ((day - 1) + firstDay) % 7;
 	}
 
-	int firstDay;
-	int daysInMonth;
+    /**
+     * The First day.
+     */
+    int firstDay;
+    /**
+     * The Days in month.
+     */
+    int daysInMonth;
 
-	void setCalendarParameters() {
+    /**
+     * Sets calendar parameters.
+     */
+    void setCalendarParameters() {
 		int d = 1;
 
 		Calendar cal = _date.getCalendar();
@@ -186,12 +263,18 @@ public class JNCalendar extends JTable {
 		daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 
-	/*$Id: JNCalendar.java,v 1.8 2004/11/05 07:38:10 pbielen Exp $*/
+    /**
+     * The type Jn calendar model.
+     */
+    /*$Id: JNCalendar.java,v 1.8 2004/11/05 07:38:10 pbielen Exp $*/
 public class JNCalendarModel extends AbstractTableModel {
 
 		private String[] dayNames = Local.getWeekdayNames();
 
-		public JNCalendarModel() {
+        /**
+         * Instantiates a new Jn calendar model.
+         */
+        public JNCalendarModel() {
 			super();
 		}
 

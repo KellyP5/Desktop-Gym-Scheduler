@@ -30,46 +30,144 @@ import main.java.memoranda.ui.htmleditor.util.Local;
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
  * <p>Company: </p>
+ *
  * @author unascribed
  * @version 1.0
  */
-
 public class TableDialog extends JDialog {
-	JPanel areaPanel = new JPanel(new GridBagLayout());
-	GridBagConstraints gbc;
-	JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-	JButton cancelB = new JButton();
-	JButton okB = new JButton();
-	JLabel lblWidth = new JLabel();
-	public JTextField heightField = new JTextField();
-	JLabel lblHeight = new JLabel();
-	public JTextField widthField = new JTextField();
-	String[] aligns = {"", Local.getString("left"), Local.getString("center"),
+    /**
+     * The Area panel.
+     */
+    JPanel areaPanel = new JPanel(new GridBagLayout());
+    /**
+     * The Gbc.
+     */
+    GridBagConstraints gbc;
+    /**
+     * The Buttons panel.
+     */
+    JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    /**
+     * The Cancel b.
+     */
+    JButton cancelB = new JButton();
+    /**
+     * The Ok b.
+     */
+    JButton okB = new JButton();
+    /**
+     * The Lbl width.
+     */
+    JLabel lblWidth = new JLabel();
+    /**
+     * The Height field.
+     */
+    public JTextField heightField = new JTextField();
+    /**
+     * The Lbl height.
+     */
+    JLabel lblHeight = new JLabel();
+    /**
+     * The Width field.
+     */
+    public JTextField widthField = new JTextField();
+    /**
+     * The Aligns.
+     */
+    String[] aligns = {"", Local.getString("left"), Local.getString("center"),
 		Local.getString("right")};
-	String[] valigns = {"", Local.getString("top"), Local.getString("center"),
+    /**
+     * The Valigns.
+     */
+    String[] valigns = {"", Local.getString("top"), Local.getString("center"),
 		Local.getString("bottom")};
-	JLabel lblPadding = new JLabel();
-	JLabel lblSpacing = new JLabel();
-	JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-	JLabel header = new JLabel();
-	public boolean CANCELLED = false;
-	JLabel lblColumns = new JLabel();
-	JLabel lblRows = new JLabel();
-	JComboBox vAlignCB = new JComboBox(valigns);
-	JLabel lblOutline = new JLabel();
-	JComboBox alignCB = new JComboBox(aligns);
-	JLabel lblVertOutline = new JLabel();
-	JTextField bgcolorField = new JTextField();
-	JLabel lblFillColor = new JLabel();
-	JButton bgColorB = new JButton();
-	JLabel lblBorder = new JLabel();
-	public JSpinner columns = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
-	public JSpinner rows = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
-	public JSpinner cellpadding = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
-	public JSpinner cellspacing = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
-	public JSpinner border = new JSpinner(new SpinnerNumberModel(1, 0, 999, 1));
+    /**
+     * The Lbl padding.
+     */
+    JLabel lblPadding = new JLabel();
+    /**
+     * The Lbl spacing.
+     */
+    JLabel lblSpacing = new JLabel();
+    /**
+     * The Header panel.
+     */
+    JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    /**
+     * The Header.
+     */
+    JLabel header = new JLabel();
+    /**
+     * The Cancelled.
+     */
+    public boolean CANCELLED = false;
+    /**
+     * The Lbl columns.
+     */
+    JLabel lblColumns = new JLabel();
+    /**
+     * The Lbl rows.
+     */
+    JLabel lblRows = new JLabel();
+    /**
+     * The V align cb.
+     */
+    JComboBox vAlignCB = new JComboBox(valigns);
+    /**
+     * The Lbl outline.
+     */
+    JLabel lblOutline = new JLabel();
+    /**
+     * The Align cb.
+     */
+    JComboBox alignCB = new JComboBox(aligns);
+    /**
+     * The Lbl vert outline.
+     */
+    JLabel lblVertOutline = new JLabel();
+    /**
+     * The Bgcolor field.
+     */
+    JTextField bgcolorField = new JTextField();
+    /**
+     * The Lbl fill color.
+     */
+    JLabel lblFillColor = new JLabel();
+    /**
+     * The Bg color b.
+     */
+    JButton bgColorB = new JButton();
+    /**
+     * The Lbl border.
+     */
+    JLabel lblBorder = new JLabel();
+    /**
+     * The Columns.
+     */
+    public JSpinner columns = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
+    /**
+     * The Rows.
+     */
+    public JSpinner rows = new JSpinner(new SpinnerNumberModel(1, 1, 999, 1));
+    /**
+     * The Cellpadding.
+     */
+    public JSpinner cellpadding = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
+    /**
+     * The Cellspacing.
+     */
+    public JSpinner cellspacing = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
+    /**
+     * The Border.
+     */
+    public JSpinner border = new JSpinner(new SpinnerNumberModel(1, 0, 999, 1));
 
-	public TableDialog(Frame frame) {
+    /**
+     * Instantiates a new Table dialog.
+     *
+     * @param frame the frame
+     */
+    public TableDialog(Frame frame) {
 		super(frame, Local.getString("Table"), true);
 		try {
 			jbInit();
@@ -79,11 +177,19 @@ public class TableDialog extends JDialog {
 		}
 	}
 
-	public TableDialog() {
+    /**
+     * Instantiates a new Table dialog.
+     */
+    public TableDialog() {
 		this(null);
 	}
 
-	void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 		this.setResizable(false);
 		headerPanel.setBackground(Color.WHITE);
 		header.setFont(new java.awt.Font("Dialog", 0, 20));
@@ -251,16 +357,31 @@ public class TableDialog extends JDialog {
 		this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
 	}
 
-	void okB_actionPerformed(ActionEvent e) {
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
+    void okB_actionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 
-	void cancelB_actionPerformed(ActionEvent e) {
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
+    void cancelB_actionPerformed(ActionEvent e) {
 		CANCELLED = true;
 		this.dispose();
 	}
 
-	void bgColorB_actionPerformed(ActionEvent e) {
+    /**
+     * Bg color b action performed.
+     *
+     * @param e the e
+     */
+    void bgColorB_actionPerformed(ActionEvent e) {
 		// Fix until Sun's JVM supports more locales...
 		UIManager.put(
 			"ColorChooser.swatchesNameText",

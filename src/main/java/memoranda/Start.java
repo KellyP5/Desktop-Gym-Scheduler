@@ -14,15 +14,25 @@ import java.net.Socket;
 import main.java.memoranda.ui.*;
 import main.java.memoranda.util.Configuration;
 
+
 /**
- *
+ * The type Start.
  */
 /*$Id: Start.java,v 1.7 2004/11/22 10:02:37 alexeya Exp $*/
 public class Start {
-    
+
+    /**
+     * The App.
+     */
     static App app = null;
-    
+
+    /**
+     * The Default port.
+     */
     static int DEFAULT_PORT = 19432;
+    /**
+     * The Check if already startet.
+     */
     static boolean checkIfAlreadyStartet = true;
     
     static {
@@ -42,7 +52,12 @@ public class Start {
             checkIfAlreadyStartet = false;
         }
     }
-    
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         if (checkIfAlreadyStartet) {
             try {
@@ -68,6 +83,9 @@ public class Start {
     }
 }
 
+/**
+ * The type Sl thread.
+ */
 class SLThread extends Thread {
     
     public void run() {

@@ -39,54 +39,128 @@ import main.java.memoranda.util.HTMLFileImport;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.Util;
 
+/**
+ * The type Editor panel.
+ */
 /*$Id: EditorPanel.java,v 1.21 2006/06/28 22:58:31 alexeya Exp $*/
 public class EditorPanel extends JPanel {
-	BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
 
-	JPanel jPanel1 = new JPanel();
+    /**
+     * The J panel 1.
+     */
+    JPanel jPanel1 = new JPanel();
 
-	public HTMLEditor editor = null;
+    /**
+     * The Editor.
+     */
+    public HTMLEditor editor = null;
 
-	JButton importB = new JButton();
+    /**
+     * The Import b.
+     */
+    JButton importB = new JButton();
 
-	JButton exportB = new JButton();
+    /**
+     * The Export b.
+     */
+    JButton exportB = new JButton();
 
-	JButton redoB = new JButton();
+    /**
+     * The Redo b.
+     */
+    JButton redoB = new JButton();
 
-	JButton copyB = new JButton();
+    /**
+     * The Copy b.
+     */
+    JButton copyB = new JButton();
 
-	JButton historyBackB = new JButton();
+    /**
+     * The History back b.
+     */
+    JButton historyBackB = new JButton();
 
-	JToolBar editorToolBar = new JToolBar();
+    /**
+     * The Editor tool bar.
+     */
+    JToolBar editorToolBar = new JToolBar();
 
-	JButton pasteB = new JButton();
+    /**
+     * The Paste b.
+     */
+    JButton pasteB = new JButton();
 
-	JButton historyForwardB = new JButton();
+    /**
+     * The History forward b.
+     */
+    JButton historyForwardB = new JButton();
 
-	JButton insDateB = new JButton();
+    /**
+     * The Ins date b.
+     */
+    JButton insDateB = new JButton();
 
-	JButton insTimeB = new JButton();
+    /**
+     * The Ins time b.
+     */
+    JButton insTimeB = new JButton();
 
-	// JButton printB = new JButton();
+    /**
+     * The Undo b.
+     */
+// JButton printB = new JButton();
 	JButton undoB = new JButton();
 
-	JButton cutB = new JButton();
+    /**
+     * The Cut b.
+     */
+    JButton cutB = new JButton();
 
-	BorderLayout borderLayout2 = new BorderLayout();
+    /**
+     * The Border layout 2.
+     */
+    BorderLayout borderLayout2 = new BorderLayout();
 
-	JToolBar titleBar = new JToolBar();
+    /**
+     * The Title bar.
+     */
+    JToolBar titleBar = new JToolBar();
 
-	JLabel titleLabel = new JLabel();
+    /**
+     * The Title label.
+     */
+    JLabel titleLabel = new JLabel();
 
-	public JTextField titleField = new JTextField();
+    /**
+     * The Title field.
+     */
+    public JTextField titleField = new JTextField();
 
-	JButton newB = new JButton();
+    /**
+     * The New b.
+     */
+    JButton newB = new JButton();
 
-	JButton previewB = new JButton();
+    /**
+     * The Preview b.
+     */
+    JButton previewB = new JButton();
 
-	DailyItemsPanel parentPanel = null;
+    /**
+     * The Parent panel.
+     */
+    DailyItemsPanel parentPanel = null;
 
-	public EditorPanel(DailyItemsPanel parent) {
+    /**
+     * Instantiates a new Editor panel.
+     *
+     * @param parent the parent
+     */
+    public EditorPanel(DailyItemsPanel parent) {
 		try {
 			parentPanel = parent;
 			jbInit();
@@ -95,7 +169,10 @@ public class EditorPanel extends JPanel {
 		}
 	}
 
-	public Action insertTimeAction = new AbstractAction(Local
+    /**
+     * The Insert time action.
+     */
+    public Action insertTimeAction = new AbstractAction(Local
 			.getString("Insert current time"), new ImageIcon(
 			main.java.memoranda.ui.AppFrame.class
 					.getResource("/ui/icons/time.png"))) {
@@ -104,7 +181,10 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
-	public Action insertDateAction = new AbstractAction(Local
+    /**
+     * The Insert date action.
+     */
+    public Action insertDateAction = new AbstractAction(Local
 			.getString("Insert current date"), new ImageIcon(
 			main.java.memoranda.ui.AppFrame.class
 					.getResource("/ui/icons/date.png"))) {
@@ -119,7 +199,10 @@ public class EditorPanel extends JPanel {
 	 * public void actionPerformed(ActionEvent e) { doPrint(); } };
 	 */
 
-	public Action newAction = new AbstractAction(Local.getString("New note"),
+    /**
+     * The New action.
+     */
+    public Action newAction = new AbstractAction(Local.getString("New note"),
 			new ImageIcon(main.java.memoranda.ui.AppFrame.class
 					.getResource("/ui/icons/filenew.png"))) {
 		public void actionPerformed(ActionEvent e) {
@@ -127,7 +210,10 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
-	public Action exportAction = new AbstractAction(Local
+    /**
+     * The Export action.
+     */
+    public Action exportAction = new AbstractAction(Local
 			.getString("Export note to file"), new ImageIcon(
 			main.java.memoranda.ui.AppFrame.class
 					.getResource("/ui/icons/export.png"))) {
@@ -136,7 +222,10 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
-	public Action importAction = new AbstractAction(Local
+    /**
+     * The Import action.
+     */
+    public Action importAction = new AbstractAction(Local
 			.getString("Insert file"), new ImageIcon(
 			main.java.memoranda.ui.AppFrame.class
 					.getResource("/ui/icons/import.png"))) {
@@ -145,7 +234,10 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
-	public Action previewAction = new AbstractAction(Local
+    /**
+     * The Preview action.
+     */
+    public Action previewAction = new AbstractAction(Local
 			.getString("Preview note in browser"), new ImageIcon(
 			main.java.memoranda.ui.AppFrame.class
 					.getResource("/ui/icons/preview.png"))) {
@@ -154,7 +246,12 @@ public class EditorPanel extends JPanel {
 		}
 	};
 
-	void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 
 		if (!Configuration.get("DISABLE_L10N").equals("yes"))
 			main.java.memoranda.ui.htmleditor.util.Local.setMessages(Local
@@ -356,7 +453,10 @@ public class EditorPanel extends JPanel {
 		});
 	}
 
-	public void initCSS() {
+    /**
+     * Init css.
+     */
+    public void initCSS() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				main.java.memoranda.ui.EditorPanel.class
 						.getResourceAsStream("/ui/css/default.css")));
@@ -397,17 +497,32 @@ public class EditorPanel extends JPanel {
 
 	}
 
-	void insDateB_actionPerformed(ActionEvent e) {
+    /**
+     * Ins date b action performed.
+     *
+     * @param e the e
+     */
+    void insDateB_actionPerformed(ActionEvent e) {
 		editor.editor.replaceSelection(CurrentDate.get().getFullDateString());
 	}
 
-	void insTimeB_actionPerformed(ActionEvent e) {
+    /**
+     * Ins time b action performed.
+     *
+     * @param e the e
+     */
+    void insTimeB_actionPerformed(ActionEvent e) {
 		java.util.Date d = new java.util.Date();
 		editor.editor.replaceSelection(DateFormat.getTimeInstance(
 				DateFormat.SHORT, Local.getCurrentLocale()).format(d));
 	}
 
-	void exportB_actionPerformed(ActionEvent e) {
+    /**
+     * Export b action performed.
+     *
+     * @param e the e
+     */
+    void exportB_actionPerformed(ActionEvent e) {
 		// Fix until Sun's JVM supports more locales...
 		UIManager.put("FileChooser.lookInLabelText", Local
 				.getString("Save in:"));
@@ -493,9 +608,17 @@ public class EditorPanel extends JPanel {
 				dlg.numentChB.isSelected(), template, dlg.xhtmlChB.isSelected());
 	}
 
-	String initialTitle = "";
+    /**
+     * The Initial title.
+     */
+    String initialTitle = "";
 
-	public void setDocument(Note note) {
+    /**
+     * Sets document.
+     *
+     * @param note the note
+     */
+    public void setDocument(Note note) {
 		// Note note = CurrentProject.getNoteList().getActiveNote();
 		// try {
 		// this.editor.editor.setPage(CurrentStorage.get().getNoteURL(note));
@@ -517,16 +640,31 @@ public class EditorPanel extends JPanel {
 		// .setDocument(CurrentStorage.get().openNote(note));
 	}
 
-	public javax.swing.text.Document getDocument() {
+    /**
+     * Gets document.
+     *
+     * @return the document
+     */
+    public javax.swing.text.Document getDocument() {
 		return this.editor.document;
 	}
 
-	public boolean isDocumentChanged() {
+    /**
+     * Is document changed boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isDocumentChanged() {
 		return editor.isDocumentChanged()
 				|| !titleField.getText().equals(initialTitle);
 	}
 
-	void importB_actionPerformed(ActionEvent e) {
+    /**
+     * Import b action performed.
+     *
+     * @param e the e
+     */
+    void importB_actionPerformed(ActionEvent e) {
 		// Fix until Sun's JVM supports more locales...
 		UIManager.put("FileChooser.lookInLabelText", Local
 				.getString("Look in:"));
@@ -570,13 +708,23 @@ public class EditorPanel extends JPanel {
 		new HTMLFileImport(f, editor);
 	}
 
-	void newB_actionPerformed(ActionEvent e) {
+    /**
+     * New b action performed.
+     *
+     * @param e the e
+     */
+    void newB_actionPerformed(ActionEvent e) {
 		CurrentNote.set(null, true);
 		setDocument(null);
 		this.titleField.requestFocus();
 	}
 
-	void previewB_actionPerformed(ActionEvent e) {
+    /**
+     * Preview b action performed.
+     *
+     * @param e the e
+     */
+    void previewB_actionPerformed(ActionEvent e) {
 		File f;
 		try {
 			f = Util.getTempFile();

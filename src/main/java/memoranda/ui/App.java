@@ -15,20 +15,32 @@ import main.java.memoranda.util.Configuration;
 //import org.swingexplorer.Log;
 
 /**
- * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-
 /*$Id: App.java,v 1.28 2007/03/20 06:21:46 alexeya Exp $*/
 public class App {
 	// boolean packFrame = false;
 
-	static AppFrame frame = null;
-	static LoginBox login = null;
-	
-	public static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
-	public static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
-	public static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
+
+    /**
+     * The Frame.
+     */
+    static AppFrame frame = null;
+
+    /**
+     * The constant GUIDE_URL.
+     */
+    public static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
+    /**
+     * The constant BUGS_TRACKER_URL.
+     */
+    public static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
+    /**
+     * The constant WEBSITE_URL.
+     */
+    public static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
+
+
 
 	private JFrame splash = null;
 
@@ -37,16 +49,30 @@ public class App {
        The actual values are substituted by the Ant build script using 
        'version' property and datestamp.*/
 
-	public static final String VERSION_INFO = "@VERSION@";
-	public static final String BUILD_INFO = "@BUILD@";
+    /**
+     * The constant VERSION_INFO.
+     */
+    public static final String VERSION_INFO = "@VERSION@";
+    /**
+     * The constant BUILD_INFO.
+     */
+    public static final String BUILD_INFO = "@BUILD@";
 	
 	/*========================================================================*/
 
-	public static AppFrame getFrame() {
+    /**
+     * Gets frame.
+     *
+     * @return the frame
+     */
+    public static AppFrame getFrame() {
 		return frame;
 	}
 
-	public void show() {
+    /**
+     * Show.
+     */
+    public void show() {
 		if (frame.isVisible()) {
 			frame.toFront();
 			frame.requestFocus();
@@ -54,7 +80,12 @@ public class App {
 			init();
 	}
 
-	public App(boolean fullmode) {
+    /**
+     * Instantiates a new App.
+     *
+     * @param fullmode the fullmode
+     */
+    public App(boolean fullmode) {
 		super();
 		if (fullmode)
 			fullmode = !Configuration.get("START_MINIMIZED").equals("yes");
@@ -102,7 +133,14 @@ public class App {
 			splash.dispose();
 	}
 
-	static void init() {
+
+    /**
+     * Init.
+     */
+    void init() {
+
+
+
 		/*
 		 * if (packFrame) { frame.pack(); } else { frame.validate(); }
 		 * 
@@ -141,7 +179,10 @@ public class App {
 
 	}
 
-	public static void closeWindow() {
+    /**
+     * Close window.
+     */
+    public static void closeWindow() {
 		if (frame == null)
 			return;
 		frame.dispose();

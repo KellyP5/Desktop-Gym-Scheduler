@@ -17,13 +17,16 @@ import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.HTMLEditor;
 
 /**
- * 
+ * The type Html file import.
  */
 /*$Id: HTMLFileImport.java,v 1.5 2005/07/05 08:17:28 alexeya Exp $*/
 public class HTMLFileImport {
 
     /**
      * Constructor for HTMLFileImport.
+     *
+     * @param f      the f
+     * @param editor the editor
      */
     public HTMLFileImport(File f, HTMLEditor editor) {
         String text = "";

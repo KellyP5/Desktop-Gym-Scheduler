@@ -21,18 +21,39 @@ import javax.swing.ImageIcon;
 import javax.swing.KeyStroke;
 
 import main.java.memoranda.util.Local;
+
 /**
- * 
+ * The type History.
  */
 /*$Id: History.java,v 1.7 2006/10/31 15:34:14 hglas Exp $*/
 public class History {
 
+    /**
+     * The List.
+     */
     static Vector _list = new Vector();
+    /**
+     * The P.
+     */
     static int p = -1;
+    /**
+     * The History listeners.
+     */
     static Vector historyListeners = new Vector();
+    /**
+     * The Next.
+     */
     static Object next = null;
-    static Object prev = null;     
-    
+    /**
+     * The Prev.
+     */
+    static Object prev = null;
+
+    /**
+     * Add.
+     *
+     * @param item the item
+     */
     public static void add(HistoryItem item) {
         if (prev != null)   
             if (item.equals(prev)) return;
@@ -55,7 +76,12 @@ public class History {
             _list.remove(0);     
     }
 
-    public static HistoryItem rollBack() {        
+    /**
+     * Roll back history item.
+     *
+     * @return the history item
+     */
+    public static HistoryItem rollBack() {
         Object n = prev;        
         if (p > 1) {                          
             p--;
@@ -74,6 +100,11 @@ public class History {
         return (HistoryItem)n;
     }
 
+    /**
+     * Roll forward history item.
+     *
+     * @return the history item
+     */
     public static HistoryItem rollForward() {
         Object n = next;        
         if (p < _list.size() - 1) {
@@ -91,18 +122,38 @@ public class History {
         return (HistoryItem)n;    
     }
 
+    /**
+     * Can roll back boolean.
+     *
+     * @return the boolean
+     */
     public static boolean canRollBack() {
         return prev != null;
     }
 
+    /**
+     * Can roll forward boolean.
+     *
+     * @return the boolean
+     */
     public static boolean canRollForward() {
         return next != null;
     }
 
+    /**
+     * Add history listener.
+     *
+     * @param hl the hl
+     */
     public static void addHistoryListener(HistoryListener hl) {
         historyListeners.add(hl);
     }
-    
+
+    /**
+     * Remove project history.
+     *
+     * @param prj the prj
+     */
     public static void removeProjectHistory(Project prj) {
         Vector list = new Vector();
         String id;
@@ -135,11 +186,23 @@ public class History {
                  ((HistoryListener) historyListeners.get(i)).historyWasRolledTo(n);
     }
 
+    /**
+     * The constant historyBackAction.
+     */
     public static HistoryBackAction historyBackAction = new HistoryBackAction();
+    /**
+     * The constant historyForwardAction.
+     */
     public static HistoryForwardAction historyForwardAction = new HistoryForwardAction();
 
+    /**
+     * The type History back action.
+     */
     static class HistoryBackAction extends AbstractAction {
 
+        /**
+         * Instantiates a new History back action.
+         */
         public HistoryBackAction() {
             super(Local.getString("History back"), 
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/hist_back.png")));
@@ -157,6 +220,9 @@ public class History {
             return canRollBack();
         }*/
 
+        /**
+         * Update.
+         */
         void update() {
             if (canRollBack()) {
                 setEnabled(true);
@@ -177,8 +243,14 @@ public class History {
         }
     }
 
+    /**
+     * The type History forward action.
+     */
     static class HistoryForwardAction extends AbstractAction {
 
+        /**
+         * Instantiates a new History forward action.
+         */
         public HistoryForwardAction() {
             super(Local.getString("History forward"), 
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/hist_forward.png")));
@@ -196,6 +268,9 @@ public class History {
             return canRollForward();
         }*/
 
+        /**
+         * Update.
+         */
         void update() {
             if (canRollForward()) {
                 setEnabled(true);

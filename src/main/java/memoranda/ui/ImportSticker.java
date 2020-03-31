@@ -4,15 +4,31 @@ import javax.swing.JOptionPane;
 
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Import sticker.
+ */
 public class ImportSticker {
 
-String name;        
-        
-        public ImportSticker(String x) {
+    /**
+     * The Name.
+     */
+    String name;
+
+    /**
+     * Instantiates a new Import sticker.
+     *
+     * @param x the x
+     */
+    public ImportSticker(String x) {
                 name = x;
         }
 
-        public boolean import_file(){
+    /**
+     * Import file boolean.
+     *
+     * @return the boolean
+     */
+    public boolean import_file(){
                 /*
                  We are working on this =)
                   

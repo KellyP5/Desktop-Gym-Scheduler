@@ -45,37 +45,106 @@ import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
 import main.java.memoranda.util.*;
 
+/**
+ * The type Projects panel.
+ */
 /*$Id: ProjectsPanel.java,v 1.14 2005/01/04 09:59:22 pbielen Exp $*/
 public class ProjectsPanel extends JPanel implements ExpandablePanel {
-	BorderLayout borderLayout1 = new BorderLayout();
-	JToolBar topBar = new JToolBar();
-	JPanel toolbarPanel = new JPanel();
-	BorderLayout borderLayout2 = new BorderLayout();
-	JPanel buttonsPanel = new JPanel();
-	JButton toggleButton = new JButton();
-	FlowLayout flowLayout1 = new FlowLayout();
-	Vector expListeners = new Vector();
-	boolean expanded = false;
-	ImageIcon expIcon =
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Top bar.
+     */
+    JToolBar topBar = new JToolBar();
+    /**
+     * The Toolbar panel.
+     */
+    JPanel toolbarPanel = new JPanel();
+    /**
+     * The Border layout 2.
+     */
+    BorderLayout borderLayout2 = new BorderLayout();
+    /**
+     * The Buttons panel.
+     */
+    JPanel buttonsPanel = new JPanel();
+    /**
+     * The Toggle button.
+     */
+    JButton toggleButton = new JButton();
+    /**
+     * The Flow layout 1.
+     */
+    FlowLayout flowLayout1 = new FlowLayout();
+    /**
+     * The Exp listeners.
+     */
+    Vector expListeners = new Vector();
+    /**
+     * The Expanded.
+     */
+    boolean expanded = false;
+    /**
+     * The Exp icon.
+     */
+    ImageIcon expIcon =
 		new ImageIcon(
 			main.java.memoranda.ui.AppFrame.class.getResource(
 				"/ui/icons/exp_panel.png"));
-	ImageIcon collIcon =
+    /**
+     * The Coll icon.
+     */
+    ImageIcon collIcon =
 		new ImageIcon(
 			main.java.memoranda.ui.AppFrame.class.getResource(
 				"/ui/icons/coll_panel.png"));
-	JLabel curProjectTitle = new JLabel();
-	Component component1;
-	JPopupMenu projectsPPMenu = new JPopupMenu();
-	JMenuItem ppNewProject = new JMenuItem();
-	JMenuItem ppProperties = new JMenuItem();
-	JMenuItem ppDeleteProject = new JMenuItem();
-	JMenuItem ppOpenProject = new JMenuItem();	
-	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
-	JButton ppOpenB = new JButton();
-	ProjectsTablePanel prjTablePanel = new ProjectsTablePanel();
+    /**
+     * The Cur project title.
+     */
+    JLabel curProjectTitle = new JLabel();
+    /**
+     * The Component 1.
+     */
+    Component component1;
+    /**
+     * The Projects pp menu.
+     */
+    JPopupMenu projectsPPMenu = new JPopupMenu();
+    /**
+     * The Pp new project.
+     */
+    JMenuItem ppNewProject = new JMenuItem();
+    /**
+     * The Pp properties.
+     */
+    JMenuItem ppProperties = new JMenuItem();
+    /**
+     * The Pp delete project.
+     */
+    JMenuItem ppDeleteProject = new JMenuItem();
+    /**
+     * The Pp open project.
+     */
+    JMenuItem ppOpenProject = new JMenuItem();
+    /**
+     * The Pp show active only ch b.
+     */
+    JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
+    /**
+     * The Pp open b.
+     */
+    JButton ppOpenB = new JButton();
+    /**
+     * The Prj table panel.
+     */
+    ProjectsTablePanel prjTablePanel = new ProjectsTablePanel();
 
-	public Action newProjectAction =
+    /**
+     * The New project action.
+     */
+    public Action newProjectAction =
 		new AbstractAction(
 			Local.getString("New project") + "...",
 			new ImageIcon(
@@ -87,8 +156,11 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		}
 	};
 
-	
-	public ProjectsPanel() {
+
+    /**
+     * Instantiates a new Projects panel.
+     */
+    public ProjectsPanel() {
 		try {
 			jbInit();
 		} catch (Exception ex) {
@@ -96,7 +168,12 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		}
 	}
 
-	void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 		component1 = Box.createHorizontalStrut(20);
 		this.setLayout(borderLayout1);
 		topBar.setBackground(new Color(215, 225, 250));
@@ -287,7 +364,10 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 			});
 	}
 
-	class PopupListener extends MouseAdapter {
+    /**
+     * The type Popup listener.
+     */
+    class PopupListener extends MouseAdapter {
 
 		public void mouseClicked(MouseEvent e) {
 			if (e.getClickCount() == 2)
@@ -309,7 +389,12 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		}
 	}
 
-	void toggleButton_actionPerformed(ActionEvent e) {
+    /**
+     * Toggle button action performed.
+     *
+     * @param e the e
+     */
+    void toggleButton_actionPerformed(ActionEvent e) {
 		for (int i = 0; i < expListeners.size(); i++)
 			((ActionListener) expListeners.get(i)).actionPerformed(
 				new ActionEvent(this, 0, "Panel expanded (collapsed)"));
@@ -326,7 +411,12 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		expListeners.add(al);
 	}
 
-	void ppOpenB_actionPerformed(ActionEvent e) {
+    /**
+     * Pp open b action performed.
+     *
+     * @param e the e
+     */
+    void ppOpenB_actionPerformed(ActionEvent e) {
 		projectsPPMenu.show(
 			buttonsPanel,
 			(int) (ppOpenB.getLocation().getX() + 24)
@@ -334,19 +424,34 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 			(int) ppOpenB.getLocation().getY() + 24);
 	}
 
-	void ppOpenProject_actionPerformed(ActionEvent e) {
+    /**
+     * Pp open project action performed.
+     *
+     * @param e the e
+     */
+    void ppOpenProject_actionPerformed(ActionEvent e) {
 		CurrentProject.set(prjTablePanel.getSelectedProject());
 		prjTablePanel.updateUI();
 		ppDeleteProject.setEnabled(false);
 		ppOpenProject.setEnabled(false);
 	}
 
-	void ppNewProject_actionPerformed(ActionEvent e) {
+    /**
+     * Pp new project action performed.
+     *
+     * @param e the e
+     */
+    void ppNewProject_actionPerformed(ActionEvent e) {
 		ProjectDialog.newProject();
 		prjTablePanel.updateUI();
 	}
 
-	void ppDeleteProject_actionPerformed(ActionEvent e) {
+    /**
+     * Pp delete project action performed.
+     *
+     * @param e the e
+     */
+    void ppDeleteProject_actionPerformed(ActionEvent e) {
 		String msg;
 		Project prj;
 		Vector toremove = new Vector();
@@ -399,7 +504,12 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		setMenuEnabled(false);
 	}
 
-	void ppProperties_actionPerformed(ActionEvent e) {
+    /**
+     * Pp properties action performed.
+     *
+     * @param e the e
+     */
+    void ppProperties_actionPerformed(ActionEvent e) {
 		Project prj = prjTablePanel.getSelectedProject();
 		ProjectDialog dlg =
 			new ProjectDialog(null, Local.getString("Project properties"));
@@ -441,14 +551,24 @@ public class ProjectsPanel extends JPanel implements ExpandablePanel {
 		 */
 	}
 
-	void ppShowActiveOnlyChB_actionPerformed(ActionEvent e) {
+    /**
+     * Pp show active only ch b action performed.
+     *
+     * @param e the e
+     */
+    void ppShowActiveOnlyChB_actionPerformed(ActionEvent e) {
 		prjTablePanel.setShowActiveOnly(ppShowActiveOnlyChB.isSelected());
 		Context.put(
 			"SHOW_ACTIVE_PROJECTS_ONLY",
 			new Boolean(ppShowActiveOnlyChB.isSelected()));
 	}
 
-	void setMenuEnabled(boolean enabled) {
+    /**
+     * Sets menu enabled.
+     *
+     * @param enabled the enabled
+     */
+    void setMenuEnabled(boolean enabled) {
 		ppDeleteProject.setEnabled(enabled);
 		ppOpenProject.setEnabled(enabled);
 		ppProperties.setEnabled(enabled);		

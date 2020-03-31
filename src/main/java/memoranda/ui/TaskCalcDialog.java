@@ -19,24 +19,71 @@ import javax.swing.SwingConstants;
 
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Task calc dialog.
+ */
 /*$Id: TaskCalcDialog.java,v 1.3 2005/06/10 18:36:24 velhonoja Exp $*/
 public class TaskCalcDialog extends JDialog {
-	JPanel topPanel = new JPanel(new BorderLayout());
-	JPanel generalPanel = new JPanel(new GridBagLayout());
-	GridBagConstraints gbc;
+    /**
+     * The Top panel.
+     */
+    JPanel topPanel = new JPanel(new BorderLayout());
+    /**
+     * The General panel.
+     */
+    JPanel generalPanel = new JPanel(new GridBagLayout());
+    /**
+     * The Gbc.
+     */
+    GridBagConstraints gbc;
+    /**
+     * The Cancelled.
+     */
     public boolean CANCELLED = true;
 
-	ButtonGroup closeGroup = new ButtonGroup();
-	JCheckBox compactDatesChB = new JCheckBox();
-	JCheckBox calcEffortChB = new JCheckBox();
-	JCheckBox calcCompletionChB = new JCheckBox();
-	JButton okB = new JButton();
-	JButton cancelB = new JButton();
-	JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-	JLabel label1 = new JLabel();
-	JLabel label2 = new JLabel();
+    /**
+     * The Close group.
+     */
+    ButtonGroup closeGroup = new ButtonGroup();
+    /**
+     * The Compact dates ch b.
+     */
+    JCheckBox compactDatesChB = new JCheckBox();
+    /**
+     * The Calc effort ch b.
+     */
+    JCheckBox calcEffortChB = new JCheckBox();
+    /**
+     * The Calc completion ch b.
+     */
+    JCheckBox calcCompletionChB = new JCheckBox();
+    /**
+     * The Ok b.
+     */
+    JButton okB = new JButton();
+    /**
+     * The Cancel b.
+     */
+    JButton cancelB = new JButton();
+    /**
+     * The Bottom panel.
+     */
+    JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    /**
+     * The Label 1.
+     */
+    JLabel label1 = new JLabel();
+    /**
+     * The Label 2.
+     */
+    JLabel label2 = new JLabel();
 
-	public TaskCalcDialog(Frame frame) {
+    /**
+     * Instantiates a new Task calc dialog.
+     *
+     * @param frame the frame
+     */
+    public TaskCalcDialog(Frame frame) {
 		super(frame, Local.getString("Preferences"), true);
 		try {
 			jbInit();
@@ -45,10 +92,19 @@ public class TaskCalcDialog extends JDialog {
 		}
 	}
 
-	public TaskCalcDialog() {
+    /**
+     * Instantiates a new Task calc dialog.
+     */
+    public TaskCalcDialog() {
 		this(null);
 	}
-	void jbInit() throws Exception {
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 	    this.setResizable(false);
 		label1.setHorizontalAlignment(SwingConstants.RIGHT);
 		label1.setText(Local.getString("Calculate and update data for this task using data from sub tasks."));
@@ -137,18 +193,31 @@ public class TaskCalcDialog extends JDialog {
 
 	}
 
-	void setValues() {
+    /**
+     * Sets values.
+     */
+    void setValues() {
 		calcCompletionChB.setSelected(true);
 		compactDatesChB.setSelected(true);
 		calcEffortChB.setSelected(true);
 	}
 
-	void okB_actionPerformed(ActionEvent e) {
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
+    void okB_actionPerformed(ActionEvent e) {
 		CANCELLED = false;
 		this.dispose();
 	}
 
-	void cancelB_actionPerformed(ActionEvent e) {
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
+    void cancelB_actionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 }

@@ -18,7 +18,7 @@ import nu.xom.Attribute;
 import nu.xom.Element;
 
 /**
- * 
+ * The type Event.
  */
 /*$Id: EventImpl.java,v 1.9 2004/10/06 16:00:11 ivanrise Exp $*/
 public class EventImpl implements Event, Comparable {
@@ -27,6 +27,8 @@ public class EventImpl implements Event, Comparable {
 
     /**
      * Constructor for EventImpl.
+     *
+     * @param elem the elem
      */
     public EventImpl(Element elem) {
         _elem = elem;

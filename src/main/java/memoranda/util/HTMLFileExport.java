@@ -23,21 +23,52 @@ import org.xml.sax.InputSource;
 import main.java.memoranda.Note;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
+
 /**
- * 
+ * The type Html file export.
  */
 /*$Id: HTMLFileExport.java,v 1.7 2005/07/05 08:17:28 alexeya Exp $*/
 public class HTMLFileExport {
-    
+
+    /**
+     * The Charset.
+     */
     String charset = "";
+    /**
+     * The F.
+     */
     File f = null;
+    /**
+     * The Doc.
+     */
     HTMLDocument doc;
+    /**
+     * The Note.
+     */
     Note note = null;
+    /**
+     * The Xhtml.
+     */
     boolean xhtml = false;
+    /**
+     * The Num.
+     */
     boolean num = false;
+    /**
+     * The Templ file.
+     */
     String templFile = null;
+
     /**
      * Constructor for HTMLFileExport.
+     *
+     * @param f         the f
+     * @param doc       the doc
+     * @param note      the note
+     * @param charset   the charset
+     * @param num       the num
+     * @param templFile the templ file
+     * @param xhtml     the xhtml
      */
     public HTMLFileExport(File f, Document doc, Note note, String charset, boolean num, String templFile, boolean xhtml) {
         this.f = f;
@@ -152,8 +183,14 @@ public class HTMLFileExport {
                         + java.util.regex.Pattern.CASE_INSENSITIVE).split(text)[0];
         return text;
      }
-     
-     public static String convertToXHTML(String in) {       
+
+    /**
+     * Convert to xhtml string.
+     *
+     * @param in the in
+     * @return the string
+     */
+    public static String convertToXHTML(String in) {
         SAXParser parser = new SAXParser();
         InputSource source;
         OutputFormat outputFormat = new OutputFormat();

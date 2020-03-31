@@ -17,25 +17,44 @@ import nu.xom.Element;
 import nu.xom.Elements;
 
 /**
- * @author ryanho
+ * The type Task list versioning.
  *
- * Upgrades data files from older versions to new versions
+ * @author ryanho  Upgrades data files from older versions to new versions
  */
 public class TaskListVersioning {
-    
+
+    /**
+     * The constant VERSIONS.
+     */
     public static final String[] VERSIONS = new String[]{
             "-//Memoranda//DTD Tasklist 1.0//EN",
             "-//Memoranda//DTD Tasklist 1.1d1//EN"
     };
 
+    /**
+     * Gets current doc type.
+     *
+     * @return the current doc type
+     */
     public static DocType getCurrentDocType() {
         return new DocType("tasklist",TaskListVersioning.getCurrentVersionPublicId(),"tasklist.dtd");
     }
-    
+
+    /**
+     * Gets current version public id.
+     *
+     * @return the current version public id
+     */
     public static String getCurrentVersionPublicId() {
         return VERSIONS[VERSIONS.length - 1];
     }
-        
+
+    /**
+     * Gets index of version.
+     *
+     * @param publicId the public id
+     * @return the index of version
+     */
     public static int getIndexOfVersion(String publicId) {
         if (publicId == null) {
             // earlier versions do not have public ID, it is version 1.0 which is the first entry
@@ -49,7 +68,13 @@ public class TaskListVersioning {
         Util.debug("Version " + publicId + " not found");
         return -1;
     }
-    
+
+    /**
+     * Upgrade task list boolean.
+     *
+     * @param publicId the public id
+     * @return the boolean
+     */
     public static boolean upgradeTaskList(String publicId) {
         int vid = getIndexOfVersion(publicId);
         

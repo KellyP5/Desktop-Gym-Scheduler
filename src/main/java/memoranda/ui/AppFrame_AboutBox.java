@@ -17,22 +17,44 @@ import javax.swing.JLayeredPane;
 import main.java.memoranda.util.Local;
 
 /**
- * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-
 /*$Id: AppFrame_AboutBox.java,v 1.13 2005/11/09 22:38:07 alexeya Exp $*/
 public class AppFrame_AboutBox extends JDialog implements ActionListener {
 
-  JButton button1 = new JButton();
-  JLabel imageLabel = new JLabel();
-  JLabel lblText = new JLabel();
-  
-  String product = "Version "+App.VERSION_INFO + " (Build " + App.BUILD_INFO + ")";
-  String copyright = "Copyright (c) 2003, 2004 Memoranda team";
-  String url = App.WEBSITE_URL;
-  String developersHead = Local.getString("Developers") + ":";
-  String[] developers = {
+    /**
+     * The Button 1.
+     */
+    JButton button1 = new JButton();
+    /**
+     * The Image label.
+     */
+    JLabel imageLabel = new JLabel();
+    /**
+     * The Lbl text.
+     */
+    JLabel lblText = new JLabel();
+
+    /**
+     * The Product.
+     */
+    String product = "Version "+App.VERSION_INFO + " (Build " + App.BUILD_INFO + ")";
+    /**
+     * The Copyright.
+     */
+    String copyright = "Copyright (c) 2003, 2004 Memoranda team";
+    /**
+     * The Url.
+     */
+    String url = App.WEBSITE_URL;
+    /**
+     * The Developers head.
+     */
+    String developersHead = Local.getString("Developers") + ":";
+    /**
+     * The Developers.
+     */
+    String[] developers = {
               "Alex Alishevskikh (alexeya@users.sourceforge.net)",
               "Patrick Bielen (bielen@stafa.nl)",
               "Ryan Ho (rawsushi@users.sourceforge.net)",
@@ -40,8 +62,14 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
               "Jyrki Velhonoja (velhonoja@kapsi.fi>)",
   			  "Jeremy Whitlock (jwhitlock@starprecision.com)"              
   };
-  String othersHead = Local.getString("Other contributors") + ":";
-  String[] others = {
+    /**
+     * The Others head.
+     */
+    String othersHead = Local.getString("Other contributors") + ":";
+    /**
+     * The Others.
+     */
+    String[] others = {
               "Thomas Chuffart (informatique@pierrelouiscarlier.fr)",
               "Willy Dobe (wdobe@gmx.de)",
               "Yunjie Liu (liu-610@163.com)",
@@ -51,12 +79,26 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
               "Milena Vitali-Charewicz (milo22370@yahoo.com)",
               "Toru Watanabe (t-wata@cablenet.ne.jp)"                            
  };
-    
-  JLayeredPane layeredPane;
-  ImageIcon image;
-  JLabel imgLabel;
-                                   
-  public AppFrame_AboutBox(Frame parent) {
+
+    /**
+     * The Layered pane.
+     */
+    JLayeredPane layeredPane;
+    /**
+     * The Image.
+     */
+    ImageIcon image;
+    /**
+     * The Img label.
+     */
+    JLabel imgLabel;
+
+    /**
+     * Instantiates a new App frame about box.
+     *
+     * @param parent the parent
+     */
+    public AppFrame_AboutBox(Frame parent) {
     super(parent);
     enableEvents(AWTEvent.WINDOW_EVENT_MASK);
     try {
@@ -112,7 +154,11 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     }
     super.processWindowEvent(e);
   }
-  //Close the dialog
+
+    /**
+     * Cancel.
+     */
+//Close the dialog
   void cancel() {
     dispose();
   }

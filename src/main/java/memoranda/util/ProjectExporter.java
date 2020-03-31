@@ -17,22 +17,62 @@ import main.java.memoranda.ui.*;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
 
 /**
- *  
+ * The type Project exporter.
  */
 /* $Id: ProjectExporter.java,v 1.7 2005/07/05 08:17:28 alexeya Exp $ */
 public class ProjectExporter {
 
+    /**
+     * The Chunked.
+     */
     static boolean _chunked = false;
+    /**
+     * The Num.
+     */
     static boolean _num = false;
+    /**
+     * The Xhtml.
+     */
     static boolean _xhtml = false;
+    /**
+     * The Copy images.
+     */
     static boolean _copyImages = false;
+    /**
+     * The Output.
+     */
     static File output = null;
+    /**
+     * The Charset.
+     */
     static String _charset = null;
+    /**
+     * The Titles as headers.
+     */
     static boolean _titlesAsHeaders = false;
+    /**
+     * The Navigation.
+     */
     static boolean _navigation = false;
-    
+
+    /**
+     * The Charset string.
+     */
     static String charsetString = "\n";
 
+    /**
+     * Export.
+     *
+     * @param prj             the prj
+     * @param f               the f
+     * @param charset         the charset
+     * @param xhtml           the xhtml
+     * @param chunked         the chunked
+     * @param navigation      the navigation
+     * @param num             the num
+     * @param titlesAsHeaders the titles as headers
+     * @param copyImages      the copy images
+     */
     public static void export(Project prj, File f, String charset,
             boolean xhtml, boolean chunked, boolean navigation, boolean num,
             boolean titlesAsHeaders, boolean copyImages) {

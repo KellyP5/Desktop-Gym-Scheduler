@@ -26,26 +26,86 @@ import javax.swing.event.CaretEvent;
 
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Add resource dialog.
+ */
 /*$Id: AddResourceDialog.java,v 1.12 2007/03/20 06:21:46 alexeya Exp $*/
 public class AddResourceDialog extends JDialog {
+    /**
+     * The Dialog title panel.
+     */
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    /**
+     * The Header.
+     */
     JLabel header = new JLabel();
+    /**
+     * The Button group 1.
+     */
     ButtonGroup buttonGroup1 = new ButtonGroup();
+    /**
+     * The Area panel.
+     */
     JPanel areaPanel = new JPanel(new GridBagLayout());
+    /**
+     * The Gbc.
+     */
     GridBagConstraints gbc;
+    /**
+     * The Local file rb.
+     */
     public JRadioButton localFileRB = new JRadioButton();
+    /**
+     * The Project file cb.
+     */
     public JCheckBox projectFileCB = new JCheckBox("Copy file to memoranda", false);
+    /**
+     * The J label 1.
+     */
     JLabel jLabel1 = new JLabel();
+    /**
+     * The Path field.
+     */
     public JTextField pathField = new JTextField();
+    /**
+     * The Browse b.
+     */
     JButton browseB = new JButton();
+    /**
+     * The J label 2.
+     */
     JLabel jLabel2 = new JLabel();
+    /**
+     * The Inet shortcut rb.
+     */
     public JRadioButton inetShortcutRB = new JRadioButton();
+    /**
+     * The Url field.
+     */
     public JTextField urlField = new JTextField();
+    /**
+     * The Buttons panel.
+     */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 15));
+    /**
+     * The Ok b.
+     */
     JButton okB = new JButton();
+    /**
+     * The Cancel b.
+     */
     JButton cancelB = new JButton();
+    /**
+     * The Cancelled.
+     */
     public boolean CANCELLED = true;
 
+    /**
+     * Instantiates a new Add resource dialog.
+     *
+     * @param frame the frame
+     * @param title the title
+     */
     public AddResourceDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
@@ -58,10 +118,11 @@ public class AddResourceDialog extends JDialog {
         }
     }
 
-	/**
-	 * setup user interface and init dialog
-	 */
-	 
+    /**
+     * setup user interface and init dialog
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
 		this.setResizable(false);
         dialogTitlePanel.setBackground(Color.WHITE);
@@ -190,29 +251,32 @@ public class AddResourceDialog extends JDialog {
         this.getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
     }
 
-	/**
-	 * set CANCELLED variable to false so we can know the user 
-	 * pressed the ok buton and close this dialog.
-	 */
-	 
+    /**
+     * set CANCELLED variable to false so we can know the user
+     * pressed the ok buton and close this dialog.
+     *
+     * @param e the e
+     */
     void okB_actionPerformed(ActionEvent e) {
         CANCELLED = false;
 		this.dispose();
     }
 
-	/**
-	 * close the dialog window
-	 */
-	 
+    /**
+     * close the dialog window
+     *
+     * @param e the e
+     */
     void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
 
-	/**
-	 * enable localRB fields. Request focus for the text field 
-	 * so the user can start typing and set the pathField text selected
-	 */
-	 
+    /**
+     * enable localRB fields. Request focus for the text field
+     * so the user can start typing and set the pathField text selected
+     *
+     * @param e the e
+     */
     void localFileRB_actionPerformed(ActionEvent e) {
 		enableFields();
         checkOkEnabled();
@@ -221,11 +285,12 @@ public class AddResourceDialog extends JDialog {
 		pathField.requestFocus();
 	}
 
-	/**
-	 * enable inetShorcutRB fields. Request focus for the text field 
-	 * so the user can start typing and set the urlField text selected
-	 */
-	
+    /**
+     * enable inetShorcutRB fields. Request focus for the text field
+     * so the user can start typing and set the urlField text selected
+     *
+     * @param e the e
+     */
     void inetShortcutRB_actionPerformed(ActionEvent e) {
 		enableFields();
         checkOkEnabled();
@@ -234,10 +299,11 @@ public class AddResourceDialog extends JDialog {
 		urlField.requestFocus();
 	}
 
-	/**
-	 * setup the JFileChooser so the user can select the resource file
-	 */
-	 
+    /**
+     * setup the JFileChooser so the user can select the resource file
+     *
+     * @param e the e
+     */
     void browseB_actionPerformed(ActionEvent e) {
         // Fix until Sun's JVM supports more locales...
         UIManager.put("FileChooser.lookInLabelText", 
@@ -282,38 +348,38 @@ public class AddResourceDialog extends JDialog {
         checkOkEnabled();
     }
 
-	/**
-	 * disable the ok button if pathField is empty
-	 */
-	 
+    /**
+     * disable the ok button if pathField is empty
+     *
+     * @param e the e
+     */
     void pathField_caretUpdate(CaretEvent e) {
         checkOkEnabled();
     }
 
-	/**
-	 * disable the ok button if urlField is empty
-	 */
-	
-    void urlField_caretUpdate(CaretEvent e) {        
+    /**
+     * disable the ok button if urlField is empty
+     *
+     * @param e the e
+     */
+    void urlField_caretUpdate(CaretEvent e) {
         checkOkEnabled();
     }
-    
-	/**
-	 * do not enable the ok button until the text field is not empty.
-	 */
-	 
-    void checkOkEnabled() {        
+
+    /**
+     * do not enable the ok button until the text field is not empty.
+     */
+    void checkOkEnabled() {
          okB.setEnabled(
             (localFileRB.isSelected() && pathField.getText().length() > 0) ||
             (inetShortcutRB.isSelected() && urlField.getText().length() > 0)
          );
     }
 
-	/** 
-	 * enable and disable fields when user selects the radio buttons options
-	 */
-	 
-	void enableFields() {
+    /**
+     * enable and disable fields when user selects the radio buttons options
+     */
+    void enableFields() {
 		 pathField.setEnabled(localFileRB.isSelected());
 		 jLabel1.setEnabled(localFileRB.isSelected());
 		 browseB.setEnabled(localFileRB.isSelected());

@@ -21,7 +21,6 @@ import main.java.memoranda.util.Configuration;
 public class Start {
     
     static App app = null;
-    static LoginBox login = null;
     
     static int DEFAULT_PORT = 19432;
     static boolean checkIfAlreadyStartet = true;

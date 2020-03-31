@@ -58,16 +58,24 @@ I would also advise you to already fill out the Contributions section (End of sp
 | Date  | Attendees  |Minutes   | Burndown Info | TravisCI info | Additional Info  |
 |---|---|---|---|--|--|
 |3/28|On call: Kelly P, Kelly E, Alex, Rita, Kevin S. On slack text: Kevin W  | 15  | 26% | N/A  | N/A  |
-|   |   |   |   |  |  |
+|3/31|On call: Kelly P, Kelly E, Alex, Rita, Kevin S, Kevin W   | 30 | 72% | N/A | N/A |
 |   |   |   |   |  |  |
 
 ### Meeting Summary:
 
 > Add rows as needed and add the number how many meetings they attended:
 
-   Name1 : Num Meetings
+   Kelly Petrone : 2 Meetings
 
-   Name2 : Num Meetings
+   Alex Mack : 2 Meetings
+   
+   Margaryta Barrilleaux : 2 Meetings
+   
+   Kelly Ellis : 2 Meetings
+   
+   Kevin Somers : 2 Meetings
+   
+   Kevin Wilkinson : 1 Meeting (1 asynchronously)
 
 
 ## 3: After the Sprint
@@ -126,7 +134,137 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 > In this section I want you to point me to your main contributions (each of you individually). Some of the topcs are not needed for the first deliverables (you should know which things you should have done in this Sprint, if you don't then you have probably missed something):
 
-#### Team member A:
+#### Kelly Petrone:
+  **Links to GitHub commits with main code contribution (up to 5 links):
+
+    - link1
+    - link2
+
+   **GitHub links to your Unit Tests (up to 3 links):
+
+    - link1
+    - link2
+
+  **GitHub links to your Code Reviews (up to 3 links):
+
+    - link1
+    - link2
+
+  **How did you contribute to Static Analysis:
+
+    - link1
+    - link2
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+
+    - info
+    
+    
+#### Alex Mack:
+  **Links to GitHub commits with main code contribution (up to 5 links):
+
+    - link1
+    - link2
+
+   **GitHub links to your Unit Tests (up to 3 links):
+
+    - link1
+    - link2
+
+  **GitHub links to your Code Reviews (up to 3 links):
+
+    - link1
+    - link2
+
+  **How did you contribute to Static Analysis:
+
+    - link1
+    - link2
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+
+    - info
+    
+    
+#### Margaryta Barrilleaux:
+  **Links to GitHub commits with main code contribution (up to 5 links):
+
+    - link1
+    - link2
+
+   **GitHub links to your Unit Tests (up to 3 links):
+
+    - link1
+    - link2
+
+  **GitHub links to your Code Reviews (up to 3 links):
+
+    - link1
+    - link2
+
+  **How did you contribute to Static Analysis:
+
+    - link1
+    - link2
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+
+    - info
+    
+    
+#### Kelly Ellis:
+  **Links to GitHub commits with main code contribution (up to 5 links):
+
+    - link1
+    - link2
+
+   **GitHub links to your Unit Tests (up to 3 links):
+
+    - link1
+    - link2
+
+  **GitHub links to your Code Reviews (up to 3 links):
+
+    - link1
+    - link2
+
+  **How did you contribute to Static Analysis:
+
+    - link1
+    - link2
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+
+    - info
+    
+    
+#### Kevin Somers:
+  **Links to GitHub commits with main code contribution (up to 5 links):
+
+    - link1
+    - link2
+
+   **GitHub links to your Unit Tests (up to 3 links):
+
+    - link1
+    - link2
+
+  **GitHub links to your Code Reviews (up to 3 links):
+
+    - link1
+    - link2
+
+  **How did you contribute to Static Analysis:
+
+    - link1
+    - link2
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+
+    - info
+    
+    
+#### Kevin Wilkinson:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
     - link1

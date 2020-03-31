@@ -2,13 +2,14 @@ package main.java.memoranda.gym;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class Class {
-    ArrayList<User> users;
-    Date startTime;
-    Integer duration;
-    Integer roomNumber;
-    Integer maxClassSize;
+    public ArrayList<User> users;
+    public Date startTime;
+    public Integer duration;
+    public Integer roomNumber;
+    public Integer maxClassSize;
 
     /**
      * Constructor for Class
@@ -74,7 +75,33 @@ public class Class {
         return this.roomNumber;
     }
 
+    /**
+     * Adds a user to a class.
+     * @param user
+     * @return true if successful.
+     */
+    public boolean addUser(User user){
+        if(this.users.size()<this.maxClassSize){
+            this.users.add(user);
+            return true;
+        }
+        return false;
+
+    }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Class aClass = (Class) o;
+        return users.equals(aClass.users) &&
+                startTime.equals(aClass.startTime) &&
+                roomNumber.equals(aClass.roomNumber);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(users, startTime, duration, roomNumber, maxClassSize);
+    }
 }

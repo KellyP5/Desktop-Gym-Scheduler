@@ -10,33 +10,85 @@ public class ManageClasses {
         this.classes = new ArrayList<>();
     }
 
+    /**
+     * Creates a group class.
+     * @param startTime
+     * @param duration
+     * @param roomNumber
+     * @return true if successful.
+     */
     public boolean createGroupClass(Date startTime,Integer duration, Integer roomNumber ){
-        //TODO
+        Class newClass = new Class(startTime,duration,roomNumber,20);
+        if(!classes.contains(newClass)){
+            classes.add(newClass);
+            return true;
+        }
         return false;
     }
 
+    /**
+     * Creates a private class.
+     * @param startTime
+     * @param duration
+     * @param roomNumber
+     * @return true on being successful.
+     */
     public boolean createPrivateClass(Date startTime,Integer duration, Integer roomNumber ){
-        //TODO
+        Class newClass = new Class(startTime,duration,roomNumber,1);
+        if(!classes.contains(newClass)){
+            classes.add(newClass);
+            return true;
+        }
         return false;
     }
 
+    /**
+     * Gets a class.
+     * @param startTime
+     * @param roomNumber
+     * @return returns null if unsuccessful
+     */
     public Class getClass(Date startTime, Integer roomNumber){
-        //TODO
+        for(int i = 0;i< classes.size();i++){
+            if(classes.get(i).getTime().compareTo(startTime)==0)
+                if(classes.get(i).getRoomNumber().equals(roomNumber))
+                    return classes.get(i);
+        }
         return null;
     }
 
+    /**
+     * gets all the classes.
+     * @return
+     */
     public ArrayList<Class> getClasses(){
-        //TODO
-        return null;
+        return this.classes;
     }
 
+    /**
+     * Gets all the users from a particular class.
+     * @param startTime
+     * @param roomNumber
+     * @return
+     */
     public ArrayList<User> getUsers(Date startTime, Integer roomNumber){
-        //TODO
-        return null;
+        Class _class = getClass(startTime,roomNumber);
+        return _class.getUsers();
     }
 
-    public boolean assignTrainer(String email, Class _class){
-        //TODO
+    /**
+     * Assigns a trainer to a class.
+     * @param user
+     * @param _class
+     * @return true on success.
+     */
+    public boolean assignTrainer(User user, Class _class){
+        for(int i = 0;i< this.classes.size();i++){
+            if(this.classes.get(i).equals(_class)){
+                this.classes.get(i).addUser(user);
+                return true;
+            }
+        }
         return false;
     }
 

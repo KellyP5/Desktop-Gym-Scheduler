@@ -114,7 +114,7 @@ public class WorkPanel extends JPanel {
 		panel.setLayout(cardLayout1);
 
 		agendaB.setBackground(Color.white);
-		agendaB.setMaximumSize(new Dimension(60, 80));
+		agendaB.setMaximumSize(new Dimension(80, 60));
 		agendaB.setMinimumSize(new Dimension(30, 30));
 
 		agendaB.setFont(new java.awt.Font("Dialog", 1, 10));
@@ -139,9 +139,11 @@ public class WorkPanel extends JPanel {
 		agendaB.setMargin(new Insets(0, 0, 0, 0));
 		agendaB.setSelected(true);
 
+
 		classesB.setBackground(Color.white);
 		classesB.setMaximumSize(new Dimension(60, 80));
 		classesB.setMinimumSize(new Dimension(30, 30));
+
 
 		classesB.setFont(new java.awt.Font("Dialog", 1, 10));
 		classesB.setPreferredSize(new Dimension(50, 50));
@@ -187,13 +189,13 @@ public class WorkPanel extends JPanel {
 		tasksB.setPreferredSize(new Dimension(50, 50));
 		tasksB.setMinimumSize(new Dimension(30, 30));
 		tasksB.setOpaque(false);
-		tasksB.setMaximumSize(new Dimension(60, 80));
+		tasksB.setMaximumSize(new Dimension(80, 60));
 		tasksB.setBackground(Color.white);
 
 		notesB.setFont(new java.awt.Font("Dialog", 1, 10));
 		notesB.setBackground(Color.white);
 		notesB.setBorder(null);
-		notesB.setMaximumSize(new Dimension(60, 80));
+		notesB.setMaximumSize(new Dimension(80, 60));
 		notesB.setMinimumSize(new Dimension(30, 30));
 		notesB.setOpaque(false);
 		notesB.setPreferredSize(new Dimension(60, 50));
@@ -239,7 +241,7 @@ public class WorkPanel extends JPanel {
 		filesB.setPreferredSize(new Dimension(50, 50));
 		filesB.setMinimumSize(new Dimension(30, 30));
 		filesB.setOpaque(false);
-		filesB.setMaximumSize(new Dimension(60, 80));
+		filesB.setMaximumSize(new Dimension(80, 60));
 		filesB.setBackground(Color.white);
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);

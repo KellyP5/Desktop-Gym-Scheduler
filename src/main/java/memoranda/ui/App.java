@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.util.Configuration;
+//import org.swingexplorer.Log;
 
 /**
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -19,6 +20,7 @@ import main.java.memoranda.util.Configuration;
 /*$Id: App.java,v 1.28 2007/03/20 06:21:46 alexeya Exp $*/
 public class App {
 	// boolean packFrame = false;
+
 
     /**
      * The Frame.
@@ -37,6 +39,8 @@ public class App {
      * The constant WEBSITE_URL.
      */
     public static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
+
+
 
 	private JFrame splash = null;
 
@@ -122,16 +126,21 @@ public class App {
 		EventsScheduler.init();
 		frame = new AppFrame();
 		if (fullmode) {
-			init();
+			login = new LoginBox();
+			//init();
 		}
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			splash.dispose();
 	}
 
+
     /**
      * Init.
      */
     void init() {
+
+
+
 		/*
 		 * if (packFrame) { frame.pack(); } else { frame.validate(); }
 		 * 
@@ -185,7 +194,7 @@ public class App {
 	private void showSplash() {
 		splash = new JFrame();
 		ImageIcon spl;
-		spl = new ImageIcon(App.class.getResource("/ui/splash.png"));
+		spl = new ImageIcon(App.class.getResource("/ui/splash.png")); //name is included on the logo
 		JLabel l = new JLabel();
 		l.setSize(400, 300);
 		l.setIcon(spl);

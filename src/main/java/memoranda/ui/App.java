@@ -12,6 +12,7 @@ import javax.swing.UIManager;
 
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.util.Configuration;
+//import org.swingexplorer.Log;
 
 /**
  * 
@@ -23,6 +24,7 @@ public class App {
 	// boolean packFrame = false;
 
 	static AppFrame frame = null;
+	static LoginBox login = null;
 	
 	public static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
 	public static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
@@ -93,13 +95,14 @@ public class App {
 		EventsScheduler.init();
 		frame = new AppFrame();
 		if (fullmode) {
-			init();
+			login = new LoginBox();
+			//init();
 		}
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			splash.dispose();
 	}
 
-	void init() {
+	static void init() {
 		/*
 		 * if (packFrame) { frame.pack(); } else { frame.validate(); }
 		 * 

@@ -40,33 +40,101 @@ import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.Util;
 
+/**
+ * The type Task panel.
+ */
 /*$Id: TaskPanel.java,v 1.27 2007/01/17 20:49:12 killerjoe Exp $*/
 public class TaskPanel extends JPanel {
+    /**
+     * The Border layout 1.
+     */
     BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The History back b.
+     */
     JButton historyBackB = new JButton();
+    /**
+     * The Tasks tool bar.
+     */
     JToolBar tasksToolBar = new JToolBar();
+    /**
+     * The History forward b.
+     */
     JButton historyForwardB = new JButton();
+    /**
+     * The New task b.
+     */
     JButton newTaskB = new JButton();
+    /**
+     * The Sub task b.
+     */
     JButton subTaskB = new JButton();
+    /**
+     * The Edit task b.
+     */
     JButton editTaskB = new JButton();
+    /**
+     * The Remove task b.
+     */
     JButton removeTaskB = new JButton();
+    /**
+     * The Complete task b.
+     */
     JButton completeTaskB = new JButton();
-    
-	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
-		
+
+    /**
+     * The Pp show active only ch b.
+     */
+    JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
+
+    /**
+     * The Scroll pane.
+     */
     JScrollPane scrollPane = new JScrollPane();
+    /**
+     * The Task table.
+     */
     TaskTable taskTable = new TaskTable();
-	JMenuItem ppEditTask = new JMenuItem();
-	JPopupMenu taskPPMenu = new JPopupMenu();
-	JMenuItem ppRemoveTask = new JMenuItem();
-	JMenuItem ppNewTask = new JMenuItem();
-	JMenuItem ppCompleteTask = new JMenuItem();
-	//JMenuItem ppSubTasks = new JMenuItem();
+    /**
+     * The Pp edit task.
+     */
+    JMenuItem ppEditTask = new JMenuItem();
+    /**
+     * The Task pp menu.
+     */
+    JPopupMenu taskPPMenu = new JPopupMenu();
+    /**
+     * The Pp remove task.
+     */
+    JMenuItem ppRemoveTask = new JMenuItem();
+    /**
+     * The Pp new task.
+     */
+    JMenuItem ppNewTask = new JMenuItem();
+    /**
+     * The Pp complete task.
+     */
+    JMenuItem ppCompleteTask = new JMenuItem();
+    /**
+     * The Pp add sub task.
+     */
+//JMenuItem ppSubTasks = new JMenuItem();
 	//JMenuItem ppParentTask = new JMenuItem();
 	JMenuItem ppAddSubTask = new JMenuItem();
-	JMenuItem ppCalcTask = new JMenuItem();
-	DailyItemsPanel parentPanel = null;
+    /**
+     * The Pp calc task.
+     */
+    JMenuItem ppCalcTask = new JMenuItem();
+    /**
+     * The Parent panel.
+     */
+    DailyItemsPanel parentPanel = null;
 
+    /**
+     * Instantiates a new Task panel.
+     *
+     * @param _parentPanel the parent panel
+     */
     public TaskPanel(DailyItemsPanel _parentPanel) {
         try {
             parentPanel = _parentPanel;
@@ -76,6 +144,12 @@ public class TaskPanel extends JPanel {
             ex.printStackTrace();
         }
     }
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         tasksToolBar.setFloatable(false);
 
@@ -442,6 +516,11 @@ public class TaskPanel extends JPanel {
 
     }
 
+    /**
+     * Edit task b action performed.
+     *
+     * @param e the e
+     */
     void editTaskB_actionPerformed(ActionEvent e) {
         Task t =
             CurrentProject.getTaskList().getTask(
@@ -488,6 +567,11 @@ public class TaskPanel extends JPanel {
         //taskTable.updateUI();
     }
 
+    /**
+     * New task b action performed.
+     *
+     * @param e the e
+     */
     void newTaskB_actionPerformed(ActionEvent e) {
         TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("New task"));
         
@@ -519,6 +603,11 @@ public class TaskPanel extends JPanel {
         //taskTable.updateUI();
     }
 
+    /**
+     * Add sub task action performed.
+     *
+     * @param e the e
+     */
     void addSubTask_actionPerformed(ActionEvent e) {
         TaskDialog dlg = new TaskDialog(App.getFrame(), Local.getString("New Task"));
         String parentTaskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
@@ -561,6 +650,11 @@ public class TaskPanel extends JPanel {
         //taskTable.updateUI();
     }
 
+    /**
+     * Calc task action performed.
+     *
+     * @param e the e
+     */
     void calcTask_actionPerformed(ActionEvent e) {
         TaskCalcDialog dlg = new TaskCalcDialog(App.getFrame());
         dlg.pack();
@@ -608,6 +702,11 @@ public class TaskPanel extends JPanel {
         //taskTable.updateUI();
     }
 
+    /**
+     * List sub tasks action performed.
+     *
+     * @param e the e
+     */
     void listSubTasks_actionPerformed(ActionEvent e) {
         String parentTaskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
         
@@ -618,6 +717,11 @@ public class TaskPanel extends JPanel {
 //        //taskTable.updateUI();
     }
 
+    /**
+     * Parent task action performed.
+     *
+     * @param e the e
+     */
     void parentTask_actionPerformed(ActionEvent e) {
 //    	String taskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
 //      
@@ -635,6 +739,11 @@ public class TaskPanel extends JPanel {
 //      //taskTable.updateUI();
   }
 
+    /**
+     * Remove task b action performed.
+     *
+     * @param e the e
+     */
     void removeTaskB_actionPerformed(ActionEvent e) {
         String msg;
         String thisTaskId = taskTable.getModel().getValueAt(taskTable.getSelectedRow(), TaskTable.TASK_ID).toString();
@@ -678,7 +787,12 @@ public class TaskPanel extends JPanel {
 
     }
 
-	void ppCompleteTask_actionPerformed(ActionEvent e) {
+    /**
+     * Pp complete task action performed.
+     *
+     * @param e the e
+     */
+    void ppCompleteTask_actionPerformed(ActionEvent e) {
 		String msg;
 		Vector tocomplete = new Vector();
 		for (int i = 0; i < taskTable.getSelectedRows().length; i++) {
@@ -698,7 +812,12 @@ public class TaskPanel extends JPanel {
 		//taskTable.updateUI();
 	}
 
-	// toggle "show active only"
+    /**
+     * Toggle show active only action performed.
+     *
+     * @param e the e
+     */
+// toggle "show active only"
 	void toggleShowActiveOnly_actionPerformed(ActionEvent e) {
 		Context.put(
 			"SHOW_ACTIVE_TASKS_ONLY",
@@ -706,6 +825,9 @@ public class TaskPanel extends JPanel {
 		taskTable.tableChanged();
 	}
 
+    /**
+     * The type Popup listener.
+     */
     class PopupListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
@@ -733,29 +855,66 @@ public class TaskPanel extends JPanel {
 
     }
 
-  void ppEditTask_actionPerformed(ActionEvent e) {
+    /**
+     * Pp edit task action performed.
+     *
+     * @param e the e
+     */
+    void ppEditTask_actionPerformed(ActionEvent e) {
     editTaskB_actionPerformed(e);
   }
-  void ppRemoveTask_actionPerformed(ActionEvent e) {
+
+    /**
+     * Pp remove task action performed.
+     *
+     * @param e the e
+     */
+    void ppRemoveTask_actionPerformed(ActionEvent e) {
     removeTaskB_actionPerformed(e);
   }
-  void ppNewTask_actionPerformed(ActionEvent e) {
+
+    /**
+     * Pp new task action performed.
+     *
+     * @param e the e
+     */
+    void ppNewTask_actionPerformed(ActionEvent e) {
     newTaskB_actionPerformed(e);
   }
 
-  void ppAddSubTask_actionPerformed(ActionEvent e) {
+    /**
+     * Pp add sub task action performed.
+     *
+     * @param e the e
+     */
+    void ppAddSubTask_actionPerformed(ActionEvent e) {
   	addSubTask_actionPerformed(e);
   }
 
-  void ppListSubTasks_actionPerformed(ActionEvent e) {
+    /**
+     * Pp list sub tasks action performed.
+     *
+     * @param e the e
+     */
+    void ppListSubTasks_actionPerformed(ActionEvent e) {
   	listSubTasks_actionPerformed(e);
   }
 
-  void ppParentTask_actionPerformed(ActionEvent e) {
+    /**
+     * Pp parent task action performed.
+     *
+     * @param e the e
+     */
+    void ppParentTask_actionPerformed(ActionEvent e) {
   	parentTask_actionPerformed(e);
   }
 
-  void ppCalcTask_actionPerformed(ActionEvent e) {
+    /**
+     * Pp calc task action performed.
+     *
+     * @param e the e
+     */
+    void ppCalcTask_actionPerformed(ActionEvent e) {
       calcTask_actionPerformed(e);
   }
 

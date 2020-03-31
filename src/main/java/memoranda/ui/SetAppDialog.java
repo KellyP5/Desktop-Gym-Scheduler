@@ -15,19 +15,55 @@ import javax.swing.event.CaretEvent;
 
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Set app dialog.
+ */
 /*$Id: SetAppDialog.java,v 1.6 2004/04/05 10:05:44 alexeya Exp $*/
 public class SetAppDialog extends JDialog {
-  FlowLayout flowLayout1 = new FlowLayout();
-  JButton cancelB = new JButton();
-  BorderLayout borderLayout2 = new BorderLayout();
-  BorderLayout borderLayout3 = new BorderLayout();
-  JPanel buttonsPanel = new JPanel();
-  public SetApplicationPanel appPanel = new SetApplicationPanel();
-  JPanel mPanel = new JPanel();
-  JButton okB = new JButton();
-  public boolean CANCELLED = true;
+    /**
+     * The Flow layout 1.
+     */
+    FlowLayout flowLayout1 = new FlowLayout();
+    /**
+     * The Cancel b.
+     */
+    JButton cancelB = new JButton();
+    /**
+     * The Border layout 2.
+     */
+    BorderLayout borderLayout2 = new BorderLayout();
+    /**
+     * The Border layout 3.
+     */
+    BorderLayout borderLayout3 = new BorderLayout();
+    /**
+     * The Buttons panel.
+     */
+    JPanel buttonsPanel = new JPanel();
+    /**
+     * The App panel.
+     */
+    public SetApplicationPanel appPanel = new SetApplicationPanel();
+    /**
+     * The M panel.
+     */
+    JPanel mPanel = new JPanel();
+    /**
+     * The Ok b.
+     */
+    JButton okB = new JButton();
+    /**
+     * The Cancelled.
+     */
+    public boolean CANCELLED = true;
 
-  public SetAppDialog(Frame frame, String title) {
+    /**
+     * Instantiates a new Set app dialog.
+     *
+     * @param frame the frame
+     * @param title the title
+     */
+    public SetAppDialog(Frame frame, String title) {
     super(frame, title, true);
     try {
       jbInit();
@@ -39,7 +75,12 @@ public class SetAppDialog extends JDialog {
   }
 
 
-  void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
     this.setResizable(false);
     cancelB.setMaximumSize(new Dimension(100, 26));
     cancelB.setMinimumSize(new Dimension(100, 26));
@@ -78,15 +119,30 @@ public class SetAppDialog extends JDialog {
     this.getContentPane().add(mPanel,  BorderLayout.CENTER);
   }
 
-  public void setDirectory(File dir) {
+    /**
+     * Sets directory.
+     *
+     * @param dir the dir
+     */
+    public void setDirectory(File dir) {
     appPanel.d = dir;
   }
 
-  void cancelB_actionPerformed(ActionEvent e) {
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
+    void cancelB_actionPerformed(ActionEvent e) {
     this.dispose();
   }
 
-  void okB_actionPerformed(ActionEvent e) {
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
+    void okB_actionPerformed(ActionEvent e) {
     File f = new File(appPanel.applicationField.getText());
     if (f.isFile()) {
       CANCELLED = false;
@@ -99,11 +155,19 @@ public class SetAppDialog extends JDialog {
     }
   }
 
-  void applicationField_caretUpdate(CaretEvent e) {
+    /**
+     * Application field caret update.
+     *
+     * @param e the e
+     */
+    void applicationField_caretUpdate(CaretEvent e) {
     checkOkEnabled();
   }
 
-  void checkOkEnabled() {
+    /**
+     * Check ok enabled.
+     */
+    void checkOkEnabled() {
     okB.setEnabled(appPanel.applicationField.getText().length() > 0);
   }
 }

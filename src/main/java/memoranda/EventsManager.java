@@ -28,21 +28,42 @@ import nu.xom.Elements;
 import nu.xom.ParentNode;
 
 /**
- *  
+ * The type Events manager.
  */
 /*$Id: EventsManager.java,v 1.11 2004/10/06 16:00:11 ivanrise Exp $*/
 public class EventsManager {
+    /**
+     * The constant NO_REPEAT.
+     */
 /*	public static final String NS_JNEVENTS =
 		"http://www.openmechanics.org/2003/jnotes-events-file";
 */
 	public static final int NO_REPEAT = 0;
-	public static final int REPEAT_DAILY = 1;
-	public static final int REPEAT_WEEKLY = 2;
-	public static final int REPEAT_MONTHLY = 3;
-	public static final int REPEAT_YEARLY = 4;
+    /**
+     * The constant REPEAT_DAILY.
+     */
+    public static final int REPEAT_DAILY = 1;
+    /**
+     * The constant REPEAT_WEEKLY.
+     */
+    public static final int REPEAT_WEEKLY = 2;
+    /**
+     * The constant REPEAT_MONTHLY.
+     */
+    public static final int REPEAT_MONTHLY = 3;
+    /**
+     * The constant REPEAT_YEARLY.
+     */
+    public static final int REPEAT_YEARLY = 4;
 
-	public static Document _doc = null;
-	static Element _root = null;
+    /**
+     * The constant _doc.
+     */
+    public static Document _doc = null;
+    /**
+     * The Root.
+     */
+    static Element _root = null;
 
 	static {
 		CurrentStorage.get().openEventsManager();
@@ -57,7 +78,13 @@ public class EventsManager {
 
 	}
 
-	public static void createSticker(String text, int prior) {
+    /**
+     * Create sticker.
+     *
+     * @param text  the text
+     * @param prior the prior
+     */
+    public static void createSticker(String text, int prior) {
 		Element el = new Element("sticker");
 		el.addAttribute(new Attribute("id", Util.generateId()));
 		el.addAttribute(new Attribute("priority", prior+""));
@@ -65,7 +92,12 @@ public class EventsManager {
 		_root.appendChild(el);
 	}
 
-	@SuppressWarnings("unchecked")
+    /**
+     * Gets stickers.
+     *
+     * @return the stickers
+     */
+    @SuppressWarnings("unchecked")
 	public static Map getStickers() {
 		Map m = new HashMap();
 		Elements els = _root.getChildElements("sticker");
@@ -76,7 +108,12 @@ public class EventsManager {
 		return m;
 	}
 
-	public static void removeSticker(String stickerId) {
+    /**
+     * Remove sticker.
+     *
+     * @param stickerId the sticker id
+     */
+    public static void removeSticker(String stickerId) {
 		Elements els = _root.getChildElements("sticker");
 		for (int i = 0; i < els.size(); i++) {
 			Element se = els.get(i);
@@ -87,7 +124,13 @@ public class EventsManager {
 		}
 	}
 
-	public static boolean isNREventsForDate(CalendarDate date) {
+    /**
+     * Is nr events for date boolean.
+     *
+     * @param date the date
+     * @return the boolean
+     */
+    public static boolean isNREventsForDate(CalendarDate date) {
 		Day d = getDay(date);
 		if (d == null)
 			return false;
@@ -96,7 +139,13 @@ public class EventsManager {
 		return false;
 	}
 
-	public static Collection getEventsForDate(CalendarDate date) {
+    /**
+     * Gets events for date.
+     *
+     * @param date the date
+     * @return the events for date
+     */
+    public static Collection getEventsForDate(CalendarDate date) {
 		Vector v = new Vector();
 		Day d = getDay(date);
 		if (d != null) {
@@ -112,7 +161,16 @@ public class EventsManager {
 		return v;
 	}
 
-	public static Event createEvent(
+    /**
+     * Create event event.
+     *
+     * @param date the date
+     * @param hh   the hh
+     * @param mm   the mm
+     * @param text the text
+     * @return the event
+     */
+    public static Event createEvent(
 		CalendarDate date,
 		int hh,
 		int mm,
@@ -129,7 +187,20 @@ public class EventsManager {
 		return new EventImpl(el);
 	}
 
-	public static Event createRepeatableEvent(
+    /**
+     * Create repeatable event event.
+     *
+     * @param type      the type
+     * @param startDate the start date
+     * @param endDate   the end date
+     * @param period    the period
+     * @param hh        the hh
+     * @param mm        the mm
+     * @param text      the text
+     * @param workDays  the work days
+     * @return the event
+     */
+    public static Event createRepeatableEvent(
 		int type,
 		CalendarDate startDate,
 		CalendarDate endDate,
@@ -159,7 +230,12 @@ public class EventsManager {
 		return new EventImpl(el);
 	}
 
-	public static Collection getRepeatableEvents() {
+    /**
+     * Gets repeatable events.
+     *
+     * @return the repeatable events
+     */
+    public static Collection getRepeatableEvents() {
 		Vector v = new Vector();
 		Element rep = _root.getFirstChildElement("repeatable");
 		if (rep == null)
@@ -170,7 +246,13 @@ public class EventsManager {
 		return v;
 	}
 
-	public static Collection getRepeatableEventsForDate(CalendarDate date) {
+    /**
+     * Gets repeatable events for date.
+     *
+     * @param date the date
+     * @return the repeatable events for date
+     */
+    public static Collection getRepeatableEventsForDate(CalendarDate date) {
 		Vector reps = (Vector) getRepeatableEvents();
 		Vector v = new Vector();
 		for (int i = 0; i < reps.size(); i++) {
@@ -220,11 +302,24 @@ public class EventsManager {
 		return v;
 	}
 
-	public static Collection getActiveEvents() {
+    /**
+     * Gets active events.
+     *
+     * @return the active events
+     */
+    public static Collection getActiveEvents() {
 		return getEventsForDate(CalendarDate.today());
 	}
 
-	public static Event getEvent(CalendarDate date, int hh, int mm) {
+    /**
+     * Gets event.
+     *
+     * @param date the date
+     * @param hh   the hh
+     * @param mm   the mm
+     * @return the event
+     */
+    public static Event getEvent(CalendarDate date, int hh, int mm) {
 		Day d = getDay(date);
 		if (d == null)
 			return null;
@@ -240,13 +335,25 @@ public class EventsManager {
 		return null;
 	}
 
-	public static void removeEvent(CalendarDate date, int hh, int mm) {
+    /**
+     * Remove event.
+     *
+     * @param date the date
+     * @param hh   the hh
+     * @param mm   the mm
+     */
+    public static void removeEvent(CalendarDate date, int hh, int mm) {
 		Day d = getDay(date);
 		if (d == null)
 			d.getElement().removeChild(getEvent(date, hh, mm).getContent());
 	}
 
-	public static void removeEvent(Event ev) {
+    /**
+     * Remove event.
+     *
+     * @param ev the ev
+     */
+    public static void removeEvent(Event ev) {
 		ParentNode parent = ev.getContent().getParent();
 		parent.removeChild(ev.getContent());
 	}
@@ -291,19 +398,41 @@ public class EventsManager {
 		return m.getDay(date.getDay());
 	}
 
-	static class Year {
-		Element yearElement = null;
+    /**
+     * The type Year.
+     */
+    static class Year {
+        /**
+         * The Year element.
+         */
+        Element yearElement = null;
 
-		public Year(Element el) {
+        /**
+         * Instantiates a new Year.
+         *
+         * @param el the el
+         */
+        public Year(Element el) {
 			yearElement = el;
 		}
 
-		public int getValue() {
+        /**
+         * Gets value.
+         *
+         * @return the value
+         */
+        public int getValue() {
 			return new Integer(yearElement.getAttribute("year").getValue())
 				.intValue();
 		}
 
-		public Month getMonth(int m) {
+        /**
+         * Gets month.
+         *
+         * @param m the m
+         * @return the month
+         */
+        public Month getMonth(int m) {
 			Elements ms = yearElement.getChildElements("month");
 			String mm = new Integer(m).toString();
 			for (int i = 0; i < ms.size(); i++)
@@ -320,7 +449,12 @@ public class EventsManager {
 			return new Month(el);
 		}
 
-		public Vector getMonths() {
+        /**
+         * Gets months.
+         *
+         * @return the months
+         */
+        public Vector getMonths() {
 			Vector v = new Vector();
 			Elements ms = yearElement.getChildElements("month");
 			for (int i = 0; i < ms.size(); i++)
@@ -328,25 +462,52 @@ public class EventsManager {
 			return v;
 		}
 
-		public Element getElement() {
+        /**
+         * Gets element.
+         *
+         * @return the element
+         */
+        public Element getElement() {
 			return yearElement;
 		}
 
 	}
 
-	static class Month {
-		Element mElement = null;
+    /**
+     * The type Month.
+     */
+    static class Month {
+        /**
+         * The M element.
+         */
+        Element mElement = null;
 
-		public Month(Element el) {
+        /**
+         * Instantiates a new Month.
+         *
+         * @param el the el
+         */
+        public Month(Element el) {
 			mElement = el;
 		}
 
-		public int getValue() {
+        /**
+         * Gets value.
+         *
+         * @return the value
+         */
+        public int getValue() {
 			return new Integer(mElement.getAttribute("month").getValue())
 				.intValue();
 		}
 
-		public Day getDay(int d) {
+        /**
+         * Gets day.
+         *
+         * @param d the d
+         * @return the day
+         */
+        public Day getDay(int d) {
 			if (mElement == null)
 				return null;
 			Elements ds = mElement.getChildElements("day");
@@ -378,7 +539,12 @@ public class EventsManager {
 			return new Day(el);
 		}
 
-		public Vector getDays() {
+        /**
+         * Gets days.
+         *
+         * @return the days
+         */
+        public Vector getDays() {
 			if (mElement == null)
 				return null;
 			Vector v = new Vector();
@@ -388,20 +554,41 @@ public class EventsManager {
 			return v;
 		}
 
-		public Element getElement() {
+        /**
+         * Gets element.
+         *
+         * @return the element
+         */
+        public Element getElement() {
 			return mElement;
 		}
 
 	}
 
-	static class Day {
-		Element dEl = null;
+    /**
+     * The type Day.
+     */
+    static class Day {
+        /**
+         * The D el.
+         */
+        Element dEl = null;
 
-		public Day(Element el) {
+        /**
+         * Instantiates a new Day.
+         *
+         * @param el the el
+         */
+        public Day(Element el) {
 			dEl = el;
 		}
 
-		public int getValue() {
+        /**
+         * Gets value.
+         *
+         * @return the value
+         */
+        public int getValue() {
 			return new Integer(dEl.getAttribute("day").getValue()).intValue();
 		}
 
@@ -409,7 +596,12 @@ public class EventsManager {
 		 * public Note getNote() { return new NoteImpl(dEl);
 		 */
 
-		public Element getElement() {
+        /**
+         * Gets element.
+         *
+         * @return the element
+         */
+        public Element getElement() {
 			return dEl;
 		}
 	}

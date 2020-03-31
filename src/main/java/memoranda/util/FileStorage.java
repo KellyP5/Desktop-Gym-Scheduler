@@ -38,14 +38,20 @@ import nu.xom.Document;
 
 
 /**
- *
+ * The type File storage.
  */
 /*$Id: FileStorage.java,v 1.15 2006/10/09 23:31:58 alexeya Exp $*/
 public class FileStorage implements Storage {
 
+    /**
+     * The constant JN_DOCPATH.
+     */
     public static String JN_DOCPATH = Util.getEnvDir();
     private HTMLEditorKit editorKit = new HTMLEditorKit();
 
+    /**
+     * Instantiates a new File storage.
+     */
     public FileStorage() {
         /*The 'MEMORANDA_HOME' key is an undocumented feature for 
           hacking the default location (Util.getEnvDir()) of the memoranda 
@@ -60,6 +66,12 @@ public class FileStorage implements Storage {
         }
     }
 
+    /**
+     * Save document.
+     *
+     * @param doc      the doc
+     * @param filePath the file path
+     */
     public static void saveDocument(Document doc, String filePath) {
         /**
          * @todo: Configurable parameters
@@ -83,11 +95,24 @@ public class FileStorage implements Storage {
         }
     }
 
+    /**
+     * Open document document.
+     *
+     * @param in the in
+     * @return the document
+     * @throws Exception the exception
+     */
     public static Document openDocument(InputStream in) throws Exception {
         Builder builder = new Builder();
         return builder.build(new InputStreamReader(in, "UTF-8"));
     }
 
+    /**
+     * Open document document.
+     *
+     * @param filePath the file path
+     * @return the document
+     */
     public static Document openDocument(String filePath) {
         try {
             return openDocument(new FileInputStream(filePath));
@@ -101,6 +126,12 @@ public class FileStorage implements Storage {
         return null;
     }
 
+    /**
+     * Document exists boolean.
+     *
+     * @param filePath the file path
+     * @return the boolean
+     */
     public static boolean documentExists(String filePath) {
         return new File(filePath).exists();
     }
@@ -213,7 +244,13 @@ public class FileStorage implements Storage {
         return "file:" + JN_DOCPATH + note.getProject().getID() + "/" + note.getId();
     }
 
-   public String getNotePath(Note note) {
+    /**
+     * Gets note path.
+     *
+     * @param note the note
+     * @return the note path
+     */
+    public String getNotePath(Note note) {
         String filename = JN_DOCPATH + note.getProject().getID() + File.separator;
 //        CalendarDate d = note.getDate();
         filename += note.getId();//d.getDay() + "-" + d.getMonth() + "-" + d.getYear();

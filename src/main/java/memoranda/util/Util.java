@@ -26,13 +26,21 @@ import main.java.memoranda.ui.ExceptionDialog;
 import java.util.Random;
 
 /**
- *
+ * The type Util.
  */
 /*$Id: Util.java,v 1.13 2007/03/20 08:22:41 alexeya Exp $*/
 public class Util {
 
-	static long seed = 0;
-	
+    /**
+     * The Seed.
+     */
+    static long seed = 0;
+
+    /**
+     * Generate id string.
+     *
+     * @return the string
+     */
     public static String generateId() {
         long seed1 = System.currentTimeMillis();
         while (seed1 == seed) 
@@ -46,6 +54,12 @@ public class Util {
                     
     }
 
+    /**
+     * Gets date stamp.
+     *
+     * @param cal the cal
+     * @return the date stamp
+     */
     public static String getDateStamp(Calendar cal) {
         return cal.get(Calendar.DAY_OF_MONTH)
             + "/"
@@ -55,10 +69,22 @@ public class Util {
 
     }
 
+    /**
+     * Gets date stamp.
+     *
+     * @param date the date
+     * @return the date stamp
+     */
     public static String getDateStamp(CalendarDate date) {
         return Util.getDateStamp(date.getCalendar());
     }
 
+    /**
+     * Parse date stamp int [ ].
+     *
+     * @param s the s
+     * @return the int [ ]
+     */
     public static int[] parseDateStamp(String s) {
         s = s.trim();
         int i1 = s.indexOf("/");
@@ -80,6 +106,11 @@ public class Util {
         return ret;*/
     }
 
+    /**
+     * Gets env dir.
+     *
+     * @return the env dir
+     */
     public static String getEnvDir() {
     	// Changed static building of getEnvDir
     	// Now system-related path-separator is used
@@ -90,10 +121,21 @@ public class Util {
         	+ ".memoranda" + File.separator;
     }
 
+    /**
+     * Gets cdata.
+     *
+     * @param s the s
+     * @return the cdata
+     */
     public static String getCDATA(String s) {
       return "<![CDATA["+s+"]]>";
     }
-    
+
+    /**
+     * Run browser.
+     *
+     * @param url the url
+     */
     public static void runBrowser(String url) {
         if (!checkBrowser())
             return;
@@ -109,7 +151,12 @@ public class Util {
                     		"(File-&gt;Preferences-&gt;Resource types).");
         }
     }
-    
+
+    /**
+     * Check browser boolean.
+     *
+     * @return the boolean
+     */
     public static boolean checkBrowser() {
         AppList appList = MimeTypesList.getAppList();
         String bpath = appList.getBrowserExec();
@@ -130,12 +177,24 @@ public class Util {
         CurrentStorage.get().storeMimeTypesList();
         return true;
     }
-    
+
+    /**
+     * Gets hours from millis.
+     *
+     * @param ms the ms
+     * @return the hours from millis
+     */
     public static String getHoursFromMillis(long ms) {
     	double numSeconds = (((double) ms) / 1000d);
     	return String.valueOf(numSeconds / 3600);
     }
-    
+
+    /**
+     * Gets millis from hours.
+     *
+     * @param hours the hours
+     * @return the millis from hours
+     */
     public static long getMillisFromHours(String hours) {
     	try {
         	double numHours = Double.parseDouble(hours);
@@ -146,7 +205,10 @@ public class Util {
     		return 0;
     	}
     }
-    
+
+    /**
+     * The Temp files.
+     */
     static Set tempFiles = new HashSet();
     
     static {
@@ -157,19 +219,32 @@ public class Util {
 					((File)i.next()).delete();				}
 			});
     }
-    
+
+    /**
+     * Gets temp file.
+     *
+     * @return the temp file
+     * @throws IOException the io exception
+     */
     public static File getTempFile() throws IOException {
     	File f = File.createTempFile("tmp", ".html", null);
     	tempFiles.add(f);
     	return f;
     }
-    
+
+    /**
+     * Debug.
+     *
+     * @param str the str
+     */
     public static void debug(String str) {
     	System.out.println("[DEBUG] " + str);
     }
 
     /**
-     * @param e
+     * Error.
+     *
+     * @param e the e
      */
     public static void error(Exception e) {
         System.out.println("[ERROR] Exception: " + e.getClass().getName());

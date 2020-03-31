@@ -10,31 +10,98 @@ import main.java.memoranda.util.Local;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The type Project export dialog.
+ */
 /*$Id: ProjectExportDialog.java,v 1.3 2004/04/05 10:05:44 alexeya Exp $*/
 public class ProjectExportDialog extends JDialog {
 
-  BorderLayout borderLayout1 = new BorderLayout();
-  JPanel jPanel2 = new JPanel();
-  public JFileChooser fileChooser = null;
-  BorderLayout borderLayout3 = new BorderLayout();
-  JPanel jPanel3 = new JPanel();
-  JButton okB = new JButton();
-  JButton cancelB = new JButton();
-  FlowLayout flowLayout1 = new FlowLayout();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The J panel 2.
+     */
+    JPanel jPanel2 = new JPanel();
+    /**
+     * The File chooser.
+     */
+    public JFileChooser fileChooser = null;
+    /**
+     * The Border layout 3.
+     */
+    BorderLayout borderLayout3 = new BorderLayout();
+    /**
+     * The J panel 3.
+     */
+    JPanel jPanel3 = new JPanel();
+    /**
+     * The Ok b.
+     */
+    JButton okB = new JButton();
+    /**
+     * The Cancel b.
+     */
+    JButton cancelB = new JButton();
+    /**
+     * The Flow layout 1.
+     */
+    FlowLayout flowLayout1 = new FlowLayout();
 
-  public boolean CANCELLED = true;
-  Border border1;
-  Border border2;
-  JPanel jPanel4 = new JPanel();
-  JPanel jPanel1 = new JPanel();
-  BorderLayout borderLayout2 = new BorderLayout();
-  JComboBox encCB = new JComboBox(new String[]{Local.getString("System default"), "UTF-8", "ANSI"});
-  JLabel jLabel1 = new JLabel();
-  GridLayout gridLayout1 = new GridLayout();
-  JCheckBox splitChB = new JCheckBox();
-  JCheckBox titlesAsHeadersChB = new JCheckBox();
+    /**
+     * The Cancelled.
+     */
+    public boolean CANCELLED = true;
+    /**
+     * The Border 1.
+     */
+    Border border1;
+    /**
+     * The Border 2.
+     */
+    Border border2;
+    /**
+     * The J panel 4.
+     */
+    JPanel jPanel4 = new JPanel();
+    /**
+     * The J panel 1.
+     */
+    JPanel jPanel1 = new JPanel();
+    /**
+     * The Border layout 2.
+     */
+    BorderLayout borderLayout2 = new BorderLayout();
+    /**
+     * The Enc cb.
+     */
+    JComboBox encCB = new JComboBox(new String[]{Local.getString("System default"), "UTF-8", "ANSI"});
+    /**
+     * The J label 1.
+     */
+    JLabel jLabel1 = new JLabel();
+    /**
+     * The Grid layout 1.
+     */
+    GridLayout gridLayout1 = new GridLayout();
+    /**
+     * The Split ch b.
+     */
+    JCheckBox splitChB = new JCheckBox();
+    /**
+     * The Titles as headers ch b.
+     */
+    JCheckBox titlesAsHeadersChB = new JCheckBox();
 
-  public ProjectExportDialog(Frame frame, String title, JFileChooser chooser) {
+    /**
+     * Instantiates a new Project export dialog.
+     *
+     * @param frame   the frame
+     * @param title   the title
+     * @param chooser the chooser
+     */
+    public ProjectExportDialog(Frame frame, String title, JFileChooser chooser) {
     super(frame, title, true);
     try {
       fileChooser = chooser;
@@ -47,7 +114,12 @@ public class ProjectExportDialog extends JDialog {
   }
 
 
-  void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
     this.setResizable(false);
 
     border1 = BorderFactory.createEmptyBorder(10,10,0,10);
@@ -108,10 +180,20 @@ public class ProjectExportDialog extends JDialog {
     jPanel4.add(titlesAsHeadersChB, null);
   }
 
-   void cancelB_actionPerformed(ActionEvent e) {
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
+    void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
 
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
     void okB_actionPerformed(ActionEvent e) {
         CANCELLED = false;
         this.dispose();

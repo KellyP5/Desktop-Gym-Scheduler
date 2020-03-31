@@ -11,15 +11,24 @@ import javax.swing.JFileChooser;
 import main.java.memoranda.util.Local;
 
 /**
+ * The type File export dialog.
  *
- * @author  Alex
+ * @author Alex
  */
 public class FileExportDialog extends javax.swing.JDialog {
-    
+
+    /**
+     * The Cancelled.
+     */
     public boolean CANCELLED = true;
-    
-    
-    /** Creates new form ExportDialog */
+
+
+    /**
+     * Creates new form ExportDialog  @param parent the parent
+     *
+     * @param title   the title
+     * @param chooser the chooser
+     */
     public FileExportDialog(java.awt.Frame parent, String title, JFileChooser chooser) {
         super(parent, title, true);
         fileChooser = chooser;
@@ -189,14 +198,29 @@ public class FileExportDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
+    /**
+     * The Nument ch b.
+     */
     public javax.swing.JCheckBox numentChB;
     private javax.swing.JButton okB;
     private javax.swing.JPanel optionsPanel;
     private javax.swing.JButton templBrowseB;
+    /**
+     * The Templ f.
+     */
     public javax.swing.JTextField templF;
     private javax.swing.JPanel templPanel;
+    /**
+     * The Usetempl ch b.
+     */
     public javax.swing.JCheckBox usetemplChB;
+    /**
+     * The Xhtml ch b.
+     */
     public javax.swing.JCheckBox xhtmlChB;
+    /**
+     * The Enc cb.
+     */
     public JComboBox encCB;
     // End of variables declaration//GEN-END:variables
     

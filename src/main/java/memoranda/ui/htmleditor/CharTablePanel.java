@@ -14,12 +14,27 @@ import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+/**
+ * The type Char table panel.
+ */
 public class CharTablePanel extends JPanel {
 
+    /**
+     * The Editor.
+     */
     JEditorPane editor;
+    /**
+     * The Border 1.
+     */
     Border border1;
+    /**
+     * The Flow layout 1.
+     */
     FlowLayout flowLayout1 = new FlowLayout();
-    
+
+    /**
+     * The Chars.
+     */
     String[] chars =
         {
             "\u00A9",
@@ -51,8 +66,16 @@ public class CharTablePanel extends JPanel {
             "\u263A",
             "\u00A0" };
 
+    /**
+     * The Buttons.
+     */
     Vector buttons = new Vector();
 
+    /**
+     * Instantiates a new Char table panel.
+     *
+     * @param ed the ed
+     */
     public CharTablePanel(JEditorPane ed) {
         try {
             editor = ed;
@@ -81,6 +104,9 @@ public class CharTablePanel extends JPanel {
 
     }
 
+    /**
+     * Create buttons.
+     */
     void createButtons() {
         for (int i = 0; i < chars.length; i++) {
             JButton button = new JButton(new CharAction(chars[i]));
@@ -102,7 +128,15 @@ public class CharTablePanel extends JPanel {
         }
     }
 
+    /**
+     * The type Char action.
+     */
     class CharAction extends AbstractAction {
+        /**
+         * Instantiates a new Char action.
+         *
+         * @param name the name
+         */
         CharAction(String name) {
             super(name);
             //putValue(Action.SHORT_DESCRIPTION, name);

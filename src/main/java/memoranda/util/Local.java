@@ -12,13 +12,21 @@ import java.io.*;
 
 /**
  * Provides locale info
- *
  */
 /*$Id: Local.java,v 1.6 2004/10/11 08:48:21 alexeya Exp $*/
 public class Local {
 
+    /**
+     * The Current locale.
+     */
     static Locale currentLocale = Locale.getDefault();
+    /**
+     * The Messages.
+     */
     static LoadableProperties messages = new LoadableProperties();
+    /**
+     * The Disabled.
+     */
     static boolean disabled = false;
 
     static {
@@ -75,14 +83,27 @@ public class Local {
         /**********************/
     }
 
+    /**
+     * Gets messages.
+     *
+     * @return the messages
+     */
     public static Hashtable getMessages() {
         return messages;
     }
 
+    /**
+     * Gets current locale.
+     *
+     * @return the current locale
+     */
     public static Locale getCurrentLocale() {
         return currentLocale;
     }
 
+    /**
+     * The Monthnames.
+     */
     static String monthnames[] =
         {
             "Jan",
@@ -98,12 +119,24 @@ public class Local {
             "November",
             "December" };
 
+    /**
+     * The Weekdaynames.
+     */
     static String weekdaynames[] =
         { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 
+    /**
+     * The Beltnames.
+     */
     static String beltnames[] =
             { "white", "yellow", "orange", "purple", "blue", "blue stripe", "green", "green stripe", "brown1", "brown2", "brown3", "black1", "black2", "black3"};
 
+    /**
+     * Gets string.
+     *
+     * @param key the key
+     * @return the string
+     */
     public static String getString(String key) {
         if ((messages == null) || (disabled)) {
             return key;
@@ -117,6 +150,11 @@ public class Local {
         }
     }
 
+    /**
+     * Get month names string [ ].
+     *
+     * @return the string [ ]
+     */
     public static String[] getMonthNames() {
         String[] localmonthnames = new String[12];
         for (int i = 0; i < 12; i++) {
@@ -125,17 +163,35 @@ public class Local {
         return localmonthnames;
     }
 
+    /**
+     * Get belt names string [ ].
+     *
+     * @return the string [ ]
+     */
     public static String[] getBeltNames() {
         return beltnames;
     }
 
+    /**
+     * Get room names string [ ].
+     *
+     * @return the string [ ]
+     */
     public static String[] getRoomNames() {
         return roomnames;
     }
 
+    /**
+     * The Roomnames.
+     */
     static String roomnames[] =
             { "Room 1", "Room 2", "Room 3", "Room 4"};
 
+    /**
+     * Get weekday names string [ ].
+     *
+     * @return the string [ ]
+     */
     public static String[] getWeekdayNames() {
         String[] localwdnames = new String[7];
         String[] localnames = weekdaynames;
@@ -157,18 +213,45 @@ public class Local {
         return localwdnames;
     }
 
+    /**
+     * Gets month name.
+     *
+     * @param m the m
+     * @return the month name
+     */
     public static String getMonthName(int m) {
         return getString(monthnames[m]);
     }
 
+    /**
+     * Gets weekday name.
+     *
+     * @param wd the wd
+     * @return the weekday name
+     */
     public static String getWeekdayName(int wd) {
         return getString(weekdaynames[wd - 1]);
     }
 
+    /**
+     * Gets date string.
+     *
+     * @param d the d
+     * @param f the f
+     * @return the date string
+     */
     public static String getDateString(Date d, int f) {
         DateFormat dateFormat = DateFormat.getDateInstance(f, currentLocale);
         return dateFormat.format(d);
     }
+
+    /**
+     * Gets date string.
+     *
+     * @param cal the cal
+     * @param f   the f
+     * @return the date string
+     */
     public static String getDateString(Calendar cal, int f) {
         /*@todo: Get date string format from locale*/
         /*String s =
@@ -184,10 +267,26 @@ public class Local {
         return getDateString(cal.getTime(), f);
     }
 
+    /**
+     * Gets date string.
+     *
+     * @param date the date
+     * @param f    the f
+     * @return the date string
+     */
     public static String getDateString(CalendarDate date, int f) {
         return getDateString(date.getDate(), f);
     }
 
+    /**
+     * Gets date string.
+     *
+     * @param m the m
+     * @param d the d
+     * @param y the y
+     * @param f the f
+     * @return the date string
+     */
     public static String getDateString(int m, int d, int y, int f) {
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MONTH, m);
@@ -198,12 +297,24 @@ public class Local {
         return getDateString(cal.getTime(), f);
     }
 
+    /**
+     * Gets time string.
+     *
+     * @param d the d
+     * @return the time string
+     */
     public static String getTimeString(Date d) {
         DateFormat dateFormat =
             DateFormat.getTimeInstance(DateFormat.SHORT, currentLocale);
         return dateFormat.format(d);
     }
 
+    /**
+     * Gets time string.
+     *
+     * @param cal the cal
+     * @return the time string
+     */
     public static String getTimeString(Calendar cal) {
         /*String h = String.valueOf(cal.get(Calendar.HOUR_OF_DAY));
         if (h.length() < 2) {
@@ -217,6 +328,13 @@ public class Local {
         return getTimeString(cal.getTime());
     }
 
+    /**
+     * Gets time string.
+     *
+     * @param hh the hh
+     * @param mm the mm
+     * @return the time string
+     */
     public static String getTimeString(int hh, int mm) {
         /*String h = String.valueOf(hh);
         if (h.length() < 2) {
@@ -233,6 +351,12 @@ public class Local {
         return getTimeString(cal.getTime());
     }
 
+    /**
+     * Parse time string int [ ].
+     *
+     * @param s the s
+     * @return the int [ ]
+     */
     public static int[] parseTimeString(String s) {
         s = s.trim();
         String h = "";

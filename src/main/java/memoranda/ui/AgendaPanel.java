@@ -42,31 +42,74 @@ import javax.swing.JOptionPane;
 
 import nu.xom.Element;
 
+/**
+ * The type Agenda panel.
+ */
 /*$Id: AgendaPanel.java,v 1.11 2005/02/15 16:58:02 rawsushi Exp $*/
 public class AgendaPanel extends JPanel {
-	BorderLayout borderLayout1 = new BorderLayout();
-	JButton historyBackB = new JButton();
-	JToolBar toolBar = new JToolBar();
-	JButton historyForwardB = new JButton();
-	JButton export = new JButton();
-	JEditorPane viewer = new JEditorPane("text/html", "");
-	String[] priorities = {"Very High","High","Medium","Low","Very Low"};
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The History back b.
+     */
+    JButton historyBackB = new JButton();
+    /**
+     * The Tool bar.
+     */
+    JToolBar toolBar = new JToolBar();
+    /**
+     * The History forward b.
+     */
+    JButton historyForwardB = new JButton();
+    /**
+     * The Export.
+     */
+    JButton export = new JButton();
+    /**
+     * The Viewer.
+     */
+    JEditorPane viewer = new JEditorPane("text/html", "");
+    /**
+     * The Priorities.
+     */
+    String[] priorities = {"Very High","High","Medium","Low","Very Low"};
 
 
+    /**
+     * The Scroll pane.
+     */
+    JScrollPane scrollPane = new JScrollPane();
 
-	JScrollPane scrollPane = new JScrollPane();
-
-	DailyItemsPanel parentPanel = null;
+    /**
+     * The Parent panel.
+     */
+    DailyItemsPanel parentPanel = null;
 
 	//	JPopupMenu agendaPPMenu = new JPopupMenu();
 	//	JCheckBoxMenuItem ppShowActiveOnlyChB = new JCheckBoxMenuItem();
 
-	Collection expandedTasks;
-	String gotoTask = null;
+    /**
+     * The Expanded tasks.
+     */
+    Collection expandedTasks;
+    /**
+     * The Goto task.
+     */
+    String gotoTask = null;
 
-	boolean isActive = true;
+    /**
+     * The Is active.
+     */
+    boolean isActive = true;
 
-	public AgendaPanel(DailyItemsPanel _parentPanel) {
+    /**
+     * Instantiates a new Agenda panel.
+     *
+     * @param _parentPanel the parent panel
+     */
+    public AgendaPanel(DailyItemsPanel _parentPanel) {
 		try {
 			parentPanel = _parentPanel;
 			jbInit();
@@ -75,7 +118,13 @@ public class AgendaPanel extends JPanel {
 			ex.printStackTrace();
 		}
 	}
-	void jbInit() throws Exception {
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 		expandedTasks = new ArrayList();
 
 		toolBar.setFloatable(false);
@@ -296,7 +345,12 @@ public class AgendaPanel extends JPanel {
 		//		toggleShowActiveOnly_actionPerformed(null);		
 	}
 
-	public void refresh(CalendarDate date) {
+    /**
+     * Refresh.
+     *
+     * @param date the date
+     */
+    public void refresh(CalendarDate date) {
 		viewer.setText(AgendaGenerator.getAgenda(date,expandedTasks));
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -311,7 +365,12 @@ public class AgendaPanel extends JPanel {
 		Util.debug("Summary updated.");
 	}
 
-	public void setActive(boolean isa) {
+    /**
+     * Sets active.
+     *
+     * @param isa the isa
+     */
+    public void setActive(boolean isa) {
 		isActive = isa;
 	}
 

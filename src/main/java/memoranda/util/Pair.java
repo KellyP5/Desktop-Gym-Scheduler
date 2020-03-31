@@ -1,25 +1,58 @@
 package main.java.memoranda.util;
  
  import nu.xom.Element;
- 
- public class Pair {
+
+/**
+ * The type Pair.
+ */
+public class Pair {
    private Element element;
    private int priority;
-   
-   public Pair(Element value, int priority){
+
+    /**
+     * Instantiates a new Pair.
+     *
+     * @param value    the value
+     * @param priority the priority
+     */
+    public Pair(Element value, int priority){
      setElement(value);
      setPriority(priority);
    }
-   public Element getElement() {
+
+    /**
+     * Gets element.
+     *
+     * @return the element
+     */
+    public Element getElement() {
      return element;
    }
-   public void setElement(Element value) {
+
+    /**
+     * Sets element.
+     *
+     * @param value the value
+     */
+    public void setElement(Element value) {
      this.element = value;
    }
-   public int getPriority() {
+
+    /**
+     * Gets priority.
+     *
+     * @return the priority
+     */
+    public int getPriority() {
      return priority;
    }
-   public void setPriority(int priority) {
+
+    /**
+     * Sets priority.
+     *
+     * @param priority the priority
+     */
+    public void setPriority(int priority) {
      this.priority = priority;
    }
  

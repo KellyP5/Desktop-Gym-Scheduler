@@ -2,6 +2,9 @@ package main.java.memoranda.util;
 
 import nu.xom.Element;
 
+/**
+ * The type Priority queue.
+ */
 public class PriorityQueue {
         
         /* Cola de Prioridad implementada con Estructura de Datos Heap,
@@ -10,12 +13,23 @@ public class PriorityQueue {
         
         private Pair[] a;
         private int n;
-        
-        public PriorityQueue(int size){
+
+    /**
+     * Instantiates a new Priority queue.
+     *
+     * @param size the size
+     */
+    public PriorityQueue(int size){
                 a = new Pair[size+2];
                 n = 0;
         }
-        public void insertar(Pair x){
+
+    /**
+     * Insertar.
+     *
+     * @param x the x
+     */
+    public void insertar(Pair x){
                 ++n;
                 a[n]=x;
                 for(int j=n; j>1 && a[j].getPriority() < a[j/2].getPriority(); j/=2)
@@ -25,8 +39,13 @@ public class PriorityQueue {
                         a[j/2] = t;
                 }
         }
-        
-        public Element extraer(){
+
+    /**
+     * Extraer element.
+     *
+     * @return the element
+     */
+    public Element extraer(){
                 if(!this.Vacia()){
                         Element m = a[1].getElement();  
                         a[1] = a[n];
@@ -49,8 +68,13 @@ public class PriorityQueue {
                 else 
                         return null;
         }
-        
-        public boolean Vacia(){
+
+    /**
+     * Vacia boolean.
+     *
+     * @return the boolean
+     */
+    public boolean Vacia(){
                 return n==0;
         }
 

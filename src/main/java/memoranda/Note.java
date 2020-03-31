@@ -9,22 +9,66 @@
 package main.java.memoranda;
 
 import main.java.memoranda.date.CalendarDate;
+
 /**
- * 
+ * The interface Note.
  */
 /*$Id: Note.java,v 1.4 2004/09/30 17:19:52 ivanrise Exp $*/
 public interface Note {
-    
+
+    /**
+     * Gets date.
+     *
+     * @return the date
+     */
     CalendarDate getDate();
-    
+
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
     String getTitle();
+
+    /**
+     * Sets title.
+     *
+     * @param s the s
+     */
     void setTitle(String s);
-    
-	String getId();
-	void setId(String s);
-	
+
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
+    String getId();
+
+    /**
+     * Sets id.
+     *
+     * @param s the s
+     */
+    void setId(String s);
+
+    /**
+     * Is marked boolean.
+     *
+     * @return the boolean
+     */
     boolean isMarked();
+
+    /**
+     * Sets mark.
+     *
+     * @param mark the mark
+     */
     void setMark(boolean mark);
-        
+
+    /**
+     * Gets project.
+     *
+     * @return the project
+     */
     Project getProject();
 }

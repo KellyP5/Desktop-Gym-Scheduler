@@ -8,8 +8,14 @@ import javax.swing.event.*;
 import java.util.EventObject;
 import java.io.Serializable;
 
+/**
+ * The type Abstract cell editor.
+ */
 public class AbstractCellEditor implements CellEditor {
 
+    /**
+     * The Listener list.
+     */
     protected EventListenerList listenerList = new EventListenerList();
 
     public Object getCellEditorValue() { return null; }
@@ -26,6 +32,9 @@ public class AbstractCellEditor implements CellEditor {
 	listenerList.remove(CellEditorListener.class, l);
     }
 
+    /**
+     * Fire editing stopped.
+     */
     /*
      * Notify all listeners that have registered interest for
      * notification on this event type.  
@@ -43,6 +52,9 @@ public class AbstractCellEditor implements CellEditor {
 	}
     }
 
+    /**
+     * Fire editing canceled.
+     */
     /*
      * Notify all listeners that have registered interest for
      * notification on this event type.  

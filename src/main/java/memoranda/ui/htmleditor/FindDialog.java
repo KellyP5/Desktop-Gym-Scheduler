@@ -26,28 +26,78 @@ import main.java.memoranda.ui.htmleditor.util.Local;
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
  * <p>Company: </p>
+ *
  * @author unascribed
  * @version 1.0
  */
-
 public class FindDialog extends JDialog {
-	JPanel areaPanel = new JPanel(new GridBagLayout());
-	JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-	JButton cancelB = new JButton();
-	JButton okB = new JButton();
-	JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-	public JLabel header = new JLabel();
-	public boolean CANCELLED = false;
-	JLabel lblSearch = new JLabel();
-	public JTextField txtSearch = new JTextField();
-	public JCheckBox chkReplace = new JCheckBox();
-	public JCheckBox chkCaseSens = new JCheckBox();
-	public JCheckBox chkWholeWord = new JCheckBox();
-	public JCheckBox chkRegExp = new JCheckBox();
-	public JTextField txtReplace = new JTextField();
-	GridBagConstraints gbc;
+    /**
+     * The Area panel.
+     */
+    JPanel areaPanel = new JPanel(new GridBagLayout());
+    /**
+     * The Buttons panel.
+     */
+    JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    /**
+     * The Cancel b.
+     */
+    JButton cancelB = new JButton();
+    /**
+     * The Ok b.
+     */
+    JButton okB = new JButton();
+    /**
+     * The Header panel.
+     */
+    JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    /**
+     * The Header.
+     */
+    public JLabel header = new JLabel();
+    /**
+     * The Cancelled.
+     */
+    public boolean CANCELLED = false;
+    /**
+     * The Lbl search.
+     */
+    JLabel lblSearch = new JLabel();
+    /**
+     * The Txt search.
+     */
+    public JTextField txtSearch = new JTextField();
+    /**
+     * The Chk replace.
+     */
+    public JCheckBox chkReplace = new JCheckBox();
+    /**
+     * The Chk case sens.
+     */
+    public JCheckBox chkCaseSens = new JCheckBox();
+    /**
+     * The Chk whole word.
+     */
+    public JCheckBox chkWholeWord = new JCheckBox();
+    /**
+     * The Chk reg exp.
+     */
+    public JCheckBox chkRegExp = new JCheckBox();
+    /**
+     * The Txt replace.
+     */
+    public JTextField txtReplace = new JTextField();
+    /**
+     * The Gbc.
+     */
+    GridBagConstraints gbc;
 
-	public FindDialog(Frame frame) {
+    /**
+     * Instantiates a new Find dialog.
+     *
+     * @param frame the frame
+     */
+    public FindDialog(Frame frame) {
 		super(frame, Local.getString("Find & replace"), true);
 		try {
 			jbInit();
@@ -57,11 +107,19 @@ public class FindDialog extends JDialog {
 		}
 	}
 
-	public FindDialog() {
+    /**
+     * Instantiates a new Find dialog.
+     */
+    public FindDialog() {
 		this(null);
 	}
 
-	void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 		this.setResizable(false);
 		// Build Header and its layout
 		
@@ -159,16 +217,31 @@ public class FindDialog extends JDialog {
 		getContentPane().add(buttonsPanel, BorderLayout.SOUTH);
 	}
 
-	void okB_actionPerformed(ActionEvent e) {
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
+    void okB_actionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 
-	void cancelB_actionPerformed(ActionEvent e) {
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
+    void cancelB_actionPerformed(ActionEvent e) {
 		CANCELLED = true;
 		this.dispose();
 	}
 
-	void replaceChB_actionPerformed(ActionEvent e) {
+    /**
+     * Replace ch b action performed.
+     *
+     * @param e the e
+     */
+    void replaceChB_actionPerformed(ActionEvent e) {
 		txtReplace.setEnabled(chkReplace.isSelected());
 	}
 

@@ -30,28 +30,88 @@ import main.java.memoranda.util.MimeType;
 import main.java.memoranda.util.MimeTypesList;
 import main.java.memoranda.util.Util;
 
+/**
+ * The type Resource type panel.
+ */
 /*$Id: ResourceTypePanel.java,v 1.8 2004/10/18 19:09:10 ivanrise Exp $*/
 public class ResourceTypePanel extends JPanel {
+    /**
+     * The Border 1.
+     */
     Border border1;
+    /**
+     * The Titled border 1.
+     */
     TitledBorder titledBorder1;
 
+    /**
+     * The Border 2.
+     */
     Border border2;
+    /**
+     * The Titled border 2.
+     */
     TitledBorder titledBorder2;
+    /**
+     * The Ext.
+     */
     public String ext = "";
+    /**
+     * The Cancelled.
+     */
     boolean CANCELLED = true;
-  JPanel jPanel1 = new JPanel();
-  JButton newTypeB = new JButton();
-  JScrollPane jScrollPane1 = new JScrollPane();
-  BorderLayout borderLayout2 = new BorderLayout();
-  JPanel areaPanel = new JPanel();
-  JPanel jPanel2 = new JPanel();
-  JButton editB = new JButton();
-  JButton deleteB = new JButton();
-  BorderLayout borderLayout1 = new BorderLayout();
-  public JList typesList = new JList();
-  BorderLayout borderLayout3 = new BorderLayout();
-  Border border3;
+    /**
+     * The J panel 1.
+     */
+    JPanel jPanel1 = new JPanel();
+    /**
+     * The New type b.
+     */
+    JButton newTypeB = new JButton();
+    /**
+     * The J scroll pane 1.
+     */
+    JScrollPane jScrollPane1 = new JScrollPane();
+    /**
+     * The Border layout 2.
+     */
+    BorderLayout borderLayout2 = new BorderLayout();
+    /**
+     * The Area panel.
+     */
+    JPanel areaPanel = new JPanel();
+    /**
+     * The J panel 2.
+     */
+    JPanel jPanel2 = new JPanel();
+    /**
+     * The Edit b.
+     */
+    JButton editB = new JButton();
+    /**
+     * The Delete b.
+     */
+    JButton deleteB = new JButton();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Types list.
+     */
+    public JList typesList = new JList();
+    /**
+     * The Border layout 3.
+     */
+    BorderLayout borderLayout3 = new BorderLayout();
+    /**
+     * The Border 3.
+     */
+    Border border3;
 
+    /**
+     * Instantiates a new Resource type panel.
+     */
     public ResourceTypePanel() {
         super();
         try {
@@ -63,6 +123,11 @@ public class ResourceTypePanel extends JPanel {
         }
     }
 
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         border1 = BorderFactory.createLineBorder(SystemColor.controlText, 2);
         titledBorder1 = new TitledBorder(BorderFactory.createEmptyBorder(),Local.getString("Registered types"));
@@ -128,6 +193,9 @@ public class ResourceTypePanel extends JPanel {
 
     }
 
+    /**
+     * Init types list.
+     */
     public void initTypesList() {
         /*Vector v = new Vector();
         icons = new Vector();
@@ -142,6 +210,11 @@ public class ResourceTypePanel extends JPanel {
     }
 
 
+    /**
+     * New type b action performed.
+     *
+     * @param e the e
+     */
     void newTypeB_actionPerformed(ActionEvent e) {
         EditTypeDialog dlg = new EditTypeDialog(App.getFrame(), Local.getString("New resource type"));
         Dimension dlgSize = new Dimension(420, 420);
@@ -182,6 +255,11 @@ public class ResourceTypePanel extends JPanel {
         typesList.setSelectedValue(mt, true);
     }
 
+    /**
+     * Delete b action performed.
+     *
+     * @param e the e
+     */
     void deleteB_actionPerformed(ActionEvent e) {
         MimeType mt = (MimeType) typesList.getSelectedValue();
         int n =
@@ -201,6 +279,11 @@ public class ResourceTypePanel extends JPanel {
         this.initTypesList();
     }
 
+    /**
+     * Edit b action performed.
+     *
+     * @param e the e
+     */
     void editB_actionPerformed(ActionEvent e) {
         EditTypeDialog dlg = new EditTypeDialog(App.getFrame(), Local.getString("Edit resource type"));
         Dimension dlgSize = new Dimension(420, 450);
@@ -249,8 +332,14 @@ public class ResourceTypePanel extends JPanel {
     }
 
 
+    /**
+     * The type Types list renderer.
+     */
     class TypesListRenderer extends JLabel implements ListCellRenderer {
 
+        /**
+         * Instantiates a new Types list renderer.
+         */
         public TypesListRenderer() {
             super();
         }
@@ -286,6 +375,11 @@ public class ResourceTypePanel extends JPanel {
         }
     }
 
+    /**
+     * Types list value changed.
+     *
+     * @param e the e
+     */
     void typesList_valueChanged(ListSelectionEvent e) {
       boolean en = typesList.getSelectedValue() != null;
       this.editB.setEnabled(en);

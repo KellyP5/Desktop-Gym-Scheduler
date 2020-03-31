@@ -11,13 +11,25 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.*;
 
+/**
+ * The type Loadable properties.
+ */
 /*$Id: LoadableProperties.java,v 1.4 2004/01/30 12:17:42 alexeya Exp $*/
 public class LoadableProperties extends Hashtable {
 
+    /**
+     * Instantiates a new Loadable properties.
+     */
     public LoadableProperties() {
         super();
     }
 
+    /**
+     * Load.
+     *
+     * @param inStream the in stream
+     * @throws IOException the io exception
+     */
     public void load(InputStream inStream) throws IOException {
 
         BufferedReader in = new BufferedReader(new InputStreamReader(inStream, "UTF-8"));
@@ -38,6 +50,13 @@ public class LoadableProperties extends Hashtable {
         }
     }
 
+    /**
+     * Save.
+     *
+     * @param outStream the out stream
+     * @param sorted    the sorted
+     * @throws IOException the io exception
+     */
     public void save(OutputStream outStream, boolean sorted) throws IOException {
     	if (!sorted) {
     		save(outStream);
@@ -56,7 +75,13 @@ public class LoadableProperties extends Hashtable {
         out.flush();
         out.close();
     }
-    
+
+    /**
+     * Save.
+     *
+     * @param outStream the out stream
+     * @throws IOException the io exception
+     */
     public void save(OutputStream outStream) throws IOException {
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(outStream, "UTF-8"));
         String aKey;

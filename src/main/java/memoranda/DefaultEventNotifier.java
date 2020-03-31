@@ -10,15 +10,15 @@ package main.java.memoranda;
 import main.java.memoranda.ui.EventNotificationDialog;
 
 /**
- *  
+ * The type Default event notifier.
  */
 /*$Id: DefaultEventNotifier.java,v 1.4 2004/01/30 12:17:41 alexeya Exp $*/
 public class DefaultEventNotifier implements EventNotificationListener {
 
-	/**
-	 * Constructor for DefaultEventNotifier.
-	 */
-	public DefaultEventNotifier() {
+    /**
+     * Constructor for DefaultEventNotifier.
+     */
+    public DefaultEventNotifier() {
 		super();
 	}
 

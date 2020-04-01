@@ -2,110 +2,24 @@ package main.java.memoranda.gym;
 
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.Scanner;
 
 public class Gym {
 
-    private String adminName;
-    private String adminPassword;
-    private String adminEmail;
+    public String adminName;
+    public String adminPassword;
+    public String adminEmail;
 
-    private boolean isLoggedIn;
-    private boolean isAdmin;
+    public User user;
+    public String userName;
+    public String userEmail;
+
+    public boolean isLoggedIn;
+    public boolean isAdmin;
 
     private ManageUsers manageUsers;
     private ManageClasses manageClasses;
-
-    /**
-     * CLI will be replaced by the UI.
-     * @param args
-     */
-    public static void main(String[] args) {
-        new Gym().run();
-    }
-
-    public void run(){
-
-        Scanner scanner = new Scanner(System.in);
-
-        //login loop
-        while(true){
-
-            user_print_loginMenu();
-
-            String input = scanner.next();
-
-            switch(input){
-                case "1":
-                {
-                    System.out.println("adminLogin");
-
-                    System.out.print("Email: ");
-                    String email = scanner.next();
-                    System.out.print("Password: ");
-                    String password = scanner.next();
-
-                    this.adminLogin(email,password);
-                    break;
-                }
-                case "2":
-                {
-                    System.out.println("userLogin");
-
-                    System.out.print("Email: ");
-                    String email = scanner.next();
-                    System.out.print("Password: ");
-                    String password = scanner.next();
-
-                    this.userLogin(email,password);
-                    break;
-                }
-                case "3":
-                {
-                    return;
-                }
-            }
-
-            if(isLoggedIn)
-                break;
-        }
-
-        //main gym loop
-        while(true){
-
-        }
-
-    }
-
-    //////////////////////////////////////////////////////Test printing
-
-    void user_print_loginMenu(){
-        System.out.println("GymMenu: - default admin is admin/admin");
-        System.out.println("1) adminLogin");
-        System.out.println("2) userLogin");
-        System.out.println("3) exit");
-    }
-
-    void admin_print_menu(){
-        System.out.println("AdminMenu:");
-        System.out.println("1) adminLogin");
-
-    }
-
-    void trainer_print_enu(){
-        System.out.println("TrainerMenu: - default admin is admin/admin");
-        System.out.println("1) adminLogin");
-
-    }
-
-    void user_print_menu(){
-        System.out.println("UserMenu: - default admin is admin/admin");
-        System.out.println("1) adminLogin");
-    }
-
-    //////////////////////////////////////////////////////End Test printing
-
-
 
 
     /**
@@ -148,6 +62,7 @@ public class Gym {
         if(user!=null){
                 if(user.checkPassword(userPassword)){
                     this.isLoggedIn = true;
+                    this.user = user;
                     return true;
                 }
         }
@@ -159,13 +74,30 @@ public class Gym {
         return null;
     }
 
+
+    //////////////////////////////////////////////////////Methods for covering requirements in topic.pdf
+
+
     /**
      * 5. public classes are setup by the owner of the gym and can only be setup when a room
      * is available and a trainer is available (the system should find an available trainer
      * with the appropriate rank)
      */
-    public void admin_createClass(){
-        //TODO
+    public void admin_createClass(int classType, long startTime, Integer duration,Integer roomNumber, Belt beltReq){
+
+        switch(classType){
+            case 1:
+            {
+                //private
+                manageClasses.createPrivateClass(new Date(startTime),duration,roomNumber,beltReq);
+            }
+            case 2:
+            {
+                //public group class
+                manageClasses.createGroupClass(new Date(startTime),duration,roomNumber,beltReq);
+            }
+        }
+
     }
 
     /**

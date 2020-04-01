@@ -31,28 +31,91 @@ import main.java.memoranda.TaskList;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Search panel.
+ */
 /*$Id: SearchPanel.java,v 1.5 2004/04/05 10:05:44 alexeya Exp $*/
 public class SearchPanel extends JPanel {
+    /**
+     * The Border layout 1.
+     */
     BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Notes list.
+     */
     NotesList notesList = new NotesList(NotesList.EMPTY);
+    /**
+     * The Scroll pane.
+     */
     JScrollPane scrollPane = new JScrollPane();
+    /**
+     * The J panel 1.
+     */
     JPanel jPanel1 = new JPanel();
+    /**
+     * The Border layout 2.
+     */
     BorderLayout borderLayout2 = new BorderLayout();
+    /**
+     * The Search field.
+     */
     JTextField searchField = new JTextField();
+    /**
+     * The J panel 2.
+     */
     JPanel jPanel2 = new JPanel();
+    /**
+     * The Border layout 3.
+     */
     BorderLayout borderLayout3 = new BorderLayout();
+    /**
+     * The Border 1.
+     */
     Border border1;
+    /**
+     * The Titled border 1.
+     */
     TitledBorder titledBorder1;
+    /**
+     * The J panel 3.
+     */
     JPanel jPanel3 = new JPanel();
+    /**
+     * The J panel 4.
+     */
     JPanel jPanel4 = new JPanel();
+    /**
+     * The Case sens cb.
+     */
     JCheckBox caseSensCB = new JCheckBox();
+    /**
+     * The Regexp cb.
+     */
     JCheckBox regexpCB = new JCheckBox();
+    /**
+     * The Whole wcb.
+     */
     JCheckBox wholeWCB = new JCheckBox();
+    /**
+     * The Search b.
+     */
     JButton searchB = new JButton();
+    /**
+     * The Border layout 4.
+     */
     BorderLayout borderLayout4 = new BorderLayout();
+    /**
+     * The Border layout 5.
+     */
     BorderLayout borderLayout5 = new BorderLayout();
+    /**
+     * The Progress bar.
+     */
     JProgressBar progressBar = new JProgressBar();
 
+    /**
+     * Instantiates a new Search panel.
+     */
     public SearchPanel() {
         try {
             jbInit();
@@ -61,6 +124,12 @@ public class SearchPanel extends JPanel {
             new ExceptionDialog(ex);
         }
     }
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         border1 = BorderFactory.createEmptyBorder(2, 2, 2, 2);
 
@@ -123,8 +192,16 @@ public class SearchPanel extends JPanel {
 
     }
 
+    /**
+     * The Wait cursor.
+     */
     Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
 
+    /**
+     * Search b action performed.
+     *
+     * @param e the e
+     */
     void searchB_actionPerformed(ActionEvent e) {
         Cursor cur = App.getFrame().getCursor();
         App.getFrame().setCursor(waitCursor);
@@ -132,11 +209,19 @@ public class SearchPanel extends JPanel {
         App.getFrame().setCursor(cur);
     }
 
+    /**
+     * Search field caret update.
+     *
+     * @param e the e
+     */
     void searchField_caretUpdate(CaretEvent e) {
         searchB.setEnabled(searchField.getText().length() > 0);
     }
-    
-    
+
+
+    /**
+     * Do search.
+     */
     void doSearch() {
         Pattern pattern;
         //this.add(progressBar, BorderLayout.SOUTH);

@@ -15,18 +15,28 @@ package main.java.memoranda.ui.treetable;
 
 import javax.swing.tree.*;
 import javax.swing.event.*;
- 
-/**
- * @version 1.2 10/27/98
- * An abstract implementation of the TreeTableModel interface, handling the list 
- * of listeners. 
- * @author Philip Milne
- */
 
+/**
+ * The type Abstract tree table model.
+ *
+ * @author Philip Milne
+ * @version 1.2 10/27/98 An abstract implementation of the TreeTableModel interface, handling the list  of listeners.
+ */
 public abstract class AbstractTreeTableModel implements TreeTableModel {
-    protected Object root;     
+    /**
+     * The Root.
+     */
+    protected Object root;
+    /**
+     * The Listener list.
+     */
     protected EventListenerList listenerList = new EventListenerList();
-  
+
+    /**
+     * Instantiates a new Abstract tree table model.
+     *
+     * @param root the root
+     */
     public AbstractTreeTableModel(Object root) {
         this.root = root; 
     }
@@ -63,6 +73,14 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         listenerList.remove(TreeModelListener.class, l);
     }
 
+    /**
+     * Fire tree nodes changed.
+     *
+     * @param source       the source
+     * @param path         the path
+     * @param childIndices the child indices
+     * @param children     the children
+     */
     /*
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
@@ -89,6 +107,14 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         }
     }
 
+    /**
+     * Fire tree nodes inserted.
+     *
+     * @param source       the source
+     * @param path         the path
+     * @param childIndices the child indices
+     * @param children     the children
+     */
     /*
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
@@ -115,6 +141,14 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         }
     }
 
+    /**
+     * Fire tree nodes removed.
+     *
+     * @param source       the source
+     * @param path         the path
+     * @param childIndices the child indices
+     * @param children     the children
+     */
     /*
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 
@@ -141,6 +175,14 @@ public abstract class AbstractTreeTableModel implements TreeTableModel {
         }
     }
 
+    /**
+     * Fire tree structure changed.
+     *
+     * @param source       the source
+     * @param path         the path
+     * @param childIndices the child indices
+     * @param children     the children
+     */
     /*
      * Notify all listeners that have registered interest for
      * notification on this event type.  The event instance 

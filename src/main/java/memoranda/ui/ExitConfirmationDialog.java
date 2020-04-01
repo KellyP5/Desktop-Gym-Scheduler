@@ -22,21 +22,57 @@ import javax.swing.SwingConstants;
 import main.java.memoranda.util.Configuration;
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Exit confirmation dialog.
+ */
 public class ExitConfirmationDialog extends JDialog implements WindowListener {
-    
+
+    /**
+     * The Cancelled.
+     */
     public boolean CANCELLED = false;
-	public JLabel header = new JLabel();
-	JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-	JPanel bottomPanel = new JPanel(new BorderLayout());
-	
+    /**
+     * The Header.
+     */
+    public JLabel header = new JLabel();
+    /**
+     * The Header panel.
+     */
+    JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    /**
+     * The Bottom panel.
+     */
+    JPanel bottomPanel = new JPanel(new BorderLayout());
+
+    /**
+     * The Buttons panel.
+     */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    /**
+     * The Ok b.
+     */
     JButton okB = new JButton();
+    /**
+     * The Cancel b.
+     */
     JButton cancelB = new JButton();
-	
-	public JCheckBox donotaskCB = new JCheckBox();
-	
-	JPanel mainPanel = new JPanel(new BorderLayout());
-	
+
+    /**
+     * The Donotask cb.
+     */
+    public JCheckBox donotaskCB = new JCheckBox();
+
+    /**
+     * The Main panel.
+     */
+    JPanel mainPanel = new JPanel(new BorderLayout());
+
+    /**
+     * Instantiates a new Exit confirmation dialog.
+     *
+     * @param frame the frame
+     * @param title the title
+     */
     public ExitConfirmationDialog(Frame frame, String title) {
        super(frame, title, true);
        try {
@@ -49,7 +85,12 @@ public class ExitConfirmationDialog extends JDialog implements WindowListener {
        super.addWindowListener(this);
     }
 
-	void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 		this.setResizable(false);
         
 		// Build headerPanel
@@ -105,22 +146,35 @@ public class ExitConfirmationDialog extends JDialog implements WindowListener {
 		this.getContentPane().add(headerPanel, BorderLayout.NORTH);
 		this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
 	}
-	
-	// if donotaskCB is checked update Configuration.
+
+    /**
+     * Check do not ask.
+     */
+// if donotaskCB is checked update Configuration.
 	public void  checkDoNotAsk() {
 		if (this.donotaskCB.isSelected()) {
 			Configuration.put("ASK_ON_EXIT", "no");
 			Configuration.saveConfig();
 		}
 	}
-	
-	// ok button action
+
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
+// ok button action
     void okB_actionPerformed(ActionEvent e) {
 		checkDoNotAsk();
         this.dispose();
     }
 
-	//cancel button action
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
+//cancel button action
     void cancelB_actionPerformed(ActionEvent e) {
         CANCELLED = true;
 		checkDoNotAsk();

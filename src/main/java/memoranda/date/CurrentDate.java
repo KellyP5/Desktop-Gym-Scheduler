@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Vector;
 
 /**
- *
+ * The type Current date.
  */
 /*$Id: CurrentDate.java,v 1.4 2004/10/06 16:00:12 ivanrise Exp $*/
 public class CurrentDate {
@@ -19,24 +19,47 @@ public class CurrentDate {
     private static CalendarDate _date = new CalendarDate();
     private static Vector dateListeners = new Vector();
 
+    /**
+     * Get calendar date.
+     *
+     * @return the calendar date
+     */
     public static CalendarDate get() {
         return _date;
     }
 
+    /**
+     * Set.
+     *
+     * @param date the date
+     */
     public static void set(CalendarDate date) {
         if (date.equals(_date)) return;
         _date = date;
         dateChanged(date);
     }
 
+    /**
+     * Reset.
+     */
     public static void reset() {
         set(new CalendarDate());
     }
 
+    /**
+     * Add date listener.
+     *
+     * @param dl the dl
+     */
     public static void addDateListener(DateListener dl) {
         dateListeners.add(dl);
     }
 
+    /**
+     * Gets change listeners.
+     *
+     * @return the change listeners
+     */
     public static Collection getChangeListeners() {
         return dateListeners;
     }

@@ -36,39 +36,100 @@ import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.util.Local;
 
 /**
- * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-
 /*$Id: JNCalendarPanel.java,v 1.9 2004/04/05 10:05:44 alexeya Exp $*/
 public class JNCalendarPanel extends JPanel {
 
-  CalendarDate _date = CurrentDate.get();
-  JToolBar navigationBar = new JToolBar();
-  JPanel mntyPanel = new JPanel(new BorderLayout());
-  JPanel navbPanel = new JPanel(new BorderLayout());
-  JButton dayForwardB = new JButton();
-  JPanel dayForwardBPanel = new JPanel();
-  JButton todayB = new JButton();
-  JPanel todayBPanel = new JPanel();
-  JPanel dayBackBPanel = new JPanel();
-  JButton dayBackB = new JButton();
-  JComboBox monthsCB = new JComboBox(Local.getMonthNames());
-  BorderLayout borderLayout4 = new BorderLayout();
-  JNCalendar jnCalendar = new JNCalendar(CurrentDate.get());
-  JPanel jnCalendarPanel = new JPanel();
-  BorderLayout borderLayout5 = new BorderLayout();
-  JSpinner yearSpin = new JSpinner(new SpinnerNumberModel(jnCalendar.get().getYear(), 1980, 2999, 1));
-  JSpinner.NumberEditor yearSpinner = new JSpinner.NumberEditor(yearSpin, "####");
+    /**
+     * The Date.
+     */
+    CalendarDate _date = CurrentDate.get();
+    /**
+     * The Navigation bar.
+     */
+    JToolBar navigationBar = new JToolBar();
+    /**
+     * The Mnty panel.
+     */
+    JPanel mntyPanel = new JPanel(new BorderLayout());
+    /**
+     * The Navb panel.
+     */
+    JPanel navbPanel = new JPanel(new BorderLayout());
+    /**
+     * The Day forward b.
+     */
+    JButton dayForwardB = new JButton();
+    /**
+     * The Day forward b panel.
+     */
+    JPanel dayForwardBPanel = new JPanel();
+    /**
+     * The Today b.
+     */
+    JButton todayB = new JButton();
+    /**
+     * The Today b panel.
+     */
+    JPanel todayBPanel = new JPanel();
+    /**
+     * The Day back b panel.
+     */
+    JPanel dayBackBPanel = new JPanel();
+    /**
+     * The Day back b.
+     */
+    JButton dayBackB = new JButton();
+    /**
+     * The Months cb.
+     */
+    JComboBox monthsCB = new JComboBox(Local.getMonthNames());
+    /**
+     * The Border layout 4.
+     */
+    BorderLayout borderLayout4 = new BorderLayout();
+    /**
+     * The Jn calendar.
+     */
+    JNCalendar jnCalendar = new JNCalendar(CurrentDate.get());
+    /**
+     * The Jn calendar panel.
+     */
+    JPanel jnCalendarPanel = new JPanel();
+    /**
+     * The Border layout 5.
+     */
+    BorderLayout borderLayout5 = new BorderLayout();
+    /**
+     * The Year spin.
+     */
+    JSpinner yearSpin = new JSpinner(new SpinnerNumberModel(jnCalendar.get().getYear(), 1980, 2999, 1));
+    /**
+     * The Year spinner.
+     */
+    JSpinner.NumberEditor yearSpinner = new JSpinner.NumberEditor(yearSpin, "####");
 
-  boolean ignoreChange = false;
+    /**
+     * The Ignore change.
+     */
+    boolean ignoreChange = false;
 
   private Vector selectionListeners = new Vector();
 
-  Border border1;
-  Border border2;
+    /**
+     * The Border 1.
+     */
+    Border border1;
+    /**
+     * The Border 2.
+     */
+    Border border2;
 
-  public JNCalendarPanel() {
+    /**
+     * Instantiates a new Jn calendar panel.
+     */
+    public JNCalendarPanel() {
     try {
       jbInit();
     }
@@ -77,7 +138,10 @@ public class JNCalendarPanel extends JPanel {
     }
   }
 
-  public Action dayBackAction =
+    /**
+     * The Day back action.
+     */
+    public Action dayBackAction =
         new AbstractAction(
             "Go one day back",
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/back16.png"))) {
@@ -85,8 +149,11 @@ public class JNCalendarPanel extends JPanel {
             dayBackB_actionPerformed(e);
         }
   };
-  
-  public Action dayForwardAction =
+
+    /**
+     * The Day forward action.
+     */
+    public Action dayForwardAction =
         new AbstractAction(
             "Go one day forward",
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/forward16.png"))) {
@@ -94,8 +161,11 @@ public class JNCalendarPanel extends JPanel {
             dayForwardB_actionPerformed(e);
         }
   };
-  
-  public Action todayAction =
+
+    /**
+     * The Today action.
+     */
+    public Action todayAction =
         new AbstractAction(
             "Go to today",
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/today16.png"))) {
@@ -103,8 +173,13 @@ public class JNCalendarPanel extends JPanel {
             todayB_actionPerformed(e);
         }
   };
-      
-  void jbInit() throws Exception {
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
     //dayBackAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_DOWN, KeyEvent.ALT_MASK));
     //dayForwardAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_PAGE_UP, KeyEvent.ALT_MASK));
     todayAction.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_HOME, KeyEvent.ALT_MASK));
@@ -225,16 +300,31 @@ public class JNCalendarPanel extends JPanel {
     
   }
 
-  public void set(CalendarDate date) {
+    /**
+     * Set.
+     *
+     * @param date the date
+     */
+    public void set(CalendarDate date) {
     _date = date;
     refreshView();
   }
 
-  public CalendarDate get() {
+    /**
+     * Get calendar date.
+     *
+     * @return the calendar date
+     */
+    public CalendarDate get() {
     return _date;
   }
 
-  public void addSelectionListener(ActionListener al) {
+    /**
+     * Add selection listener.
+     *
+     * @param al the al
+     */
+    public void addSelectionListener(ActionListener al) {
         selectionListeners.add(al);
     }
 
@@ -258,21 +348,34 @@ public class JNCalendarPanel extends JPanel {
     ignoreChange = false;
   }
 
-  void monthsCB_actionPerformed(ActionEvent e) {
+    /**
+     * Months cb action performed.
+     *
+     * @param e the e
+     */
+    void monthsCB_actionPerformed(ActionEvent e) {
     if (ignoreChange) return;
     _date = new CalendarDate(_date.getDay(), monthsCB.getSelectedIndex(), _date.getYear());
     jnCalendar.set(_date);
     notifyListeners();
   }
 
-  void yearSpin_actionPerformed() {
+    /**
+     * Year spin action performed.
+     */
+    void yearSpin_actionPerformed() {
     if (ignoreChange) return;
     _date = new CalendarDate(_date.getDay(), _date.getMonth(), ((Integer)yearSpin.getValue()).intValue());
     jnCalendar.set(_date);
     notifyListeners();
   }
 
-  void dayBackB_actionPerformed(ActionEvent e) {
+    /**
+     * Day back b action performed.
+     *
+     * @param e the e
+     */
+    void dayBackB_actionPerformed(ActionEvent e) {
     Calendar cal = _date.getCalendar();
     cal.add(Calendar.DATE, -1); cal.getTime();
     _date = new CalendarDate(cal);
@@ -280,13 +383,23 @@ public class JNCalendarPanel extends JPanel {
     notifyListeners();
   }
 
-  void todayB_actionPerformed(ActionEvent e) {
+    /**
+     * Today b action performed.
+     *
+     * @param e the e
+     */
+    void todayB_actionPerformed(ActionEvent e) {
     _date = CalendarDate.today();
     refreshView();
     notifyListeners();
   }
 
-  void dayForwardB_actionPerformed(ActionEvent e) {
+    /**
+     * Day forward b action performed.
+     *
+     * @param e the e
+     */
+    void dayForwardB_actionPerformed(ActionEvent e) {
     Calendar cal = _date.getCalendar();
     cal.add(Calendar.DATE, 1); cal.getTime();
     _date = new CalendarDate(cal);

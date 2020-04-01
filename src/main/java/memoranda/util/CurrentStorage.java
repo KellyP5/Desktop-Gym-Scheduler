@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.Vector;
 
 /**
- * 
+ * The type Current storage.
  */
 /*$Id: CurrentStorage.java,v 1.3 2004/01/30 12:17:42 alexeya Exp $*/
 public class CurrentStorage {
@@ -24,20 +24,40 @@ public class CurrentStorage {
     private static Storage _storage = new FileStorage();
     
     private static Vector actionListeners = new Vector();
-    
+
+    /**
+     * Get storage.
+     *
+     * @return the storage
+     */
     public static Storage get() {
         return _storage;
     }
-    
+
+    /**
+     * Set.
+     *
+     * @param storage the storage
+     */
     public static void set(Storage storage) {
         _storage = storage;
         storageChanged();
     }
-    
+
+    /**
+     * Add change listener.
+     *
+     * @param al the al
+     */
     public static void addChangeListener(ActionListener al) {
         actionListeners.add(al);
     }
 
+    /**
+     * Gets change listeners.
+     *
+     * @return the change listeners
+     */
     public static Collection getChangeListeners() {
         return actionListeners;
     }

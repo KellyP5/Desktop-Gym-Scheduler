@@ -23,8 +23,10 @@ public class ProjectImpl implements Project {
 
     /**
      * Constructor for ProjectImpl.
+     *
+     * @param root the root
      */
-    public ProjectImpl(Element root) {        
+    public ProjectImpl(Element root) {
         _root = root;
     }
 

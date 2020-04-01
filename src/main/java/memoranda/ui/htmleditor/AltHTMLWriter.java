@@ -45,16 +45,15 @@ import javax.swing.text.html.StyleSheet;
 
 /**
  * This is an alternate writer for HTMLDocuments.
- * 
- * Based on original javax.swing.text.html.HTMLWriter: 
- * 
+ * <p>
+ * Based on original javax.swing.text.html.HTMLWriter:
+ * <p>
  * Sun Java(TM) 2 SDK, Standard Edition Version 1.4.1
  * HTMLWriter.java 1.30 01/12/03
- * author  Sunita Mani 
+ * author  Sunita Mani
  * version 1.26, 02/02/00
  * Copyright 2002 Sun Microsystems, Inc.
  */
-
 public class AltHTMLWriter extends AbstractWriter {
     /*
      * Stores all elements for which end tags have to
@@ -109,35 +108,55 @@ public class AltHTMLWriter extends AbstractWriter {
     private char[] tempChars;
 
     private String encoding = null;
+
     /**
      * Creates a new HTMLWriter.
      *
      * @param w   a Writer
-     * @param doc  an HTMLDocument
-     *
+     * @param doc an HTMLDocument
      */
 
     public AltHTMLWriter(Writer w, HTMLDocument doc) {
         this(w, doc, 0, doc.getLength(), null, false);
     }
 
+    /**
+     * Instantiates a new Alt html writer.
+     *
+     * @param w   the w
+     * @param doc the doc
+     * @param enc the enc
+     */
     public AltHTMLWriter(Writer w, HTMLDocument doc, String enc) {
         this(w, doc, 0, doc.getLength(), enc, false);
     }
 
+    /**
+     * Instantiates a new Alt html writer.
+     *
+     * @param w      the w
+     * @param doc    the doc
+     * @param enc    the enc
+     * @param nument the nument
+     */
     public AltHTMLWriter(Writer w, HTMLDocument doc, String enc, boolean nument) {
         this(w, doc, 0, doc.getLength(), enc, nument);
     }
 
+    /**
+     * The Nument.
+     */
     boolean _nument = false;
 
     /**
      * Creates a new HTMLWriter.
      *
-     * @param w  a Writer
-     * @param doc an HTMLDocument
-     * @param pos the document location from which to fetch the content
-     * @param len the amount to write out
+     * @param w      a Writer
+     * @param doc    an HTMLDocument
+     * @param pos    the document location from which to fetch the content
+     * @param len    the amount to write out
+     * @param enc    the enc
+     * @param nument the nument
      */
     public AltHTMLWriter(Writer w, HTMLDocument doc, int pos, int len, String enc, boolean nument) {
         super(w, doc, pos, len);
@@ -294,10 +313,11 @@ public class AltHTMLWriter extends AbstractWriter {
      * Writes out all empty elements (all tags that have no
      * corresponding end tag).
      *
-     * @param elem   an Element
-     * @exception IOException on any I/O error
-     * @exception BadLocationException if pos represents an invalid
-     *            location within the document.
+     * @param elem an Element
+     * @throws BadLocationException the bad location exception
+     * @throws IOException          the io exception
+     * @throws IOException          on any I/O error
+     * @throws BadLocationException if pos represents an invalid            location within the document.
      */
     protected void emptyTag(Element elem) throws BadLocationException, IOException {
 
@@ -370,8 +390,8 @@ public class AltHTMLWriter extends AbstractWriter {
      * Determines if the HTML.Tag associated with the
      * element is a block tag.
      *
-     * @param attr  an AttributeSet
-     * @return  true if tag is block tag, false otherwise.
+     * @param attr an AttributeSet
+     * @return true if tag is block tag, false otherwise.
      */
     protected boolean isBlockTag(AttributeSet attr) {
         Object o = attr.getAttribute(StyleConstants.NameAttribute);
@@ -386,8 +406,10 @@ public class AltHTMLWriter extends AbstractWriter {
      * Writes out a start tag for the element.
      * Ignores all synthesized elements.
      *
-     * @param elem   an Element
-     * @exception IOException on any I/O error
+     * @param elem an Element
+     * @throws IOException          the io exception
+     * @throws BadLocationException the bad location exception
+     * @throws IOException          on any I/O error
      */
     protected void startTag(Element elem) throws IOException, BadLocationException {
 
@@ -481,10 +503,11 @@ public class AltHTMLWriter extends AbstractWriter {
      * Writes out text that is contained in a TEXTAREA form
      * element.
      *
-     * @param attr  an AttributeSet
-     * @exception IOException on any I/O error
-     * @exception BadLocationException if pos represents an invalid
-     *            location within the document.
+     * @param attr an AttributeSet
+     * @throws BadLocationException the bad location exception
+     * @throws IOException          the io exception
+     * @throws IOException          on any I/O error
+     * @throws BadLocationException if pos represents an invalid            location within the document.
      */
     protected void textAreaContent(AttributeSet attr) throws BadLocationException, IOException {
         Document doc = (Document) attr.getAttribute(StyleConstants.ModelAttribute);
@@ -553,7 +576,8 @@ public class AltHTMLWriter extends AbstractWriter {
      * Writes out the content of the SELECT form element.
      *
      * @param attr the AttributeSet associated with the form element
-     * @exception IOException on any I/O error
+     * @throws IOException the io exception
+     * @throws IOException on any I/O error
      */
     protected void selectContent(AttributeSet attr) throws IOException {
         Object model = attr.getAttribute(StyleConstants.ModelAttribute);
@@ -579,9 +603,10 @@ public class AltHTMLWriter extends AbstractWriter {
 
     /**
      * Writes out the content of the Option form element.
-     * @param option  an Option
-     * @exception IOException on any I/O error
      *
+     * @param option an Option
+     * @throws IOException the io exception
+     * @throws IOException on any I/O error
      */
     protected void writeOption(Option option) throws IOException {
 
@@ -606,8 +631,9 @@ public class AltHTMLWriter extends AbstractWriter {
     /**
      * Writes out an end tag for the element.
      *
-     * @param elem    an Element
-     * @exception IOException on any I/O error
+     * @param elem an Element
+     * @throws IOException the io exception
+     * @throws IOException on any I/O error
      */
     protected void endTag(Element elem) throws IOException {
         if (synthesizedElement(elem)) {
@@ -637,10 +663,11 @@ public class AltHTMLWriter extends AbstractWriter {
     /**
      * Writes out comments.
      *
-     * @param elem    an Element
-     * @exception IOException on any I/O error
-     * @exception BadLocationException if pos represents an invalid
-     *            location within the document.
+     * @param elem an Element
+     * @throws BadLocationException the bad location exception
+     * @throws IOException          the io exception
+     * @throws IOException          on any I/O error
+     * @throws BadLocationException if pos represents an invalid            location within the document.
      */
     protected void comment(Element elem) throws BadLocationException, IOException {
         AttributeSet as = elem.getAttributes();
@@ -658,10 +685,10 @@ public class AltHTMLWriter extends AbstractWriter {
     /**
      * Writes out comment string.
      *
-     * @param string   the comment
-     * @exception IOException on any I/O error
-     * @exception BadLocationException if pos represents an invalid
-     *            location within the document.
+     * @param string the comment
+     * @throws IOException          the io exception
+     * @throws IOException          on any I/O error
+     * @throws BadLocationException if pos represents an invalid            location within the document.
      */
     void writeComment(String string) throws IOException {
         write("<!--");
@@ -675,6 +702,8 @@ public class AltHTMLWriter extends AbstractWriter {
     /**
      * Writes out any additional comments (comments outside of the body)
      * stored under the property HTMLDocument.AdditionalComments.
+     *
+     * @throws IOException the io exception
      */
     void writeAdditionalComments() throws IOException {
         Object comments = getDocument().getProperty(HTMLDocument.AdditionalComments);
@@ -695,6 +724,9 @@ public class AltHTMLWriter extends AbstractWriter {
      * Returns true if the element is a
      * synthesized element.  Currently we are only testing
      * for the p-implied tag.
+     *
+     * @param elem the elem
+     * @return the boolean
      */
     protected boolean synthesizedElement(Element elem) {
         if (matchNameAttribute(elem.getAttributes(), HTML.Tag.IMPLIED)) {
@@ -706,6 +738,10 @@ public class AltHTMLWriter extends AbstractWriter {
     /**
      * Returns true if the StyleConstants.NameAttribute is
      * equal to the tag that is passed in as a parameter.
+     *
+     * @param attr the attr
+     * @param tag  the tag
+     * @return the boolean
      */
     protected boolean matchNameAttribute(AttributeSet attr, HTML.Tag tag) {
         Object o = attr.getAttribute(StyleConstants.NameAttribute);
@@ -724,7 +760,9 @@ public class AltHTMLWriter extends AbstractWriter {
      * so that when appropriate the corresponding end tags can be
      * written out.
      *
-     * @exception IOException on any I/O error
+     * @param attr the attr
+     * @throws IOException the io exception
+     * @throws IOException on any I/O error
      */
     protected void writeEmbeddedTags(AttributeSet attr) throws IOException {
 
@@ -774,7 +812,9 @@ public class AltHTMLWriter extends AbstractWriter {
      * then the tag is removed from the vector and a corresponding
      * end tag is written out.
      *
-     * @exception IOException on any I/O error
+     * @param attr the attr
+     * @throws IOException the io exception
+     * @throws IOException on any I/O error
      */
     protected void closeOutUnwantedEmbeddedTags(AttributeSet attr) throws IOException {
 
@@ -869,6 +909,9 @@ public class AltHTMLWriter extends AbstractWriter {
     /**
      * Outputs the maps as elements. Maps are not stored as elements in
      * the document, and as such this is used to output them.
+     *
+     * @param maps the maps
+     * @throws IOException the io exception
      */
     void writeMaps(Enumeration maps) throws IOException {
         if (maps != null) {
@@ -914,6 +957,9 @@ public class AltHTMLWriter extends AbstractWriter {
      * Outputs the styles as a single element. Styles are not stored as
      * elements, but part of the document. For the time being styles are
      * written out as a comment, inside a style tag.
+     *
+     * @param sheet the sheet
+     * @throws IOException the io exception
      */
     void writeStyles(StyleSheet sheet) throws IOException {
         if (sheet != null) {
@@ -939,6 +985,12 @@ public class AltHTMLWriter extends AbstractWriter {
      * Outputs the named style. <code>outputStyle</code> indicates
      * whether or not a style has been output yet. This will return
      * true if a style is written.
+     *
+     * @param name        the name
+     * @param style       the style
+     * @param outputStyle the output style
+     * @return the boolean
+     * @throws IOException the io exception
      */
     boolean writeStyle(String name, Style style, boolean outputStyle) throws IOException {
         boolean didOutputStyle = false;
@@ -977,6 +1029,11 @@ public class AltHTMLWriter extends AbstractWriter {
         return didOutputStyle;
     }
 
+    /**
+     * Write style start tag.
+     *
+     * @throws IOException the io exception
+     */
     void writeStyleStartTag() throws IOException {
         indent();
         write("<style type=\"text/css\">");
@@ -988,6 +1045,11 @@ public class AltHTMLWriter extends AbstractWriter {
         writeLineSeparator();
     }
 
+    /**
+     * Write style end tag.
+     *
+     * @throws IOException the io exception
+     */
     void writeStyleEndTag() throws IOException {
         decrIndent();
         indent();
@@ -1010,6 +1072,10 @@ public class AltHTMLWriter extends AbstractWriter {
      * resultant set the same as the received set.<p>
      * This will put the converted values into <code>to</code>, unless
      * it is null in which case a temporary AttributeSet will be returned.
+     *
+     * @param from the from
+     * @param to   the to
+     * @return the attribute set
      */
     AttributeSet convertToHTML(AttributeSet from, MutableAttributeSet to) {
         if (to == null) {
@@ -1282,15 +1348,14 @@ public class AltHTMLWriter extends AbstractWriter {
      * the ListSelectionModel interface, allowing for it to store state
      * relevant to a SELECT form element which is implemented as a List.
      * If SELECT has a size attribute whose value is greater than 1,
-     * or if allows multiple selection then a JList is used to 
+     * or if allows multiple selection then a JList is used to
      * represent it and the OptionListModel is used as its model.
      * It also stores the initial state of the JList, to ensure an
      * accurate reset, if the user requests a reset of the form.
      *
-      @author Sunita Mani
-      @version 1.9 12/03/01
+     * @author Sunita Mani
+     * @version 1.9 12/03/01
      */
-
     class OptionListModel extends DefaultListModel implements ListSelectionModel, Serializable {
 
         private static final int MIN = -1;
@@ -1305,8 +1370,14 @@ public class AltHTMLWriter extends AbstractWriter {
         private boolean isAdjusting = false;
         private BitSet value = new BitSet(32);
         private BitSet initialValue = new BitSet(32);
+        /**
+         * The Listener list.
+         */
         protected EventListenerList listenerList = new EventListenerList();
 
+        /**
+         * The Lead anchor notification enabled.
+         */
         protected boolean leadAnchorNotificationEnabled = true;
 
         public int getMinSelectionIndex() {
@@ -1357,8 +1428,7 @@ public class AltHTMLWriter extends AbstractWriter {
          * Returns an array of all the <code>ListSelectionListener</code>s added
          * to this OptionListModel with addListSelectionListener().
          *
-         * @return all of the <code>ListSelectionListener</code>s added or an empty
-         *         array if no listeners have been added
+         * @return all of the <code>ListSelectionListener</code>s added or an empty         array if no listeners have been added
          * @since 1.4
          */
         public ListSelectionListener[] getListSelectionListeners() {
@@ -1368,6 +1438,8 @@ public class AltHTMLWriter extends AbstractWriter {
         /**
          * Notify listeners that we are beginning or ending a
          * series of value changes
+         *
+         * @param isAdjusting the is adjusting
          */
         protected void fireValueChanged(boolean isAdjusting) {
             fireValueChanged(getMinSelectionIndex(), getMaxSelectionIndex(), isAdjusting);
@@ -1376,14 +1448,19 @@ public class AltHTMLWriter extends AbstractWriter {
         /**
          * Notify ListSelectionListeners that the value of the selection,
          * in the closed interval firstIndex,lastIndex, has changed.
+         *
+         * @param firstIndex the first index
+         * @param lastIndex  the last index
          */
         protected void fireValueChanged(int firstIndex, int lastIndex) {
             fireValueChanged(firstIndex, lastIndex, getValueIsAdjusting());
         }
 
         /**
-         * @param firstIndex The first index in the interval.
-         * @param index1 The last index in the interval.
+         * Fire value changed.
+         *
+         * @param firstIndex  The first index in the interval.
+         * @param lastIndex   the last index
          * @param isAdjusting True if this is the final change in a series of them.
          * @see EventListenerList
          */
@@ -1497,7 +1574,9 @@ public class AltHTMLWriter extends AbstractWriter {
 
         /**
          * Sets the value of the leadAnchorNotificationEnabled flag.
-         * @see     #isLeadAnchorNotificationEnabled()
+         *
+         * @param flag the flag
+         * @see #isLeadAnchorNotificationEnabled() #isLeadAnchorNotificationEnabled()
          */
         public void setLeadAnchorNotificationEnabled(boolean flag) {
             leadAnchorNotificationEnabled = flag;
@@ -1512,8 +1591,9 @@ public class AltHTMLWriter extends AbstractWriter {
          * include only the elements that have been selected or deselected since
          * the last change. Either way, the model continues to maintain the lead
          * and anchor variables internally. The default is true.
-         * @return      the value of the leadAnchorNotificationEnabled flag
-         * @see     #setLeadAnchorNotificationEnabled(boolean)
+         *
+         * @return the value of the leadAnchorNotificationEnabled flag
+         * @see #setLeadAnchorNotificationEnabled(boolean) #setLeadAnchorNotificationEnabled(boolean)
          */
         public boolean isLeadAnchorNotificationEnabled() {
             return leadAnchorNotificationEnabled;
@@ -1791,6 +1871,8 @@ public class AltHTMLWriter extends AbstractWriter {
          * is the default, i.e allowing only for SINGLE_SELECTION,
          * then the very last OPTION that has the selected
          * attribute set wins.
+         *
+         * @param i the
          */
         public void setInitialSelection(int i) {
             if (initialValue.get(i)) {
@@ -1806,12 +1888,17 @@ public class AltHTMLWriter extends AbstractWriter {
         /**
          * Fetches the BitSet that represents the initial
          * set of selected items in the list.
+         *
+         * @return the initial selection
          */
         public BitSet getInitialSelection() {
             return initialValue;
         }
     }
 
+    /**
+     * The type Option combo box model.
+     */
     class OptionComboBoxModel extends DefaultComboBoxModel implements Serializable {
 
         private Option selectedOption = null;
@@ -1819,6 +1906,8 @@ public class AltHTMLWriter extends AbstractWriter {
         /**
          * Stores the Option that has been marked its
          * selected attribute set.
+         *
+         * @param option the option
          */
         public void setInitialSelection(Option option) {
             selectedOption = option;
@@ -1827,6 +1916,8 @@ public class AltHTMLWriter extends AbstractWriter {
         /**
          * Fetches the Option item that represents that was
          * initially set to a selected state.
+         *
+         * @return the initial selection
          */
         public Option getInitialSelection() {
             return selectedOption;
@@ -1838,7 +1929,7 @@ public class AltHTMLWriter extends AbstractWriter {
      * Once a Map has been created, and any number of areas have been added,
      * you can test if a point falls inside the map via the contains method.
      *
-     * @author  Scott Violet
+     * @author Scott Violet
      * @version 1.6 12/03/01
      */
     class Map {
@@ -1850,14 +1941,24 @@ public class AltHTMLWriter extends AbstractWriter {
          * length of areaAttributes as needed. */
         private Vector areas;
 
+        /**
+         * Instantiates a new Map.
+         */
         public Map() {}
 
+        /**
+         * Instantiates a new Map.
+         *
+         * @param name the name
+         */
         public Map(String name) {
             this.name = name;
         }
 
         /**
          * Returns the name of the Map.
+         *
+         * @return the name
          */
         public String getName() {
             return name;
@@ -1865,6 +1966,8 @@ public class AltHTMLWriter extends AbstractWriter {
 
         /**
          * Defines a region of the Map, based on the passed in AttributeSet.
+         *
+         * @param as the as
          */
         public void addArea(AttributeSet as) {
             if (as == null) {
@@ -1878,6 +1981,8 @@ public class AltHTMLWriter extends AbstractWriter {
 
         /**
          * Removes the previously created area.
+         *
+         * @param as the as
          */
         public void removeArea(AttributeSet as) {
             if (as != null && areaAttributes != null) {
@@ -1895,6 +2000,8 @@ public class AltHTMLWriter extends AbstractWriter {
 
         /**
          * Returns the AttributeSets representing the differet areas of the Map.
+         *
+         * @return the attribute set [ ]
          */
         public AttributeSet[] getAreas() {
             int numAttributes = (areaAttributes != null) ? areaAttributes.size() : 0;
@@ -1912,6 +2019,12 @@ public class AltHTMLWriter extends AbstractWriter {
          * <code>x</code>, <code>y</code>. <code>width</code>, <code>height</code>
          * gives the size of the region the map is defined over. If a matching
          * area is found, the AttribueSet for it is returned.
+         *
+         * @param x      the x
+         * @param y      the y
+         * @param width  the width
+         * @param height the height
+         * @return the area
          */
         public AttributeSet getArea(int x, int y, int width, int height) {
             int numAttributes = (areaAttributes != null) ? areaAttributes.size() : 0;
@@ -1938,6 +2051,9 @@ public class AltHTMLWriter extends AbstractWriter {
         /**
          * Creates and returns an instance of RegionContainment that can be
          * used to test if a particular point lies inside a region.
+         *
+         * @param attributes the attributes
+         * @return the region containment
          */
         protected RegionContainment createRegionContainment(AttributeSet attributes) {
             Object shape = attributes.getAttribute(HTML.Attribute.SHAPE);
@@ -1978,19 +2094,36 @@ public class AltHTMLWriter extends AbstractWriter {
      * Used to test for containment in a circular region.
      */
     static class CircleRegionContainment implements RegionContainment {
-        /** X origin of the circle. */
+        /**
+         * X origin of the circle.
+         */
         int x;
-        /** Y origin of the circle. */
+        /**
+         * Y origin of the circle.
+         */
         int y;
-        /** Radius of the circle. */
+        /**
+         * Radius of the circle.
+         */
         int radiusSquared;
-        /** Non-null indicates one of the values represents a percent. */
+        /**
+         * Non-null indicates one of the values represents a percent.
+         */
         float[] percentValues;
-        /** Last value of width passed in. */
+        /**
+         * Last value of width passed in.
+         */
         int lastWidth;
-        /** Last value of height passed in. */
+        /**
+         * Last value of height passed in.
+         */
         int lastHeight;
 
+        /**
+         * Instantiates a new Circle region containment.
+         *
+         * @param as the as
+         */
         public CircleRegionContainment(AttributeSet as) {
             int[] coords = extractCoords(as.getAttribute(HTML.Attribute.COORDS));
 
@@ -2044,9 +2177,16 @@ public class AltHTMLWriter extends AbstractWriter {
      * width passed in, and height equal to height passed in.
      */
     static class DefaultRegionContainment implements RegionContainment {
-        /** A global shared instance. */
+        /**
+         * A global shared instance.
+         */
         static DefaultRegionContainment si = null;
 
+        /**
+         * Shared instance default region containment.
+         *
+         * @return the default region containment
+         */
         public static DefaultRegionContainment sharedInstance() {
             if (si == null) {
                 si = new DefaultRegionContainment();
@@ -2063,15 +2203,29 @@ public class AltHTMLWriter extends AbstractWriter {
      * Used to test for containment in a polygon region.
      */
     static class PolygonRegionContainment extends Polygon implements RegionContainment {
-        /** If any value is a percent there will be an entry here for the
-         * percent value. Use percentIndex to find out the index for it. */
+        /**
+         * If any value is a percent there will be an entry here for the
+         * percent value. Use percentIndex to find out the index for it.
+         */
         float[] percentValues;
+        /**
+         * The Percent indexs.
+         */
         int[] percentIndexs;
-        /** Last value of width passed in. */
+        /**
+         * Last value of width passed in.
+         */
         int lastWidth;
-        /** Last value of height passed in. */
+        /**
+         * Last value of height passed in.
+         */
         int lastHeight;
 
+        /**
+         * Instantiates a new Polygon region containment.
+         *
+         * @param as the as
+         */
         public PolygonRegionContainment(AttributeSet as) {
             int[] coords = extractCoords(as.getAttribute(HTML.Attribute.COORDS));
 
@@ -2142,21 +2296,42 @@ public class AltHTMLWriter extends AbstractWriter {
      * Used to test for containment in a rectangular region.
      */
     static class RectangleRegionContainment implements RegionContainment {
-        /** Will be non-null if one of the values is a percent, and any value
+        /**
+         * Will be non-null if one of the values is a percent, and any value
          * that is non null indicates it is a percent
-         * (order is x, y, width, height). */
+         * (order is x, y, width, height).
+         */
         float[] percents;
-        /** Last value of width passed in. */
+        /**
+         * Last value of width passed in.
+         */
         int lastWidth;
-        /** Last value of height passed in. */
+        /**
+         * Last value of height passed in.
+         */
         int lastHeight;
-        /** Top left. */
+        /**
+         * Top left.
+         */
         int x0;
+        /**
+         * The Y 0.
+         */
         int y0;
-        /** Bottom right. */
+        /**
+         * Bottom right.
+         */
         int x1;
+        /**
+         * The Y 1.
+         */
         int y1;
 
+        /**
+         * Instantiates a new Rectangle region containment.
+         *
+         * @param as the as
+         */
         public RectangleRegionContainment(AttributeSet as) {
             int[] coords = extractCoords(as.getAttribute(HTML.Attribute.COORDS));
 
@@ -2207,6 +2382,13 @@ public class AltHTMLWriter extends AbstractWriter {
             return contains(x, y);
         }
 
+        /**
+         * Contains boolean.
+         *
+         * @param x the x
+         * @param y the y
+         * @return the boolean
+         */
         public boolean contains(int x, int y) {
             return ((x >= x0 && x <= x1) && (y >= y0 && y <= y1));
         }
@@ -2217,6 +2399,9 @@ public class AltHTMLWriter extends AbstractWriter {
      * <code>stringCoords</code>. If one of the values represents a
      * % the returned value with be negative. If a parse error results
      * from trying to parse one of the numbers null is returned.
+     *
+     * @param stringCoords the string coords
+     * @return the int [ ]
      */
     static protected int[] extractCoords(Object stringCoords) {
         if (stringCoords == null || !(stringCoords instanceof String)) {
@@ -2266,15 +2451,21 @@ public class AltHTMLWriter extends AbstractWriter {
     }
 
     /**
-        * Defines the interface used for to check if a point is inside a
-        * region.
-        */
+     * Defines the interface used for to check if a point is inside a
+     * region.
+     */
     interface RegionContainment {
         /**
          * Returns true if the location <code>x</code>, <code>y</code>
          * falls inside the region defined in the receiver.
          * <code>width</code>, <code>height</code> is the size of
          * the enclosing region.
+         *
+         * @param x      the x
+         * @param y      the y
+         * @param width  the width
+         * @param height the height
+         * @return the boolean
          */
         public boolean contains(int x, int y, int width, int height);
     }

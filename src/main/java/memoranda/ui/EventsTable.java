@@ -23,16 +23,27 @@ import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
 import main.java.memoranda.util.Local;
+
 /**
- *
+ * The type Events table.
  */
 /*$Id: EventsTable.java,v 1.6 2004/10/11 08:48:20 alexeya Exp $*/
 public class EventsTable extends JTable {
 
+    /**
+     * The constant EVENT.
+     */
     public static final int EVENT = 100;
+    /**
+     * The constant EVENT_ID.
+     */
     public static final int EVENT_ID = 101;
 
+    /**
+     * The Events.
+     */
     Vector events = new Vector();
+
     /**
      * Constructor for EventsTable.
      */
@@ -49,6 +60,11 @@ public class EventsTable extends JTable {
         });
     }
 
+    /**
+     * Init table.
+     *
+     * @param d the d
+     */
     public void initTable(CalendarDate d) {
         events = (Vector)EventsManager.getEventsForDate(d);
         getColumnModel().getColumn(0).setPreferredWidth(60);
@@ -57,6 +73,9 @@ public class EventsTable extends JTable {
         updateUI();
     }
 
+    /**
+     * Refresh.
+     */
     public void refresh() {
         initTable(CurrentDate.get());
     }
@@ -93,14 +112,23 @@ public class EventsTable extends JTable {
 
     }
 
+    /**
+     * The type Events table model.
+     */
     class EventsTableModel extends AbstractTableModel {
 
+        /**
+         * The Column names.
+         */
         String[] columnNames = {
             //Local.getString("Task name"),
             Local.getString("Time"),
                 Local.getString("Text")
         };
 
+        /**
+         * Instantiates a new Events table model.
+         */
         EventsTableModel() {
             super();
         }

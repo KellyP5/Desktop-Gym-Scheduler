@@ -11,18 +11,37 @@ import java.util.StringTokenizer;
 import nu.xom.Attribute;
 import nu.xom.Element;
 import nu.xom.Elements;
+
 /**
- *
+ * The type App list.
  */
 /*$Id: AppList.java,v 1.5 2007/03/20 08:22:41 alexeya Exp $*/
 public class AppList {
 
+    /**
+     * The Root.
+     */
     public Element _root = null;
 
+    /**
+     * The constant OS_WINDOWS.
+     */
     public static String OS_WINDOWS = "windows";
+    /**
+     * The constant OS_LINUX.
+     */
     public static String OS_LINUX = "linux";
+    /**
+     * The constant OS_SOLARIS.
+     */
     public static String OS_SOLARIS = "solaris";
 
+    /**
+     * Gets plaf code.
+     *
+     * @param osName the os name
+     * @return the plaf code
+     */
     public static String getPlafCode(String osName) {
         osName = osName.toLowerCase();
         if (osName.indexOf(OS_WINDOWS) > -1)
@@ -33,13 +52,23 @@ public class AppList {
             return OS_SOLARIS;
         return "unknown";
     }
+
     /**
      * Constructor for AppList.
+     *
+     * @param root the root
      */
     public AppList(Element root) {
         _root = root;
     }
 
+    /**
+     * Gets command line.
+     *
+     * @param appId the app id
+     * @param fPath the f path
+     * @return the command line
+     */
     public String getCommandLine(String appId, String fPath) {
         Elements apps = _root.getChildElements("app");
         fPath = fPath.replaceAll("\\\\", "\\\\\\\\");        
@@ -54,7 +83,14 @@ public class AppList {
             }
         return null;
     }
-    
+
+    /**
+     * Get command string [ ].
+     *
+     * @param appId the app id
+     * @param fPath the f path
+     * @return the string [ ]
+     */
     public String[] getCommand(String appId, String fPath) {
         Elements apps = _root.getChildElements("app");
         //fPath = fPath.replaceAll("\\\\", "\\\\\\\\");        
@@ -78,6 +114,12 @@ public class AppList {
         return null;
     }
 
+    /**
+     * Gets find path.
+     *
+     * @param appId the app id
+     * @return the find path
+     */
     public String getFindPath(String appId) {
         Elements apps = _root.getChildElements("app");
         for (int i = 0; i < apps.size(); i++)
@@ -86,6 +128,12 @@ public class AppList {
         return null;
     }
 
+    /**
+     * Sets find path.
+     *
+     * @param appId the app id
+     * @param p     the p
+     */
     public void setFindPath(String appId, String p) {
         Elements apps = _root.getChildElements("app");
         for (int i = 0; i < apps.size(); i++)
@@ -98,6 +146,12 @@ public class AppList {
 
     }
 
+    /**
+     * Gets exec.
+     *
+     * @param appId the app id
+     * @return the exec
+     */
     public String getExec(String appId) {
         Elements apps = _root.getChildElements("app");
         for (int i = 0; i < apps.size(); i++)
@@ -106,6 +160,12 @@ public class AppList {
         return null;
     }
 
+    /**
+     * Sets exec.
+     *
+     * @param appId the app id
+     * @param e     the e
+     */
     public void setExec(String appId, String e) {
         Elements apps = _root.getChildElements("app");
         for (int i = 0; i < apps.size(); i++)
@@ -117,6 +177,12 @@ public class AppList {
             }
     }
 
+    /**
+     * Gets command line pattern.
+     *
+     * @param appId the app id
+     * @return the command line pattern
+     */
     public String getCommandLinePattern(String appId) {
         Elements apps = _root.getChildElements("app");
         for (int i = 0; i < apps.size(); i++)
@@ -125,6 +191,12 @@ public class AppList {
         return null;
     }
 
+    /**
+     * Sets command line pattern.
+     *
+     * @param appId the app id
+     * @param clp   the clp
+     */
     public void setCommandLinePattern(String appId, String clp) {
         Elements apps = _root.getChildElements("app");
         for (int i = 0; i < apps.size(); i++)
@@ -132,6 +204,14 @@ public class AppList {
                 apps.get(i).addAttribute(new Attribute("command", clp));
     }
 
+    /**
+     * Add app.
+     *
+     * @param appId the app id
+     * @param fp    the fp
+     * @param exec  the exec
+     * @param clp   the clp
+     */
     public void addApp(String appId, String fp, String exec, String clp) {
         Element el = new Element("app");
         el.addAttribute(new Attribute("id", appId));
@@ -141,6 +221,14 @@ public class AppList {
         _root.appendChild(el);
     }
 
+    /**
+     * Add or replace app.
+     *
+     * @param appId the app id
+     * @param fp    the fp
+     * @param exec  the exec
+     * @param clp   the clp
+     */
     public void addOrReplaceApp(String appId, String fp, String exec, String clp) {
         Elements apps = _root.getChildElements("app");
         for (int i = 0; i < apps.size(); i++)
@@ -161,14 +249,24 @@ public class AppList {
             }
         addApp(appId, fp, exec, clp);
     }
-    
+
+    /**
+     * Gets browser exec.
+     *
+     * @return the browser exec
+     */
     public String getBrowserExec() {
         Elements els = _root.getChildElements("browser");        
         if (els.size() < 1) return null;
         Element el = els.get(0);
         return (el.getAttribute("path").getValue());
     }
-    
+
+    /**
+     * Sets browser exec.
+     *
+     * @param path the path
+     */
     public void setBrowserExec(String path) {
         Element el = null;
         Elements els = _root.getChildElements("browser");    

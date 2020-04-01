@@ -30,23 +30,70 @@ import main.java.memoranda.util.Context;
 import main.java.memoranda.util.Local;
 
 
+/**
+ * The type Sticker confirmation.
+ */
 public class StickerConfirmation extends JDialog {
-        public boolean CANCELLED = true;
-        JPanel panel1 = new JPanel();
-        BorderLayout borderLayout1 = new BorderLayout();
-        BorderLayout borderLayout2 = new BorderLayout();
-        JButton cancelButton = new JButton();
-        JButton okButton = new JButton();
-        JPanel bottomPanel = new JPanel();
-        JPanel topPanel = new JPanel();
-        JLabel header = new JLabel();
-        JPanel jPanel1 = new JPanel();
-        JLabel jLabel1 = new JLabel();
-        
-        Border border1;
-        Border border2;
-        
-        public StickerConfirmation(Frame frame) {
+    /**
+     * The Cancelled.
+     */
+    public boolean CANCELLED = true;
+    /**
+     * The Panel 1.
+     */
+    JPanel panel1 = new JPanel();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Border layout 2.
+     */
+    BorderLayout borderLayout2 = new BorderLayout();
+    /**
+     * The Cancel button.
+     */
+    JButton cancelButton = new JButton();
+    /**
+     * The Ok button.
+     */
+    JButton okButton = new JButton();
+    /**
+     * The Bottom panel.
+     */
+    JPanel bottomPanel = new JPanel();
+    /**
+     * The Top panel.
+     */
+    JPanel topPanel = new JPanel();
+    /**
+     * The Header.
+     */
+    JLabel header = new JLabel();
+    /**
+     * The J panel 1.
+     */
+    JPanel jPanel1 = new JPanel();
+    /**
+     * The J label 1.
+     */
+    JLabel jLabel1 = new JLabel();
+
+    /**
+     * The Border 1.
+     */
+    Border border1;
+    /**
+     * The Border 2.
+     */
+    Border border2;
+
+    /**
+     * Instantiates a new Sticker confirmation.
+     *
+     * @param frame the frame
+     */
+    public StickerConfirmation(Frame frame) {
                 super(frame, Local.getString("Sticker"), true);
                 try {
                         jbInit();
@@ -56,10 +103,19 @@ public class StickerConfirmation extends JDialog {
                 }
         }
 
-        public StickerConfirmation() {
+    /**
+     * Instantiates a new Sticker confirmation.
+     */
+    public StickerConfirmation() {
                 this(null);
         }
-        void jbInit() throws Exception {
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
                 border1 =
                         BorderFactory.createCompoundBorder(
                                 BorderFactory.createEtchedBorder(
@@ -114,14 +170,23 @@ public class StickerConfirmation extends JDialog {
                 jPanel1.add(jLabel1, BorderLayout.WEST);
                 
         }
-        
-        
-        
-        void cancelButton_actionPerformed(ActionEvent e) {
+
+
+    /**
+     * Cancel button action performed.
+     *
+     * @param e the e
+     */
+    void cancelButton_actionPerformed(ActionEvent e) {
                 this.dispose();
         }
 
-        void okButton_actionPerformed(ActionEvent e) {
+    /**
+     * Ok button action performed.
+     *
+     * @param e the e
+     */
+    void okButton_actionPerformed(ActionEvent e) {
                 CANCELLED = false;
                 this.dispose();
         }

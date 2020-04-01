@@ -19,7 +19,7 @@ import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Storage;
 
 /**
- *
+ * The type Current project.
  */
 /*$Id: CurrentProject.java,v 1.6 2005/12/01 08:12:26 alexeya Exp $*/
 public class CurrentProject {
@@ -59,24 +59,49 @@ public class CurrentProject {
             }
         });
     }
-        
 
+
+    /**
+     * Get project.
+     *
+     * @return the project
+     */
     public static Project get() {
         return _project;
     }
 
+    /**
+     * Gets task list.
+     *
+     * @return the task list
+     */
     public static TaskList getTaskList() {
             return _tasklist;
     }
 
+    /**
+     * Gets note list.
+     *
+     * @return the note list
+     */
     public static NoteList getNoteList() {
             return _notelist;
     }
-    
+
+    /**
+     * Gets resources list.
+     *
+     * @return the resources list
+     */
     public static ResourcesList getResourcesList() {
             return _resources;
     }
 
+    /**
+     * Set.
+     *
+     * @param project the project
+     */
     public static void set(Project project) {
         if (project.getID().equals(_project.getID())) return;
         TaskList newtasklist = CurrentStorage.get().openTaskList(project);
@@ -91,10 +116,20 @@ public class CurrentProject {
         Context.put("LAST_OPENED_PROJECT_ID", project.getID());
     }
 
+    /**
+     * Add project listener.
+     *
+     * @param pl the pl
+     */
     public static void addProjectListener(ProjectListener pl) {
         projectListeners.add(pl);
     }
 
+    /**
+     * Gets change listeners.
+     *
+     * @return the change listeners
+     */
     public static Collection getChangeListeners() {
         return projectListeners;
     }
@@ -112,6 +147,9 @@ public class CurrentProject {
         }
     }
 
+    /**
+     * Save.
+     */
     public static void save() {
         Storage storage = CurrentStorage.get();
 
@@ -120,7 +158,10 @@ public class CurrentProject {
         storage.storeResourcesList(_resources, _project);
         storage.storeProjectManager();
     }
-    
+
+    /**
+     * Free.
+     */
     public static void free() {
         _project = null;
         _tasklist = null;

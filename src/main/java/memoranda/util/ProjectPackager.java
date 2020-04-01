@@ -26,8 +26,9 @@ import main.java.memoranda.ProjectManager;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.ui.ExceptionDialog;
+
 /**
- * 
+ * The type Project packager.
  */
 /*$Id: ProjectPackager.java,v 1.10 2007/03/20 06:21:46 alexeya Exp $*/
 public class ProjectPackager {
@@ -40,6 +41,12 @@ public class ProjectPackager {
     private static String JN_DOCPATH = Util.getEnvDir(); 
     // for compatibility with previous installations (jnotes2) [alexeyA]
 
+    /**
+     * Pack.
+     *
+     * @param prj     the prj
+     * @param zipfile the zipfile
+     */
     public static void pack(Project prj, File zipfile) {
         ZipOutputStream zip = null;
         
@@ -67,6 +74,11 @@ public class ProjectPackager {
         }
     }
 
+    /**
+     * Unpack.
+     *
+     * @param zipfile the zipfile
+     */
     public static void unpack(File zipfile) {
         try {
             ZipFile zip = new ZipFile(zipfile);
@@ -126,11 +138,16 @@ public class ProjectPackager {
             new ExceptionDialog(ex, "Failed to read from "+zipfile, "Make sure that this file is a Memoranda project archive.");
         }
     }
-    
-    
+
+
     /**
      * Packs all files in the given directory into the given ZIP stream.
      * Also recurses down into subdirectories.
+     *
+     * @param startingDirectory the starting directory
+     * @param theDirectory      the the directory
+     * @param theZIPStream      the the zip stream
+     * @throws IOException the io exception
      */
     public static void PackDirectory( String startingDirectory,
                                     File theDirectory,

@@ -13,13 +13,28 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+/**
+ * The type Bookmarks panel.
+ */
 /*$Id: BookmarksPanel.java,v 1.4 2004/04/05 10:05:44 alexeya Exp $*/
 public class BookmarksPanel extends JPanel {
-  BorderLayout borderLayout1 = new BorderLayout();
-  JScrollPane scrollPane = new JScrollPane();
-  public NotesList notesList = new NotesList(NotesList.BOOKMARKS);
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Scroll pane.
+     */
+    JScrollPane scrollPane = new JScrollPane();
+    /**
+     * The Notes list.
+     */
+    public NotesList notesList = new NotesList(NotesList.BOOKMARKS);
 
-  public BookmarksPanel() {
+    /**
+     * Instantiates a new Bookmarks panel.
+     */
+    public BookmarksPanel() {
     try {
       jbInit();
     }
@@ -27,7 +42,13 @@ public class BookmarksPanel extends JPanel {
       new ExceptionDialog(ex);
     }
   }
-  void jbInit() throws Exception {
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
     this.setLayout(borderLayout1);
     this.add(scrollPane, BorderLayout.CENTER);
     scrollPane.getViewport().add(notesList, null);

@@ -19,21 +19,60 @@ import javax.swing.border.TitledBorder;
 
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Resource type dialog.
+ */
 /*$Id: ResourceTypeDialog.java,v 1.11 2004/07/01 14:44:10 pbielen Exp $*/
 public class ResourceTypeDialog extends JDialog {
+    /**
+     * The Cancel b.
+     */
     JButton cancelB = new JButton();
+    /**
+     * The Buttons panel.
+     */
     JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    /**
+     * The Header.
+     */
     JLabel header = new JLabel();
+    /**
+     * The Dialog title panel.
+     */
     JPanel dialogTitlePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    /**
+     * The Ok b.
+     */
     JButton okB = new JButton();
+    /**
+     * The Area panel.
+     */
     ResourceTypePanel areaPanel = new ResourceTypePanel();
     //JPanel mPanel = new JPanel(new BorderLayout());
 
+    /**
+     * The Border 2.
+     */
     Border border2;
+    /**
+     * The Titled border 2.
+     */
     TitledBorder titledBorder2;
+    /**
+     * The Ext.
+     */
     public String ext = "";
+    /**
+     * The Cancelled.
+     */
     boolean CANCELLED = true;
 
+    /**
+     * Instantiates a new Resource type dialog.
+     *
+     * @param frame the frame
+     * @param title the title
+     */
     public ResourceTypeDialog(JFrame frame, String title) {
         super(frame, title, true);
         try {
@@ -45,6 +84,11 @@ public class ResourceTypeDialog extends JDialog {
         }
     }
 
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
 	this.setResizable(false);
         dialogTitlePanel.setBackground(Color.WHITE);
@@ -88,15 +132,30 @@ public class ResourceTypeDialog extends JDialog {
     }
 
 
-
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
     void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
+
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
     void okB_actionPerformed(ActionEvent e) {
         CANCELLED = false;
         this.dispose();
     }
 
+    /**
+     * Gets types list.
+     *
+     * @return the types list
+     */
     public JList getTypesList() {
       return areaPanel.typesList;
     }

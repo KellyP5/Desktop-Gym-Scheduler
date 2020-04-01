@@ -8,10 +8,19 @@ import main.java.memoranda.util.*;
 import java.awt.event.*;
 import java.io.*;
 
+/**
+ * The type Exception dialog.
+ */
 /*$Id: ExceptionDialog.java,v 1.2 2004/10/18 19:09:10 ivanrise Exp $*/
 public class ExceptionDialog extends JDialog {
-  JPanel panel1 = new JPanel();
-  BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Panel 1.
+     */
+    JPanel panel1 = new JPanel();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
   private JPanel jPanel1 = new JPanel();
   private JLabel jLabel1 = new JLabel();
   private JPanel jPanel2 = new JPanel();
@@ -33,9 +42,16 @@ public class ExceptionDialog extends JDialog {
   private JButton copyB = new JButton();
   private BorderLayout borderLayout4 = new BorderLayout();
   
-  private Frame owner; 
-    
-  public ExceptionDialog(Exception exc, String description, String tip) {
+  private Frame owner;
+
+    /**
+     * Instantiates a new Exception dialog.
+     *
+     * @param exc         the exc
+     * @param description the description
+     * @param tip         the tip
+     */
+    public ExceptionDialog(Exception exc, String description, String tip) {
     super(App.getFrame(), "Problem", true);
     exc.printStackTrace();
     owner = App.getFrame();
@@ -57,12 +73,20 @@ public class ExceptionDialog extends JDialog {
       ex.printStackTrace();
     }
   }
-  
-  public ExceptionDialog(Exception exc) {
+
+    /**
+     * Instantiates a new Exception dialog.
+     *
+     * @param exc the exc
+     */
+    public ExceptionDialog(Exception exc) {
       this(exc, "", "");
   }
 
-  public ExceptionDialog() {
+    /**
+     * Instantiates a new Exception dialog.
+     */
+    public ExceptionDialog() {
     this(null, "", "");
   }
 
@@ -145,17 +169,32 @@ public class ExceptionDialog extends JDialog {
     }
   }
 
-  void copyB_actionPerformed(ActionEvent e) {
+    /**
+     * Copy b action performed.
+     *
+     * @param e the e
+     */
+    void copyB_actionPerformed(ActionEvent e) {
     traceTextArea.selectAll();
     traceTextArea.copy();
     traceTextArea.setSelectionEnd(0);
   }
 
-  void closeB_actionPerformed(ActionEvent e) {
+    /**
+     * Close b action performed.
+     *
+     * @param e the e
+     */
+    void closeB_actionPerformed(ActionEvent e) {
     this.dispose();
   }
 
-  void reportB_actionPerformed(ActionEvent e) {
+    /**
+     * Report b action performed.
+     *
+     * @param e the e
+     */
+    void reportB_actionPerformed(ActionEvent e) {
       Util.runBrowser(App.BUGS_TRACKER_URL);
   }
 }

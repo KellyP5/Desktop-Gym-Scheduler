@@ -4,6 +4,9 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * The type Image filter.
+ */
 public class ImageFilter extends FileFilter {
 
     // Accept all directories and all gif, jpg, or tiff files.

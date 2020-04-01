@@ -32,18 +32,44 @@ import javax.swing.table.TableModel;
 
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Table sorter.
+ */
 /*$Id: TableSorter.java,v 1.7 2004/10/07 08:52:32 ivanrise Exp $*/
 public class TableSorter extends TableMap {
+    /**
+     * The Indexes.
+     */
     int             indexes[];
+    /**
+     * The Sorting columns.
+     */
     Vector          sortingColumns = new Vector();
+    /**
+     * The Ascending.
+     */
     boolean         ascending = true;
+    /**
+     * The Compares.
+     */
     int compares;
+    /**
+     * The Sort by.
+     */
     int sortBy = 0;
 
+    /**
+     * Instantiates a new Table sorter.
+     */
     public TableSorter() {
         indexes = new int[0]; // for consistency
     }
 
+    /**
+     * Instantiates a new Table sorter.
+     *
+     * @param model the model
+     */
     public TableSorter(TableModel model) {
         setModel(model);
     }
@@ -53,6 +79,14 @@ public class TableSorter extends TableMap {
         reallocateIndexes(); 
     }
 
+    /**
+     * Compare rows by column int.
+     *
+     * @param row1   the row 1
+     * @param row2   the row 2
+     * @param column the column
+     * @return the int
+     */
     public int compareRowsByColumn(int row1, int row2, int column) {
         Class type = model.getColumnClass(column);
         TableModel data = model;
@@ -193,6 +227,13 @@ public class TableSorter extends TableMap {
         }
     }
 
+    /**
+     * Compare int.
+     *
+     * @param row1 the row 1
+     * @param row2 the row 2
+     * @return the int
+     */
     public int compare(int row1, int row2) {
         compares++;
         for (int level = 0; level < sortingColumns.size(); level++) {
@@ -205,6 +246,9 @@ public class TableSorter extends TableMap {
         return 0;
     }
 
+    /**
+     * Reallocate indexes.
+     */
     public void reallocateIndexes() {
         int rowCount = model.getRowCount();
 
@@ -225,6 +269,9 @@ public class TableSorter extends TableMap {
         super.tableChanged(e);
     }
 
+    /**
+     * Check model.
+     */
     public void checkModel() {
         if (indexes.length != model.getRowCount()) {
             System.err.println("Sorter not informed of a change in model.");
@@ -232,6 +279,11 @@ public class TableSorter extends TableMap {
         }
     }
 
+    /**
+     * Sort.
+     *
+     * @param sender the sender
+     */
     public void sort(Object sender) {
         checkModel();
 
@@ -242,6 +294,9 @@ public class TableSorter extends TableMap {
         //System.out.println("Compares: "+compares);
     }
 
+    /**
+     * N 2 sort.
+     */
     public void n2sort() {
         for (int i = 0; i < getRowCount(); i++) {
             for (int j = i+1; j < getRowCount(); j++) {
@@ -252,7 +307,15 @@ public class TableSorter extends TableMap {
         }
     }
 
-    // This is a home-grown implementation which we have not had time
+    /**
+     * Shuttlesort.
+     *
+     * @param from the from
+     * @param to   the to
+     * @param low  the low
+     * @param high the high
+     */
+// This is a home-grown implementation which we have not had time
     // to research - it may perform poorly in some circumstances. It
     // requires twice the space of an in-place algorithm and makes
     // NlogN assigments shuttling the values between the two
@@ -304,6 +367,12 @@ public class TableSorter extends TableMap {
         }
     }
 
+    /**
+     * Swap.
+     *
+     * @param i the
+     * @param j the j
+     */
     public void swap(int i, int j) {
         int tmp = indexes[i];
         indexes[i] = indexes[j];
@@ -323,11 +392,22 @@ public class TableSorter extends TableMap {
         model.setValueAt(aValue, indexes[aRow], aColumn);
     }
 
+    /**
+     * Sort by column.
+     *
+     * @param column the column
+     */
     public void sortByColumn(int column) {
        //sortByColumn(column, true);       
        sortByColumn(column, ascending);
     }
 
+    /**
+     * Sort by column.
+     *
+     * @param column    the column
+     * @param ascending the ascending
+     */
     public void sortByColumn(int column, boolean ascending) {
         sortBy = column;
         this.ascending = ascending;
@@ -336,16 +416,31 @@ public class TableSorter extends TableMap {
         sort(this);
         super.tableChanged(new TableModelEvent(this)); 
     }
-    
+
+    /**
+     * Gets sorted by.
+     *
+     * @return the sorted by
+     */
     public int getSortedBy() {
         return sortBy;
     }
-    
+
+    /**
+     * Is ascending boolean.
+     *
+     * @return the boolean
+     */
     public boolean isAscending() {
         return ascending;
     }
 
-    // There is no-where else to put this. 
+    /**
+     * Add mouse listener to header in table.
+     *
+     * @param table the table
+     */
+// There is no-where else to put this.
     // Add a mouse listener to the Table to trigger a table sort 
     // when a column heading is clicked in the JTable. 
     public void addMouseListenerToHeaderInTable(JTable table) { 

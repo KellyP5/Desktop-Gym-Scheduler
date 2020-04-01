@@ -15,27 +15,69 @@ import javax.swing.filechooser.FileFilter;
 import main.java.memoranda.util.Local;
 
 /**
- *
+ * The type All files filter.
  */
 /*$Id: AllFilesFilter.java,v 1.5 2004/01/30 12:17:41 alexeya Exp $*/
 public class AllFilesFilter extends FileFilter {
 
+    /**
+     * The constant RTF.
+     */
     public static final String RTF = "RTF";
+    /**
+     * The constant HTML.
+     */
     public static final String HTML = "HTML";
+    /**
+     * The constant HTM.
+     */
     public static final String HTM = "HTM";
+    /**
+     * The constant XHTML.
+     */
     public static final String XHTML = "XHTML";
+    /**
+     * The constant XML.
+     */
     public static final String XML = "XML";
+    /**
+     * The constant ZIP.
+     */
     public static final String ZIP = "ZIP";
+    /**
+     * The constant EXE.
+     */
     public static final String EXE = "EXE";
+    /**
+     * The constant COM.
+     */
     public static final String COM = "COM";
+    /**
+     * The constant BAT.
+     */
     public static final String BAT = "BAT";
+    /**
+     * The constant JAR.
+     */
     public static final String JAR = "JAR";
+    /**
+     * The constant ICO.
+     */
     public static final String ICO = "ICO";
+    /**
+     * The constant WAV.
+     */
     public static final String WAV = "WAV";
 
+    /**
+     * The Type.
+     */
     String _type = "";
+
     /**
      * Constructor for AllFilesFilter.
+     *
+     * @param type the type
      */
     public AllFilesFilter(String type) {
         super();

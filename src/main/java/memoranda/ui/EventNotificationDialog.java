@@ -23,20 +23,60 @@ import java.io.File;
 import java.net.URL;
 
 
+/**
+ * The type Event notification dialog.
+ */
 /*$Id: EventNotificationDialog.java,v 1.8 2004/10/18 19:08:56 ivanrise Exp $*/
 public class EventNotificationDialog extends JFrame {
-  JPanel panel1 = new JPanel();
-  BorderLayout borderLayout1 = new BorderLayout();
-  JButton jButton1 = new JButton();
-  Border border1;
-  Border border2;
-  Border border3;
-  JPanel jPanel1 = new JPanel();
-  JLabel textLabel = new JLabel();
-  JLabel timeLabel = new JLabel();
-  Border border4;
+    /**
+     * The Panel 1.
+     */
+    JPanel panel1 = new JPanel();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The J button 1.
+     */
+    JButton jButton1 = new JButton();
+    /**
+     * The Border 1.
+     */
+    Border border1;
+    /**
+     * The Border 2.
+     */
+    Border border2;
+    /**
+     * The Border 3.
+     */
+    Border border3;
+    /**
+     * The J panel 1.
+     */
+    JPanel jPanel1 = new JPanel();
+    /**
+     * The Text label.
+     */
+    JLabel textLabel = new JLabel();
+    /**
+     * The Time label.
+     */
+    JLabel timeLabel = new JLabel();
+    /**
+     * The Border 4.
+     */
+    Border border4;
 
-  public EventNotificationDialog(String title, String time, String text) {
+    /**
+     * Instantiates a new Event notification dialog.
+     *
+     * @param title the title
+     * @param time  the time
+     * @param text  the text
+     */
+    public EventNotificationDialog(String title, String time, String text) {
     super();
     this.setTitle(title);
     try {
@@ -58,10 +98,19 @@ public class EventNotificationDialog extends JFrame {
     //jButton1.requestFocus();
   }
 
-  public EventNotificationDialog() {
+    /**
+     * Instantiates a new Event notification dialog.
+     */
+    public EventNotificationDialog() {
     this("", "", "");
   }
-  void jbInit() throws Exception {
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
     this.setResizable(false);
     this.setIconImage(new ImageIcon(EventNotificationDialog.class.getResource("/ui/icons/jnotes16.png")).getImage());
     this.getContentPane().setBackground(new Color(251, 197, 63));
@@ -97,7 +146,12 @@ public class EventNotificationDialog extends JFrame {
     playSoundNotification();
   }
 
-  void jButton1_actionPerformed(ActionEvent e) {
+    /**
+     * J button 1 action performed.
+     *
+     * @param e the e
+     */
+    void jButton1_actionPerformed(ActionEvent e) {
        this.dispose();
   }
   

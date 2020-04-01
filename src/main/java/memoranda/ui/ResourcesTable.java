@@ -25,14 +25,29 @@ import main.java.memoranda.util.Local;
 import main.java.memoranda.util.MimeType;
 import main.java.memoranda.util.MimeTypesList;
 
+/**
+ * The type Resources table.
+ */
 /*$Id: ResourcesTable.java,v 1.4 2004/04/05 10:05:44 alexeya Exp $*/
 public class ResourcesTable extends JTable {
 
+    /**
+     * The Files.
+     */
     Vector files = null;
+    /**
+     * The Sorter.
+     */
     TableSorter sorter = null;
-    
+
+    /**
+     * The Inet icon.
+     */
     ImageIcon inetIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/mimetypes/inetshortcut.png"));
 
+    /**
+     * Instantiates a new Resources table.
+     */
     public ResourcesTable() {
         super();
         initTable();
@@ -53,6 +68,9 @@ public class ResourcesTable extends JTable {
         });
     }
 
+    /**
+     * Init colums width.
+     */
     void initColumsWidth() {
         for (int i = 0; i < 4; i++) {
             TableColumn column = getColumnModel().getColumn(i);
@@ -66,6 +84,9 @@ public class ResourcesTable extends JTable {
         }
     }
 
+    /**
+     * Table changed.
+     */
     public void tableChanged() {
         initTable();
         sorter.tableChanged(null);
@@ -73,6 +94,9 @@ public class ResourcesTable extends JTable {
         updateUI();
     }
 
+    /**
+     * Init table.
+     */
     public void initTable() {
         Vector v = CurrentProject.getResourcesList().getAllResources();
         files = new Vector();
@@ -88,8 +112,11 @@ public class ResourcesTable extends JTable {
         }
 
     }
-    
-     public static final int _RESOURCE = 100;
+
+    /**
+     * The constant _RESOURCE.
+     */
+    public static final int _RESOURCE = 100;
 
     public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
@@ -117,8 +144,14 @@ public class ResourcesTable extends JTable {
 
     }
 
+    /**
+     * The type Resources table model.
+     */
     class ResourcesTableModel extends AbstractTableModel {
 
+        /**
+         * The Column names.
+         */
         String[] columnNames = {
                 Local.getString("Name"),
                 Local.getString("Type"),

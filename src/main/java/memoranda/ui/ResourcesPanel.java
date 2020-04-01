@@ -33,21 +33,63 @@ import main.java.memoranda.util.Util;
 
 import java.io.*;
 
+/**
+ * The type Resources panel.
+ */
 /*$Id: ResourcesPanel.java,v 1.13 2007/03/20 08:22:41 alexeya Exp $*/
 public class ResourcesPanel extends JPanel {
+    /**
+     * The Border layout 1.
+     */
     BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Tool bar.
+     */
     JToolBar toolBar = new JToolBar();
+    /**
+     * The New res b.
+     */
     JButton newResB = new JButton();
+    /**
+     * The Resources table.
+     */
     ResourcesTable resourcesTable = new ResourcesTable();
+    /**
+     * The Remove res b.
+     */
     JButton removeResB = new JButton();
+    /**
+     * The Scroll pane.
+     */
     JScrollPane scrollPane = new JScrollPane();
+    /**
+     * The Refresh b.
+     */
     JButton refreshB = new JButton();
-  JPopupMenu resPPMenu = new JPopupMenu();
-  JMenuItem ppRun = new JMenuItem();
-  JMenuItem ppRemoveRes = new JMenuItem();
-  JMenuItem ppNewRes = new JMenuItem();
-  JMenuItem ppRefresh = new JMenuItem();
+    /**
+     * The Res pp menu.
+     */
+    JPopupMenu resPPMenu = new JPopupMenu();
+    /**
+     * The Pp run.
+     */
+    JMenuItem ppRun = new JMenuItem();
+    /**
+     * The Pp remove res.
+     */
+    JMenuItem ppRemoveRes = new JMenuItem();
+    /**
+     * The Pp new res.
+     */
+    JMenuItem ppNewRes = new JMenuItem();
+    /**
+     * The Pp refresh.
+     */
+    JMenuItem ppRefresh = new JMenuItem();
 
+    /**
+     * Instantiates a new Resources panel.
+     */
     public ResourcesPanel() {
         try {
             jbInit();
@@ -56,6 +98,12 @@ public class ResourcesPanel extends JPanel {
            new ExceptionDialog(ex);
         }
     }
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         toolBar.setFloatable(false);
         this.setLayout(borderLayout1);
@@ -187,6 +235,11 @@ public class ResourcesPanel extends JPanel {
 		});
     }
 
+    /**
+     * New res b action performed.
+     *
+     * @param e the e
+     */
     void newResB_actionPerformed(ActionEvent e) {
         AddResourceDialog dlg = new AddResourceDialog(App.getFrame(), Local.getString("New resource"));
         Dimension frmSize = App.getFrame().getSize();
@@ -223,6 +276,11 @@ public class ResourcesPanel extends JPanel {
         }
     }
 
+    /**
+     * Remove res b action performed.
+     *
+     * @param e the e
+     */
     void removeResB_actionPerformed(ActionEvent e) {
         int[] toRemove = resourcesTable.getSelectedRows();
         String msg = "";
@@ -253,6 +311,12 @@ public class ResourcesPanel extends JPanel {
         resourcesTable.tableChanged();
     }
 
+    /**
+     * Add resource type mime type.
+     *
+     * @param fpath the fpath
+     * @return the mime type
+     */
     MimeType addResourceType(String fpath) {
         ResourceTypeDialog dlg = new ResourceTypeDialog(App.getFrame(), Local.getString("Resource type"));
         Dimension dlgSize = new Dimension(420, 300);
@@ -271,6 +335,12 @@ public class ResourcesPanel extends JPanel {
         return mt;
     }
 
+    /**
+     * Check app boolean.
+     *
+     * @param mt the mt
+     * @return the boolean
+     */
     boolean checkApp(MimeType mt) {
         String appId = mt.getAppId();
         AppList appList = MimeTypesList.getAppList();
@@ -314,8 +384,13 @@ public class ResourcesPanel extends JPanel {
         CurrentStorage.get().storeMimeTypesList();
         return true;
     }
-    
 
+
+    /**
+     * Run app.
+     *
+     * @param fpath the fpath
+     */
     void runApp(String fpath) {
         MimeType mt = MimeTypesList.getMimeTypeForFile(fpath);
         if (mt.getMimeTypeId().equals("__UNKNOWN")) {
@@ -340,10 +415,18 @@ public class ResourcesPanel extends JPanel {
         }
     }
 
+    /**
+     * Run browser.
+     *
+     * @param url the url
+     */
     void runBrowser(String url) {
         Util.runBrowser(url);
     }
 
+    /**
+     * The type Popup listener.
+     */
     class PopupListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
@@ -372,35 +455,63 @@ public class ResourcesPanel extends JPanel {
                 }
 
     }
+
+    /**
+     * Refresh b action performed.
+     *
+     * @param e the e
+     */
     void refreshB_actionPerformed(ActionEvent e) {
         resourcesTable.tableChanged();
     }
 
-  void ppRun_actionPerformed(ActionEvent e) {
+    /**
+     * Pp run action performed.
+     *
+     * @param e the e
+     */
+    void ppRun_actionPerformed(ActionEvent e) {
     String path = (String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 3);
                 if (path.length() >0)
                     runApp(path);
                 else
                     runBrowser((String) resourcesTable.getValueAt(resourcesTable.getSelectedRow(), 0));
   }
-  void ppRemoveRes_actionPerformed(ActionEvent e) {
+
+    /**
+     * Pp remove res action performed.
+     *
+     * @param e the e
+     */
+    void ppRemoveRes_actionPerformed(ActionEvent e) {
     removeResB_actionPerformed(e);
   }
-  void ppNewRes_actionPerformed(ActionEvent e) {
+
+    /**
+     * Pp new res action performed.
+     *
+     * @param e the e
+     */
+    void ppNewRes_actionPerformed(ActionEvent e) {
     newResB_actionPerformed(e);
   }
 
-  void ppRefresh_actionPerformed(ActionEvent e) {
+    /**
+     * Pp refresh action performed.
+     *
+     * @param e the e
+     */
+    void ppRefresh_actionPerformed(ActionEvent e) {
      resourcesTable.tableChanged();
   }
-  
-  /**
-   * Copy a file to the directory of the current project
-   * @param srcStr The path of the source file.
-   * @param destStr The destination path.
-   * @return The new path of the file.
-   */
-  String copyFileToProjectDir(String srcStr) {
+
+    /**
+     * Copy a file to the directory of the current project
+     *
+     * @param srcStr The path of the source file.
+     * @return The new path of the file.
+     */
+    String copyFileToProjectDir(String srcStr) {
 	  
 	  String JN_DOCPATH = Util.getEnvDir();	    
 	  

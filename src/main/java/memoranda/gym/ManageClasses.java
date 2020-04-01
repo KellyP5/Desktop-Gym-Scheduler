@@ -17,8 +17,8 @@ public class ManageClasses {
      * @param roomNumber
      * @return true if successful.
      */
-    public boolean createGroupClass(Date startTime,Integer duration, Integer roomNumber ){
-        Class newClass = new Class(startTime,duration,roomNumber,20);
+    public boolean createGroupClass(Date startTime,Integer duration, Integer roomNumber,Belt beltReq){
+        Class newClass = new Class(startTime,duration,roomNumber,20,beltReq);
         if(!classes.contains(newClass)){
             classes.add(newClass);
             return true;
@@ -33,8 +33,8 @@ public class ManageClasses {
      * @param roomNumber
      * @return true on being successful.
      */
-    public boolean createPrivateClass(Date startTime,Integer duration, Integer roomNumber ){
-        Class newClass = new Class(startTime,duration,roomNumber,1);
+    public boolean createPrivateClass(Date startTime,Integer duration, Integer roomNumber,Belt beltReq){
+        Class newClass = new Class(startTime,duration,roomNumber,1,beltReq);
         if(!classes.contains(newClass)){
             classes.add(newClass);
             return true;

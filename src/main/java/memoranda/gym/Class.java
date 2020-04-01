@@ -10,6 +10,8 @@ public class Class {
     public Integer duration;
     public Integer roomNumber;
     public Integer maxClassSize;
+    public Belt beltReq;
+
 
     /**
      * Constructor for Class
@@ -18,12 +20,13 @@ public class Class {
      * @param roomNumber is the assigned room number.
      * @param classSize is the size of the class. Size of 1 indicates the class is a private class.
      */
-    public Class(Date startTime, Integer duration, Integer roomNumber, Integer classSize){
+    public Class(Date startTime, Integer duration, Integer roomNumber, Integer classSize, Belt beltReq){
         this.users = new ArrayList<>();
         this.startTime = startTime;
         this.duration = duration;
         this.roomNumber = roomNumber;
         this.maxClassSize = classSize;
+        this.beltReq = beltReq;
     }
 
     /**

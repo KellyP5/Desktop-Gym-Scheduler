@@ -1,5 +1,6 @@
 package main.java.memoranda.gym;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -18,105 +19,113 @@ public class ConsoleGymApp {
 
     public void run(){
         this.gym = new Gym();
-        Scanner scanner = new Scanner(System.in);
 
-        //login loop
-        while(true){
+        String email = "admin";
+        String password = "admin";
+        gym.adminLogin(email,password);
 
-            this.user_print_loginMenu();
-
-            String input = scanner.next();
-
-            switch(input){
-                case "1":
-                {
-                    System.out.println("adminLogin");
-
-                    System.out.print("Email: ");
-                    String email = scanner.next();
-                    System.out.print("Password: ");
-                    String password = scanner.next();
-
-                    gym.adminLogin(email,password);
-                    break;
-                }
-                case "2":
-                {
-                    System.out.println("userLogin");
-
-                    System.out.print("Email: ");
-                    String email = scanner.next();
-                    System.out.print("Password: ");
-                    String password = scanner.next();
-
-                    gym.userLogin(email,password);
-                    break;
-                }
-                case "3":
-                {
-                    return;
-                }
-            }
-
-            if(gym.isLoggedIn)
-                break;
-        }
+        createDummyData();//creates dummy data for testing
 
         //main gym loop
         while(true){
-            if(gym.isAdmin==true){
-                admin_menu();
-            }
-            else if(gym.user.isTrainer()){
-                trainer_menu();
-            }
-            else{
-                user_menu();
-            }
+            menu();
         }
+
+    }
+
+    void createDummyData(){
+        //private class starting 28APR2020 @ 0900 for white belts in room 2
+        gym.createClass(1,1588086000000l,60,1,new Belt(Belt.Rank.white));
+
+        //group class starting 28APR2020 @ 0800 for white belts in room 1
+        gym.createClass(2,1588086000000l,60,2,new Belt(Belt.Rank.white));
+
+        //create trainers
+        gym.createTrainer("joe@gym.com","Joe","1234", new Belt(Belt.Rank.black3));
+        gym.createTrainer("jill@gym.com","jill","1234",new Belt(Belt.Rank.black3));
+
+        //create users
+        gym.userCreateAccount("user1@gmail.com","user1","1234");
+        gym.userCreateAccount("user2@gmail.com","user2","1234");
+        gym.userCreateAccount("user3@gmail.com","user3","1234");
+        gym.userCreateAccount("user4@gmail.com","user4","1234");
+
+        //assign users and trainers to a public class
+        gym.userBookClass("user1@gmail.com", new Date(1588086000000l),2);
+        gym.userBookClass("user2@gmail.com", new Date(1588086000000l),2);
+        gym.assignClassroomTrainer("joe@gym.com", new Date(1588086000000l),2);
+
+        //assign users and trainers to a private class, should only allow 1  user and 1 trainer
+        gym.userBookClass("user3@gmail.com", new Date(1588086000000l),1);
+        gym.userBookClass("user4@gmail.com", new Date(1588086000000l),1);
+        gym.assignClassroomTrainer("jill@gym.com", new Date(1588086000000l),1);
+
+        printClasses();
 
     }
 
 
     //////////////////////////////////////////////////////Test printing
 
-    void user_print_loginMenu(){
-        System.out.println("GymMenu: - default admin is admin/admin");
-        System.out.println("1) adminLogin");
-        System.out.println("2) userLogin");
-        System.out.println("3) exit");
-    }
-
-    void admin_menu(){
+    void menu(){
 
 
         System.out.println("AdminMenu:");
-        System.out.println("1) createClass");
+        System.out.println("1) printClasses");
+        System.out.println("2) createClass");
+        System.out.println("3) createAccount");
+        System.out.println("4) createTrainer");
+        System.out.println("5) assignClassroomTrainer");
+        System.out.println("6) changeUserBelt");
+        System.out.println("7) changeUserTrainingBelt");
+        System.out.println("7) userBookClass");
+
 
         Scanner s = new Scanner(System.in);
 
         switch(s.next()){
             case "1":
             {
-                console_createClass();
+                printClasses();
+                break;
+            }
+            case "2":
+            {
+                createClass();
+                break;
+            }
+            case "3":
+            {
+                createAccount();
+                break;
+            }
+            case "4":
+            {
+                createTrainer();
+                break;
+            }
+            case "5":
+            {
+                assignClassroomTrainer();
+                break;
+            }
+            case "6":
+            {
+                changeUserBelt();
+                break;
+            }
+            case "7":
+            {
+                changeUserTrainingBelt();
+                break;
+            }
+            case "8":
+            {
+                userBookClass();
                 break;
             }
         }
-        //TODO
 
-    }
-
-    void trainer_menu(){
-        System.out.println("TrainerMenu: - default admin is admin/admin");
-        System.out.println("1) ");
-        //TODO
-
-    }
-
-    void user_menu(){
-        System.out.println("UserMenu: - default admin is admin/admin");
-        System.out.println("1) ");
-        //TODO
     }
 
     Belt console_getBelt(){
@@ -199,8 +208,37 @@ public class ConsoleGymApp {
     //////////////////////////////////////////////////////End Test printing
 
 
-    void console_createClass(){
+    void printClasses(){
+        ArrayList<Class> classes = gym.getClasses();
+        System.out.println("StartTime\tRoomNumber\tTrainerName");
+        for(int i = 0;i< classes.size();i++){
+            System.out.print(classes.get(i).getTime());
+            System.out.print('\t');
+            System.out.print(classes.get(i).getRoomNumber());
+            System.out.print('\t');
+            if(classes.get(i).hasTrainer()){
+                System.out.print(classes.get(i).getTrainer().getName());
+            }
+            else{
+                System.out.print("NO TRAINER");
+            }
+            System.out.println("\nUserName\tEmail");
+            ArrayList<User> users = classes.get(i).getUsers();
+            for(int j = 0;j< users.size();j++){
+                System.out.print(users.get(j).getName());
+                System.out.print('\t');
+                System.out.println(users.get(j).getEmail());
+            }
+            System.out.println();
+
+        }
+
+    }
+
+    void createClass(){
         Scanner scanner = new Scanner(System.in);
+
+        System.out.println("createClass");
 
         System.out.println("ClassType");
         System.out.println("1) private");
@@ -220,11 +258,91 @@ public class ConsoleGymApp {
         Long st = Long.parseLong(ms);
         Belt beltReq = console_getBelt();
 
-        gym.admin_createClass(classType,st,dur,rn,beltReq);
+        gym.createClass(classType,st,dur,rn,beltReq);
     }
 
+    void createAccount(){
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.println("createAccount");
+        System.out.print("Email: ");
+        String email = scanner.next();
+        System.out.print("UserName: ");
+        String un = scanner.next();
+        System.out.print("Password: ");
+        String pw = scanner.next();
+        Belt br = console_getBelt();
+        gym.createAccount(email,un,pw,br);
 
+    }
 
+    void createTrainer(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("createTrainer");
+        System.out.print("Email: ");
+        String email = scanner.next();
+        System.out.print("UserName: ");
+        String un = scanner.next();
+        System.out.print("Password: ");
+        String pw = scanner.next();
+        Belt br = console_getBelt();
+        gym.createTrainer(email,un,pw,br);
+    }
+
+    void assignClassroomTrainer(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("assignClassroomTrainer");
+        System.out.print("Email: ");
+        String email = scanner.next();
+        System.out.print("ClassStartTime: ");
+        String ms = scanner.next();
+        System.out.print("RoomNumber: ");
+        String rn = scanner.next();
+
+        Long st = Long.parseLong(ms);
+        Integer roomNumber = Integer.parseInt(rn);
+
+        gym.assignClassroomTrainer(email,new Date(st),roomNumber);
+    }
+
+    void changeUserBelt(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("changeUserBelt");
+        System.out.print("Email: ");
+        String email = scanner.next();
+        Belt belt = console_getBelt();
+
+        gym.changeUserBelt(email,belt);
+    }
+
+    void changeUserTrainingBelt(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("changeUserTrainingBelt");
+        System.out.print("Email: ");
+        String email = scanner.next();
+        Belt belt = console_getBelt();
+
+        gym.changeUserTrainingBelt(email,belt);
+    }
+
+    void userBookClass(){
+        Scanner scanner = new Scanner(System.in);
+
+        //        gym.userBookClass("user3@gmail.com", new Date(1588086000000l),1);
+
+        System.out.println("userBookClass");
+        System.out.print("Email: ");
+        String email = scanner.next();
+        System.out.print("RoomNumber: ");
+        String rn = scanner.next();
+        System.out.print("ClassStartTime: ");
+        String ms = scanner.next();
+        long st = Long.parseLong(ms);
+        gym.userBookClass(email,new Date(st),Integer.parseInt(rn));
+    }
 
 }

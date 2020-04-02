@@ -34,7 +34,7 @@ public class ManageClasses {
      * @return true on being successful.
      */
     public boolean createPrivateClass(Date startTime,Integer duration, Integer roomNumber,Belt beltReq){
-        Class newClass = new Class(startTime,duration,roomNumber,1,beltReq);
+        Class newClass = new Class(startTime,duration,roomNumber,2,beltReq);
         if(!classes.contains(newClass)){
             classes.add(newClass);
             return true;
@@ -86,6 +86,23 @@ public class ManageClasses {
         for(int i = 0;i< this.classes.size();i++){
             if(this.classes.get(i).equals(_class)){
                 this.classes.get(i).addUser(user);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**Assigns a user to a class. Fails if the class doesn't exist, or the
+     * class is full.
+     *
+     * @param user
+     * @param _class the class the user is to be signed up.
+     * @return true on success //TODO needs proper error handling
+     */
+    public boolean bookClass(User user, Class _class){
+        //TODO needs proper error handling
+        if(classes.contains(_class)){
+            if(_class.addUser(user)){
                 return true;
             }
         }

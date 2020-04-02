@@ -84,12 +84,20 @@ public class Class {
      * @return true if successful.
      */
     public boolean addUser(User user){
-        if(this.users.size()<this.maxClassSize){
+        //TODO add proper error handling
+        if(this.users.size()<this.maxClassSize&&this.hasTrainer()==false&&user.isTrainer()){
+                this.users.add(user);
+                return true;
+        }
+        else if(this.users.size()<this.maxClassSize&&this.hasTrainer()==true){
+            this.users.add(user);
+            return true;
+        }
+        else if(this.users.size()<this.maxClassSize-1){
             this.users.add(user);
             return true;
         }
         return false;
-
     }
 
 

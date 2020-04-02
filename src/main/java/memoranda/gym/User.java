@@ -89,6 +89,4 @@ public class User {
         this.rank = rank;
     }
 
-
-
 }

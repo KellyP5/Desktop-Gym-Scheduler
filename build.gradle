@@ -2,7 +2,9 @@ apply plugin: 'application'
 
 mainClassName = 'main/java/memoranda/Start'
 
+
 compileJava.options.encoding = 'UTF-8'
+//compileJava.options.encoding = "Windows-1252"
 
 // Repositories and dependencies for code go here
 repositories {

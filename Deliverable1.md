@@ -59,7 +59,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 |---|---|---|---|--|--|
 |3/28|On call: Kelly P, Kelly E, Alex, Rita, Kevin S. On slack text: Kevin W  | 15  | 26% | N/A  | N/A  |
 |3/31|On call: Kelly P, Kelly E, Alex, Rita, Kevin S, Kevin W   | 30 | 72% | N/A | N/A |
-|   |   |   |   |  |  |
+|4/21|On Call: Kelly E, Alex, Rita, Kevin S, Kevin W.  On slack text: Kelly P| 15  | 81%| N/A | N/A |
 
 ### Meeting Summary:
 
@@ -76,7 +76,7 @@ I would also advise you to already fill out the Contributions section (End of sp
    Kevin Somers : 2 Meetings
    
    Kevin Wilkinson : 1 Meeting (1 asynchronously)
-
+   
 
 ## 3: After the Sprint
 

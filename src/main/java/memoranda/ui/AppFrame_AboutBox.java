@@ -31,11 +31,11 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     String url = App.WEBSITE_URL;
     String developersHead = Local.getString("Developers") + ":";
     String[] developers = {
-              "Alex Mack",
-              "Kevin Wilkinson",
+              "Alex Mack - ajmack5@asu.edu",
+              "Kevin Wilkinson - kmwilki4@asu.edu",
               "Kelly Ellis - klellis4@asu.edu",
               "Rita Barrilleaux - mbarrill@asu.edu",
-              "Kelly Petrone",
+              "Kelly Petrone - kjpetron@asu.edu",
   			  "Kevin Somers - ksomers3@asu.edu"
     };
     String finalHead = Local.getString("Final Note") + ":";

@@ -1,4 +1,9 @@
+plugins {
+  id 'org.ajoberstar.grgit' version '4.0.1'
+}
+
 apply plugin: 'application'
+apply plugin: 'java'
 
 mainClassName = 'main/java/memoranda/Start'
 
@@ -8,6 +13,7 @@ compileJava.options.encoding = 'UTF-8'
 // Repositories and dependencies for code go here
 repositories {
   mavenCentral()
+  jcenter()
 }
 
 dependencies {
@@ -15,13 +21,16 @@ dependencies {
   compile 'net.sourceforge.nekohtml:nekohtml:1.9.+'
 }
 
-task updateBuild(type: WriteProperties) {
+task updateBuildAndVersion(type: WriteProperties) {
   outputFile = file('build/gradle.properties')
   Properties props = new Properties()
 
   if (!outputFile.exists()) {
     props['build'] = "1.0.0"
+    String versionId = "1.0.${grgit.head().abbreviatedId}"
+    props['version'] = versionId
     props.store(outputFile.newWriter(), null)
+    
   }
 
   if (outputFile.canRead()) {
@@ -32,7 +41,9 @@ task updateBuild(type: WriteProperties) {
     String major=buildString.substring(0, buildString.lastIndexOf("."));
     def finalString = major + "." + m
     property 'build', finalString
+
+    property 'version', "1.0.${grgit.head().abbreviatedId}"
   }
 }
 
-run.dependsOn updateBuild
+run.dependsOn updateBuildAndVersion

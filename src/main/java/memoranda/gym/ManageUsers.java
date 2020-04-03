@@ -13,17 +13,21 @@ public class ManageUsers {
         this.users = new HashMap<>();
     }
 
-    /**
-     * Creates a user, and assigns a starting belt.
-     * @param email
-     * @param userName
-     * @param userPassword
-     * @param startingRank
-     */
-    public void createUser(String email, String userName, String userPassword, Belt startingRank){
+
+    public void createCustomer(String email, String userName, String userPassword, Belt startingRank){
         User newUser = new User(userName,email,userPassword);
         assignBelt(email,startingRank);
         users.put(email,newUser);
+    }
+
+    public void createAdmin(String email, String userName, String userPassword){
+        Admin newAdmin = new Admin(userName,email,userPassword);
+        users.put(email,newAdmin);
+    }
+
+    public void createTrainer(String email, String userName, String userPassword, Belt startingRank, Belt trainingRank){
+        Trainer newTrainer = new Trainer(userName,email,userPassword,startingRank,trainingRank);
+        users.put(email,newTrainer);
     }
 
     /** Sets the password for the given student.
@@ -54,16 +58,15 @@ public class ManageUsers {
         return false;
     }
 
-    /**
-     * Sets the training rank for the given student.
-     * @param email
-     * @param belt
-     * @return true on success.
-     */
+
     public boolean assignTrainingRank(String email, Belt belt){
+        //TODO proper error handling
         if(this.users.containsKey(email)){
-            this.users.get(email).setTrainingRank(belt);
-            return true;
+            Object user = this.users.get(email);
+            if(user instanceof Trainer){
+                ((Trainer)this.users.get(email)).setTrainingRank(belt);
+                return true;
+            }
         }
         return false;
     }

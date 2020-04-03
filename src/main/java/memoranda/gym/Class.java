@@ -44,7 +44,7 @@ public class Class {
     public User getTrainer(){
 
         for(int i = 0;i< this.users.size();i++){
-            if(this.users.get(i).isTrainer()){
+            if(this.users.get(i) instanceof Trainer){
                 return this.users.get(i);
             }
         }
@@ -85,7 +85,7 @@ public class Class {
      */
     public boolean addUser(User user){
         //TODO add proper error handling
-        if(this.users.size()<this.maxClassSize&&this.hasTrainer()==false&&user.isTrainer()){
+        if(this.users.size()<this.maxClassSize&&this.hasTrainer()==false&&user instanceof Trainer){
                 this.users.add(user);
                 return true;
         }

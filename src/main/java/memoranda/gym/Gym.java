@@ -8,59 +8,29 @@ import java.util.Scanner;
 
 public class Gym {
 
-    public String adminName;
-    public String adminPassword;
-    public String adminEmail;
-
-    public User user;
-
-    public boolean isLoggedIn;
-    public boolean isAdmin;
+    public Object user;//Could be Admin/Trainer/User, this is the user that is currently accessing the system.
 
     private ManageUsers manageUsers;
     private ManageClasses manageClasses;
-
 
     /**
      * Default constructor. Values are hard coded.
      */
     public Gym(){
-        this.adminEmail = "admin";
-        this.adminName = "admin";
-        this.adminPassword = "admin";
-
         this.manageClasses = new ManageClasses();
         this.manageUsers = new ManageUsers();
     }
 
     /**
-     * Signs into the system using admin email/password
-     * @param adminEmail default is default@gym.com
-     * @param userPassword default is 1234
-     * @return whether successful or not
-     */
-    public boolean adminLogin(String adminEmail, String userPassword){
-        if(this.adminEmail.compareTo(adminEmail)==0){
-            if(this.adminPassword.compareTo(userPassword)==0){
-                this.isAdmin = true;
-                this.isLoggedIn = true;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Logs into the system
+     * Logs into the system.
      * @param userEmail
      * @param userPassword
-     * @return returns true if successful.
+     * @return
      */
     public boolean userLogin(String userEmail, String userPassword){
-        User user = this.manageUsers.getUser(userEmail);
+        Object user = this.manageUsers.getUser(userEmail);
         if(user!=null){
-                if(user.checkPassword(userPassword)){
-                    this.isLoggedIn = true;
+                if(((User)user).checkPassword(userPassword)){
                     this.user = user;
                     return true;
                 }
@@ -140,13 +110,43 @@ public class Gym {
         manageClasses.assignTrainer(user,_class);
     }
 
-    /**
+    /**Creates a customer account. The customer is assigned a default of a white belt.
+     *
      * 7. the owner can enter trainers into the system with their rank and training rank
+     * 10. the owner can login and enter students and trainers, change their belt color, training
+     * rank and everything that makes sense
+     *
+     * @param email
+     * @param userName
+     * @param pw
+     */
+    public void createCustomer(String email, String userName, String pw){
+        //initial rank is white
+        manageUsers.createCustomer(email,userName,pw,new Belt(Belt.Rank.white));
+    }
+
+    /**Creates a training account. The training belt rank is the same as the belt rank.
+     *
+     * 7. the owner can enter trainers into the system with their rank and training rank
+     * 10. the owner can login and enter students and trainers, change their belt color, training
+     * rank and everything that makes sense
      */
     public void createTrainer(String email, String userName, String pw, Belt trainingRank){
-        manageUsers.createUser(email,userName,pw,trainingRank);
+        //training rank is the belt rank.
+        manageUsers.createTrainer(email,userName,pw,trainingRank,trainingRank);
         manageUsers.assignTrainingRank(email,trainingRank);
     }
+
+    /**Creates an admin account. The admin is assigned the highest training/belt rank in the system.
+     *
+     * 7. the owner can enter trainers into the system with their rank and training rank
+     * 10. the owner can login and enter students and trainers, change their belt color, training
+     * rank and everything that makes sense
+     */
+    public void createAdmin(String email, String userName, String pw){
+        manageUsers.createAdmin(email,userName,pw);
+    }
+
 
     /**
      * 13. trainers, owners and students can view their overall and their own schedule at any
@@ -154,14 +154,6 @@ public class Gym {
      */
     public ArrayList<Class> getClasses(){
         return manageClasses.getClasses();
-    }
-
-    /**
-     * 10. the owner can login and enter students and trainers, change their belt color, training
-     * rank and everything that makes sense
-     */
-    public void createAccount(String email, String userName, String pw, Belt startingRank){
-        manageUsers.createUser(email,userName,pw,startingRank);
     }
 
     /**
@@ -193,14 +185,6 @@ public class Gym {
     }
 
     /**
-     * Derived from UI.
-     */
-    public void userCreateAccount(String email, String userName, String pw){
-        Belt startingBelt = new Belt(Belt.Rank.white);
-        createAccount(email,userName,pw,startingBelt);
-    }
-
-    /**
      * 11. the students can book private classes that are already setup and are not booked by
      * someone yet, or enroll in public classes.
      *
@@ -226,14 +210,9 @@ public class Gym {
     }
 
 
-
-
-
-
-
-
-
-
+    public void assignTrainingRank(String email, Belt newRank){
+        manageUsers.assignTrainingRank(email,newRank);
+    }
 
 
 }

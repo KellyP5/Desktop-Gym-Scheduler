@@ -7,7 +7,6 @@ public class User {
     private String password;
 
     private Belt rank;
-    private Belt trainingRank;
 
     /**
      * Constructor for User. Belt's are not instantiated until assigned by the ManageUser class.
@@ -21,7 +20,6 @@ public class User {
         this.password = password;
 
         this.rank = null;
-        this.trainingRank = null;
     }
 
     /**
@@ -49,19 +47,6 @@ public class User {
     }
 
     /**
-     * Test whether a user is a trainer or not.
-     * @return true if a trainer.
-     */
-    public boolean isTrainer(){
-        if(this.trainingRank==null){
-            return false;
-        }
-        else{
-            return true;
-        }
-    }
-
-    /**
      * Compares password to verify credential.
      * @param password password to check
      * @return true if correct password.
@@ -71,14 +56,6 @@ public class User {
             return true;
         }
         return false;
-    }
-
-    /**
-     * Assigns the training rank.
-     * @param trainingRank
-     */
-    public void setTrainingRank(Belt trainingRank){
-        this.trainingRank = trainingRank;
     }
 
     /**

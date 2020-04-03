@@ -3,7 +3,10 @@ package main.java.memoranda.ui;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.Properties;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -45,6 +48,7 @@ public class App {
 
 
 	private JFrame splash = null;
+	FileInputStream input;
 
 	/*========================================================================*/ 
 	/* Note: Please DO NOT edit the version/build info manually!
@@ -54,11 +58,11 @@ public class App {
     /**
      * The constant VERSION_INFO.
      */
-    public static final String VERSION_INFO = "@VERSION@";
+    public static String VERSION_INFO = "1.0.0"; // default
     /**
      * The constant BUILD_INFO.
      */
-    public static final String BUILD_INFO = "@BUILD@";
+    public static String BUILD_INFO = "1.0.0"; // default
 	
 	/*========================================================================*/
 
@@ -89,6 +93,18 @@ public class App {
      */
     public App(boolean fullmode) {
 		super();
+
+		// Updates the version and build numbers via the build.gradle file
+		try {
+			input = new FileInputStream("build/gradle.properties");
+			Properties prop = new Properties();
+			prop.load(input);
+			VERSION_INFO = prop.getProperty("version");
+			BUILD_INFO = prop.getProperty("build");
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+
 		if (fullmode)
 			fullmode = !Configuration.get("START_MINIMIZED").equals("yes");
 		/* DEBUG */

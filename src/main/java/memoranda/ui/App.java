@@ -40,7 +40,7 @@ public class App {
     /**
      * The constant WEBSITE_URL.
      */
-    public static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
+    public static final String WEBSITE_URL = "http://globogym.com";
 
 
 

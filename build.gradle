@@ -21,7 +21,10 @@ dependencies {
   compile 'net.sourceforge.nekohtml:nekohtml:1.9.+'
 }
 
+
 task updateBuildAndVersion(type: WriteProperties) {
+
+  mkdir "build/" // In case a gradle clean is done, recreate the build directory
   outputFile = file('build/gradle.properties')
   Properties props = new Properties()
 

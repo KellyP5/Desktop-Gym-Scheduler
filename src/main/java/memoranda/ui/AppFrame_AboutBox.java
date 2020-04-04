@@ -26,7 +26,6 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     final int height = 600;
     JButton button1 = new JButton();
     JLabel lblText = new JLabel();
-    String product = "Version "+App.VERSION_INFO + " (Build " + App.BUILD_INFO + ")";
     String copyright = "Copyright (c) 2020 Globo Gym Team";
     String url = App.WEBSITE_URL;
     String developersHead = Local.getString("Developers") + ":";
@@ -67,7 +66,6 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
   private void jbInit() throws Exception  {    
     String text = "<html>";
     text += "<br><br><br><br><br><br><br><br><br>";
-    text += "<b>"+product+"</b><br><br>";
     text += copyright + "<br>" + url + "<br><br>";
     text += "<b>" + developersHead + "</b><br>";    
     for (int i = 0; i < developers.length; i++)

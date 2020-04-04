@@ -59,23 +59,24 @@ I would also advise you to already fill out the Contributions section (End of sp
 |---|---|---|---|--|--|
 |3/28|On call: Kelly P, Kelly E, Alex, Rita, Kevin S. On slack text: Kevin W  | 15  | 26% | N/A  | N/A  |
 |3/31|On call: Kelly P, Kelly E, Alex, Rita, Kevin S, Kevin W   | 30 | 72% | N/A | N/A |
-|4/21|On Call: Kelly E, Alex, Rita, Kevin S, Kevin W.  On slack text: Kelly P| 15  | 81%| N/A | N/A |
+|4/2|On Call: Kelly E, Alex, Rita, Kevin S, Kevin W.  On slack text: Kelly P| 15  | 81%| N/A | N/A |
+|4/4|On Call: Kelly P, Alex, Rita, Kelly E, Kevin S. Kevin W.| 30 | 100% | N/A | N/A |
 
 ### Meeting Summary:
 
 > Add rows as needed and add the number how many meetings they attended:
 
-   Kelly Petrone : 2 Meetings
+   Kelly Petrone : 3 Meetings
 
-   Alex Mack : 2 Meetings
+   Alex Mack : 4 Meetings
    
-   Margaryta Barrilleaux : 2 Meetings
+   Margaryta Barrilleaux : 4 Meetings
    
-   Kelly Ellis : 2 Meetings
+   Kelly Ellis : 4 Meetings
    
-   Kevin Somers : 2 Meetings
+   Kevin Somers : 4 Meetings
    
-   Kevin Wilkinson : 1 Meeting (1 asynchronously)
+   Kevin Wilkinson : 3 Meeting (1 asynchronously)
    
 
 ## 3: After the Sprint

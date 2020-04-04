@@ -602,7 +602,7 @@ public class AppFrame extends JFrame {
             }
         });        
         
-        jMenuHelpAbout.setText(Local.getString("About Memoranda"));
+        jMenuHelpAbout.setText(Local.getString("About Globo Gym"));
         jMenuHelpAbout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 jMenuHelpAbout_actionPerformed(e);

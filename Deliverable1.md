@@ -137,8 +137,9 @@ I would also advise you to already fill out the Contributions section (End of sp
 #### Kelly Petrone:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-68
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-2
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-15
 
    **GitHub links to your Unit Tests (up to 3 links):
 

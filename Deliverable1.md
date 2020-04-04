@@ -88,15 +88,15 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 **What do you think is the value you created this Sprint?**
 
-> Your Answer
+> The value we created was focused on laying the ground work for future sprints. A lot of it was focused on planning/designing and becoming familiar with Memoranda.
 
 **Do you think you worked enough and that you did what was expected of you?**
 
-> Your Answer
+> We think that we did enough work but as a team we felt that we could have had more User Stories and Tasks. Also, focusing on separating the work loads better in the future amongst different User Stories.
 
 **Would you say you met the customers’ expectations? Why, why not?**
 
-> Your Answer
+> We met the customer's expectations because we defined the sprint goal, shared that goal with the customer, and finished that sprint goal as it was defined. We also added additional User Stories and accomplished those as well after running them with our customer.
 
 ### Sprint Retrospective
 
@@ -104,31 +104,31 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 **Did you meet your sprint goal?**
 
-> Your Answer
+> Yes, we did meet the sprint goal. All tasks were completed.
 
-**Did you complete all stories on your Spring Backlog?**
+**Did you complete all stories on your Sprint Backlog?**
 
-> Your Answer
-
-**If not, what went wrong?**
-
-> Your Answer
+> Yes, we completely all sprint User Stories.
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
-> Your Answer
+> By looking at our Taiga burndown chart and github commits, we had a consistent work flow and pace.
 
 **Did you deliver business value?**
 
-> Your Answer
+> No, we did not generate physical value but we did progress closer to the software being a sellable product.
 
 **Are there things the team thinks it can do better in the next Sprint?**
 
-> Your Answer
+> We believe that we can include more stories and more evenly distribute Tasks amongst User Stories.
+
+> In the future we want to include more indepth Acceptance Criteria for testing User Stories upon completion. 
+
+> Do a better job at assessing user points for different User Stories.
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
-> Your Answer
+> We feel confident in our ability to accomplish assigned tasks and showed good time management.
 
 ### Contributions:
 
@@ -140,26 +140,10 @@ I would also advise you to already fill out the Contributions section (End of sp
     - https://github.com/amehlhase316/Neujahrskranz/tree/US-68
     - https://github.com/amehlhase316/Neujahrskranz/tree/US-2
     - https://github.com/amehlhase316/Neujahrskranz/tree/US-15
-
-   **GitHub links to your Unit Tests (up to 3 links):
-
-    - link1
-    - link2
-
-  **GitHub links to your Code Reviews (up to 3 links):
-
-    - link1
-    - link2
-
-  **How did you contribute to Static Analysis:
-
-    - link1
-    - link2
  
  **What was your main contribution to the Quality Policy documentation?:
 
     - info
-    
     
 #### Alex Mack:
   **Links to GitHub commits with main code contribution (up to 5 links):
@@ -167,20 +151,6 @@ I would also advise you to already fill out the Contributions section (End of sp
     - link1
     - link2
 
-   **GitHub links to your Unit Tests (up to 3 links):
-
-    - link1
-    - link2
-
-  **GitHub links to your Code Reviews (up to 3 links):
-
-    - link1
-    - link2
-
-  **How did you contribute to Static Analysis:
-
-    - link1
-    - link2
  
  **What was your main contribution to the Quality Policy documentation?:
 
@@ -189,21 +159,6 @@ I would also advise you to already fill out the Contributions section (End of sp
     
 #### Margaryta Barrilleaux:
   **Links to GitHub commits with main code contribution (up to 5 links):
-
-    - link1
-    - link2
-
-   **GitHub links to your Unit Tests (up to 3 links):
-
-    - link1
-    - link2
-
-  **GitHub links to your Code Reviews (up to 3 links):
-
-    - link1
-    - link2
-
-  **How did you contribute to Static Analysis:
 
     - link1
     - link2
@@ -218,21 +173,6 @@ I would also advise you to already fill out the Contributions section (End of sp
 
     - link1
     - link2
-
-   **GitHub links to your Unit Tests (up to 3 links):
-
-    - link1
-    - link2
-
-  **GitHub links to your Code Reviews (up to 3 links):
-
-    - link1
-    - link2
-
-  **How did you contribute to Static Analysis:
-
-    - link1
-    - link2
  
  **What was your main contribution to the Quality Policy documentation?:
 
@@ -241,21 +181,6 @@ I would also advise you to already fill out the Contributions section (End of sp
     
 #### Kevin Somers:
   **Links to GitHub commits with main code contribution (up to 5 links):
-
-    - link1
-    - link2
-
-   **GitHub links to your Unit Tests (up to 3 links):
-
-    - link1
-    - link2
-
-  **GitHub links to your Code Reviews (up to 3 links):
-
-    - link1
-    - link2
-
-  **How did you contribute to Static Analysis:
 
     - link1
     - link2
@@ -270,21 +195,6 @@ I would also advise you to already fill out the Contributions section (End of sp
 
     - link1
     - link2
-
-   **GitHub links to your Unit Tests (up to 3 links):
-
-    - link1
-    - link2
-
-  **GitHub links to your Code Reviews (up to 3 links):
-
-    - link1
-    - link2
-
-  **How did you contribute to Static Analysis:
-
-    - link1
-    - link2
  
  **What was your main contribution to the Quality Policy documentation?:
 
@@ -293,7 +203,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 ## 4: Checklist for you to see if you are done
 - [ ] Filled out the complete form from above, all fields are filled and written in full sentences
 - [ ] Read the kickoff again to make sure you have all the details
-- [ ] User Stories that were not completed, were left in the Sprint and a copy created
+- [X] User Stories that were not completed, were left in the Sprint and a copy created
 - [ ] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Team member 1

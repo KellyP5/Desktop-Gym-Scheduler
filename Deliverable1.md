@@ -153,13 +153,16 @@ user story. We would like to change this in future sprints and make tasks that d
 #### Alex Mack:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/tree/Fix-2-Task-72
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-12-Task-30
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-12-Task-27
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-19-Task-48
+    
 
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - Worked with group to update quality policy during and before Sprint to ensure quality results. 
     
     
 #### Margaryta Barrilleaux:
@@ -214,7 +217,7 @@ user story. We would like to change this in future sprints and make tasks that d
 - [ ] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Kevin Wilkinson
-  - [ ] Alex Mack
+  - [X] Alex Mack
   - [ ] Rita Barrilleaux
   - [ ] Kelly Petrone
   - [ ] Kevin Somers

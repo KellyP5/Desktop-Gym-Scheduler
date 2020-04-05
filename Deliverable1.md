@@ -208,9 +208,11 @@ user story. We would like to change this in future sprints and make tasks that d
 #### Kevin Wilkinson:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - https://github.com/amehlhase316/Neujahrskranz/tree/US-59
-    - https://github.com/amehlhase316/Neujahrskranz/tree/US-54-Task-66
-    - https://github.com/amehlhase316/Neujahrskranz/tree/US-59-Task-64
+    - https://github.com/amehlhase316/Neujahrskranz/commit/17dfb3ff59d326175c27a04b984039b5e36a454d
+    - https://github.com/amehlhase316/Neujahrskranz/commit/acd0dbad230191c08e8a3a1edc610f9857559444
+    - https://github.com/amehlhase316/Neujahrskranz/commit/82246376dbff9cfbcdde8971205d10abd8cb40af
+    - https://github.com/amehlhase316/Neujahrskranz/commit/bcf3691d985a2d9afc2f73b837fa014e448daaaa
+    - https://github.com/amehlhase316/Neujahrskranz/commit/3dd07bb7c79012fec48b2bf595e830e39e860a86
  
  **What was your main contribution to the Quality Policy documentation?:
 

@@ -12,9 +12,7 @@
 >At least one team member should approve a PullRequest, review it, and the reviewer should not be the member who started
 >the pull request.
 
->Only one team member (Git master) is allowed to do the merge into Master (different person for each Sprint)! In case that person is not available for some reason, someone else is allowed to do it, but please provide a comment in the pull request for it.
-
->The Git master is the one who should make sure that all Pull Requests are fast forwards and that all pull requests are approved by someone. Thus, talking to the team and making sure Pull Requests are done correctly. Then the Git master should only push the "merge" button on GitHub.
+>Only one team member (Git master) is allowed to do the merge into Master (different person for each Sprint)! In case that person is not available for some reason, someone else is allowed to do it, but please provide a comment in the pull request for it. The Git master is the one who should make sure that all Pull Requests are fast forwards and that all pull requests are approved by someone. Thus, talking to the team and making sure Pull Requests are done correctly. Then the Git master should only push the "merge" button on GitHub.
 
 >Branches will not be deleted after they are completed.
 

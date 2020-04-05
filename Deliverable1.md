@@ -83,7 +83,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 ### Sprint Review
 
-**Screen Cast link**: https://youtu.be/522LfZ-s0YQ
+**Screen Cast link**: https://youtu.be/Y1wRqsc4tHM
 
 > Answer the following questions as a team. 
 
@@ -202,7 +202,7 @@ user story. We would like to change this in future sprints and make tasks that d
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - We worked this collectively as a group, but I proposed early on that we treat the develop branch as just as important as master and ensure that anything getting merged into develop has a PR first (within our group).
+    - We worked this collectively as a group, but I proposed early on that we treat the develop branch as just as important as master         and ensure that anything getting merged into develop has a PR first (within our group).
     
     
 #### Kevin Wilkinson:

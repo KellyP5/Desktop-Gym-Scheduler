@@ -148,7 +148,7 @@ user story. We would like to change this in future sprints and make tasks that d
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - Worked with the group to develop elements of the quality policy, also added some based on things that took place during sprint.
     
 #### Alex Mack:
   **Links to GitHub commits with main code contribution (up to 5 links):

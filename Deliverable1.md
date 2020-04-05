@@ -168,12 +168,16 @@ user story. We would like to change this in future sprints and make tasks that d
 #### Margaryta Barrilleaux:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-6
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-6-Task-9
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-6-Task-10
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-19-Task-34
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-54-Task-55
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-54-Task-67
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - participated in group discussions in order to make final decisions on quality policy
     
     
 #### Kelly Ellis:

@@ -3,8 +3,9 @@
 **GitHub Workflow** 
   > We will maintain a develop branch. The develop branch will be the branch where we merge all completed UserStories by a pull request. This will be enforced by github settings. Each user story will have its own branch, each task  will be created on its associated story branch. When a task is complete, it is then PR'd on github (with no review required). This is to ensure that github will mark the branch as 'merged', and better facilitate organization.
 
->The name of the branch will follow 'US#', where the # will be the one assigned on the taiga board. When a developer assigns themselves a task, they then branch from the
->UserStory branch, and follows the convention of 'US#-Task#', where the numbers also correspond with the taiga board. 
+>The name of the branch will follow 'US#', where the # will be the one assigned on the taiga board. When a developer assigns themselves a task, they then branch from the UserStory branch, and follows the convention of 'US#-Task#', where the numbers also correspond with the taiga board. 
+
+>We will try to ensure develop doesn't break, but when it does, a seperate branch in the form of Fix-#, where # is the current bug fix.
 
 >Each commit message needs to describe what you are working on with US# and Task # (also include things like "Unit Test", be descriptive). Read the following for more information on commit messages: https://chris.beams.io/posts/git-commit/
 

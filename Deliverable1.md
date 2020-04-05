@@ -230,7 +230,7 @@ user story. We would like to change this in future sprints and make tasks that d
   - [ ] Kelly Petrone
   - [ ] Kevin Somers
   - [ ] Kelly Ellis
-- [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
+- [X] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
   - [ ] All User Stories have acceptance tests
   - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New

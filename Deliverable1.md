@@ -207,12 +207,13 @@ user story. We would like to change this in future sprints and make tasks that d
 #### Kevin Wilkinson:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-59
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-54-Task-66
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-59-Task-64
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - Wrote documentation while working with the team to refine the submission.
   
 ## 4: Checklist for you to see if you are done
 - [ ] Filled out the complete form from above, all fields are filled and written in full sentences

@@ -221,7 +221,7 @@ user story. We would like to change this in future sprints and make tasks that d
 - [X] User Stories that were not completed, were left in the Sprint and a copy created
 - [ ] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Kevin Wilkinson
+  - [X] Kevin Wilkinson
   - [X] Alex Mack
   - [ ] Rita Barrilleaux
   - [ ] Kelly Petrone

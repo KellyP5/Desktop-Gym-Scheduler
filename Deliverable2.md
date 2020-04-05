@@ -3,18 +3,18 @@
 
 ## 1: Basic Information (needed before you start with your Sprint -- Sprint Planning)
 
-**Topic you chose:**
+**Topic you chose:** Gym Scheduler
 
-**Sprint Number:** Nr
+**Sprint Number:** 2
 
-**Scrum Master**: Name
+**Scrum Master**: Kelly Petrone
 
-**Git Master**: Name
+**Git Master**: Rita Barrilleaux
 
 ### Sprint Planning (For Sprint 1-4)
 Document your Sprint Planning here. Also check the kickoff document for more details on what needs to be done. This is just the documentation. 
 
-**Sprint Goal:** Your Sprint goal
+**Sprint Goal:** Focus on separating out the three types of user accounts, implementing the UI's/backend for each of those according to design documents, and eliminating any unused GUI elements from the previous Memoranda 
 
 **How many User Stories did you add to the Product Backlog:**  Number
 

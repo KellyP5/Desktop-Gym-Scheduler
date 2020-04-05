@@ -196,12 +196,13 @@ user story. We would like to change this in future sprints and make tasks that d
 #### Kevin Somers:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/commit/7b03848e67a37022548a176db1b55af118047d5c
+    - https://github.com/amehlhase316/Neujahrskranz/commit/6cf4298d4fd0d27c68005c32534211ac6bddf046
+    - https://github.com/amehlhase316/Neujahrskranz/commit/d7116638033c4977c9198fab9f368e9556db6bd5
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - We worked this collectively as a group, but I proposed early on that we treat the develop branch as just as important as master         and ensure that anything getting merged into develop has a PR first (within our group).
     
     
 #### Kevin Wilkinson:

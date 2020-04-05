@@ -109,11 +109,13 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 **Did you complete all stories on your Sprint Backlog?**
 
-> Yes, we completely all sprint User Stories.
+> Yes, we completed all sprint User Stories.
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
-> By looking at our Taiga burndown chart and github commits, we had a consistent work flow and pace.
+> By looking at our Taiga burndown chart and github commits, we had a consistent work flow and pace. Our Taiga burndown chart
+shows a consistent declining chart, with very little horizontal spots, which indicates that we consistently worked every day and
+met our goals by closing tasks/user stories.
 
 **Did you deliver business value?**
 
@@ -121,11 +123,13 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 **Are there things the team thinks it can do better in the next Sprint?**
 
-> We believe that we can include more stories and more evenly distribute Tasks amongst User Stories.
+> We believe that we can include more stories and more evenly distribute Tasks amongst User Stories. Our tasks this sprint
+were often closely related and sometimes even inter-connected, which made it difficult for multiple people to work on the same
+user story. We would like to change this in future sprints and make tasks that do not depend on each other as much.
 
 > In the future we want to include more indepth Acceptance Criteria for testing User Stories upon completion. 
 
-> Do a better job at assessing user points for different User Stories.
+> Do a better job at assessing user points for different User Stories so the workload is more evenly distributed.
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
@@ -172,12 +176,14 @@ I would also advise you to already fill out the Contributions section (End of sp
 #### Kelly Ellis:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-37
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-3-Task-75
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-3-Task-74
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-3-Task-76
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - We worked together as a team and consistently updated the Quality Policy together before and during our sprint.
     
     
 #### Kevin Somers:
@@ -207,8 +213,12 @@ I would also advise you to already fill out the Contributions section (End of sp
 - [X] User Stories that were not completed, were left in the Sprint and a copy created
 - [ ] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Team member 1
-  - [ ] Team member 2
+  - [ ] Kevin Wilkinson
+  - [ ] Alex Mack
+  - [ ] Rita Barrilleaux
+  - [ ] Kelly Petrone
+  - [ ] Kevin Somers
+  - [ ] Kelly Ellis
 - [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
   - [ ] All User Stories have acceptance tests

@@ -19,18 +19,29 @@
 
 **Unit Tests Blackbox** 
   > Unit Tests will be conducted on a task while the task is in the "ready for test" phase on Taiga (Waiting to be merged into develop)
+  
   > All unit tests will be placed in the src.test.java folder.
+  
   > Each member will conduct at least 4 unit tests per sprint. (on your code or other people's code)
+  
   > Whe committing a User Test to a task, you will commit it via 'US# Task# Unit Test: ...'
+  
   > Unit tests will be setup to produce jacoco reports
+  
   > Unit tests will be focused on areas that are no related to UI elements.
+
 
  **Unit Tests Whitebox**
   > Unit Tests will be conducted on a task while the task is in the "ready for test" phase on Taiga (Waiting to be merged into develop)
+  
   > All unit tests will be placed in the src.test.java folder.
+  
   > Each member will conduct at least 4 unit tests per sprint. (on your code or other people's code)
+  
   > Whe committing a User Test to a task, you will commit it via 'US# Task# Unit Test: ...'
+  
   > Unit tests will be setup to produce jacoco reports
+  
   > Unit tests will be focused on areas that are no related to UI elements.
   
 

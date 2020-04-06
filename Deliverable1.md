@@ -224,14 +224,14 @@ user story. We would like to change this in future sprints and make tasks that d
 - [X] User Stories that were not completed, were left in the Sprint and a copy created
 - [X] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Kevin Wilkinson
-  - [ ] Alex Mack
-  - [ ] Rita Barrilleaux
-  - [ ] Kelly Petrone
-  - [ ] Kevin Somers
-  - [ ] Kelly Ellis
+  - [X] Kevin Wilkinson
+  - [X] Alex Mack
+  - [X] Rita Barrilleaux
+  - [X] Kelly Petrone
+  - [X] Kevin Somers
+  - [X] Kelly Ellis
 - [X] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
-  - [ ] Basic information (part 1) for next Sprint was included (meaning Sprint Planning is complete)
-  - [ ] All User Stories have acceptance tests
-  - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
-  - [ ] You know how to proceed
+  - [X] Basic information (part 1) for next Sprint was included (meaning Sprint Planning is complete)
+  - [X] All User Stories have acceptance tests
+  - [X] User Stories in your new Sprint Backlog have initial tasks which are in New
+  - [X] You know how to proceed

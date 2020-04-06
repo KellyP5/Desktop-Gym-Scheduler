@@ -10,13 +10,25 @@ import javax.swing.border.Border;
 
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Calendar frame.
+ */
 /*$Id: CalendarFrame.java,v 1.5 2004/04/05 10:05:44 alexeya Exp $*/
 public class CalendarFrame extends JInternalFrame {
 
-  public JNCalendarPanel cal = new JNCalendarPanel();
-  Border border1;
+    /**
+     * The Cal.
+     */
+    public JNCalendarPanel cal = new JNCalendarPanel();
+    /**
+     * The Border 1.
+     */
+    Border border1;
 
-  public CalendarFrame() {
+    /**
+     * Instantiates a new Calendar frame.
+     */
+    public CalendarFrame() {
     try {
       jbInit();
     }

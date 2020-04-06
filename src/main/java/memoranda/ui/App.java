@@ -3,7 +3,10 @@ package main.java.memoranda.ui;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Toolkit;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Calendar;
+import java.util.Properties;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -12,39 +15,70 @@ import javax.swing.UIManager;
 
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.util.Configuration;
+//import org.swingexplorer.Log;
 
 /**
- * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-
 /*$Id: App.java,v 1.28 2007/03/20 06:21:46 alexeya Exp $*/
 public class App {
 	// boolean packFrame = false;
 
-	static AppFrame frame = null;
-	
-	public static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
-	public static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
-	public static final String WEBSITE_URL = "http://memoranda.sourceforge.net";
+
+    /**
+     * The Frame.
+     */
+    static AppFrame frame = null;
+
+    static LoginBox login;
+
+    /**
+     * The constant GUIDE_URL.
+     */
+    public static final String GUIDE_URL = "http://memoranda.sourceforge.net/guide.html";
+    /**
+     * The constant BUGS_TRACKER_URL.
+     */
+    public static final String BUGS_TRACKER_URL = "http://sourceforge.net/tracker/?group_id=90997&atid=595566";
+    /**
+     * The constant WEBSITE_URL.
+     */
+    public static final String WEBSITE_URL = "http://globogym.com";
+
+
 
 	private JFrame splash = null;
+	FileInputStream input;
 
 	/*========================================================================*/ 
 	/* Note: Please DO NOT edit the version/build info manually!
        The actual values are substituted by the Ant build script using 
        'version' property and datestamp.*/
 
-	public static final String VERSION_INFO = "@VERSION@";
-	public static final String BUILD_INFO = "@BUILD@";
+    /**
+     * The constant VERSION_INFO.
+     */
+    public static String VERSION_INFO = "1.0.0"; // default
+    /**
+     * The constant BUILD_INFO.
+     */
+    public static String BUILD_INFO = "1.0.0"; // default
 	
 	/*========================================================================*/
 
-	public static AppFrame getFrame() {
+    /**
+     * Gets frame.
+     *
+     * @return the frame
+     */
+    public static AppFrame getFrame() {
 		return frame;
 	}
 
-	public void show() {
+    /**
+     * Show.
+     */
+    public void show() {
 		if (frame.isVisible()) {
 			frame.toFront();
 			frame.requestFocus();
@@ -52,8 +86,25 @@ public class App {
 			init();
 	}
 
-	public App(boolean fullmode) {
+    /**
+     * Instantiates a new App.
+     *
+     * @param fullmode the fullmode
+     */
+    public App(boolean fullmode) {
 		super();
+
+		// Updates the version and build numbers via the build.gradle file
+		try {
+			input = new FileInputStream("build/gradle.properties");
+			Properties prop = new Properties();
+			prop.load(input);
+			VERSION_INFO = prop.getProperty("version");
+			BUILD_INFO = prop.getProperty("build");
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+
 		if (fullmode)
 			fullmode = !Configuration.get("START_MINIMIZED").equals("yes");
 		/* DEBUG */
@@ -93,13 +144,21 @@ public class App {
 		EventsScheduler.init();
 		frame = new AppFrame();
 		if (fullmode) {
-			init();
+			login = new LoginBox();
+			//init();
 		}
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			splash.dispose();
 	}
 
-	void init() {
+
+    /**
+     * Init.
+     */
+    static void init() {
+
+
+
 		/*
 		 * if (packFrame) { frame.pack(); } else { frame.validate(); }
 		 * 
@@ -138,7 +197,10 @@ public class App {
 
 	}
 
-	public static void closeWindow() {
+    /**
+     * Close window.
+     */
+    public static void closeWindow() {
 		if (frame == null)
 			return;
 		frame.dispose();
@@ -149,8 +211,8 @@ public class App {
 	 */
 	private void showSplash() {
 		splash = new JFrame();
-		ImageIcon spl =
-			new ImageIcon(App.class.getResource("/ui/splash.png"));
+		ImageIcon spl;
+		spl = new ImageIcon(App.class.getResource("/ui/splash.png")); //name is included on the logo
 		JLabel l = new JLabel();
 		l.setSize(400, 300);
 		l.setIcon(spl);

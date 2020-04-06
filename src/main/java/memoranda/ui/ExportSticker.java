@@ -15,6 +15,9 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 
+/**
+ * The type Export sticker.
+ */
 public class ExportSticker {
 
         private String name; 
@@ -34,28 +37,39 @@ public class ExportSticker {
                         _root = _doc.getRootElement();
 
         }*/
-        
-        public ExportSticker(String x) {
-                this.name = remove1(x);
-        }
 
-        /**
-         * Function to eliminate special chars from a string
-         */
-        public static String remove1(String input) {
-            
-            String original = "√°√†√§√©√®√´√≠√¨√Ø√≥√≤√∂√∫√πu√±√Å√Ä√Ñ√â√à√ã√ç√å√è√ì√í√ñ√ö√ô√ú√ë√ß√á";
-            
-            String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
-            String output = input;
-            for (int i=0; i<original.length(); i++) {
-            
-                output = output.replace(original.charAt(i), ascii.charAt(i));
-            }
-            return output;
+    /**
+     * Instantiates a new Export sticker.
+     *
+     * @param x the x
+     */
+    public ExportSticker(String x) {
+        this.name = remove1(x);
+    }
+
+    /**
+     * Function to eliminate special chars from a string
+     */
+    public static String remove1(String input) {
+
+        String original = "·‡‰ÈËÎÌÏÔÛÚˆ˙˘uÒ¡¿ƒ…»ÀÕÃœ”“÷⁄Ÿ‹—Á«";
+
+        String ascii = "aaaeeeiiiooouuunAAAEEEIIIOOOUUUNcC";
+        String output = input;
+        for (int i=0; i<original.length(); i++) {
+
+            output = output.replace(original.charAt(i), ascii.charAt(i));
         }
-        
-        public boolean export(String src){
+        return output;
+    }
+    /**
+     * Export boolean.
+     *
+     *
+     * @param src the src
+     * @return the boolean
+     */
+    public boolean export(String src){
                 boolean result = true;
                 String fs = System.getProperty("file.separator");
                 
@@ -69,20 +83,25 @@ public class ExportSticker {
                         fwrite.write(contents);
                         
                         fwrite.close();
-                        JOptionPane.showMessageDialog(null,Local.getString("Documento creado con exito en su carpeta Memoranda =D"));
+                        JOptionPane.showMessageDialog(null,Local.getString(file.getName() + " created successfully in your Globo Folder"));
             
             
         } catch (IOException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null,Local.getString("NO Logramos crear su documento =(..."));
+            JOptionPane.showMessageDialog(null,Local.getString("Could not create your document"));
         }
                 
                 
                         
                 return result;
         }
-        
-        public String getSticker(){
+
+    /**
+     * Get sticker string.
+     *
+     * @return the string
+     */
+    public String getSticker(){
                 Map stickers = EventsManager.getStickers();
         String result = "";
         String nl = System.getProperty("line.separator"); 

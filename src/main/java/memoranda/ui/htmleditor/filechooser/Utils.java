@@ -2,13 +2,34 @@ package main.java.memoranda.ui.htmleditor.filechooser;
 
 import java.io.File;
 
+/**
+ * The type Utils.
+ */
 public class Utils {
 
+    /**
+     * The constant jpeg.
+     */
     public final static String jpeg = "jpeg";
+    /**
+     * The constant jpg.
+     */
     public final static String jpg = "jpg";
+    /**
+     * The constant gif.
+     */
     public final static String gif = "gif";
+    /**
+     * The constant png.
+     */
     public final static String png = "png";
 
+    /**
+     * Gets extension.
+     *
+     * @param f the f
+     * @return the extension
+     */
     /*
      * Get the extension of a file.
      */

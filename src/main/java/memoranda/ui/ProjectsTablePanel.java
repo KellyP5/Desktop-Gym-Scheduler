@@ -18,10 +18,22 @@ import main.java.memoranda.ProjectManager;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Projects table panel.
+ */
 /*$Id: ProjectsTablePanel.java,v 1.6 2004/04/05 10:05:44 alexeya Exp $*/
 public class ProjectsTablePanel extends JPanel {
+    /**
+     * The Border layout 1.
+     */
     BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Scroll pane.
+     */
     JScrollPane scrollPane = new JScrollPane();
+    /**
+     * The Projects table.
+     */
     public JTable projectsTable = new JTable() {
         public TableCellRenderer getCellRenderer(int row, int column) {
             if (((String) getModel().getValueAt(row, PROJECT_ID)).equals(CurrentProject.get().getID())) {
@@ -64,6 +76,9 @@ public class ProjectsTablePanel extends JPanel {
         }
     };
 
+    /**
+     * The Active only.
+     */
     boolean activeOnly = false;
 
     public void updateUI() {
@@ -71,6 +86,9 @@ public class ProjectsTablePanel extends JPanel {
 		super.updateUI();
     }
 
+    /**
+     * Instantiates a new Projects table panel.
+     */
     public ProjectsTablePanel() {
         try {
             jbInit();
@@ -79,6 +97,12 @@ public class ProjectsTablePanel extends JPanel {
             new ExceptionDialog(ex);
         }
     }
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         projectsTable.getTableHeader().setFont(new java.awt.Font("Dialog", 1, 10));
         projectsTable.setFont(new java.awt.Font("Dialog", 0, 11));
@@ -96,6 +120,9 @@ public class ProjectsTablePanel extends JPanel {
         initProjectsTable();
     }
 
+    /**
+     * Init projects table.
+     */
     void initProjectsTable() {
         projectsTable.setModel(new PrjTableModel());
         for (int i = 0; i < 4; i++) {
@@ -110,25 +137,52 @@ public class ProjectsTablePanel extends JPanel {
         }
     }
 
+    /**
+     * Sets show active only.
+     *
+     * @param shao the shao
+     */
     public void setShowActiveOnly(boolean shao) {
         activeOnly = shao;
         projectsTable.updateUI();
         //projectsTable.setModel(new PrjTableModel());
     }
 
+    /**
+     * Gets selected project id.
+     *
+     * @return the selected project id
+     */
     public String getSelectedProjectID() {
         return (String) projectsTable.getModel().getValueAt(projectsTable.getSelectedRow(), PROJECT_ID);
     }
 
+    /**
+     * Gets selected project.
+     *
+     * @return the selected project
+     */
     public Project getSelectedProject() {
         return (Project) projectsTable.getModel().getValueAt(projectsTable.getSelectedRow(), PROJECT);
     }
 
+    /**
+     * The Project.
+     */
     static final int PROJECT = 101;
+    /**
+     * The Project id.
+     */
     static final int PROJECT_ID = 100;
 
+    /**
+     * The type Prj table model.
+     */
     class PrjTableModel extends AbstractTableModel {
 
+        /**
+         * The Column names.
+         */
         String[] columnNames =
             {
                 Local.getString("Project title"),
@@ -137,6 +191,9 @@ public class ProjectsTablePanel extends JPanel {
                 //Local.getString("Execution"),
                 Local.getString("Status")};
 
+        /**
+         * Instantiates a new Prj table model.
+         */
         PrjTableModel() {
             super();
         }
@@ -185,6 +242,12 @@ public class ProjectsTablePanel extends JPanel {
         }
     }
 
+    /**
+     * Gets status string.
+     *
+     * @param status the status
+     * @return the status string
+     */
     String getStatusString(int status) {
         switch (status) {
             case Project.ACTIVE :

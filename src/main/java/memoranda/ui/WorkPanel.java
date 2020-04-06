@@ -20,28 +20,68 @@ import main.java.memoranda.util.Context;
 import main.java.memoranda.util.Local;
 
 /**
- * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-
 /*$Id: WorkPanel.java,v 1.9 2004/04/05 10:05:44 alexeya Exp $*/
 public class WorkPanel extends JPanel {
-	BorderLayout borderLayout1 = new BorderLayout();
-	JToolBar toolBar = new JToolBar();
-	JPanel panel = new JPanel();
-	CardLayout cardLayout1 = new CardLayout();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Tool bar.
+     */
+    JToolBar toolBar = new JToolBar();
+    /**
+     * The Panel.
+     */
+    JPanel panel = new JPanel();
+    /**
+     * The Card layout 1.
+     */
+    CardLayout cardLayout1 = new CardLayout();
 
-	public JButton notesB = new JButton();
-	public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
-	public ResourcesPanel filesPanel = new ResourcesPanel();
-	public JButton agendaB = new JButton();
-	public JButton tasksB = new JButton();
-	public JButton eventsB = new JButton();
-	public JButton filesB = new JButton();
-	JButton currentB = null;
-	Border border1;
+    /**
+     * The Notes b.
+     */
+    public JButton notesB = new JButton();
+    /**
+     * The Daily items panel.
+     */
+    public DailyItemsPanel dailyItemsPanel = new DailyItemsPanel(this);
+    /**
+     * The Files panel.
+     */
+    public ResourcesPanel filesPanel = new ResourcesPanel();
+    /**
+     * The Agenda b.
+     */
+    public JButton agendaB = new JButton();
+    /**
+     * The Tasks b.
+     */
+    public JButton tasksB = new JButton();
+    /**
+     * The Classes b.
+     */
+    public JButton classesB = new JButton();
+    /**
+     * The Files b.
+     */
+    public JButton filesB = new JButton();
+    /**
+     * The Current b.
+     */
+    JButton currentB = null;
+    /**
+     * The Border 1.
+     */
+    Border border1;
 
-	public WorkPanel() {
+    /**
+     * Instantiates a new Work panel.
+     */
+    public WorkPanel() {
 		try {
 			jbInit();
 		} catch (Exception ex) {
@@ -49,7 +89,12 @@ public class WorkPanel extends JPanel {
 		}
 	}
 
-	void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 		border1 =
 			BorderFactory.createCompoundBorder(
 				BorderFactory.createBevelBorder(
@@ -69,7 +114,7 @@ public class WorkPanel extends JPanel {
 		panel.setLayout(cardLayout1);
 
 		agendaB.setBackground(Color.white);
-		agendaB.setMaximumSize(new Dimension(60, 80));
+		agendaB.setMaximumSize(new Dimension(80, 60));
 		agendaB.setMinimumSize(new Dimension(30, 30));
 
 		agendaB.setFont(new java.awt.Font("Dialog", 1, 10));
@@ -94,31 +139,33 @@ public class WorkPanel extends JPanel {
 		agendaB.setMargin(new Insets(0, 0, 0, 0));
 		agendaB.setSelected(true);
 
-		eventsB.setBackground(Color.white);
-		eventsB.setMaximumSize(new Dimension(60, 80));
-		eventsB.setMinimumSize(new Dimension(30, 30));
 
-		eventsB.setFont(new java.awt.Font("Dialog", 1, 10));
-		eventsB.setPreferredSize(new Dimension(50, 50));
-		eventsB.setBorderPainted(false);
-		eventsB.setContentAreaFilled(false);
-		eventsB.setFocusPainted(false);
-		eventsB.setHorizontalTextPosition(SwingConstants.CENTER);
-		eventsB.setText(Local.getString("Events"));
-		eventsB.setVerticalAlignment(SwingConstants.TOP);
-		eventsB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		eventsB.addActionListener(new java.awt.event.ActionListener() {
+		classesB.setBackground(Color.white);
+		classesB.setMaximumSize(new Dimension(60, 80));
+		classesB.setMinimumSize(new Dimension(30, 30));
+
+
+		classesB.setFont(new java.awt.Font("Dialog", 1, 10));
+		classesB.setPreferredSize(new Dimension(50, 50));
+		classesB.setBorderPainted(false);
+		classesB.setContentAreaFilled(false);
+		classesB.setFocusPainted(false);
+		classesB.setHorizontalTextPosition(SwingConstants.CENTER);
+		classesB.setText(Local.getString("Classes"));
+		classesB.setVerticalAlignment(SwingConstants.TOP);
+		classesB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		classesB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				eventsB_actionPerformed(e);
+				classesB_actionPerformed(e);
 			}
 		});
-		eventsB.setIcon(
+		classesB.setIcon(
 			new ImageIcon(
 				main.java.memoranda.ui.AppFrame.class.getResource(
 					"/ui/icons/events.png")));
-		eventsB.setOpaque(false);
-		eventsB.setMargin(new Insets(0, 0, 0, 0));
-		//eventsB.setSelected(true);
+		classesB.setOpaque(false);
+		classesB.setMargin(new Insets(0, 0, 0, 0));
+		//classesB.setSelected(true);
 
 		tasksB.setSelected(true);
 		tasksB.setFont(new java.awt.Font("Dialog", 1, 10));
@@ -142,13 +189,13 @@ public class WorkPanel extends JPanel {
 		tasksB.setPreferredSize(new Dimension(50, 50));
 		tasksB.setMinimumSize(new Dimension(30, 30));
 		tasksB.setOpaque(false);
-		tasksB.setMaximumSize(new Dimension(60, 80));
+		tasksB.setMaximumSize(new Dimension(80, 60));
 		tasksB.setBackground(Color.white);
 
 		notesB.setFont(new java.awt.Font("Dialog", 1, 10));
 		notesB.setBackground(Color.white);
 		notesB.setBorder(null);
-		notesB.setMaximumSize(new Dimension(60, 80));
+		notesB.setMaximumSize(new Dimension(80, 60));
 		notesB.setMinimumSize(new Dimension(30, 30));
 		notesB.setOpaque(false);
 		notesB.setPreferredSize(new Dimension(60, 50));
@@ -194,14 +241,14 @@ public class WorkPanel extends JPanel {
 		filesB.setPreferredSize(new Dimension(50, 50));
 		filesB.setMinimumSize(new Dimension(30, 30));
 		filesB.setOpaque(false);
-		filesB.setMaximumSize(new Dimension(60, 80));
+		filesB.setMaximumSize(new Dimension(80, 60));
 		filesB.setBackground(Color.white);
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 		panel.add(filesPanel, "FILES");
 		toolBar.add(agendaB, null);
-		toolBar.add(eventsB, null);
+		toolBar.add(classesB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
 		toolBar.add(filesB, null);
@@ -217,54 +264,89 @@ public class WorkPanel extends JPanel {
 
 	}
 
-	public void selectPanel(String pan) {
+    /**
+     * Select panel.
+     *
+     * @param pan the pan
+     */
+    public void selectPanel(String pan) {
 		if (pan != null) {
 			if (pan.equals("NOTES"))
 				notesB_actionPerformed(null);
 			else if (pan.equals("TASKS"))
 				tasksB_actionPerformed(null);
-			else if (pan.equals("EVENTS"))
-				eventsB_actionPerformed(null);
+			else if (pan.equals("CLASSES"))
+				classesB_actionPerformed(null);
 			else if (pan.equals("FILES"))
 				filesB_actionPerformed(null);
 		}
 	}
 
-	public void agendaB_actionPerformed(ActionEvent e) {
+    /**
+     * Agenda b action performed.
+     *
+     * @param e the e
+     */
+    public void agendaB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("AGENDA");
 		setCurrentButton(agendaB);
 		Context.put("CURRENT_PANEL", "AGENDA");
 	}
 
-	public void notesB_actionPerformed(ActionEvent e) {
+    /**
+     * Notes b action performed.
+     *
+     * @param e the e
+     */
+    public void notesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("NOTES");
 		setCurrentButton(notesB);
 		Context.put("CURRENT_PANEL", "NOTES");
 	}
 
-	public void tasksB_actionPerformed(ActionEvent e) {
+    /**
+     * Tasks b action performed.
+     *
+     * @param e the e
+     */
+    public void tasksB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
 		dailyItemsPanel.selectPanel("TASKS");
 		setCurrentButton(tasksB);
 		Context.put("CURRENT_PANEL", "TASKS");
 	}
 
-	public void eventsB_actionPerformed(ActionEvent e) {
+    /**
+     * Classes b action performed.
+     *
+     * @param e the e
+     */
+    public void classesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "DAILYITEMS");
-		dailyItemsPanel.selectPanel("EVENTS");
-		setCurrentButton(eventsB);
-		Context.put("CURRENT_PANEL", "EVENTS");
+		dailyItemsPanel.selectPanel("CLASSES");
+		setCurrentButton(classesB);
+		Context.put("CURRENT_PANEL", "CLASSES");
 	}
 
-	public void filesB_actionPerformed(ActionEvent e) {
+    /**
+     * Files b action performed.
+     *
+     * @param e the e
+     */
+    public void filesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "FILES");
 		setCurrentButton(filesB);
 		Context.put("CURRENT_PANEL", "FILES");
 	}
 
-	void setCurrentButton(JButton cb) {
+    /**
+     * Sets current button.
+     *
+     * @param cb the cb
+     */
+    void setCurrentButton(JButton cb) {
 		currentB.setBackground(Color.white);
 		currentB.setOpaque(false);
 		currentB = cb;

@@ -15,11 +15,25 @@ import javax.swing.border.TitledBorder;
 
 import main.java.memoranda.ui.htmleditor.util.Local;
 
+/**
+ * The type Image preview.
+ */
 public class ImagePreview extends JComponent
                           implements PropertyChangeListener {
+    /**
+     * The Thumbnail.
+     */
     ImageIcon thumbnail = null;
+    /**
+     * The File.
+     */
     File file = null;
 
+    /**
+     * Instantiates a new Image preview.
+     *
+     * @param fc the fc
+     */
     public ImagePreview(JFileChooser fc) {
         setPreferredSize(new Dimension(100, 50));
         setBorder(new TitledBorder(BorderFactory.createEtchedBorder(), 
@@ -27,6 +41,9 @@ public class ImagePreview extends JComponent
         fc.addPropertyChangeListener(this);
     }
 
+    /**
+     * Load image.
+     */
     public void loadImage() {
         if (file == null) {
             return;

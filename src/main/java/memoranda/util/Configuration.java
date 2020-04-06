@@ -12,13 +12,20 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import main.java.memoranda.ui.ExceptionDialog;
+
 /**
- *
+ * The type Configuration.
  */
 /*$Id: Configuration.java,v 1.5 2004/10/11 08:48:21 alexeya Exp $*/
 public class Configuration {
 
+    /**
+     * The Config.
+     */
     static LoadableProperties config  = new LoadableProperties();
+    /**
+     * The Config path.
+     */
     static String configPath = getConfigPath();
 
     static {
@@ -40,8 +47,13 @@ public class Configuration {
       }
     }
   }
-  
-  static String getConfigPath() {
+
+    /**
+     * Gets config path.
+     *
+     * @return the config path
+     */
+    static String getConfigPath() {
     String p = Util.getEnvDir()+"memoranda.properties";
     if (new File(p).exists()) 
         return p;
@@ -53,7 +65,10 @@ public class Configuration {
     return p;
   }
 
-  public static void saveConfig() {
+    /**
+     * Save config.
+     */
+    public static void saveConfig() {
     try {
     config.save(new FileOutputStream(configPath));
     }
@@ -62,7 +77,13 @@ public class Configuration {
     }
   }
 
-  public static Object get(String key) {
+    /**
+     * Get object.
+     *
+     * @param key the key
+     * @return the object
+     */
+    public static Object get(String key) {
     if ((config.get(key)) == null) {
         /*DEBUG*///System.out.println("Configuration: Key '"+key+"' not found.");
         return "";
@@ -70,7 +91,13 @@ public class Configuration {
     return config.get(key);
   }
 
-  @SuppressWarnings("unchecked")
+    /**
+     * Put.
+     *
+     * @param key   the key
+     * @param value the value
+     */
+    @SuppressWarnings("unchecked")
 public static void put(String key, Object value) {
     config.put(key, value);
   }

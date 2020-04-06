@@ -43,65 +43,205 @@ import main.java.memoranda.date.DateListener;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.Util;
+
 /**
- * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 
 /*$Id: DailyItemsPanel.java,v 1.22 2005/02/13 03:06:10 rawsushi Exp $*/
 public class DailyItemsPanel extends JPanel {
+    /**
+     * The Border layout 1.
+     */
     BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Split pane.
+     */
     JSplitPane splitPane = new JSplitPane();
+    /**
+     * The Control panel.
+     */
     JPanel controlPanel = new JPanel(); /* Contains the calendar */
+    /**
+     * The Main panel.
+     */
     JPanel mainPanel = new JPanel();
+    /**
+     * The Border layout 2.
+     */
     BorderLayout borderLayout2 = new BorderLayout();
+    /**
+     * The Status panel.
+     */
     JPanel statusPanel = new JPanel();
+    /**
+     * The Border layout 3.
+     */
     BorderLayout borderLayout3 = new BorderLayout();
+    /**
+     * The Editors panel.
+     */
     JPanel editorsPanel = new JPanel();
+    /**
+     * The Card layout 1.
+     */
     CardLayout cardLayout1 = new CardLayout();
+    /**
+     * The Editor panel.
+     */
     public EditorPanel editorPanel = new EditorPanel(this);
+    /**
+     * The Current date label.
+     */
     JLabel currentDateLabel = new JLabel();
+    /**
+     * The Border layout 4.
+     */
     BorderLayout borderLayout4 = new BorderLayout();
+    /**
+     * The Tasks panel.
+     */
     TaskPanel tasksPanel = new TaskPanel(this);
+    /**
+     * The Events panel.
+     */
     EventsPanel eventsPanel = new EventsPanel(this);
+    /**
+     * The Agenda panel.
+     */
     AgendaPanel agendaPanel = new AgendaPanel(this);
+    /**
+     * The Exp icon.
+     */
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
+    /**
+     * The Coll icon.
+     */
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
+    /**
+     * The Bookmark icon.
+     */
     ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));
+    /**
+     * The Expanded.
+     */
     boolean expanded = true;
 
+    /**
+     * The Current note.
+     */
     Note currentNote;
-	CalendarDate currentDate;
+    /**
+     * The Current date.
+     */
+    CalendarDate currentDate;
 
+    /**
+     * The Calendar ignore change.
+     */
     boolean calendarIgnoreChange = false;
+    /**
+     * The Date changed by calendar.
+     */
     boolean dateChangedByCalendar = false;
+    /**
+     * The Changed by history.
+     */
     boolean changedByHistory = false;
+    /**
+     * The Cmain panel.
+     */
     JPanel cmainPanel = new JPanel();
+    /**
+     * The Calendar.
+     */
     JNCalendarPanel calendar = new JNCalendarPanel();
+    /**
+     * The Toggle tool bar.
+     */
     JToolBar toggleToolBar = new JToolBar();
+    /**
+     * The Border layout 5.
+     */
     BorderLayout borderLayout5 = new BorderLayout();
+    /**
+     * The Border 1.
+     */
     Border border1;
+    /**
+     * The Toggle button.
+     */
     JButton toggleButton = new JButton();
+    /**
+     * The Parent panel.
+     */
     WorkPanel parentPanel = null;
-    
+
+    /**
+     * The Added to history.
+     */
     boolean addedToHistory = false;
+    /**
+     * The Indicators panel.
+     */
     JPanel indicatorsPanel = new JPanel();
+    /**
+     * The Alarm b.
+     */
     JButton alarmB = new JButton();
+    /**
+     * The Flow layout 1.
+     */
     FlowLayout flowLayout1 = new FlowLayout();
+    /**
+     * The Task b.
+     */
     JButton taskB = new JButton();
+    /**
+     * The Main tabs panel.
+     */
     JPanel mainTabsPanel = new JPanel();
+    /**
+     * The Notes control pane.
+     */
     NotesControlPanel notesControlPane = new NotesControlPanel();
+    /**
+     * The Card layout 2.
+     */
     CardLayout cardLayout2 = new CardLayout();
-        
+
+    /**
+     * The Tasks tabbed pane.
+     */
     JTabbedPane tasksTabbedPane = new JTabbedPane();
+    /**
+     * The Events tabbed pane.
+     */
     JTabbedPane eventsTabbedPane = new JTabbedPane();
-	JTabbedPane agendaTabbedPane = new JTabbedPane();
+    /**
+     * The Agenda tabbed pane.
+     */
+    JTabbedPane agendaTabbedPane = new JTabbedPane();
+    /**
+     * The Border 2.
+     */
     Border border2;
 
-	String CurrentPanel;
-	
+    /**
+     * The Current panel.
+     */
+    String CurrentPanel;
+
+    /**
+     * The Wait cursor.
+     */
     Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
 
+    /**
+     * Instantiates a new Daily items panel.
+     *
+     * @param _parentPanel the parent panel
+     */
     public DailyItemsPanel(WorkPanel _parentPanel) {
         try {
             parentPanel = _parentPanel;
@@ -111,6 +251,12 @@ public class DailyItemsPanel extends JPanel {
             new ExceptionDialog(ex);
         }
     }
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         border1 = BorderFactory.createEtchedBorder(Color.white, Color.gray);
         border2 = BorderFactory.createEtchedBorder(Color.white, new Color(161, 161, 161));
@@ -203,7 +349,7 @@ public class DailyItemsPanel extends JPanel {
         mainPanel.add(editorsPanel, BorderLayout.CENTER);
         
         editorsPanel.add(agendaPanel, "AGENDA");
-        editorsPanel.add(eventsPanel, "EVENTS");
+        editorsPanel.add(eventsPanel, "CLASSES");
         editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(editorPanel, "NOTES");
         
@@ -305,8 +451,12 @@ public class DailyItemsPanel extends JPanel {
         mainPanel.setBorder(null);
     }
 
-   
 
+    /**
+     * Current date changed.
+     *
+     * @param newdate the newdate
+     */
     void currentDateChanged(CalendarDate newdate) {
         Cursor cur = App.getFrame().getCursor();
         App.getFrame().setCursor(waitCursor);
@@ -347,7 +497,13 @@ public class DailyItemsPanel extends JPanel {
         App.getFrame().setCursor(cur);
     }
 
-	void currentNoteChanged(Note note, boolean toSaveCurrentNote) {
+    /**
+     * Current note changed.
+     *
+     * @param note              the note
+     * @param toSaveCurrentNote the to save current note
+     */
+    void currentNoteChanged(Note note, boolean toSaveCurrentNote) {
 //		Util.debug("currentNoteChanged");
 		
 		if (editorPanel.isDocumentChanged()) {
@@ -361,7 +517,15 @@ public class DailyItemsPanel extends JPanel {
         calendar.set(CurrentDate.get());
 		editorPanel.editor.requestFocus();		
 	}
-	
+
+    /**
+     * Current project changed.
+     *
+     * @param newprj the newprj
+     * @param nl     the nl
+     * @param tl     the tl
+     * @param rl     the rl
+     */
     void currentProjectChanged(Project newprj, NoteList nl, TaskList tl, ResourcesList rl) {
 //		Util.debug("currentProjectChanged");
 
@@ -387,6 +551,11 @@ public class DailyItemsPanel extends JPanel {
         App.getFrame().setCursor(cur);
     }
 
+    /**
+     * History changed.
+     *
+     * @param hi the hi
+     */
     void historyChanged(HistoryItem hi) {
         changedByHistory = true;
         CurrentProject.set(hi.getProject());
@@ -394,6 +563,9 @@ public class DailyItemsPanel extends JPanel {
         changedByHistory = false;
     }
 
+    /**
+     * Save note.
+     */
     public void saveNote() {
         if (currentNote == null)
             currentNote = CurrentProject.getNoteList().createNoteForDate(currentDate);
@@ -403,6 +575,11 @@ public class DailyItemsPanel extends JPanel {
         /*DEBUG* System.out.println("Save");*/
     }
 
+    /**
+     * Toggle button action performed.
+     *
+     * @param e the e
+     */
     void toggleButton_actionPerformed(ActionEvent e) {
         if (expanded) {
             expanded = false;
@@ -421,6 +598,12 @@ public class DailyItemsPanel extends JPanel {
         }
     }
 
+    /**
+     * Update indicators.
+     *
+     * @param date the date
+     * @param tl   the tl
+     */
     public void updateIndicators(CalendarDate date, TaskList tl) {
         indicatorsPanel.removeAll();
         if (date.equals(CalendarDate.today())) {
@@ -440,10 +623,18 @@ public class DailyItemsPanel extends JPanel {
         indicatorsPanel.updateUI();
     }
 
+    /**
+     * Update indicators.
+     */
     public void updateIndicators() {
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
     }
 
+    /**
+     * Select panel.
+     *
+     * @param pan the pan
+     */
     public void selectPanel(String pan) {
         if (calendar.jnCalendar.renderer.getTask() != null) {
             calendar.jnCalendar.renderer.setTask(null);
@@ -470,14 +661,30 @@ public class DailyItemsPanel extends JPanel {
 		CurrentPanel=pan;
     }
 
-	public String getCurrentPanel() {
+    /**
+     * Gets current panel.
+     *
+     * @return the current panel
+     */
+    public String getCurrentPanel() {
 		return CurrentPanel;
 	}
+
+    /**
+     * Task b action performed.
+     *
+     * @param e the e
+     */
     void taskB_actionPerformed(ActionEvent e) {
         parentPanel.tasksB_actionPerformed(null);
     }
 
+    /**
+     * Alarm b action performed.
+     *
+     * @param e the e
+     */
     void alarmB_actionPerformed(ActionEvent e) {
-        parentPanel.eventsB_actionPerformed(null);
+        parentPanel.classesB_actionPerformed(null);
     }
 }

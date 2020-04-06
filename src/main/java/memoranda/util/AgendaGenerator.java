@@ -25,15 +25,19 @@ import main.java.memoranda.date.CalendarDate;
 import java.util.Collections;
 
 import nu.xom.Element;
+
 /**
- *  
+ * The type Agenda generator.
  */
 
 /*$Id: AgendaGenerator.java,v 1.12 2005/06/13 21:25:27 velhonoja Exp $*/
 
 public class AgendaGenerator {
 
-	static String HEADER =
+    /**
+     * The Header.
+     */
+    static String HEADER =
 			"<html><head><title></title>\n"
 					+ "<style>\n"
 					+ "    body, td {font: 12pt sans-serif}\n"
@@ -44,9 +48,20 @@ public class AgendaGenerator {
 					+ "</style></head>\n"
 					+ "<body><table width=\"100%\" height=\"100%\" border=\"0\" cellpadding=\"4\" cellspacing=\"4\">\n"
 					+ "<tr>\n";
-	static String FOOTER = "</td></tr></table></body></html>";
+    /**
+     * The Footer.
+     */
+    static String FOOTER = "</td></tr></table></body></html>";
 
-	static String generateTasksInfo(Project p, CalendarDate date, Collection expandedTasks) {    	    	
+    /**
+     * Generate tasks info string.
+     *
+     * @param p             the p
+     * @param date          the date
+     * @param expandedTasks the expanded tasks
+     * @return the string
+     */
+    static String generateTasksInfo(Project p, CalendarDate date, Collection expandedTasks) {
 		TaskList tl;
 		if (p.getID().equals(CurrentProject.get().getID())) {
 			tl = CurrentProject.getTaskList();        	
@@ -241,7 +256,13 @@ public class AgendaGenerator {
 		return s;
 	}
 
-	static int getProgress(TaskList tl) {
+    /**
+     * Gets progress.
+     *
+     * @param tl the tl
+     * @return the progress
+     */
+    static int getProgress(TaskList tl) {
 		Vector v = (Vector) tl.getAllSubTasks(null);
 		if (v.size() == 0)
 			return -1;
@@ -253,7 +274,13 @@ public class AgendaGenerator {
 		return (p * 100) / (v.size() * 100);
 	}
 
-	static String getPriorityString(int p) {
+    /**
+     * Gets priority string.
+     *
+     * @param p the p
+     * @return the priority string
+     */
+    static String getPriorityString(int p) {
 		switch (p) {
 		case Task.PRIORITY_NORMAL :
 			return "<font color=\"green\">"+Local.getString("Normal")+"</font>";
@@ -269,7 +296,15 @@ public class AgendaGenerator {
 		return "";
 	}
 
-	static String generateProjectInfo(Project p, CalendarDate date, Collection expandedTasks) {
+    /**
+     * Generate project info string.
+     *
+     * @param p             the p
+     * @param date          the date
+     * @param expandedTasks the expanded tasks
+     * @return the string
+     */
+    static String generateProjectInfo(Project p, CalendarDate date, Collection expandedTasks) {
 		String s = "<h2><a href=\"memoranda:project#"
 				+ p.getID()
 				+ "\">"
@@ -283,7 +318,14 @@ public class AgendaGenerator {
 		return s + generateTasksInfo(p, date,expandedTasks);        
 	}
 
-	static String generateAllProjectsInfo(CalendarDate date, Collection expandedTasks) {
+    /**
+     * Generate all projects info string.
+     *
+     * @param date          the date
+     * @param expandedTasks the expanded tasks
+     * @return the string
+     */
+    static String generateAllProjectsInfo(CalendarDate date, Collection expandedTasks) {
 		String s =
 				"<td width=\"66%\" valign=\"top\">"
 						+ "<h1>"
@@ -300,7 +342,13 @@ public class AgendaGenerator {
 		return s + "</td>";
 	}
 
-	static String generateEventsInfo(CalendarDate date) {
+    /**
+     * Generate events info string.
+     *
+     * @param date the date
+     * @return the string
+     */
+    static String generateEventsInfo(CalendarDate date) {
 		String s =
 				"<td width=\"34%\" valign=\"top\">"
 						+ "<a href=\"memoranda:events\"><h1>"
@@ -354,7 +402,13 @@ public class AgendaGenerator {
 		return s + "</table>";
 	}
 
-	static String generateStickers(CalendarDate date) {
+    /**
+     * Generate stickers string.
+     *
+     * @param date the date
+     * @return the string
+     */
+    static String generateStickers(CalendarDate date) {
 		String iurl =
 				main.java.memoranda.ui
 				.AppFrame
@@ -367,7 +421,7 @@ public class AgendaGenerator {
 				.class
 				.getResource("/ui/agenda/removesticker.gif")
 				.toExternalForm();
-		 String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:importstickers\"><b>"+Local.getString("Importar anotaci�n")+"</b></a></td><td><a href=\"memoranda:exportstickerst\"><b>"+Local.getString("Exportar anotaci�n como .txt")+"</b></a><td><a href=\"memoranda:exportstickersh\"><b>"+Local.getString("Exportar anotaci�n como .html")+"</b></a></td></tr></table>"
+		 String s = "<hr><hr><table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:importstickers\"><b>"+Local.getString("Import Notes")+"</b></a></td><td><a href=\"memoranda:exportstickerst\"><b>"+Local.getString("Export Notes as a txt file")+"</b></a><td><a href=\"memoranda:exportstickersh\"><b>"+Local.getString("Export Notes as .html")+"</b></a></td></tr></table>"
 				 +   "<table border=\"0\" cellpadding=\"0\" width=\"100%\"><tr><td><a href=\"memoranda:addsticker\"><img align=\"left\" width=\"22\" height=\"22\" src=\""				
 				 + iurl
 				+ "\" border=\"0\"  hspace=\"0\" vspace=\"0\" alt=\"New sticker\"></a></td><td width=\"100%\"><a href=\"memoranda:addsticker\"><b>&nbsp;"
@@ -415,8 +469,15 @@ public class AgendaGenerator {
 		ret=txt.substring(0, first+1)+"<a href=\"memoranda:editsticker#"+id+"\">"+txt.substring(first+1, last)+"</a>"+txt.substring(last);
 		 return ret;
 		 }
-	
-	public static String getAgenda(CalendarDate date, Collection expandedTasks) {
+
+    /**
+     * Gets agenda.
+     *
+     * @param date          the date
+     * @param expandedTasks the expanded tasks
+     * @return the agenda
+     */
+    public static String getAgenda(CalendarDate date, Collection expandedTasks) {
 		String s = HEADER;
 		s += generateAllProjectsInfo(date, expandedTasks);
 		s += generateEventsInfo(date);

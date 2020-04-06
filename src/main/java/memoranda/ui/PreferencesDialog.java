@@ -14,132 +14,341 @@ import main.java.memoranda.util.MimeTypesList;
 
 import java.awt.event.*;
 
+/**
+ * The type Preferences dialog.
+ */
 /*$Id: PreferencesDialog.java,v 1.16 2006/06/28 22:58:31 alexeya Exp $*/
 public class PreferencesDialog extends JDialog {
-	JPanel topPanel = new JPanel(new BorderLayout());
+    /**
+     * The Top panel.
+     */
+    JPanel topPanel = new JPanel(new BorderLayout());
 
-	JTabbedPane tabbedPanel = new JTabbedPane();
+    /**
+     * The Tabbed panel.
+     */
+    JTabbedPane tabbedPanel = new JTabbedPane();
 
-	JPanel GeneralPanel = new JPanel(new GridBagLayout());
+    /**
+     * The General panel.
+     */
+    JPanel GeneralPanel = new JPanel(new GridBagLayout());
 
-	GridBagConstraints gbc;
+    /**
+     * The Gbc.
+     */
+    GridBagConstraints gbc;
 
-	JLabel jLabel1 = new JLabel();
+    /**
+     * The J label 1.
+     */
+    JLabel jLabel1 = new JLabel();
 
-	ButtonGroup minGroup = new ButtonGroup();
+    /**
+     * The Min group.
+     */
+    ButtonGroup minGroup = new ButtonGroup();
 
-	JRadioButton minTaskbarRB = new JRadioButton();
+    /**
+     * The Min taskbar rb.
+     */
+    JRadioButton minTaskbarRB = new JRadioButton();
 
-	JRadioButton minHideRB = new JRadioButton();
+    /**
+     * The Min hide rb.
+     */
+    JRadioButton minHideRB = new JRadioButton();
 
-	ButtonGroup closeGroup = new ButtonGroup();
+    /**
+     * The Close group.
+     */
+    ButtonGroup closeGroup = new ButtonGroup();
 
-	JLabel jLabel2 = new JLabel();
+    /**
+     * The J label 2.
+     */
+    JLabel jLabel2 = new JLabel();
 
-	JRadioButton closeExitRB = new JRadioButton();
+    /**
+     * The Close exit rb.
+     */
+    JRadioButton closeExitRB = new JRadioButton();
 
-	JCheckBox askConfirmChB = new JCheckBox();
+    /**
+     * The Ask confirm ch b.
+     */
+    JCheckBox askConfirmChB = new JCheckBox();
 
-	JRadioButton closeHideRB = new JRadioButton();
+    /**
+     * The Close hide rb.
+     */
+    JRadioButton closeHideRB = new JRadioButton();
 
-	JLabel jLabel3 = new JLabel();
+    /**
+     * The J label 3.
+     */
+    JLabel jLabel3 = new JLabel();
 
-	ButtonGroup lfGroup = new ButtonGroup();
+    /**
+     * The Lf group.
+     */
+    ButtonGroup lfGroup = new ButtonGroup();
 
-	JRadioButton lfSystemRB = new JRadioButton();
+    /**
+     * The Lf system rb.
+     */
+    JRadioButton lfSystemRB = new JRadioButton();
 
-	JRadioButton lfJavaRB = new JRadioButton();
+    /**
+     * The Lf java rb.
+     */
+    JRadioButton lfJavaRB = new JRadioButton();
 
-	JRadioButton lfCustomRB = new JRadioButton();
+    /**
+     * The Lf custom rb.
+     */
+    JRadioButton lfCustomRB = new JRadioButton();
 
-	JLabel classNameLabel = new JLabel();
+    /**
+     * The Class name label.
+     */
+    JLabel classNameLabel = new JLabel();
 
-	JTextField lfClassName = new JTextField();
+    /**
+     * The Lf class name.
+     */
+    JTextField lfClassName = new JTextField();
 
-	JLabel jLabel4 = new JLabel();
+    /**
+     * The J label 4.
+     */
+    JLabel jLabel4 = new JLabel();
 
-	JCheckBox enSystrayChB = new JCheckBox();
+    /**
+     * The En systray ch b.
+     */
+    JCheckBox enSystrayChB = new JCheckBox();
 
-	JCheckBox startMinimizedChB = new JCheckBox();
+    /**
+     * The Start minimized ch b.
+     */
+    JCheckBox startMinimizedChB = new JCheckBox();
 
-	JCheckBox enSplashChB = new JCheckBox();
+    /**
+     * The En splash ch b.
+     */
+    JCheckBox enSplashChB = new JCheckBox();
 
-	JCheckBox enL10nChB = new JCheckBox();
+    /**
+     * The En l 10 n ch b.
+     */
+    JCheckBox enL10nChB = new JCheckBox();
 
-	JCheckBox firstdow = new JCheckBox();
+    /**
+     * The Firstdow.
+     */
+    JCheckBox firstdow = new JCheckBox();
 
-	JPanel resourcePanel = new JPanel(new BorderLayout());
+    /**
+     * The Resource panel.
+     */
+    JPanel resourcePanel = new JPanel(new BorderLayout());
 
-	ResourceTypePanel resourceTypePanel = new ResourceTypePanel();
+    /**
+     * The Resource type panel.
+     */
+    ResourceTypePanel resourceTypePanel = new ResourceTypePanel();
 
-	Border rstPanelBorder;
+    /**
+     * The Rst panel border.
+     */
+    Border rstPanelBorder;
 
-	JPanel rsBottomPanel = new JPanel(new GridBagLayout());
+    /**
+     * The Rs bottom panel.
+     */
+    JPanel rsBottomPanel = new JPanel(new GridBagLayout());
 
-	TitledBorder rsbpBorder;
+    /**
+     * The Rsbp border.
+     */
+    TitledBorder rsbpBorder;
 
-	JButton okB = new JButton();
+    /**
+     * The Ok b.
+     */
+    JButton okB = new JButton();
 
-	JButton cancelB = new JButton();
+    /**
+     * The Cancel b.
+     */
+    JButton cancelB = new JButton();
 
-	JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    /**
+     * The Bottom panel.
+     */
+    JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 
-	JLabel jLabel5 = new JLabel();
+    /**
+     * The J label 5.
+     */
+    JLabel jLabel5 = new JLabel();
 
-	JTextField browserPath = new JTextField();
+    /**
+     * The Browser path.
+     */
+    JTextField browserPath = new JTextField();
 
-	JButton browseB = new JButton();
+    /**
+     * The Browse b.
+     */
+    JButton browseB = new JButton();
 
-	JLabel lblExit = new JLabel();
+    /**
+     * The Lbl exit.
+     */
+    JLabel lblExit = new JLabel();
 
-	JPanel soundPanel = new JPanel();
+    /**
+     * The Sound panel.
+     */
+    JPanel soundPanel = new JPanel();
 
-	JCheckBox enableSoundCB = new JCheckBox();
+    /**
+     * The Enable sound cb.
+     */
+    JCheckBox enableSoundCB = new JCheckBox();
 
-	BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
 
-	TitledBorder titledBorder1;
+    /**
+     * The Titled border 1.
+     */
+    TitledBorder titledBorder1;
 
-	ButtonGroup soundGroup = new ButtonGroup();
+    /**
+     * The Sound group.
+     */
+    ButtonGroup soundGroup = new ButtonGroup();
 
-	JPanel jPanel2 = new JPanel();
+    /**
+     * The J panel 2.
+     */
+    JPanel jPanel2 = new JPanel();
 
-	JButton soundFileBrowseB = new JButton();
+    /**
+     * The Sound file browse b.
+     */
+    JButton soundFileBrowseB = new JButton();
 
-	GridLayout gridLayout1 = new GridLayout();
+    /**
+     * The Grid layout 1.
+     */
+    GridLayout gridLayout1 = new GridLayout();
 
-	JPanel jPanel1 = new JPanel();
+    /**
+     * The J panel 1.
+     */
+    JPanel jPanel1 = new JPanel();
 
-	JRadioButton soundBeepRB = new JRadioButton();
+    /**
+     * The Sound beep rb.
+     */
+    JRadioButton soundBeepRB = new JRadioButton();
 
-	JLabel jLabel6 = new JLabel();
+    /**
+     * The J label 6.
+     */
+    JLabel jLabel6 = new JLabel();
 
-	JTextField soundFile = new JTextField();
+    /**
+     * The Sound file.
+     */
+    JTextField soundFile = new JTextField();
 
-	JRadioButton soundDefaultRB = new JRadioButton();
+    /**
+     * The Sound default rb.
+     */
+    JRadioButton soundDefaultRB = new JRadioButton();
 
-	BorderLayout borderLayout3 = new BorderLayout();
+    /**
+     * The Border layout 3.
+     */
+    BorderLayout borderLayout3 = new BorderLayout();
 
-	JPanel jPanel3 = new JPanel();
+    /**
+     * The J panel 3.
+     */
+    JPanel jPanel3 = new JPanel();
 
-	JRadioButton soundCustomRB = new JRadioButton();
+    /**
+     * The Sound custom rb.
+     */
+    JRadioButton soundCustomRB = new JRadioButton();
 
-	BorderLayout borderLayout2 = new BorderLayout();
-	
-	JPanel editorConfigPanel = new JPanel(new BorderLayout());
-	JPanel econfPanel = new JPanel(new GridLayout(5, 2));
-	Vector fontnames = getFontNames();
-	JComboBox normalFontCB = new JComboBox(fontnames);
-	JComboBox headerFontCB = new JComboBox(fontnames);
-	JComboBox monoFontCB = new JComboBox(fontnames);
-	JSpinner baseFontSize = new JSpinner();
-	JCheckBox antialiasChB = new JCheckBox();
-	JLabel normalFontLabel = new JLabel();
-	JLabel headerFontLabel = new JLabel();
-	JLabel monoFontLabel = new JLabel();
-	JLabel baseFontSizeLabel = new JLabel();
+    /**
+     * The Border layout 2.
+     */
+    BorderLayout borderLayout2 = new BorderLayout();
 
-	public PreferencesDialog(Frame frame) {
+    /**
+     * The Editor config panel.
+     */
+    JPanel editorConfigPanel = new JPanel(new BorderLayout());
+    /**
+     * The Econf panel.
+     */
+    JPanel econfPanel = new JPanel(new GridLayout(5, 2));
+    /**
+     * The Fontnames.
+     */
+    Vector fontnames = getFontNames();
+    /**
+     * The Normal font cb.
+     */
+    JComboBox normalFontCB = new JComboBox(fontnames);
+    /**
+     * The Header font cb.
+     */
+    JComboBox headerFontCB = new JComboBox(fontnames);
+    /**
+     * The Mono font cb.
+     */
+    JComboBox monoFontCB = new JComboBox(fontnames);
+    /**
+     * The Base font size.
+     */
+    JSpinner baseFontSize = new JSpinner();
+    /**
+     * The Antialias ch b.
+     */
+    JCheckBox antialiasChB = new JCheckBox();
+    /**
+     * The Normal font label.
+     */
+    JLabel normalFontLabel = new JLabel();
+    /**
+     * The Header font label.
+     */
+    JLabel headerFontLabel = new JLabel();
+    /**
+     * The Mono font label.
+     */
+    JLabel monoFontLabel = new JLabel();
+    /**
+     * The Base font size label.
+     */
+    JLabel baseFontSizeLabel = new JLabel();
+
+    /**
+     * Instantiates a new Preferences dialog.
+     *
+     * @param frame the frame
+     */
+    public PreferencesDialog(Frame frame) {
 		super(frame, Local.getString("Preferences"), true);
 		try {
 			jbInit();
@@ -148,11 +357,19 @@ public class PreferencesDialog extends JDialog {
 		}
 	}
 
-	public PreferencesDialog() {
+    /**
+     * Instantiates a new Preferences dialog.
+     */
+    public PreferencesDialog() {
 		this(null);
 	}
 
-	void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 		titledBorder1 = new TitledBorder(BorderFactory.createEtchedBorder(
 				Color.white, new Color(156, 156, 158)), Local
 				.getString("Sound"));
@@ -278,63 +495,6 @@ public class PreferencesDialog extends JDialog {
 		gbc.insets = new Insets(2, 0, 0, 10);
 		gbc.anchor = GridBagConstraints.WEST;
 		GeneralPanel.add(closeHideRB, gbc);
-		jLabel3.setHorizontalAlignment(SwingConstants.RIGHT);
-		jLabel3.setText(Local.getString("Look and feel:"));
-		gbc = new GridBagConstraints();
-		gbc.gridx = 0;
-		gbc.gridy = 4;
-		gbc.insets = new Insets(2, 10, 0, 15);
-		gbc.anchor = GridBagConstraints.EAST;
-		GeneralPanel.add(jLabel3, gbc);
-
-		gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 4;
-		gbc.insets = new Insets(2, 0, 0, 10);
-		gbc.anchor = GridBagConstraints.WEST;
-
-		gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 5;
-		gbc.insets = new Insets(2, 0, 0, 10);
-		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(lfSystemRB, gbc);
-
-		gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 6;
-		gbc.insets = new Insets(2, 0, 0, 10);
-		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(lfJavaRB, gbc);
-		lfGroup.add(lfCustomRB);
-		lfCustomRB.setText(Local.getString("Custom"));
-		lfCustomRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				lfCustomRB_actionPerformed(e);
-			}
-		});
-		gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 7;
-		gbc.insets = new Insets(2, 0, 0, 10);
-		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(lfCustomRB, gbc);
-		classNameLabel.setEnabled(false);
-		classNameLabel.setText(Local.getString("L&F class name:"));
-		gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 8;
-		gbc.insets = new Insets(2, 20, 0, 10);
-		gbc.anchor = GridBagConstraints.WEST;
-		GeneralPanel.add(classNameLabel, gbc);
-		lfClassName.setEnabled(false);
-		gbc = new GridBagConstraints();
-		gbc.gridx = 1;
-		gbc.gridy = 9;
-		gbc.insets = new Insets(7, 20, 0, 10);
-		gbc.anchor = GridBagConstraints.WEST;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		GeneralPanel.add(lfClassName, gbc);
 		jLabel4.setHorizontalAlignment(SwingConstants.RIGHT);
 		jLabel4.setText(Local.getString("Startup:"));
 		gbc = new GridBagConstraints();
@@ -522,7 +682,10 @@ public class PreferencesDialog extends JDialog {
 
 	}
 
-	void setValues() {
+    /**
+     * Sets values.
+     */
+    void setValues() {
 		enL10nChB.setSelected(!Configuration.get("DISABLE_L10N").toString()
 				.equalsIgnoreCase("yes"));
 		enSplashChB.setSelected(!Configuration.get("SHOW_SPLASH").toString()
@@ -610,7 +773,10 @@ public class PreferencesDialog extends JDialog {
 			baseFontSize.setValue(new Integer(16));
 	}
 
-	void apply() {
+    /**
+     * Apply.
+     */
+    void apply() {
 		if (this.firstdow.isSelected())
 			Configuration.put("FIRST_DAY_OF_WEEK", "mon");
 		else
@@ -714,18 +880,33 @@ public class PreferencesDialog extends JDialog {
 		
 	}
 
-	void enableCustomLF(boolean is) {
+    /**
+     * Enable custom lf.
+     *
+     * @param is the is
+     */
+    void enableCustomLF(boolean is) {
 		this.classNameLabel.setEnabled(is);
 		this.lfClassName.setEnabled(is);
 	}
 
-	void enableCustomSound(boolean is) {
+    /**
+     * Enable custom sound.
+     *
+     * @param is the is
+     */
+    void enableCustomSound(boolean is) {
 		this.soundFile.setEnabled(is);
 		this.soundFileBrowseB.setEnabled(is);
 		this.jLabel6.setEnabled(is);
 	}
 
-	void enableSound(boolean is) {
+    /**
+     * Enable sound.
+     *
+     * @param is the is
+     */
+    void enableSound(boolean is) {
 		this.soundDefaultRB.setEnabled(is);
 		this.soundBeepRB.setEnabled(is);
 		this.soundCustomRB.setEnabled(is);
@@ -737,60 +918,130 @@ public class PreferencesDialog extends JDialog {
 
 	}
 
-	void okB_actionPerformed(ActionEvent e) {
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
+    void okB_actionPerformed(ActionEvent e) {
 		apply();
 		this.dispose();
 	}
 
-	void cancelB_actionPerformed(ActionEvent e) {
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
+    void cancelB_actionPerformed(ActionEvent e) {
 		this.dispose();
 	}
 
-	void minTaskbarRB_actionPerformed(ActionEvent e) {
+    /**
+     * Min taskbar rb action performed.
+     *
+     * @param e the e
+     */
+    void minTaskbarRB_actionPerformed(ActionEvent e) {
 
 	}
 
-	void minHideRB_actionPerformed(ActionEvent e) {
+    /**
+     * Min hide rb action performed.
+     *
+     * @param e the e
+     */
+    void minHideRB_actionPerformed(ActionEvent e) {
 
 	}
 
-	void closeExitRB_actionPerformed(ActionEvent e) {
+    /**
+     * Close exit rb action performed.
+     *
+     * @param e the e
+     */
+    void closeExitRB_actionPerformed(ActionEvent e) {
 		// this.askConfirmChB.setEnabled(true);
 	}
 
-	void askConfirmChB_actionPerformed(ActionEvent e) {
+    /**
+     * Ask confirm ch b action performed.
+     *
+     * @param e the e
+     */
+    void askConfirmChB_actionPerformed(ActionEvent e) {
 
 	}
 
-	void closeHideRB_actionPerformed(ActionEvent e) {
+    /**
+     * Close hide rb action performed.
+     *
+     * @param e the e
+     */
+    void closeHideRB_actionPerformed(ActionEvent e) {
 		// this.askConfirmChB.setEnabled(false);
 	}
 
-	void lfSystemRB_actionPerformed(ActionEvent e) {
+    /**
+     * Lf system rb action performed.
+     *
+     * @param e the e
+     */
+    void lfSystemRB_actionPerformed(ActionEvent e) {
 		this.enableCustomLF(false);
 	}
 
-	void lfJavaRB_actionPerformed(ActionEvent e) {
+    /**
+     * Lf java rb action performed.
+     *
+     * @param e the e
+     */
+    void lfJavaRB_actionPerformed(ActionEvent e) {
 		this.enableCustomLF(false);
 	}
 
-	void lfCustomRB_actionPerformed(ActionEvent e) {
+    /**
+     * Lf custom rb action performed.
+     *
+     * @param e the e
+     */
+    void lfCustomRB_actionPerformed(ActionEvent e) {
 		this.enableCustomLF(true);
 	}
 
-	void enSystrayChB_actionPerformed(ActionEvent e) {
+    /**
+     * En systray ch b action performed.
+     *
+     * @param e the e
+     */
+    void enSystrayChB_actionPerformed(ActionEvent e) {
 
 	}
 
-	void enSplashChB_actionPerformed(ActionEvent e) {
+    /**
+     * En splash ch b action performed.
+     *
+     * @param e the e
+     */
+    void enSplashChB_actionPerformed(ActionEvent e) {
 
 	}
 
-	void enL10nChB_actionPerformed(ActionEvent e) {
+    /**
+     * En l 10 n ch b action performed.
+     *
+     * @param e the e
+     */
+    void enL10nChB_actionPerformed(ActionEvent e) {
 
 	}
 
-	void browseB_actionPerformed(ActionEvent e) {
+    /**
+     * Browse b action performed.
+     *
+     * @param e the e
+     */
+    void browseB_actionPerformed(ActionEvent e) {
 		// Fix until Sun's JVM supports more locales...
 		UIManager.put("FileChooser.lookInLabelText", Local
 				.getString("Look in:"));
@@ -829,11 +1080,21 @@ public class PreferencesDialog extends JDialog {
 			this.browserPath.setText(chooser.getSelectedFile().getPath());
 	}
 
-	void enableSoundCB_actionPerformed(ActionEvent e) {
+    /**
+     * Enable sound cb action performed.
+     *
+     * @param e the e
+     */
+    void enableSoundCB_actionPerformed(ActionEvent e) {
 		enableSound(enableSoundCB.isSelected());
 	}
 
-	void soundFileBrowseB_actionPerformed(ActionEvent e) {
+    /**
+     * Sound file browse b action performed.
+     *
+     * @param e the e
+     */
+    void soundFileBrowseB_actionPerformed(ActionEvent e) {
 		// Fix until Sun's JVM supports more locales...
 		UIManager.put("FileChooser.lookInLabelText", Local
 				.getString("Look in:"));
@@ -868,19 +1129,39 @@ public class PreferencesDialog extends JDialog {
 			this.soundFile.setText(chooser.getSelectedFile().getPath());
 	}
 
-	void soundDefaultRB_actionPerformed(ActionEvent e) {
+    /**
+     * Sound default rb action performed.
+     *
+     * @param e the e
+     */
+    void soundDefaultRB_actionPerformed(ActionEvent e) {
 		this.enableCustomSound(false);
 	}
 
-	void soundBeepRB_actionPerformed(ActionEvent e) {
+    /**
+     * Sound beep rb action performed.
+     *
+     * @param e the e
+     */
+    void soundBeepRB_actionPerformed(ActionEvent e) {
 		this.enableCustomSound(false);
 	}
 
-	void soundCustomRB_actionPerformed(ActionEvent e) {
+    /**
+     * Sound custom rb action performed.
+     *
+     * @param e the e
+     */
+    void soundCustomRB_actionPerformed(ActionEvent e) {
 		this.enableCustomSound(true);
 	}
-	
-	Vector getFontNames() {
+
+    /**
+     * Gets font names.
+     *
+     * @return the font names
+     */
+    Vector getFontNames() {
 		GraphicsEnvironment gEnv = 
         	GraphicsEnvironment.getLocalGraphicsEnvironment();
         String envfonts[] = gEnv.getAvailableFontFamilyNames();

@@ -13,14 +13,18 @@ import java.io.FileOutputStream;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.Document;
 import javax.swing.text.rtf.RTFEditorKit;
+
 /**
- * 
+ * The type Rtf file export.
  */
 /*$Id: RTFFileExport.java,v 1.3 2004/01/30 12:17:42 alexeya Exp $*/
 public class RTFFileExport {
 
     /**
      * Constructor for RTFFileExport.
+     *
+     * @param f   the f
+     * @param doc the doc
      */
     public RTFFileExport(File f, Document doc) {
         RTFEditorKit kit = new RTFEditorKit();        

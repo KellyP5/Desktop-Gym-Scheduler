@@ -20,19 +20,28 @@ import nu.xom.Element;
 import nu.xom.Elements;
 
 /**
- *
+ * The type Project manager.
  */
 /*$Id: ProjectManager.java,v 1.9 2005/12/01 08:12:26 alexeya Exp $*/
 public class ProjectManager {
 //    public static final String NS_JNPROJECT = "http://www.openmechanics.org/2003/jnotes-projects-file";
 
+    /**
+     * The constant _doc.
+     */
     public static Document _doc = null;
+    /**
+     * The Root.
+     */
     static Element _root = null;
     
     static {
     	init();
     }
 
+    /**
+     * Init.
+     */
     public static void init() {
         CurrentStorage.get().openProjectManager();
         if (_doc == null) {
@@ -46,6 +55,12 @@ public class ProjectManager {
             _root = _doc.getRootElement();
     }
 
+    /**
+     * Gets project.
+     *
+     * @param id the id
+     * @return the project
+     */
     public static Project getProject(String id) {
         Elements prjs = _root.getChildElements("project");
         for (int i = 0; i < prjs.size(); i++) {
@@ -57,6 +72,11 @@ public class ProjectManager {
         return null;
     }
 
+    /**
+     * Gets all projects.
+     *
+     * @return the all projects
+     */
     public static Vector getAllProjects() {
         Elements prjs = _root.getChildElements("project");
         Vector v = new Vector();
@@ -65,6 +85,11 @@ public class ProjectManager {
         return v;
     }
 
+    /**
+     * Gets all projects number.
+     *
+     * @return the all projects number
+     */
     public static int getAllProjectsNumber() {
 		int i;
         try {
@@ -76,6 +101,11 @@ public class ProjectManager {
 		return i;
     }
 
+    /**
+     * Gets active projects.
+     *
+     * @return the active projects
+     */
     public static Vector getActiveProjects() {
         Elements prjs = _root.getChildElements("project");
         Vector v = new Vector();
@@ -86,7 +116,12 @@ public class ProjectManager {
         }
         return v;
     }
-		
+
+    /**
+     * Gets active projects number.
+     *
+     * @return the active projects number
+     */
     public static int getActiveProjectsNumber() {
         Elements prjs = _root.getChildElements("project");
         int count = 0;
@@ -98,6 +133,15 @@ public class ProjectManager {
         return count;
     }
 
+    /**
+     * Create project project.
+     *
+     * @param id        the id
+     * @param title     the title
+     * @param startDate the start date
+     * @param endDate   the end date
+     * @return the project
+     */
     public static Project createProject(String id, String title, CalendarDate startDate, CalendarDate endDate) {
         Element el = new Element("project");
         el.addAttribute(new Attribute("id", id));
@@ -110,10 +154,23 @@ public class ProjectManager {
         return prj;
     }
 
+    /**
+     * Create project project.
+     *
+     * @param title     the title
+     * @param startDate the start date
+     * @param endDate   the end date
+     * @return the project
+     */
     public static Project createProject(String title, CalendarDate startDate, CalendarDate endDate) {
         return createProject(Util.generateId(), title, startDate, endDate);
     }
-    
+
+    /**
+     * Remove project.
+     *
+     * @param id the id
+     */
     public static void removeProject(String id) {
         Project prj = getProject(id);
         if (prj == null)

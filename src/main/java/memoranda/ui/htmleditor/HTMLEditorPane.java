@@ -6,19 +6,40 @@ import java.awt.RenderingHints;
 
 import javax.swing.JEditorPane;
 
+/**
+ * The type Html editor pane.
+ */
 public class HTMLEditorPane extends JEditorPane {
 
-	boolean antiAlias = true;
+    /**
+     * The Anti alias.
+     */
+    boolean antiAlias = true;
 
-	public HTMLEditorPane(String text) {
+    /**
+     * Instantiates a new Html editor pane.
+     *
+     * @param text the text
+     */
+    public HTMLEditorPane(String text) {
 		super("text/html", text);
 	}
 
-	public boolean isAntialiasOn() {
+    /**
+     * Is antialias on boolean.
+     *
+     * @return the boolean
+     */
+    public boolean isAntialiasOn() {
 		return antiAlias;
 	}
 
-	public void setAntiAlias(boolean on) {
+    /**
+     * Sets anti alias.
+     *
+     * @param on the on
+     */
+    public void setAntiAlias(boolean on) {
 		antiAlias = on;
 	}
 

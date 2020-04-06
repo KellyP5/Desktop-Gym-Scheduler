@@ -58,63 +58,136 @@ import nu.xom.Elements;
 
 
 /**
- * 
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-
 /*$Id: AppFrame.java,v 1.33 2005/07/05 08:17:24 alexeya Exp $*/
 
 public class AppFrame extends JFrame {
 
+    /**
+     * The Content pane.
+     */
     JPanel contentPane;
+    /**
+     * The Menu bar.
+     */
     JMenuBar menuBar = new JMenuBar();
+    /**
+     * The J menu file.
+     */
     JMenu jMenuFile = new JMenu();
+    /**
+     * The J menu file exit.
+     */
     JMenuItem jMenuFileExit = new JMenuItem();
 
+    /**
+     * The Tool bar.
+     */
     JToolBar toolBar = new JToolBar();
+    /**
+     * The J button 3.
+     */
     JButton jButton3 = new JButton();
+    /**
+     * The Image 1.
+     */
     ImageIcon image1;
+    /**
+     * The Image 2.
+     */
     ImageIcon image2;
+    /**
+     * The Image 3.
+     */
     ImageIcon image3;
+    /**
+     * The Status bar.
+     */
     JLabel statusBar = new JLabel();
+    /**
+     * The Border layout 1.
+     */
     BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Split pane.
+     */
     JSplitPane splitPane = new JSplitPane();
+    /**
+     * The Projects panel.
+     */
     ProjectsPanel projectsPanel = new ProjectsPanel();
+    /**
+     * The Pr panel expanded.
+     */
     boolean prPanelExpanded = false;
 
+    /**
+     * The J menu edit.
+     */
     JMenu jMenuEdit = new JMenu();
+    /**
+     * The J menu format.
+     */
     JMenu jMenuFormat = new JMenu();
+    /**
+     * The J menu insert.
+     */
     JMenu jMenuInsert = new JMenu();
 
+    /**
+     * The Work panel.
+     */
     public WorkPanel workPanel = new WorkPanel();
+    /**
+     * The Editor.
+     */
     HTMLEditor editor = workPanel.dailyItemsPanel.editorPanel.editor;
 
+    /**
+     * The Exit listeners.
+     */
     static Vector exitListeners = new Vector();
 
+    /**
+     * The Prj pack action.
+     */
     public Action prjPackAction = new AbstractAction("Pack current project") {
         public void actionPerformed(ActionEvent e) {
             doPrjPack();
         }
     };
 
+    /**
+     * The Prj unpack action.
+     */
     public Action prjUnpackAction = new AbstractAction("Unpack project") {
         public void actionPerformed(ActionEvent e) {
             doPrjUnPack();
         }
     };
 
+    /**
+     * The Minimize action.
+     */
     public Action minimizeAction = new AbstractAction("Close the window") {
         public void actionPerformed(ActionEvent e) {
             doMinimize();
         }
     };
 
+    /**
+     * The Preferences action.
+     */
     public Action preferencesAction = new AbstractAction("Preferences") {
         public void actionPerformed(ActionEvent e) {
             showPreferences();
         }
     };
-    
+
+    /**
+     * The Export notes action.
+     */
     public Action exportNotesAction =
                 new AbstractAction(Local.getString("Export notes") + "...") {
 
@@ -122,129 +195,357 @@ public class AppFrame extends JFrame {
                         ppExport_actionPerformed(e);
                 }
         };
-        
-        public Action importNotesAction =
+
+    /**
+     * The Import notes action.
+     */
+    public Action importNotesAction =
                         new AbstractAction(Local.getString("Import multiple notes")) {
 
                         public void actionPerformed(ActionEvent e) {
                                 ppImport_actionPerformed(e);
                         }
                 };
-        public Action importOneNoteAction =
+    /**
+     * The Import one note action.
+     */
+    public Action importOneNoteAction =
                 new AbstractAction(Local.getString("Import one note")) {
 
                 public void actionPerformed(ActionEvent e) {
                         p1Import_actionPerformed(e);
                 }
         };
-    
+
+    /**
+     * The J menu file new prj.
+     */
     JMenuItem jMenuFileNewPrj = new JMenuItem();
-        JMenuItem jMenuFileNewNote = new JMenuItem(workPanel.dailyItemsPanel.editorPanel.newAction);
+    /**
+     * The J menu file new note.
+     */
+    JMenuItem jMenuFileNewNote = new JMenuItem(workPanel.dailyItemsPanel.editorPanel.newAction);
+    /**
+     * The J menu file pack prj.
+     */
     JMenuItem jMenuFilePackPrj = new JMenuItem(prjPackAction);
+    /**
+     * The J menu file unpack prj.
+     */
     JMenuItem jMenuFileUnpackPrj = new JMenuItem(prjUnpackAction);
+    /**
+     * The J menu file export prj.
+     */
     JMenuItem jMenuFileExportPrj = new JMenuItem(exportNotesAction);
+    /**
+     * The J menu file import prj.
+     */
     JMenuItem jMenuFileImportPrj = new JMenuItem(importNotesAction);
+    /**
+     * The J menu file import note.
+     */
     JMenuItem jMenuFileImportNote = new JMenuItem(importOneNoteAction);
+    /**
+     * The J menu file export note.
+     */
     JMenuItem jMenuFileExportNote = new JMenuItem(
             workPanel.dailyItemsPanel.editorPanel.exportAction);
+    /**
+     * The J menu file min.
+     */
     JMenuItem jMenuFileMin = new JMenuItem(minimizeAction);
 
+    /**
+     * The J menu item 1.
+     */
     JMenuItem jMenuItem1 = new JMenuItem();
+    /**
+     * The J menu edit undo.
+     */
     JMenuItem jMenuEditUndo = new JMenuItem(editor.undoAction);
+    /**
+     * The J menu edit redo.
+     */
     JMenuItem jMenuEditRedo = new JMenuItem(editor.redoAction);
+    /**
+     * The J menu edit cut.
+     */
     JMenuItem jMenuEditCut = new JMenuItem(editor.cutAction);
+    /**
+     * The J menu edit copy.
+     */
     JMenuItem jMenuEditCopy = new JMenuItem(editor.copyAction);
+    /**
+     * The J menu edit paste.
+     */
     JMenuItem jMenuEditPaste = new JMenuItem(editor.pasteAction);
+    /**
+     * The J menu edit paste spec.
+     */
     JMenuItem jMenuEditPasteSpec = new JMenuItem(editor.stylePasteAction);
+    /**
+     * The J menu edit select all.
+     */
     JMenuItem jMenuEditSelectAll = new JMenuItem(editor.selectAllAction);
+    /**
+     * The J menu edit find.
+     */
     JMenuItem jMenuEditFind = new JMenuItem(editor.findAction);
 
+    /**
+     * The J menu go.
+     */
     JMenu jMenuGo = new JMenu();
+    /**
+     * The J menu insert image.
+     */
     JMenuItem jMenuInsertImage = new JMenuItem(editor.imageAction);
+    /**
+     * The J menu insert table.
+     */
     JMenuItem jMenuInsertTable = new JMenuItem(editor.tableAction);
+    /**
+     * The J menu insert link.
+     */
     JMenuItem jMenuInsertLink = new JMenuItem(editor.linkAction);
+    /**
+     * The J menu insert list.
+     */
     JMenu jMenuInsertList = new JMenu();
+    /**
+     * The J menu insert list ul.
+     */
     JMenuItem jMenuInsertListUL = new JMenuItem(editor.ulAction);
+    /**
+     * The J menu insert list ol.
+     */
     JMenuItem jMenuInsertListOL = new JMenuItem(editor.olAction);
+    /**
+     * The J menu insert br.
+     */
     JMenuItem jMenuInsertBR = new JMenuItem(editor.breakAction);
+    /**
+     * The J menu insert hr.
+     */
     JMenuItem jMenuInsertHR = new JMenuItem(editor.insertHRAction);
+    /**
+     * The J menu insert char.
+     */
     JMenuItem jMenuInsertChar = new JMenuItem(editor.insCharAction);
+    /**
+     * The J menu insert date.
+     */
     JMenuItem jMenuInsertDate = new JMenuItem(
             workPanel.dailyItemsPanel.editorPanel.insertDateAction);
+    /**
+     * The J menu insert time.
+     */
     JMenuItem jMenuInsertTime = new JMenuItem(
     		workPanel.dailyItemsPanel.editorPanel.insertTimeAction);
+    /**
+     * The J menu insert file.
+     */
     JMenuItem jMenuInsertFile = new JMenuItem(
             workPanel.dailyItemsPanel.editorPanel.importAction);
 
+    /**
+     * The J menu format p style.
+     */
     JMenu jMenuFormatPStyle = new JMenu();
+    /**
+     * The J menu format p.
+     */
     JMenuItem jMenuFormatP = new JMenuItem(editor.new BlockAction(editor.T_P,
             ""));
+    /**
+     * The J menu format h 1.
+     */
     JMenuItem jMenuFormatH1 = new JMenuItem(editor.new BlockAction(editor.T_H1,
             ""));
+    /**
+     * The J menu format h 2.
+     */
     JMenuItem jMenuFormatH2 = new JMenuItem(editor.new BlockAction(editor.T_H2,
             ""));
+    /**
+     * The J menu format h 3.
+     */
     JMenuItem jMenuFormatH3 = new JMenuItem(editor.new BlockAction(editor.T_H3,
             ""));
+    /**
+     * The J menu format h 4.
+     */
     JMenuItem jMenuFormatH4 = new JMenuItem(editor.new BlockAction(editor.T_H4,
             ""));
+    /**
+     * The J menu format h 5.
+     */
     JMenuItem jMenuFormatH5 = new JMenuItem(editor.new BlockAction(editor.T_H5,
             ""));
+    /**
+     * The J menu format h 6.
+     */
     JMenuItem jMenuFormatH6 = new JMenuItem(editor.new BlockAction(editor.T_H6,
             ""));
+    /**
+     * The J menu format pre.
+     */
     JMenuItem jMenuFormatPRE = new JMenuItem(editor.new BlockAction(
             editor.T_PRE, ""));
+    /**
+     * The J menu format blcq.
+     */
     JMenuItem jMenuFormatBLCQ = new JMenuItem(editor.new BlockAction(
             editor.T_BLOCKQ, ""));
+    /**
+     * The Jj menu format ch style.
+     */
     JMenu jjMenuFormatChStyle = new JMenu();
+    /**
+     * The J menu format ch norm.
+     */
     JMenuItem jMenuFormatChNorm = new JMenuItem(editor.new InlineAction(
             editor.I_NORMAL, ""));
+    /**
+     * The J menu format ch em.
+     */
     JMenuItem jMenuFormatChEM = new JMenuItem(editor.new InlineAction(
             editor.I_EM, ""));
+    /**
+     * The J menu format ch strong.
+     */
     JMenuItem jMenuFormatChSTRONG = new JMenuItem(editor.new InlineAction(
             editor.I_STRONG, ""));
+    /**
+     * The J menu format ch code.
+     */
     JMenuItem jMenuFormatChCODE = new JMenuItem(editor.new InlineAction(
             editor.I_CODE, ""));
+    /**
+     * The J menu format ch cite.
+     */
     JMenuItem jMenuFormatChCite = new JMenuItem(editor.new InlineAction(
             editor.I_CITE, ""));
+    /**
+     * The J menu format ch sup.
+     */
     JMenuItem jMenuFormatChSUP = new JMenuItem(editor.new InlineAction(
             editor.I_SUPERSCRIPT, ""));
+    /**
+     * The J menu format ch sub.
+     */
     JMenuItem jMenuFormatChSUB = new JMenuItem(editor.new InlineAction(
             editor.I_SUBSCRIPT, ""));
+    /**
+     * The J menu format ch custom.
+     */
     JMenuItem jMenuFormatChCustom = new JMenuItem(editor.new InlineAction(
             editor.I_CUSTOM, ""));
+    /**
+     * The J menu format ch b.
+     */
     JMenuItem jMenuFormatChB = new JMenuItem(editor.boldAction);
+    /**
+     * The J menu format ch i.
+     */
     JMenuItem jMenuFormatChI = new JMenuItem(editor.italicAction);
+    /**
+     * The J menu format ch u.
+     */
     JMenuItem jMenuFormatChU = new JMenuItem(editor.underAction);
+    /**
+     * The J menu format align.
+     */
     JMenu jMenuFormatAlign = new JMenu();
+    /**
+     * The J menu format align l.
+     */
     JMenuItem jMenuFormatAlignL = new JMenuItem(editor.lAlignAction);
+    /**
+     * The J menu format align c.
+     */
     JMenuItem jMenuFormatAlignC = new JMenuItem(editor.cAlignAction);
+    /**
+     * The J menu format align r.
+     */
     JMenuItem jMenuFormatAlignR = new JMenuItem(editor.rAlignAction);
+    /**
+     * The J menu format table.
+     */
     JMenu jMenuFormatTable = new JMenu();
+    /**
+     * The J menu format table ins r.
+     */
     JMenuItem jMenuFormatTableInsR = new JMenuItem(editor.insertTableRowAction);
+    /**
+     * The J menu format table ins c.
+     */
     JMenuItem jMenuFormatTableInsC = new JMenuItem(editor.insertTableCellAction);
+    /**
+     * The J menu format properties.
+     */
     JMenuItem jMenuFormatProperties = new JMenuItem(editor.propsAction);
+    /**
+     * The J menu go h back.
+     */
     JMenuItem jMenuGoHBack = new JMenuItem(History.historyBackAction);
+    /**
+     * The J menu go fwd.
+     */
     JMenuItem jMenuGoFwd = new JMenuItem(History.historyForwardAction);
 
+    /**
+     * The J menu go day back.
+     */
     JMenuItem jMenuGoDayBack = new JMenuItem(
             workPanel.dailyItemsPanel.calendar.dayBackAction);
+    /**
+     * The J menu go day fwd.
+     */
     JMenuItem jMenuGoDayFwd = new JMenuItem(
             workPanel.dailyItemsPanel.calendar.dayForwardAction);
+    /**
+     * The J menu go today.
+     */
     JMenuItem jMenuGoToday = new JMenuItem(
             workPanel.dailyItemsPanel.calendar.todayAction);
 
+    /**
+     * The J menu edit pref.
+     */
     JMenuItem jMenuEditPref = new JMenuItem(preferencesAction);
 
+    /**
+     * The J menu insert special.
+     */
     JMenu jMenuInsertSpecial = new JMenu();
-    
+
+    /**
+     * The J menu help.
+     */
     JMenu jMenuHelp = new JMenu();
-    
+
+    /**
+     * The J menu help guide.
+     */
     JMenuItem jMenuHelpGuide = new JMenuItem();
+    /**
+     * The J menu help web.
+     */
     JMenuItem jMenuHelpWeb = new JMenuItem();
+    /**
+     * The J menu help bug.
+     */
     JMenuItem jMenuHelpBug = new JMenuItem();
+    /**
+     * The J menu help about.
+     */
     JMenuItem jMenuHelpAbout = new JMenuItem();
 
-    //Construct the frame
+    /**
+     * Instantiates a new App frame.
+     */
+//Construct the frame
     public AppFrame() {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         try {
@@ -301,7 +602,7 @@ public class AppFrame extends JFrame {
             }
         });        
         
-        jMenuHelpAbout.setText(Local.getString("About Memoranda"));
+        jMenuHelpAbout.setText(Local.getString("About Globo Gym"));
         jMenuHelpAbout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 jMenuHelpAbout_actionPerformed(e);
@@ -584,7 +885,7 @@ public class AppFrame extends JFrame {
                 setMenusDisabled);
 
         this.workPanel.tasksB.addActionListener(setMenusDisabled);
-        this.workPanel.eventsB.addActionListener(setMenusDisabled);
+        this.workPanel.classesB.addActionListener(setMenusDisabled);
         this.workPanel.filesB.addActionListener(setMenusDisabled);
         this.workPanel.agendaB.addActionListener(setMenusDisabled);
 
@@ -631,20 +932,38 @@ public class AppFrame extends JFrame {
         });
 
     }
-   
+
+    /**
+     * J menu help bug action performed.
+     *
+     * @param e the e
+     */
     protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
         Util.runBrowser(App.BUGS_TRACKER_URL);
     }
-   
+
+    /**
+     * J menu help web action performed.
+     *
+     * @param e the e
+     */
     protected void jMenuHelpWeb_actionPerformed(ActionEvent e) {
         Util.runBrowser(App.WEBSITE_URL);
     }
-   
+
+    /**
+     * J menu help guide action performed.
+     *
+     * @param e the e
+     */
     protected void jMenuHelpGuide_actionPerformed(ActionEvent e) {
         Util.runBrowser(App.GUIDE_URL);
     }
-    
-    //File | Exit action performed
+
+    /**
+     * Do exit.
+     */
+//File | Exit action performed
     public void doExit() {
         if (Configuration.get("ASK_ON_EXIT").equals("yes")) {
                         Dimension frmSize = this.getSize();
@@ -664,12 +983,20 @@ public class AppFrame extends JFrame {
         System.exit(0);
     }
 
+    /**
+     * Do minimize.
+     */
     public void doMinimize() {
         exitNotify();
-        App.closeWindow();
+        this.setState(Frame.ICONIFIED);
     }
 
-    //Help | About action performed
+    /**
+     * J menu help about action performed.
+     *
+     * @param e the e
+     */
+//Help | About action performed
     public void jMenuHelpAbout_actionPerformed(ActionEvent e) {
          AppFrame_AboutBox dlg = new AppFrame_AboutBox(this);        
          Dimension dlgSize = dlg.getSize();
@@ -688,18 +1015,27 @@ public class AppFrame extends JFrame {
                 doMinimize();
         }
         else if ((e.getID() == WindowEvent.WINDOW_ICONIFIED)) {
-            super.processWindowEvent(new WindowEvent(this,
-                    WindowEvent.WINDOW_CLOSING));
+
             doMinimize();
         }
         else
             super.processWindowEvent(e);
     }
 
+    /**
+     * Add exit listener.
+     *
+     * @param al the al
+     */
     public static void addExitListener(ActionListener al) {
         exitListeners.add(al);
     }
 
+    /**
+     * Gets exit listeners.
+     *
+     * @return the exit listeners
+     */
     public static Collection getExitListeners() {
         return exitListeners;
     }
@@ -709,6 +1045,11 @@ public class AppFrame extends JFrame {
             ((ActionListener) exitListeners.get(i)).actionPerformed(null);
     }
 
+    /**
+     * Sets enabled editor menus.
+     *
+     * @param enabled the enabled
+     */
     public void setEnabledEditorMenus(boolean enabled) {
         this.jMenuEdit.setEnabled(enabled);
         this.jMenuFormat.setEnabled(enabled);
@@ -717,6 +1058,9 @@ public class AppFrame extends JFrame {
         this.jMenuFileExportNote.setEnabled(enabled);
     }
 
+    /**
+     * Do prj pack.
+     */
     public void doPrjPack() {
         // Fix until Sun's JVM supports more locales...
         UIManager.put("FileChooser.saveInLabelText", Local
@@ -773,6 +1117,9 @@ public class AppFrame extends JFrame {
         ProjectPackager.pack(CurrentProject.get(), f);
     }
 
+    /**
+     * Do prj un pack.
+     */
     public void doPrjUnPack() {
         // Fix until Sun's JVM supports more locales...
         UIManager.put("FileChooser.lookInLabelText", Local
@@ -830,14 +1177,22 @@ public class AppFrame extends JFrame {
         projectsPanel.prjTablePanel.updateUI();
     }
 
+    /**
+     * Show preferences.
+     */
     public void showPreferences() {
         PreferencesDialog dlg = new PreferencesDialog(this);
         dlg.pack();
         dlg.setLocationRelativeTo(this);
         dlg.setVisible(true);
     }
-    
-            protected void ppExport_actionPerformed(ActionEvent e) {
+
+    /**
+     * Pp export action performed.
+     *
+     * @param e the e
+     */
+    protected void ppExport_actionPerformed(ActionEvent e) {
                 // Fix until Sun's JVM supports more locales...
                 UIManager.put(
                         "FileChooser.lookInLabelText",
@@ -927,8 +1282,13 @@ public class AppFrame extends JFrame {
                  ProjectExporter.export(CurrentProject.get(), chooser.getSelectedFile(), enc, xhtml, 
                                  dlg.splitChB.isSelected(), true, nument, dlg.titlesAsHeadersChB.isSelected(), false); 
                 }
-            
-            protected void ppImport_actionPerformed(ActionEvent e) {
+
+    /**
+     * Pp import action performed.
+     *
+     * @param e the e
+     */
+    protected void ppImport_actionPerformed(ActionEvent e) {
             
             UIManager.put("FileChooser.lookInLabelText", Local
                     .getString("Look in:"));
@@ -1021,7 +1381,13 @@ public class AppFrame extends JFrame {
                     exc.printStackTrace();
             }
         }
-            protected void p1Import_actionPerformed(ActionEvent e) {
+
+    /**
+     * P 1 import action performed.
+     *
+     * @param e the e
+     */
+    protected void p1Import_actionPerformed(ActionEvent e) {
                 
             UIManager.put("FileChooser.lookInLabelText", Local
                     .getString("Look in:"));

@@ -14,20 +14,32 @@ import java.util.TimerTask;
 import java.util.Vector;
 
 /**
- *
+ * The type Events scheduler.
  */
 /*$Id: EventsScheduler.java,v 1.4 2004/01/30 12:17:41 alexeya Exp $*/
 public class EventsScheduler {
 
+    /**
+     * The Timers.
+     */
     static Vector _timers = new Vector();
+    /**
+     * The Listeners.
+     */
     static Vector _listeners = new Vector();
 
+    /**
+     * The Change date timer.
+     */
     static Timer changeDateTimer = new Timer();
 
     static {
         addListener(new DefaultEventNotifier());            
     }
 
+    /**
+     * Init.
+     */
     public static void init() {
         cancelAll();
         //changeDateTimer.cancel();
@@ -57,20 +69,33 @@ public class EventsScheduler {
         notifyChanged();
     }
 
+    /**
+     * Cancel all.
+     */
     public static void cancelAll() {
         for (int i = 0; i < _timers.size(); i++) {
             EventTimer t = (EventTimer)_timers.get(i);
             t.cancel();
         }
     }
-    
+
+    /**
+     * Gets scheduled events.
+     *
+     * @return the scheduled events
+     */
     public static Vector getScheduledEvents() {
         Vector v = new Vector();
         for (int i = 0; i < _timers.size(); i++) 
             v.add(((EventTimer)_timers.get(i)).getEvent());
         return v;
     }
-    
+
+    /**
+     * Gets first scheduled event.
+     *
+     * @return the first scheduled event
+     */
     public static Event getFirstScheduledEvent() {
         if (!isEventScheduled()) return null;
         Event e1 = ((EventTimer)_timers.get(0)).getEvent();
@@ -81,12 +106,22 @@ public class EventsScheduler {
         }
         return e1;
     }
-            
 
+
+    /**
+     * Add listener.
+     *
+     * @param enl the enl
+     */
     public static void addListener(EventNotificationListener enl) {
         _listeners.add(enl);
     }
 
+    /**
+     * Is event scheduled boolean.
+     *
+     * @return the boolean
+     */
     public static boolean isEventScheduled() {
         return _timers.size() > 0;
     }
@@ -111,10 +146,21 @@ public class EventsScheduler {
        return cal.getTime();
     }
 
+    /**
+     * The type Notify task.
+     */
     static class NotifyTask extends TimerTask {
-        
+
+        /**
+         * The Timer.
+         */
         EventTimer _timer;
 
+        /**
+         * Instantiates a new Notify task.
+         *
+         * @param t the t
+         */
         public NotifyTask(EventTimer t) {
             super();            
             _timer = t;
@@ -127,15 +173,31 @@ public class EventsScheduler {
             notifyChanged();
         }
     }
-    
+
+    /**
+     * The type Event timer.
+     */
     static class EventTimer extends Timer {
+        /**
+         * The Event.
+         */
         Event _event;
-        
+
+        /**
+         * Instantiates a new Event timer.
+         *
+         * @param ev the ev
+         */
         public EventTimer(Event ev) {
             super();
             _event = ev;
         }
-        
+
+        /**
+         * Gets event.
+         *
+         * @return the event
+         */
         public Event getEvent() {
             return _event;
         }

@@ -15,15 +15,27 @@ import java.awt.event.*;
 
 import java.util.*;
 
+/**
+ * The type Task table sorter.
+ */
 public class TaskTableSorter extends TaskTableModel{
-	
-	// -1 == no sorting
+
+    /**
+     * The Sorting column.
+     */
+// -1 == no sorting
 	int sorting_column = -1;
-	
-	// sort opposite direction
+
+    /**
+     * The Opposite.
+     */
+// sort opposite direction
 	boolean opposite = false;
-	
-	Comparator comparator = new Comparator(){
+
+    /**
+     * The Comparator.
+     */
+    Comparator comparator = new Comparator(){
 		public int compare(Object o1, Object o2){
 			if(sorting_column == -1) return 0;
 			if( (o1 instanceof Task) == false) return 0;
@@ -47,8 +59,13 @@ public class TaskTableSorter extends TaskTableModel{
 			return 0;
 		}
 	};
-	
-	public TaskTableSorter( TaskTable table ){
+
+    /**
+     * Instantiates a new Task table sorter.
+     *
+     * @param table the table
+     */
+    public TaskTableSorter( TaskTable table ){
 		JTableHeader tableHeader = table.getTableHeader();
 		tableHeader.addMouseListener( new MouseHandler() );
 		tableHeader.setDefaultRenderer( new SortableHeaderRenderer());

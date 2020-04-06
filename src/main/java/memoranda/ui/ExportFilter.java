@@ -13,19 +13,37 @@ import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * 
+ * The type Export filter.
  */
 /*$Id: ExportFilter.java,v 1.2 2004/01/30 12:17:41 alexeya Exp $*/
 public class ExportFilter extends FileFilter {
 
+    /**
+     * The constant RTF.
+     */
     public static final String RTF = "RTF";
+    /**
+     * The constant HTML.
+     */
     public static final String HTML = "HTML";
+    /**
+     * The constant XHTML.
+     */
     public static final String XHTML = "XHTML";
+    /**
+     * The constant ZIP.
+     */
     public static final String ZIP = "ZIP";
 
+    /**
+     * The Type.
+     */
     String _type = "";
+
     /**
      * Constructor for ExportFilter.
+     *
+     * @param type the type
      */
     public ExportFilter(String type) {
         super();

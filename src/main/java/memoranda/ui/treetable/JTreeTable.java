@@ -36,22 +36,34 @@ import java.util.EventObject;
  * This example shows how to create a simple JTreeTable component, by using a
  * JTree as a renderer (and editor) for the cells in a particular column in the
  * JTable.
- * 
- * @version 1.2 10/27/98
- * 
+ *
  * @author Philip Milne
  * @author Scott Violet
+ * @version 1.2 10/27/98
  */
 public class JTreeTable extends JTable {
-	/** A subclass of JTree. */
-	protected TreeTableCellRenderer tree;
-	protected TreeTableModel model;
+    /**
+     * A subclass of JTree.
+     */
+    protected TreeTableCellRenderer tree;
+    /**
+     * The Model.
+     */
+    protected TreeTableModel model;
 
-	public JTreeTable() {
+    /**
+     * Instantiates a new J tree table.
+     */
+    public JTreeTable() {
 		super();
 	}
-	
-	public JTreeTable(TreeTableModel treeTableModel) {
+
+    /**
+     * Instantiates a new J tree table.
+     *
+     * @param treeTableModel the tree table model
+     */
+    public JTreeTable(TreeTableModel treeTableModel) {
 		super();
 		model = treeTableModel;
 		// Create the tree. It will be used as a renderer and editor.
@@ -121,22 +133,31 @@ public class JTreeTable extends JTable {
 		}
 	}
 
-	/**
-	 * Returns the tree that is being shared between the model.
-	 */
-	public JTree getTree() {
+    /**
+     * Returns the tree that is being shared between the model.
+     *
+     * @return the tree
+     */
+    public JTree getTree() {
 		return tree;
 	}
 
-	/**
-	 * A TreeCellRenderer that displays a JTree.
-	 */
-	public class TreeTableCellRenderer extends JTree implements
+    /**
+     * A TreeCellRenderer that displays a JTree.
+     */
+    public class TreeTableCellRenderer extends JTree implements
 			TableCellRenderer {
-		/** Last table/tree row asked to renderer. */
-		protected int visibleRow;
+        /**
+         * Last table/tree row asked to renderer.
+         */
+        protected int visibleRow;
 
-		public TreeTableCellRenderer(TreeModel model) {
+        /**
+         * Instantiates a new Tree table cell renderer.
+         *
+         * @param model the model
+         */
+        public TreeTableCellRenderer(TreeModel model) {
 			super(model);
 			this.setRootVisible(false);
 			this.setShowsRootHandles(true);
@@ -218,10 +239,10 @@ public class JTreeTable extends JTable {
 		}
 	}
 
-	/**
-	 * TreeTableCellEditor implementation. Component returned is the JTree.
-	 */
-	public class TreeTableCellEditor extends AbstractCellEditor implements
+    /**
+     * TreeTableCellEditor implementation. Component returned is the JTree.
+     */
+    public class TreeTableCellEditor extends AbstractCellEditor implements
 			TableCellEditor {
 		public Component getTableCellEditorComponent(JTable table,
 				Object value, boolean isSelected, int r, int c) {
@@ -265,28 +286,35 @@ public class JTreeTable extends JTable {
 		}
 	}
 
-	/**
-	 * ListToTreeSelectionModelWrapper extends DefaultTreeSelectionModel to
-	 * listen for changes in the ListSelectionModel it maintains. Once a change
-	 * in the ListSelectionModel happens, the paths are updated in the
-	 * DefaultTreeSelectionModel.
-	 */
-	public class ListToTreeSelectionModelWrapper extends DefaultTreeSelectionModel {
-		/** Set to true when we are updating the ListSelectionModel. */
-		protected boolean updatingListSelectionModel;
+    /**
+     * ListToTreeSelectionModelWrapper extends DefaultTreeSelectionModel to
+     * listen for changes in the ListSelectionModel it maintains. Once a change
+     * in the ListSelectionModel happens, the paths are updated in the
+     * DefaultTreeSelectionModel.
+     */
+    public class ListToTreeSelectionModelWrapper extends DefaultTreeSelectionModel {
+        /**
+         * Set to true when we are updating the ListSelectionModel.
+         */
+        protected boolean updatingListSelectionModel;
 
-		public ListToTreeSelectionModelWrapper() {
+        /**
+         * Instantiates a new List to tree selection model wrapper.
+         */
+        public ListToTreeSelectionModelWrapper() {
 			super();
 			getListSelectionModel().addListSelectionListener(
 					createListSelectionListener());
 		}
 
-		/**
-		 * Returns the list selection model. ListToTreeSelectionModelWrapper
-		 * listens for changes to this model and updates the selected paths
-		 * accordingly.
-		 */
-		public ListSelectionModel getListSelectionModel() {
+        /**
+         * Returns the list selection model. ListToTreeSelectionModelWrapper
+         * listens for changes to this model and updates the selected paths
+         * accordingly.
+         *
+         * @return the list selection model
+         */
+        public ListSelectionModel getListSelectionModel() {
 			return listSelectionModel;
 		}
 
@@ -311,19 +339,21 @@ public class JTreeTable extends JTable {
 			// paths are the only thing that needs to be updated.
 		}
 
-		/**
-		 * Creates and returns an instance of ListSelectionHandler.
-		 */
-		protected ListSelectionListener createListSelectionListener() {
+        /**
+         * Creates and returns an instance of ListSelectionHandler.
+         *
+         * @return the list selection listener
+         */
+        protected ListSelectionListener createListSelectionListener() {
 			return new ListSelectionHandler();
 		}
 
-		/**
-		 * If <code>updatingListSelectionModel</code> is false, this will
-		 * reset the selected paths from the selected rows in the list selection
-		 * model.
-		 */
-		protected void updateSelectedPathsFromSelectedRows() {
+        /**
+         * If <code>updatingListSelectionModel</code> is false, this will
+         * reset the selected paths from the selected rows in the list selection
+         * model.
+         */
+        protected void updateSelectedPathsFromSelectedRows() {
 			if (!updatingListSelectionModel) {
 				updatingListSelectionModel = true;
 				try {
@@ -350,11 +380,11 @@ public class JTreeTable extends JTable {
 			}
 		}
 
-		/**
-		 * Class responsible for calling updateSelectedPathsFromSelectedRows
-		 * when the selection of the list changse.
-		 */
-		class ListSelectionHandler implements ListSelectionListener {
+        /**
+         * Class responsible for calling updateSelectedPathsFromSelectedRows
+         * when the selection of the list changse.
+         */
+        class ListSelectionHandler implements ListSelectionListener {
 			public void valueChanged(ListSelectionEvent e) {
 				updateSelectedPathsFromSelectedRows();
 			}

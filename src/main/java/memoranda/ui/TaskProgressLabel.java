@@ -34,23 +34,48 @@ import main.java.memoranda.Task;
 
 /**
  * <h1>TaskProgressLabel</h1>
- * 
+ * <p>
  * Component showing task progress as colorful bar>
- * 
- * @version $Name:  $ $Revision: 1.1 $
+ *
  * @author Alex Alishevskikh, alexeya(at)gmail.com
- * 
+ * @version $Name :  $ $Revision: 1.1 $
  */
-
 class TaskProgressLabel extends JLabel{
+    /**
+     * The Table.
+     */
     TaskTable table;
+    /**
+     * The Column.
+     */
     int column;
+    /**
+     * The Task.
+     */
     Task task;
+
+    /**
+     * Instantiates a new Task progress label.
+     *
+     * @param table the table
+     */
     public TaskProgressLabel( TaskTable table ){
         this.table = table;
         setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     }
+
+    /**
+     * Set task.
+     *
+     * @param t the t
+     */
     public void setTask(Task t){ task = t;}
+
+    /**
+     * Set column.
+     *
+     * @param col the col
+     */
     public void setColumn(int col){ column = col;}
     
     public void paintComponent(Graphics g) {

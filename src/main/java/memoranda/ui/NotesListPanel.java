@@ -5,13 +5,28 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+/**
+ * The type Notes list panel.
+ */
 /*$Id: NotesListPanel.java,v 1.5 2005/01/29 13:55:26 rawsushi Exp $*/
 public class NotesListPanel extends JPanel {
-  BorderLayout borderLayout1 = new BorderLayout();
-  JScrollPane scrollPane = new JScrollPane();
-  public NotesList notesList = new NotesList();
+    /**
+     * The Border layout 1.
+     */
+    BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Scroll pane.
+     */
+    JScrollPane scrollPane = new JScrollPane();
+    /**
+     * The Notes list.
+     */
+    public NotesList notesList = new NotesList();
 
-  public NotesListPanel() {
+    /**
+     * Instantiates a new Notes list panel.
+     */
+    public NotesListPanel() {
     try {
       jbInit();
     }
@@ -19,7 +34,13 @@ public class NotesListPanel extends JPanel {
       new ExceptionDialog(ex);
     }
   }
-  void jbInit() throws Exception {
+
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
     this.setLayout(borderLayout1);
     this.add(scrollPane, BorderLayout.CENTER);
     scrollPane.getViewport().add(notesList, null);

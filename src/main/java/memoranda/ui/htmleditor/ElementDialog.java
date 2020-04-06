@@ -25,27 +25,74 @@ import main.java.memoranda.ui.htmleditor.util.Local;
  * <p>Description: </p>
  * <p>Copyright: Copyright (c) 2002</p>
  * <p>Company: </p>
+ *
  * @author unascribed
  * @version 1.0
  */
-
 public class ElementDialog extends JDialog {
-  JPanel areaPanel = new JPanel(new GridBagLayout());
-  JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-  JButton cancelB = new JButton();
-  JButton okB = new JButton();
-  JLabel lblClass = new JLabel();
-  public JTextField classField = new JTextField();
-  JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-  public JLabel header = new JLabel();
-  public boolean CANCELLED = false;
-  JLabel lblID = new JLabel();
-  public JTextField idField = new JTextField();
-  JLabel lblStyle = new JLabel();
-  public JTextField styleField = new JTextField();
-  GridBagConstraints gbc;
+    /**
+     * The Area panel.
+     */
+    JPanel areaPanel = new JPanel(new GridBagLayout());
+    /**
+     * The Buttons panel.
+     */
+    JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    /**
+     * The Cancel b.
+     */
+    JButton cancelB = new JButton();
+    /**
+     * The Ok b.
+     */
+    JButton okB = new JButton();
+    /**
+     * The Lbl class.
+     */
+    JLabel lblClass = new JLabel();
+    /**
+     * The Class field.
+     */
+    public JTextField classField = new JTextField();
+    /**
+     * The Header panel.
+     */
+    JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    /**
+     * The Header.
+     */
+    public JLabel header = new JLabel();
+    /**
+     * The Cancelled.
+     */
+    public boolean CANCELLED = false;
+    /**
+     * The Lbl id.
+     */
+    JLabel lblID = new JLabel();
+    /**
+     * The Id field.
+     */
+    public JTextField idField = new JTextField();
+    /**
+     * The Lbl style.
+     */
+    JLabel lblStyle = new JLabel();
+    /**
+     * The Style field.
+     */
+    public JTextField styleField = new JTextField();
+    /**
+     * The Gbc.
+     */
+    GridBagConstraints gbc;
 
-  public ElementDialog(Frame frame) {
+    /**
+     * Instantiates a new Element dialog.
+     *
+     * @param frame the frame
+     */
+    public ElementDialog(Frame frame) {
     super(frame, Local.getString("Object properties"), true);
     try {
       jbInit();
@@ -56,12 +103,20 @@ public class ElementDialog extends JDialog {
     }
   }
 
-  public ElementDialog() {
+    /**
+     * Instantiates a new Element dialog.
+     */
+    public ElementDialog() {
     this(null);
   }
 
 
-  void jbInit() throws Exception {
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
+    void jbInit() throws Exception {
 	this.setResizable(false);
 	headerPanel.setBackground(Color.WHITE);
 	header.setFont(new java.awt.Font("Dialog", 0, 20));
@@ -137,11 +192,21 @@ public class ElementDialog extends JDialog {
 
   }
 
-  void okB_actionPerformed(ActionEvent e) {
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
+    void okB_actionPerformed(ActionEvent e) {
     this.dispose();
   }
 
-  void cancelB_actionPerformed(ActionEvent e) {
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
+    void cancelB_actionPerformed(ActionEvent e) {
     CANCELLED = true;
     this.dispose();
   }

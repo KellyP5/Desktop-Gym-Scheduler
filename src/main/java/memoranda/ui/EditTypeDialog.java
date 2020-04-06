@@ -24,55 +24,202 @@ import javax.swing.event.CaretEvent;
 
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Edit type dialog.
+ */
 /*$Id: EditTypeDialog.java,v 1.9 2005/07/05 08:17:24 alexeya Exp $*/
 public class EditTypeDialog extends JDialog {
+    /**
+     * The Cancel b.
+     */
     JButton cancelB = new JButton();
+    /**
+     * The Buttons panel.
+     */
     JPanel buttonsPanel = new JPanel();
+    /**
+     * The Flow layout 7.
+     */
     FlowLayout flowLayout7 = new FlowLayout();
+    /**
+     * The Header.
+     */
     public JLabel header = new JLabel();
+    /**
+     * The J panel 1.
+     */
     JPanel jPanel1 = new JPanel();
+    /**
+     * The Dialog title panel.
+     */
     JPanel dialogTitlePanel = new JPanel();
+    /**
+     * The Ok b.
+     */
     JButton okB = new JButton();
+    /**
+     * The Area panel.
+     */
     JPanel areaPanel = new JPanel();
+    /**
+     * The M panel.
+     */
     JPanel mPanel = new JPanel();
+    /**
+     * The Flow layout 1.
+     */
     FlowLayout flowLayout1 = new FlowLayout();
+    /**
+     * The Border layout 2.
+     */
     BorderLayout borderLayout2 = new BorderLayout();
+    /**
+     * The Border layout 3.
+     */
     BorderLayout borderLayout3 = new BorderLayout();
+    /**
+     * The J panel 2.
+     */
     JPanel jPanel2 = new JPanel();
+    /**
+     * The Border 1.
+     */
     Border border1;
+    /**
+     * The Titled border 1.
+     */
     TitledBorder titledBorder1;
+    /**
+     * The Ext field.
+     */
     public JTextField extField = new JTextField();
+    /**
+     * The Border layout 4.
+     */
     BorderLayout borderLayout4 = new BorderLayout();
+    /**
+     * The J label 1.
+     */
     JLabel jLabel1 = new JLabel();
+    /**
+     * The Border 2.
+     */
     Border border2;
+    /**
+     * The Titled border 2.
+     */
     TitledBorder titledBorder2;
+    /**
+     * The Desc field.
+     */
     public JTextField descField = new JTextField();
+    /**
+     * The J panel 4.
+     */
     JPanel jPanel4 = new JPanel();
+    /**
+     * The Border layout 6.
+     */
     BorderLayout borderLayout6 = new BorderLayout();
+    /**
+     * The Border 3.
+     */
     Border border3;
+    /**
+     * The Titled border 3.
+     */
     TitledBorder titledBorder3;
+    /**
+     * The Border layout 1.
+     */
     BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Border 4.
+     */
     Border border4;
+    /**
+     * The Titled border 4.
+     */
     TitledBorder titledBorder4;
+    /**
+     * The App panel.
+     */
     public SetApplicationPanel appPanel = new SetApplicationPanel();
+    /**
+     * The Border 5.
+     */
     Border border5;
+    /**
+     * The Titled border 5.
+     */
     TitledBorder titledBorder5;
+    /**
+     * The Border 6.
+     */
     Border border6;
+    /**
+     * The Titled border 6.
+     */
     TitledBorder titledBorder6;
+    /**
+     * The Cancelled.
+     */
     public boolean CANCELLED = true;
+    /**
+     * The J panel 5.
+     */
     JPanel jPanel5 = new JPanel();
+    /**
+     * The Border 7.
+     */
     Border border7;
+    /**
+     * The Titled border 7.
+     */
     TitledBorder titledBorder7;
+    /**
+     * The Mimes.
+     */
     String[] mimes = { "application", "audio", "image", "text", "video" };
+    /**
+     * The Icon path.
+     */
     public String iconPath = "";
+    /**
+     * The Border layout 7.
+     */
     BorderLayout borderLayout7 = new BorderLayout();
+    /**
+     * The Border layout 5.
+     */
     BorderLayout borderLayout5 = new BorderLayout();
+    /**
+     * The Icon label.
+     */
     JLabel iconLabel = new JLabel();
+    /**
+     * The Set icon b.
+     */
     JButton setIconB = new JButton();
+    /**
+     * The J panel 3.
+     */
     JPanel jPanel3 = new JPanel();
+    /**
+     * The Border 8.
+     */
     Border border8;
+    /**
+     * The Border 9.
+     */
     Border border9;
 
+    /**
+     * Instantiates a new Edit type dialog.
+     *
+     * @param frame the frame
+     * @param title the title
+     */
     public EditTypeDialog(Frame frame, String title) {
         super(frame, title, true);
         try {
@@ -84,6 +231,11 @@ public class EditTypeDialog extends JDialog {
         }
     }
 
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
 	this.setResizable(false);
         border1 = BorderFactory.createLineBorder(Color.gray, 1);
@@ -198,25 +350,53 @@ public class EditTypeDialog extends JDialog {
         jPanel1.add(jPanel4, BorderLayout.CENTER);
     }
 
+    /**
+     * Cancel b action performed.
+     *
+     * @param e the e
+     */
     void cancelB_actionPerformed(ActionEvent e) {
         this.dispose();
     }
 
+    /**
+     * Ok b action performed.
+     *
+     * @param e the e
+     */
     void okB_actionPerformed(ActionEvent e) {
         CANCELLED = false;
         this.dispose();
     }
 
+    /**
+     * Ext field caret update.
+     *
+     * @param e the e
+     */
     void extField_caretUpdate(CaretEvent e) {
         checkOkEnabled();
     }
 
+    /**
+     * Desc field caret update.
+     *
+     * @param e the e
+     */
     void descField_caretUpdate(CaretEvent e) {}
 
+    /**
+     * Check ok enabled.
+     */
     void checkOkEnabled() {
         okB.setEnabled((extField.getText().length() > 0));
     }
 
+    /**
+     * Sets icon b action performed.
+     *
+     * @param e the e
+     */
     void setIconB_actionPerformed(ActionEvent e) {
         // Fix until Sun's JVM supports more locales...
         UIManager.put("FileChooser.lookInLabelText", Local.getString("Look in:"));

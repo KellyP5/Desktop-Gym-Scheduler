@@ -31,29 +31,83 @@ import main.java.memoranda.util.Configuration;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
+/**
+ * The type Notes control panel.
+ */
 /*$Id: NotesControlPanel.java,v 1.16 2005/05/05 16:19:16 ivanrise Exp $*/
 public class NotesControlPanel extends JPanel {
+    /**
+     * The Border layout 1.
+     */
     BorderLayout borderLayout1 = new BorderLayout();
+    /**
+     * The Search panel.
+     */
     SearchPanel searchPanel = new SearchPanel();
+    /**
+     * The Notes list panel.
+     */
     NotesListPanel notesListPanel = new NotesListPanel();
+    /**
+     * The Bookmarks list panel.
+     */
     BookmarksPanel bookmarksListPanel = new BookmarksPanel();
+    /**
+     * The Tabbed pane.
+     */
     JTabbedPane tabbedPane = new JTabbedPane();
+    /**
+     * The Tool bar.
+     */
     JToolBar toolBar = new JToolBar();
 
+    /**
+     * The Notes list.
+     */
     NotesList notesList = null;
 
+    /**
+     * The Flow layout 1.
+     */
     FlowLayout flowLayout1 = new FlowLayout();
+    /**
+     * The Pp open b.
+     */
     JButton ppOpenB = new JButton();
+    /**
+     * The Buttons panel.
+     */
     JPanel buttonsPanel = new JPanel();
+    /**
+     * The Pp add bkmrk.
+     */
     JMenuItem ppAddBkmrk = new JMenuItem();
+    /**
+     * The Pp clear note.
+     */
     JMenuItem ppClearNote = new JMenuItem();
+    /**
+     * The Pp invert sort.
+     */
 //    JMenuItem ppInvertSort = new JMenuItem();
 	JCheckBoxMenuItem ppInvertSort = new JCheckBoxMenuItem();
+    /**
+     * The Notes pp menu.
+     */
     JPopupMenu notesPPMenu = new JPopupMenu();
+    /**
+     * The Pp open note.
+     */
     JMenuItem ppOpenNote = new JMenuItem();
+    /**
+     * The Pp remove bkmrk.
+     */
     JMenuItem ppRemoveBkmrk = new JMenuItem();
 
-	
+
+    /**
+     * Instantiates a new Notes control panel.
+     */
     public NotesControlPanel() {
         try {
             jbInit();
@@ -64,6 +118,11 @@ public class NotesControlPanel extends JPanel {
         }
     }
 
+    /**
+     * Jb init.
+     *
+     * @throws Exception the exception
+     */
     void jbInit() throws Exception {
         tabbedPane.setFont(new java.awt.Font("Dialog", 1, 10));
         tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -194,11 +253,19 @@ public class NotesControlPanel extends JPanel {
 		searchPanel.notesList.addKeyListener(delNotes);
     }
 
+    /**
+     * Refresh.
+     */
     public void refresh() {
         notesListPanel.notesList.update();
         bookmarksListPanel.notesList.update();
     }
 
+    /**
+     * Tabbed pane state changed.
+     *
+     * @param e the e
+     */
     void tabbedPane_stateChanged(ChangeEvent e) {
 	if(notesList!=null) notesList.clearSelection();
         switch (tabbedPane.getSelectedIndex()) {
@@ -217,6 +284,9 @@ public class NotesControlPanel extends JPanel {
 	ppRemoveBkmrk.setEnabled(false);
     }
 
+    /**
+     * The type Popup listener.
+     */
     class PopupListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
@@ -239,13 +309,21 @@ public class NotesControlPanel extends JPanel {
          }
     }
 
+    /**
+     * Sets active note.
+     */
     void setActiveNote() {
         Note note = (Note) notesList.getNote(notesList.getSelectedIndex());
         CurrentDate.set(note.getDate());
 		CurrentNote.set(note,true);
     }
-   
 
+
+    /**
+     * Pp open b action performed.
+     *
+     * @param e the e
+     */
     void ppOpenB_actionPerformed(ActionEvent e) {
         notesPPMenu.show(
             toolBar,
@@ -253,6 +331,11 @@ public class NotesControlPanel extends JPanel {
             (int) ppOpenB.getLocation().getY() + 24);
     }
 
+    /**
+     * Pp add bkmrk action performed.
+     *
+     * @param e the e
+     */
     void ppAddBkmrk_actionPerformed(ActionEvent e) {
         for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
             Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
@@ -263,6 +346,11 @@ public class NotesControlPanel extends JPanel {
 	ppSetEnabled();
     }
 
+    /**
+     * Pp clear note action performed.
+     *
+     * @param e the e
+     */
     void ppClearNote_actionPerformed(ActionEvent e) {
         String msg;
         if (notesList.getSelectedIndices().length > 1)
@@ -308,11 +396,21 @@ public class NotesControlPanel extends JPanel {
 //		notesList.requestFocus();*/
 //		((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();
     }
-	
+
+    /**
+     * Pp open note action performed.
+     *
+     * @param e the e
+     */
     void ppOpenNote_actionPerformed(ActionEvent e) {
         setActiveNote();
     }
 
+    /**
+     * Pp invert sort action performed.
+     *
+     * @param e the e
+     */
     void ppInvertSort_actionPerformed(ActionEvent e) {
 		Configuration.put(
 			"NOTES_SORT_ORDER",
@@ -322,6 +420,11 @@ public class NotesControlPanel extends JPanel {
         notesList.update();
     }
 
+    /**
+     * Pp remove bkmrk action performed.
+     *
+     * @param e the e
+     */
     void ppRemoveBkmrk_actionPerformed(ActionEvent e) {
         for (int i = 0; i < notesList.getSelectedIndices().length; i++) {
             Note note = (Note) notesList.getNote(notesList.getSelectedIndices()[i]);
@@ -334,6 +437,9 @@ public class NotesControlPanel extends JPanel {
 	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();	
     }
 
+    /**
+     * Pp set enabled.
+     */
     void ppSetEnabled() {
     boolean enbl = (notesList.getModel().getSize() > 0) && (notesList.getSelectedIndex() > -1);
 

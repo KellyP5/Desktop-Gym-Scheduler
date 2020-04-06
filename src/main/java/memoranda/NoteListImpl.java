@@ -17,8 +17,9 @@ import nu.xom.Attribute;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
+
 /**
- * 
+ * The type Note list.
  */
 /*$Id: NoteListImpl.java,v 1.14 2004/10/28 11:30:15 alexeya Exp $*/
 public class NoteListImpl implements NoteList {
@@ -31,6 +32,9 @@ public class NoteListImpl implements NoteList {
 
     /**
      * Constructor for NoteListImpl.
+     *
+     * @param doc the doc
+     * @param prj the prj
      */
     public NoteListImpl(Document doc, Project prj) {
         _doc = doc;
@@ -38,6 +42,11 @@ public class NoteListImpl implements NoteList {
         _project = prj;
     }
 
+    /**
+     * Instantiates a new Note list.
+     *
+     * @param prj the prj
+     */
     public NoteListImpl(Project prj) {
     	
         //_root = new Element("noteslist", NS_JNNL);
@@ -221,16 +230,35 @@ public class NoteListImpl implements NoteList {
     }
 
     private class Year {
+        /**
+         * The Year element.
+         */
         Element yearElement = null;
 
+        /**
+         * Instantiates a new Year.
+         *
+         * @param el the el
+         */
         public Year(Element el) {
             yearElement = el;
         }
 
+        /**
+         * Gets value.
+         *
+         * @return the value
+         */
         public int getValue() {
             return new Integer(yearElement.getAttribute("year").getValue()).intValue();
         }
 
+        /**
+         * Gets month.
+         *
+         * @param m the m
+         * @return the month
+         */
         public Month getMonth(int m) {
             Elements ms = yearElement.getChildElements("month");
             String mm = new Integer(m).toString();
@@ -248,6 +276,11 @@ public class NoteListImpl implements NoteList {
             return new Month(el);
         }
 
+        /**
+         * Gets months.
+         *
+         * @return the months
+         */
         public Vector getMonths() {
             Vector v = new Vector();
             Elements ms = yearElement.getChildElements("month");
@@ -256,6 +289,11 @@ public class NoteListImpl implements NoteList {
             return v;
         }
 
+        /**
+         * Gets element.
+         *
+         * @return the element
+         */
         public Element getElement() {
             return yearElement;
         }
@@ -263,16 +301,35 @@ public class NoteListImpl implements NoteList {
     }
 
     private class Month {
+        /**
+         * The M element.
+         */
         Element mElement = null;
 
+        /**
+         * Instantiates a new Month.
+         *
+         * @param el the el
+         */
         public Month(Element el) {
             mElement = el;
         }
 
+        /**
+         * Gets value.
+         *
+         * @return the value
+         */
         public int getValue() {
             return new Integer(mElement.getAttribute("month").getValue()).intValue();
         }
 
+        /**
+         * Gets day.
+         *
+         * @param d the d
+         * @return the day
+         */
         public Day getDay(int d) {
             if (mElement == null)
                 return null;
@@ -301,6 +358,11 @@ public class NoteListImpl implements NoteList {
             return new Day(el);
         }
 
+        /**
+         * Gets days.
+         *
+         * @return the days
+         */
         public Vector getDays() {
             if (mElement == null)
                 return null;
@@ -311,6 +373,11 @@ public class NoteListImpl implements NoteList {
             return v;
         }
 
+        /**
+         * Gets element.
+         *
+         * @return the element
+         */
         public Element getElement() {
             return mElement;
         }
@@ -323,8 +390,16 @@ public class NoteListImpl implements NoteList {
 	 */
 	 
     private class Day {
+        /**
+         * The D el.
+         */
         Element dEl = null;
 
+        /**
+         * Instantiates a new Day.
+         *
+         * @param el the el
+         */
         public Day(Element el) {
             dEl = el;
             // Added to fix old '.notes' XML format 
@@ -342,6 +417,11 @@ public class NoteListImpl implements NoteList {
             }
         }
 
+        /**
+         * Gets value.
+         *
+         * @return the value
+         */
         public int getValue() {
             return new Integer(dEl.getAttribute("day").getValue()).intValue();
         }
@@ -349,8 +429,14 @@ public class NoteListImpl implements NoteList {
         /*public Note getNote() {
             return new NoteImpl(dEl);
         }*/
-		
-		public NoteElement getNote(String d) {
+
+        /**
+         * Gets note.
+         *
+         * @param d the d
+         * @return the note
+         */
+        public NoteElement getNote(String d) {
             if (dEl == null) 
 				return null;
             Elements ne = dEl.getChildElements("note");
@@ -362,6 +448,12 @@ public class NoteListImpl implements NoteList {
             return null;
         }
 
+        /**
+         * Create note note element.
+         *
+         * @param d the d
+         * @return the note element
+         */
         public NoteElement createNote(String d) {
             Element el = new Element("note");
 //			el.addAttribute(new Attribute("refid", d));
@@ -378,6 +470,11 @@ public class NoteListImpl implements NoteList {
             return new NoteElement(el);
         }
 
+        /**
+         * Gets notes.
+         *
+         * @return the notes
+         */
         public Vector getNotes() {
             if (dEl == null)
                 return null;
@@ -388,6 +485,11 @@ public class NoteListImpl implements NoteList {
             return v;
         }
 
+        /**
+         * Gets element.
+         *
+         * @return the element
+         */
         public Element getElement() {
             return dEl;
         }
@@ -399,13 +501,26 @@ public class NoteListImpl implements NoteList {
 	 */
 	 
 	private class NoteElement {
-		Element nEl;
-		
-		public NoteElement(Element el) {
+        /**
+         * The N el.
+         */
+        Element nEl;
+
+        /**
+         * Instantiates a new Note element.
+         *
+         * @param el the el
+         */
+        public NoteElement(Element el) {
 			nEl = el;
 		}
-		
-		public Element getElement() {
+
+        /**
+         * Gets element.
+         *
+         * @return the element
+         */
+        public Element getElement() {
 			return nEl;
 		}
 	}

@@ -20,20 +20,40 @@ import main.java.memoranda.CurrentProject;
 import main.java.memoranda.EventsManager;
 import main.java.memoranda.Task;
 import main.java.memoranda.date.CalendarDate;
+
 /**
- *
+ * The type Jn calendar cell renderer.
  */
 /*$Id: JNCalendarCellRenderer.java,v 1.5 2004/10/11 08:48:20 alexeya Exp $*/
 public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRenderer {
     private CalendarDate d = null;
+    /**
+     * The Disabled.
+     */
     boolean disabled = false;
+    /**
+     * The Ev icon.
+     */
     ImageIcon evIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/en.png"));
+    /**
+     * The T.
+     */
     Task t = null;
-    
+
+    /**
+     * Sets task.
+     *
+     * @param _t the t
+     */
     public void setTask(Task _t) {
         t = _t;
     }
-    
+
+    /**
+     * Gets task.
+     *
+     * @return the task
+     */
     public Task getTask() {
         return t;
     }
@@ -111,6 +131,11 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
         return label;
     }
 
+    /**
+     * Sets date.
+     *
+     * @param date the date
+     */
     public void setDate(CalendarDate date) {
         d = date;
     }

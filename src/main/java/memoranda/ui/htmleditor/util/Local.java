@@ -10,17 +10,31 @@ package main.java.memoranda.ui.htmleditor.util;
 import java.util.Hashtable;
 
 /**
- * 
+ * The type Local.
  */
 public class Local {
 
-   static Hashtable messages = null;
-   
-   public static void setMessages(Hashtable msgs) {
+    /**
+     * The Messages.
+     */
+    static Hashtable messages = null;
+
+    /**
+     * Sets messages.
+     *
+     * @param msgs the msgs
+     */
+    public static void setMessages(Hashtable msgs) {
         messages = msgs;
-   }  
-   
-   public static String getString(String key) {
+   }
+
+    /**
+     * Gets string.
+     *
+     * @param key the key
+     * @return the string
+     */
+    public static String getString(String key) {
         if (messages == null){
             return key;
         }

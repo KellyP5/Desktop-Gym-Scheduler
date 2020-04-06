@@ -22,7 +22,7 @@ import nu.xom.Elements;
 import nu.xom.Node;
 
 /**
- *
+ * The type Task.
  */
 /*$Id: TaskImpl.java,v 1.15 2005/12/01 08:12:26 alexeya Exp $*/
 public class TaskImpl implements Task, Comparable {
@@ -32,6 +32,9 @@ public class TaskImpl implements Task, Comparable {
 
     /**
      * Constructor for DefaultTask.
+     *
+     * @param taskElement the task element
+     * @param tl          the tl
      */
     public TaskImpl(Element taskElement, TaskList tl) {
         _element = taskElement;
@@ -225,7 +228,10 @@ public class TaskImpl implements Task, Comparable {
     }
 
     /**
-     * @see main.java.memoranda.Task#getDependsFrom()
+     * Gets depends from.
+     *
+     * @return the depends from
+     * @see main.java.memoranda.Task#getDependsFrom() main.java.memoranda.Task#getDependsFrom()
      */
     public Collection getDependsFrom() {
         Vector v = new Vector();
@@ -238,16 +244,24 @@ public class TaskImpl implements Task, Comparable {
         }
         return v;
     }
+
     /**
-     * @see main.java.memoranda.Task#addDependsFrom(main.java.memoranda.Task)
+     * Add depends from.
+     *
+     * @param task the task
+     * @see main.java.memoranda.Task#addDependsFrom(main.java.memoranda.Task) main.java.memoranda.Task#addDependsFrom(main.java.memoranda.Task)
      */
     public void addDependsFrom(Task task) {
         Element dep = new Element("dependsFrom");
         dep.addAttribute(new Attribute("idRef", task.getID()));
         _element.appendChild(dep);
     }
+
     /**
-     * @see main.java.memoranda.Task#removeDependsFrom(main.java.memoranda.Task)
+     * Remove depends from.
+     *
+     * @param task the task
+     * @see main.java.memoranda.Task#removeDependsFrom(main.java.memoranda.Task) main.java.memoranda.Task#removeDependsFrom(main.java.memoranda.Task)
      */
     public void removeDependsFrom(Task task) {
         Elements deps = _element.getChildElements("dependsFrom");

@@ -23,21 +23,32 @@ import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 
 /**
- * This is a wrapper class takes a TreeTableModel and implements 
- * the table model interface. The implementation is trivial, with 
- * all of the event dispatching support provided by the superclass: 
- * the AbstractTableModel. 
- *
- * @version 1.2 10/27/98
+ * This is a wrapper class takes a TreeTableModel and implements
+ * the table model interface. The implementation is trivial, with
+ * all of the event dispatching support provided by the superclass:
+ * the AbstractTableModel.
  *
  * @author Philip Milne
  * @author Scott Violet
+ * @version 1.2 10/27/98
  */
 public class TreeTableModelAdapter extends AbstractTableModel
 {
+    /**
+     * The Tree.
+     */
     JTree tree;
+    /**
+     * The Tree table model.
+     */
     TreeTableModel treeTableModel;
 
+    /**
+     * Instantiates a new Tree table model adapter.
+     *
+     * @param treeTableModel the tree table model
+     * @param tree           the tree
+     */
     public TreeTableModelAdapter(TreeTableModel treeTableModel, JTree tree) {
         this.tree = tree;
         this.treeTableModel = treeTableModel;
@@ -94,6 +105,12 @@ public class TreeTableModelAdapter extends AbstractTableModel
 	return tree.getRowCount();
     }
 
+    /**
+     * Node for row object.
+     *
+     * @param row the row
+     * @return the object
+     */
     protected Object nodeForRow(int row) {
 	TreePath treePath = tree.getPathForRow(row);
 	return treePath.getLastPathComponent();         

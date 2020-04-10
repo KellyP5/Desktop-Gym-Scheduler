@@ -1,0 +1,37 @@
+CREATE:
+insert new user -> Email(PK), FirstName, LastName, Password, Role,  Belt (Nullable), TrainingBelt (Nullable)
+insert new class -> Id(PK), RoomNumber, StartDateTime, HoursDuration, TrainerEmail (could be null if we allow classes to be created w/o a trainer assigned at first?), MaxClassSize, MinBeltRequired, CreatedById
+insert new trainer availability -> TrainerEmail(PK), StartDateTime, EndDateTime 
+insert new enrolled users -> ClassId(PK), UserEmail
+
+
+READ:
+get password by email 
+get all classes a user is enrolled in by email
+get trainer availability by email
+get all classes on a certain date 
+get all users
+get all trainers (role is trainer, training belt is not null)
+get all customers (role is customer, training belt is null) 
+get all admin
+get firstname lastname by email 
+
+
+UPDATE:
+Update users Belt by email 
+Update users TrainingBelt by email 
+Update users FirstName by email 
+Update users LastName by email 
+Update users Password by email 
+Update users Role by email
+Update class TrainerEmail by ClassId (assuming we allow classes to be created that dont have a trainer assigned at first)
+Update class TrainerEmail by RoomNumber and StartDateTime
+Update trainer availability StartDateTime by TrainerEmail
+Update trainer availability EndDateTime by TrainerEmail 
+
+
+
+
+
+
+

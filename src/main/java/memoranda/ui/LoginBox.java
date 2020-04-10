@@ -8,7 +8,7 @@ public class LoginBox extends JFrame {
 
     JPanel login;
     JButton loginButton;
-    JTextField user;
+    JTextField email;
     JPasswordField pass;
     ImageIcon globoLogo;
     JLabel logo;
@@ -23,7 +23,7 @@ public class LoginBox extends JFrame {
 
         login = new JPanel();
         loginButton = new JButton("Login");
-        user = new JTextField(20);
+        email = new JTextField(20);
         pass = new JPasswordField(20);
         globoLogo = new ImageIcon("src/main/resources/ui/globo.jpg");
         logo = new JLabel();
@@ -48,15 +48,15 @@ public class LoginBox extends JFrame {
         getStarted.setBounds(95, 210, 200, 50);
         getStarted.setFont(new Font("Bell MT", Font.PLAIN, 12));
 
-        user.setText("Username");
-        user.setForeground(Color.LIGHT_GRAY);
+        email.setText("Email");
+        email.setForeground(Color.LIGHT_GRAY);
         pass.setForeground(Color.LIGHT_GRAY);
         pass.setEchoChar((char)0); // Show characters at first
         pass.setText("Password"); // Grayed out in box
 
         login.setLayout(null);
 
-        user.setBounds(70,250,150,25);
+        email.setBounds(70,250,150,25);
         pass.setBounds(70,290,150,25);
 
         loginButton.setBounds(100,325,80,20);
@@ -66,7 +66,7 @@ public class LoginBox extends JFrame {
         createAccount.setBounds(120, 400, 125, 20);
 
         login.add(loginButton);
-        login.add(user);
+        login.add(email);
         login.add(pass);
         login.add(logo);
         login.add(welcome);
@@ -128,16 +128,16 @@ public class LoginBox extends JFrame {
         });
 
         // When the cursor is in the Username Text Field
-        user.addFocusListener(new FocusListener() {
+        email.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent focusEvent) {
                 // Clear out the text field so the user can type
-                if (user.getText().equals("Username")) {
-                    user.setText("");
-                    user.setForeground(Color.BLACK);
+                if (email.getText().equals("Email")) {
+                    email.setText("");
+                    email.setForeground(Color.BLACK);
                 } else {
                     // Highlight all characters in text box
-                    user.selectAll();
+                    email.selectAll();
                 }
             }
 
@@ -146,9 +146,9 @@ public class LoginBox extends JFrame {
                 // When the user clicks/tabs away from Username,
                 // if nothing was typed in the box, put the grayed
                 // out 'Username' in the box
-                if (user.getText().equals("")) {
-                    user.setText("Username");
-                    user.setForeground(Color.LIGHT_GRAY);
+                if (email.getText().equals("")) {
+                    email.setText("Email");
+                    email.setForeground(Color.LIGHT_GRAY);
                 }
             }
         });

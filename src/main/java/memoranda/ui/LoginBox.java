@@ -9,7 +9,7 @@ public class LoginBox extends JFrame {
     JPanel login;
     JButton loginButton;
     JTextField user;
-    JTextField pass;
+    JPasswordField pass;
     ImageIcon globoLogo;
     JLabel logo;
     JLabel welcome;
@@ -24,7 +24,7 @@ public class LoginBox extends JFrame {
         login = new JPanel();
         loginButton = new JButton("Login");
         user = new JTextField(20);
-        pass = new JTextField(20);
+        pass = new JPasswordField(20);
         globoLogo = new ImageIcon("src/main/resources/ui/globo.jpg");
         logo = new JLabel();
         welcome = new JLabel("Welcome to Globo Gym");
@@ -49,9 +49,10 @@ public class LoginBox extends JFrame {
         getStarted.setFont(new Font("Bell MT", Font.PLAIN, 12));
 
         user.setText("Username");
-        pass.setText("Password");
         user.setForeground(Color.LIGHT_GRAY);
         pass.setForeground(Color.LIGHT_GRAY);
+        pass.setEchoChar((char)0); // Show characters at first
+        pass.setText("Password"); // Grayed out in box
 
         login.setLayout(null);
 
@@ -152,6 +153,7 @@ public class LoginBox extends JFrame {
             }
         });
 
+
         // When the cursor is in the Password Text Field
         pass.addFocusListener(new FocusListener() {
             @Override
@@ -159,6 +161,7 @@ public class LoginBox extends JFrame {
             public void focusGained(FocusEvent focusEvent) {
                 if (pass.getText().equals("Password")) {
                     pass.setText("");
+                    pass.setEchoChar('*'); // Hide characters typed
                     pass.setForeground(Color.BLACK);
                 } else {
                     // Highlight all characters in text box
@@ -166,16 +169,20 @@ public class LoginBox extends JFrame {
                 }
             }
 
+
             @Override
             public void focusLost(FocusEvent focusEvent) {
                 // When the cursor moves away from the Password text box
                 // if the user didn't type anything, put the grayed out
                 // 'Password' back in the box
                 if (pass.getText().equals("")) {
+                    pass.setEchoChar((char)0); // Show grayed out in box
                     pass.setText("Password");
                     pass.setForeground(Color.LIGHT_GRAY);
                 }
             }
         });
+
+
     }
 }

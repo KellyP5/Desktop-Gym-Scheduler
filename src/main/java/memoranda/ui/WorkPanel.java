@@ -68,7 +68,7 @@ public class WorkPanel extends JPanel {
     /**
      * The Files b.
      */
-    public JButton filesB = new JButton();
+    public JButton userMgmt = new JButton();
     /**
      * The Current b.
      */
@@ -141,7 +141,7 @@ public class WorkPanel extends JPanel {
 
 
 		classesB.setBackground(Color.white);
-		classesB.setMaximumSize(new Dimension(60, 80));
+		classesB.setMaximumSize(new Dimension(80, 60));
 		classesB.setMinimumSize(new Dimension(30, 30));
 
 
@@ -152,6 +152,7 @@ public class WorkPanel extends JPanel {
 		classesB.setFocusPainted(false);
 		classesB.setHorizontalTextPosition(SwingConstants.CENTER);
 		classesB.setText(Local.getString("Classes"));
+		classesB.setHorizontalAlignment(SwingConstants.CENTER);
 		classesB.setVerticalAlignment(SwingConstants.TOP);
 		classesB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		classesB.addActionListener(new java.awt.event.ActionListener() {
@@ -219,30 +220,30 @@ public class WorkPanel extends JPanel {
 		notesB.setSelected(true);
 		this.setPreferredSize(new Dimension(1073, 300));
 
-		filesB.setSelected(true);
-		filesB.setMargin(new Insets(0, 0, 0, 0));
-		filesB.setIcon(
+		userMgmt.setSelected(true);
+		userMgmt.setMargin(new Insets(0, 0, 0, 0));
+		userMgmt.setIcon(
 			new ImageIcon(
 				main.java.memoranda.ui.AppFrame.class.getResource(
 					"/ui/icons/files.png")));
-		filesB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		filesB.addActionListener(new java.awt.event.ActionListener() {
+		userMgmt.setVerticalTextPosition(SwingConstants.BOTTOM);
+		userMgmt.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				filesB_actionPerformed(e);
 			}
 		});
-		filesB.setFont(new java.awt.Font("Dialog", 1, 10));
-		filesB.setVerticalAlignment(SwingConstants.TOP);
-		filesB.setText(Local.getString("Resources"));
-		filesB.setHorizontalTextPosition(SwingConstants.CENTER);
-		filesB.setFocusPainted(false);
-		filesB.setBorderPainted(false);
-		filesB.setContentAreaFilled(false);
-		filesB.setPreferredSize(new Dimension(50, 50));
-		filesB.setMinimumSize(new Dimension(30, 30));
-		filesB.setOpaque(false);
-		filesB.setMaximumSize(new Dimension(80, 60));
-		filesB.setBackground(Color.white);
+		userMgmt.setFont(new java.awt.Font("Dialog", 1, 10));
+		userMgmt.setVerticalAlignment(SwingConstants.TOP);
+		userMgmt.setText("<html><center>User<br />Management</center></html>");
+		userMgmt.setHorizontalTextPosition(SwingConstants.CENTER);
+		userMgmt.setFocusPainted(false);
+		userMgmt.setBorderPainted(false);
+		userMgmt.setContentAreaFilled(false);
+		userMgmt.setPreferredSize(new Dimension(50, 70));
+		userMgmt.setMinimumSize(new Dimension(30, 30));
+		userMgmt.setOpaque(false);
+		userMgmt.setMaximumSize(new Dimension(80, 70));
+		userMgmt.setBackground(Color.white);
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
@@ -251,12 +252,13 @@ public class WorkPanel extends JPanel {
 		toolBar.add(classesB, null);
 		toolBar.add(tasksB, null);
 		toolBar.add(notesB, null);
-		toolBar.add(filesB, null);
+		toolBar.add(userMgmt, null);
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
 		currentB.setOpaque(true);
 
+		toolBar.setPreferredSize(new Dimension(70,500));
 		toolBar.setBorder(null);
 		panel.setBorder(null);
 		dailyItemsPanel.setBorder(null);
@@ -337,7 +339,7 @@ public class WorkPanel extends JPanel {
      */
     public void filesB_actionPerformed(ActionEvent e) {
 		cardLayout1.show(panel, "FILES");
-		setCurrentButton(filesB);
+		setCurrentButton(userMgmt);
 		Context.put("CURRENT_PANEL", "FILES");
 	}
 

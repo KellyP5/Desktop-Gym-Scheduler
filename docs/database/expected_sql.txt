@@ -1,6 +1,6 @@
 Table Overview:
 USER: Email(PK), FirstName, LastName, Password, Role,  Belt (Nullable), TrainingBelt (Nullable)
-CLASS: Id(PK), RoomNumber, StartDateTime, HoursDuration, TrainerEmail (could be null if we allow classes to be created w/o a trainer assigned at first?), MaxClassSize, MinBeltRequired, CreatedById
+CLASS: Id(PK), RoomNumber, StartDateTime, HoursDuration, TrainerEmail (could be null if we allow classes to be created w/o a trainer assigned at first?), MaxClassSize, MinBeltRequired, CreatedByEmail
 TRAINERAVAILABILITY: TrainerEmail(PK), StartDateTime, EndDateTime 
 ENROLLEDUSERS: ClassId(PK), UserEmail
 

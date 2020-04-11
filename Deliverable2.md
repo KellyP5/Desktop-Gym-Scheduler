@@ -57,17 +57,17 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 > Add rows as needed and add the number how many meetings they attended:
 
-   Kelly Petrone : 1
+   Kelly Petrone : 2
 
-   Kelly Ellis : 1
+   Kelly Ellis : 2
    
-   Kevin Wilkinson : 1
+   Kevin Wilkinson : 2
    
-   Kevin Somers : 1 asynchronously
+   Kevin Somers : 2
    
-   Alex Mack : 1
+   Alex Mack : 2
    
-   Rita Barrilleaux : 1
+   Rita Barrilleaux : 2
    
 
 

@@ -51,6 +51,8 @@
   > Include a checklist/questions list which every developer will need to fill out/answe when creating a Pull Request to the Dev branch.
   #### Developer Review Checklist
   
+  Developer Name: _______________________
+  
 - [ ] My code compiles
 - [ ] My code has been developer-tested and includes unit tests that do not fail
 - [ ] My code is properly commented according to Coding Standards
@@ -76,6 +78,8 @@
   > Include a checklist/question list which every reviewer will need to fill out/anser when conducting a review, this checklist (and the answers of course) need to be put into the Pull Request review.
   
 #### Reviewer Checklist
+
+Reviewer Name: ________________
 
 - [ ] The code compiles
 - [ ] Unit tests are present and correct (do not fail)

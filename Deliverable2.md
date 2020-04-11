@@ -50,7 +50,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 | Date  | Attendees  |Minutes   | Burndown Info | TravisCI info | Additional Info  |
 |---|---|---|---|--|--|
 | 4/9  | Kelly P, Kelly E, Kevin W, Alex M, Rita B, Kevin S asynchronously through text   | Went through each task in the backlog and made sure it was valid to stay this sprint and that none overlapped. Evaluated the board for distribution of points. Started the sprint. | 0%  | N/A | N/A |
-| 4/11  |   |   |   |  |  |
+| 4/11  | Kelly P, Kelly E, Kevin W, Kevin S, Alex M, Rita B  | **Rita** will work on the Schedule GUI/layout/popup windows - No blockers. **Kevin W** is waiting on the database implementation to be done before starting tasks. **Kevin S** has designed the DB tables/relations and got feedback from the team. Created POJOs for DB and SQL queries to create the DB and tables with relations. Created the actual DB and a test DB for unit testing. Updated the gradle file to include SQLite and other updates to make IntelliJ more smooth. Will work on creating dummy data for test DB and creating on the interface for the DB that we'll use. Should be done today. Only 'blocker' is that SQLite doesn't have a datetime data type, but found a workaround. **Alex M** will work on the Agenda page. DB is the only blocker. **Kelly P** is also waiting for the DB to be finished before starting tasks. **Kelly E** Updated small things on the Login GUI - Masking the password with * 's and changing Username to Email. Updated Resources on the left to User Management. Waiting on DB to be done. | 0%  | N/A | N/A  |
 |   |   |   |   |  |  |
 
 ### Meeting Summary:

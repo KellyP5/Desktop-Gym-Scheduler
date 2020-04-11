@@ -1,8 +1,8 @@
 Table Overview:
 USER: Email(PK), FirstName, LastName, Password, Role,  Belt (Nullable), TrainingBelt (Nullable)
-CLASS: Id(PK), RoomNumber, StartDate, StartTime, EndTime, TrainerEmail (could be null if we allow classes to be created w/o a trainer assigned at first?), MaxClassSize, MinBeltRequired, CreatedByEmail
-TRAINERAVAILABILITY: TrainerEmail(PK), StartDate, StartTime, EndTime 
-ENROLLEDUSERS: ClassId(PK), UserEmail
+GYMCLASS: Id(PK), RoomNumber, StartDate, StartTime, EndTime, TrainerEmail (FK), MaxClassSize, MinBeltRequired, CreatedByEmail (FK)
+TRAINERAVAILABILITY: TrainerEmail(FK, PK), StartDate, StartTime, EndTime 
+ENROLLEDUSER: ClassId(FK, PK), UserEmail (FK)
 
 CREATE:
 insert new user 

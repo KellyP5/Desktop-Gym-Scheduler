@@ -1,0 +1,46 @@
+Table Overview:
+USER: Email(PK), FirstName, LastName, Password, Role,  Belt (Nullable), TrainingBelt (Nullable)
+CLASS: Id(PK), RoomNumber, StartDate, StartTime, EndTime, TrainerEmail (could be null if we allow classes to be created w/o a trainer assigned at first?), MaxClassSize, MinBeltRequired, CreatedByEmail
+TRAINERAVAILABILITY: TrainerEmail(PK), StartDate, StartTime, EndTime 
+ENROLLEDUSERS: ClassId(PK), UserEmail
+
+CREATE:
+insert new user 
+insert new class
+insert new trainer availability
+insert new enrolled users
+
+
+READ:
+from USER get entire user  by email
+from USER get all users 
+from ENROLLEDUSERS get all classes a user is enrolled in by email
+from TRAINERAVAILABILITY get trainer availability by email
+from CLASS get all classes on a certain date 
+from USER get all trainers (roleEntity is trainer, training belt is not null)
+from USER get all customers (roleEntity is customer, training belt is null)
+from USER get all admin
+
+
+UPDATE:
+Update USER Belt by email 
+Update USER TrainingBelt by email 
+Update USER FirstName by email 
+Update USER LastName by email 
+Update USER Password by email 
+Update USER Role by email
+Update CLASS TrainerEmail by Id (assuming we allow classes to be created that dont have a trainer assigned at first?)
+Update CLASS TrainerEmail by RoomNumber and StartDateTime
+Update TRAINERAVAILABILITY StartDate by TrainerEmail
+Update TRAINERAVAILABILITY StartTime by TrainerEmail
+Update TRAINERAVAILABILITY EndTime by TrainerEmail
+
+DELETE:
+outside the scope for this sprint
+
+
+
+
+
+
+

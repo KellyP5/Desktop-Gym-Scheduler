@@ -16,22 +16,27 @@ Document your Sprint Planning here. Also check the kickoff document for more det
 
 **Sprint Goal:** Focus on separating out the three types of user accounts, implementing the UI's/backend for each of those according to design documents, and eliminating any unused GUI elements from the previous Memoranda 
 
-**How many User Stories did you add to the Product Backlog:**  Number
+**How many User Stories did you add to the Product Backlog:**  10
 
-**How many User Stories did you add to this Sprint:** 
+**How many User Stories did you add to this Sprint:** 7
+
 > Answer the questions below about your Sprint Planning?
 
 **Why did you add exactly these US?**
 
-> Your Answer
+> We decided to create User Stories that worked toward our Sprint2 goal, which focused mainly on completing the front end GUI elements
+of our program. The User Stories we added will help us in the future during Sprint3, when we will mainly have the backend to work
+on, as well as putting the two together.
 
 **Why do you think you will get them done? (details)**
 
-> Your Answer
+> We spoke in depth about our time and work estimation this sprint, as well as how we managed our time last sprint. From this we
+decided the amount of work in these User Stories is enough for us to complete this sprint, but not too much. We also took into account
+the fact that we will have to unit test the work that we do.
 
 **Do you have a rough idea what you need to do? (if the answer is no then please let me know on Slack)**
 
-> Your Answer
+> Yes, we know what we need to do. We need to focus on getting the UI elements finished this sprint, as well as unit testing.
 
 
 
@@ -44,17 +49,26 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 | Date  | Attendees  |Minutes   | Burndown Info | TravisCI info | Additional Info  |
 |---|---|---|---|--|--|
-|   |   |   |   |  |  |
-|   |   |   |   |  |  |
+| 4/9  | Kelly P, Kelly E, Kevin W, Alex M, Rita B, Kevin S asynchronously through text   | Went through each task in the backlog and made sure it was valid to stay this sprint and that none overlapped. Evaluated the board for distribution of points. Started the sprint. | 0%  | N/A | N/A |
+| 4/11  |   |   |   |  |  |
 |   |   |   |   |  |  |
 
 ### Meeting Summary:
 
 > Add rows as needed and add the number how many meetings they attended:
 
-   Name1 : Num Meetings
+   Kelly Petrone : 1
 
-   Name2 : Num Meetings
+   Kelly Ellis : 1
+   
+   Kevin Wilkinson : 1
+   
+   Kevin Somers : 1 asynchronously
+   
+   Alex Mack : 1
+   
+   Rita Barrilleaux : 1
+   
 
 
 ## 3: After the Sprint

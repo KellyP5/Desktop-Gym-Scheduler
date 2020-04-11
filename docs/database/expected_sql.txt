@@ -1,7 +1,7 @@
 Table Overview:
 USER: Email(PK), FirstName, LastName, Password, Role,  Belt (Nullable), TrainingBelt (Nullable)
-CLASS: Id(PK), RoomNumber, StartDateTime, HoursDuration, TrainerEmail (could be null if we allow classes to be created w/o a trainer assigned at first?), MaxClassSize, MinBeltRequired, CreatedByEmail
-TRAINERAVAILABILITY: TrainerEmail(PK), StartDateTime, EndDateTime 
+CLASS: Id(PK), RoomNumber, StartDate, StartTime, EndTime, TrainerEmail (could be null if we allow classes to be created w/o a trainer assigned at first?), MaxClassSize, MinBeltRequired, CreatedByEmail
+TRAINERAVAILABILITY: TrainerEmail(PK), StartDate, StartTime, EndTime 
 ENROLLEDUSERS: ClassId(PK), UserEmail
 
 CREATE:
@@ -31,8 +31,9 @@ Update USER Password by email
 Update USER Role by email
 Update CLASS TrainerEmail by Id (assuming we allow classes to be created that dont have a trainer assigned at first?)
 Update CLASS TrainerEmail by RoomNumber and StartDateTime
-Update TRAINERAVAILABILITY StartDateTime by TrainerEmail
-Update TRAINERAVAILABILITY EndDateTime by TrainerEmail 
+Update TRAINERAVAILABILITY StartDate by TrainerEmail
+Update TRAINERAVAILABILITY StartTime by TrainerEmail
+Update TRAINERAVAILABILITY EndTime by TrainerEmail
 
 DELETE:
 outside the scope for this sprint

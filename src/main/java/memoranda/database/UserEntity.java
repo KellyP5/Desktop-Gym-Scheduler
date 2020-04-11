@@ -1,8 +1,5 @@
 package main.java.memoranda.database;
 
-import main.java.memoranda.database.RoleEntity;
-import main.java.memoranda.database.BeltEntity;
-
 
 public class UserEntity {
     private String firstName;

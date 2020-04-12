@@ -1,21 +1,19 @@
 package main.java.memoranda.ui;
 
-import java.awt.AWTEvent;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -89,6 +87,11 @@ public class AppFrame extends JFrame {
      * The J button 3.
      */
     JButton jButton3 = new JButton();
+
+    Image logoutButtonIcon = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
+    JButton logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
+
+
     /**
      * The Image 1.
      */
@@ -490,6 +493,7 @@ public class AppFrame extends JFrame {
      */
     JMenuItem jMenuGoHBack = new JMenuItem(History.historyBackAction);
     /**
+    /**
      * The J menu go fwd.
      */
     JMenuItem jMenuGoFwd = new JMenuItem(History.historyForwardAction);
@@ -546,7 +550,7 @@ public class AppFrame extends JFrame {
      * Instantiates a new App frame.
      */
 //Construct the frame
-    public AppFrame() {
+    public AppFrame() throws IOException {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         try {
             jbInit();
@@ -746,6 +750,8 @@ public class AppFrame extends JFrame {
         jMenuInsertHR.setToolTipText(Local.getString("Insert Horizontal rule"));
 
         toolBar.add(jButton3);
+
+
         jMenuFile.add(jMenuFileNewPrj);
                 jMenuFile.add(jMenuFileNewNote);
         jMenuFile.addSeparator();
@@ -779,6 +785,11 @@ public class AppFrame extends JFrame {
         //contentPane.add(toolBar, BorderLayout.NORTH);
         contentPane.add(statusBar, BorderLayout.SOUTH);
         contentPane.add(splitPane, BorderLayout.CENTER);
+        logoutButton.setMaximumSize(new Dimension(30,30));
+        logoutButton.setHorizontalAlignment(JButton.RIGHT);
+
+        
+
         splitPane.add(projectsPanel, JSplitPane.TOP);
         splitPane.add(workPanel, JSplitPane.BOTTOM);
         jMenuEdit.add(jMenuEditUndo);

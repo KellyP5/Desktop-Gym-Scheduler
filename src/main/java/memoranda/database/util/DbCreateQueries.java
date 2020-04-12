@@ -65,7 +65,7 @@ public class DbCreateQueries {
     /*
     add a new class to the GYMCLASS table, example usage:
     BeltEntity minBeltRequired = new BeltEntity(BeltEntity.Rank.white);
-    insertClass(1, "04-11-2020", 12.0, 13.0, "kevin@gmail.com", 20, minBeltRequired, "admin@gmail.com");
+    insertClass(1, "04/11/2020", 12.0, 13.0, "kevin@gmail.com", 20, minBeltRequired, "admin@gmail.com");
     Note that start time and end time is a double, 0.0 indicates midnight and 23.99 is right before midnight
      */
     public void insertClass(int roomNumber,
@@ -91,7 +91,7 @@ public class DbCreateQueries {
     }
     /*
     insert a new trainer availability into TRAINERAVAILABILITY, example usage:
-    insertTrainerAvailability("BunsOfSteel@gmail.com", "04-12-2020", 8.0, 9.0);
+    insertTrainerAvailability("BunsOfSteel@gmail.com", "04/12/2020", 8.0, 9.0);
      */
     public void insertTrainerAvailability(String trainerEmail, String startDate, double startTime, double endTime) throws SQLException {
         String sql = "INSERT INTO TRAINERAVAILABILITY(TrainerEmail,StartDate,StartTime,EndTime) VALUES(?,?,?,?)";

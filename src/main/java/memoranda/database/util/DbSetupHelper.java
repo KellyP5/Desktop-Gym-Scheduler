@@ -4,6 +4,7 @@ import main.java.memoranda.database.*;
 
 import java.sql.*;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class DbSetupHelper {
@@ -19,6 +20,7 @@ public class DbSetupHelper {
         dbSetupHelper.createNeujahrskranzTables();
         //add sample data to test
         dbSetupHelper.addSampleDataToTestDb(SqlConstants.defaultTestDbLoc);
+
     }
 
     private String dbURL;
@@ -129,10 +131,40 @@ public class DbSetupHelper {
                 20,minRequiredBelt,"steve@gmail.com");
         dcq.insertClass(2,"04/12/2020",14.0,15.5,"sarah@gmail.com",
                 20,minRequiredBelt,"steve@gmail.com");
+        dcq.insertClass(3,"04/11/2020",8.0,9.0,"sarah@gmail.com",
+                20,minRequiredBelt,"steve@gmail.com");
+
         dcq.insertTrainerAvailability("sarah@gmail.com", "04/12/2020", 10.0,14.0);
         dcq.insertTrainerAvailability("sarah@gmail.com", "04/12/2020", 15.0,18.0);
         dcq.insertEnrolledUser(1, "kevin@gmail.com");
         dcq.insertEnrolledUser(1, "brenda@gmail.com");
         dcq.insertEnrolledUser(2, "kevin@gmail.com");
+    }
+
+    private void testAndPrintDataFromDb() throws SQLException, ParseException {
+        DbReadQueries drq = new DbReadQueries(SqlConstants.defaultTestDbLoc);
+
+        UserEntity user = null;
+        try {
+            user = drq.getUserByEmail("kevin@gmail.com");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("first name is: " + user.getFirstName());
+        System.out.println("belt is: " + user.getBelt());
+
+        ArrayList<GymClassEntity> gymClassesForKevin = drq.getClassesUserEnrolledInByEmail("kevin@gmail.com");
+        System.out.println(gymClassesForKevin.get(0).getStartDateTime());
+        System.out.println(gymClassesForKevin.get(1).getStartDateTime());
+        ArrayList<TrainerAvailabilityEntity> sarahsAvailabilities = drq.getTrainerDateTimeAvailabilityByEmail("sarah@gmail.com");
+        System.out.println("size of trainer sarah Availabilities is " + sarahsAvailabilities.size());
+
+        LocalDate date = LocalDate.of(2020,4,11);
+        ArrayList<GymClassEntity> classes = drq.getAllClassesByDate(date);
+        System.out.println("size of all classes is " + classes.size());
+
+        RoleEntity admin = new RoleEntity(RoleEntity.UserRole.admin);
+        ArrayList<UserEntity> admins = drq.getAllUsersOfCertainRole(admin);
+        System.out.println("size of all admins is " + admins.size());
     }
 }

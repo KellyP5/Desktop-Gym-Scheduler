@@ -30,9 +30,7 @@ public class DbReadQueries {
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
 
-
-        UserEntity user = getUserFromResultSet(rs);
-        return user;
+        return getUserFromResultSet(rs);
     }
 
     public ArrayList<UserEntity> getAllUsers() throws SQLException {
@@ -66,7 +64,7 @@ public class DbReadQueries {
         return gymClasses;
     }
 
-    public ArrayList<TrainerAvailabilityEntity> getTrainerDateTimeAvailabilityByEmail(String email) throws SQLException, ParseException {
+    public ArrayList<TrainerAvailabilityEntity> getTrainerDateTimeAvailabilityByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM TRAINERAVAILABILITY WHERE TRAINERAVAILABILITY.TrainerEmail=?";
 
         Connection conn = DriverManager.getConnection(dbURL);
@@ -87,7 +85,40 @@ public class DbReadQueries {
         return trainerAvailabilities;
     }
 
-    private GymClassEntity getGymClassFromResultSet(ResultSet rs) throws SQLException, ParseException {
+    public ArrayList<GymClassEntity> getAllClassesByDate(LocalDate localDate) throws SQLException, ParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        String strDate = localDate.format(formatter);
+
+        String sql = "SELECT * FROM GYMCLASS WHERE StartDate=?";
+
+        Connection conn = DriverManager.getConnection(dbURL);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
+        pstmt.setString(1,strDate);
+        ResultSet rs  = pstmt.executeQuery();
+
+        ArrayList<GymClassEntity> gymClasses = new ArrayList<>();
+        while(rs.next()){
+            gymClasses.add(getGymClassFromResultSet(rs));
+        }
+        return gymClasses;
+    }
+
+    public ArrayList<UserEntity> getAllUsersOfCertainRole(RoleEntity role) throws SQLException {
+        String sql = "SELECT * FROM USER WHERE Role=?";
+
+        Connection conn = DriverManager.getConnection(dbURL);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
+        pstmt.setString(1,role.userRole.name().toLowerCase());
+        ResultSet rs  = pstmt.executeQuery();
+
+        ArrayList<UserEntity> users = new ArrayList<>();
+        while(rs.next()){
+            users.add(getUserFromResultSet(rs));
+        }
+        return users;
+    }
+
+    private GymClassEntity getGymClassFromResultSet(ResultSet rs) throws SQLException {
 
         LocalDateTime startDateTime = getLocalDateTimeFromDbFields(
                 rs.getString("StartDate"),
@@ -99,7 +130,7 @@ public class DbReadQueries {
 
         BeltEntity minBeltRequired = new BeltEntity(BeltEntity.Rank.valueOf(rs.getString("MinBeltRequired")));
 
-        GymClassEntity gymClass = new GymClassEntity(
+        return new GymClassEntity(
                 rs.getInt("Id"),
                 rs.getInt("RoomNumber"),
                 startDateTime,
@@ -108,11 +139,10 @@ public class DbReadQueries {
                 rs.getInt("MaxClassSize"),
                 minBeltRequired,
                 rs.getString("CreatedByEmail")
-                );
-        return gymClass;
+        );
     }
 
-    private LocalDateTime getLocalDateTimeFromDbFields(String strDate, double time) throws ParseException {
+    private LocalDateTime getLocalDateTimeFromDbFields(String strDate, double time) {
         //get LocalDate
         DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate localDate = LocalDate.parse(strDate, f);

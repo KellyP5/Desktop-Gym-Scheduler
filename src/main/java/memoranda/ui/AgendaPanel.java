@@ -1,23 +1,17 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.Flow;
 
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.EventNotificationListener;
@@ -37,8 +31,6 @@ import main.java.memoranda.util.AgendaGenerator;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.Util;
-
-import javax.swing.JOptionPane;
 
 import nu.xom.Element;
 
@@ -70,6 +62,11 @@ public class AgendaPanel extends JPanel {
     /**
      * The Viewer.
      */
+
+    JPanel agendaPanel = new JPanel();
+    JTable classesTable = new JTable(0,2);
+   FlowLayout agendaGridLayout = new FlowLayout();
+
     JEditorPane viewer = new JEditorPane("text/html", "");
     /**
      * The Priorities.
@@ -351,18 +348,48 @@ public class AgendaPanel extends JPanel {
      * @param date the date
      */
     public void refresh(CalendarDate date) {
+
 		viewer.setText(AgendaGenerator.getAgenda(date,expandedTasks));
+
+
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				setAgendaPage();
 				if(gotoTask != null) {
+
 					viewer.scrollToReference(gotoTask);
-					scrollPane.setViewportView(viewer);
+					scrollPane.setViewportView(agendaPanel);
 					Util.debug("Set view port to " + gotoTask);
 				}
 			}
 		});
+		scrollPane.setViewportView(agendaPanel);
 
 		Util.debug("Summary updated.");
+	}
+
+
+	public void setAgendaPage(){
+    	JPanel eventsPanel = new JPanel(new GridLayout());
+
+		agendaPanel.removeAll();
+		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
+		scrollPane.setMinimumSize(screensize);
+
+		classesTable.getColumnModel().getColumn(0).setHeaderValue("Date");
+		classesTable.getColumnModel().getColumn(1).setHeaderValue("Class Description");
+		classesTable.getColumnModel().getColumn(0).setMaxWidth(Math.round(screensize.width * 0.25f));
+    	agendaPanel.setLayout(new GridLayout(0,1));
+		classesTable.setRowHeight(50);
+		JScrollPane classScroller = new JScrollPane(classesTable);
+
+    	agendaPanel.add(classScroller);
+
+    	agendaPanel.add(eventsPanel);
+
+
+
+
 	}
 
     /**

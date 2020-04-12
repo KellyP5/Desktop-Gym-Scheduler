@@ -783,6 +783,7 @@ public class AppFrame extends JFrame {
 
                 //LOGOUT FUNCTION WILL BE CALLED HERE.
                 //System.out.println("DEBUG: Test");
+                //
             }
         });
 

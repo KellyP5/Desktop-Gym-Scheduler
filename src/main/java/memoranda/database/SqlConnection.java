@@ -1,5 +1,8 @@
 package main.java.memoranda.database;
 
+import main.java.memoranda.database.util.DbCreateQueries;
+import main.java.memoranda.database.util.DbReadQueries;
+import main.java.memoranda.database.util.DbSetupHelper;
 import main.java.memoranda.database.util.SqlConstants;
 
 import java.sql.Connection;
@@ -7,44 +10,64 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /*
-SqlConnection is a singleton pattern.  This class may only be needed if we have multiple threads
-that are reading/writing to the database.  Until users experience issues, they can utilize
-the Db___Queries classes directly.
+SqlConnection is a singleton pattern that ensures only one connection is made to each database (real and test)
  */
 public class SqlConnection {
+
+    private DbReadQueries drq;
+    private DbReadQueries drqTest;
+    private DbCreateQueries dcq;
+    private DbCreateQueries dcqTest;
+    private DbSetupHelper dbSetupHelper;
+    private DbSetupHelper getDbSetupHelperTest;
+
+
     private static SqlConnection _instance = null;
 
-    private SqlConnection(){
+    private SqlConnection() throws SQLException {
+        Connection realDbConn = DriverManager.getConnection(SqlConstants.DEFAULTDBLOC);
+        Connection testDbConn = DriverManager.getConnection(SqlConstants.DEFAULTTESTDBLOC);
 
+
+        drq = new DbReadQueries(realDbConn);
+        drqTest = new DbReadQueries(testDbConn);
+        dcq = new DbCreateQueries(realDbConn);
+        dcqTest = new DbCreateQueries(testDbConn);
+        dbSetupHelper = new DbSetupHelper(realDbConn);
+        getDbSetupHelperTest = new DbSetupHelper(testDbConn);
     }
 
     /*
     Utilized for singleton pattern, returns new instance if not already in existance
      */
-    public static SqlConnection get_instance() {
+    public static SqlConnection getInstance() throws SQLException {
         if(_instance == null){
             _instance = new SqlConnection();
         }
         return _instance;
     }
 
-    /*
-    returns the connection to the database at url
-     */
-    private Connection getConnection(String url) throws SQLException{
-        try {
-            return DriverManager.getConnection(url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            throw new SQLException("Cannot connect to database", e);
-        }
+    public DbReadQueries getDrq() {
+        return drq;
     }
 
-
-    public Connection getConnection() throws SQLException{
-        return getConnection(SqlConstants.DEFAULTDBLOC);
+    public DbReadQueries getDrqTest() {
+        return drqTest;
     }
-    public Connection getTestConnection() throws SQLException{
-        return getConnection(SqlConstants.DEFAULTTESTDBLOC);
+
+    public DbCreateQueries getDcq() {
+        return dcq;
+    }
+
+    public DbCreateQueries getDcqTest() {
+        return dcqTest;
+    }
+
+    public DbSetupHelper getDbSetupHelper() {
+        return dbSetupHelper;
+    }
+
+    public DbSetupHelper getGetDbSetupHelperTest() {
+        return getDbSetupHelperTest;
     }
 }

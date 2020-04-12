@@ -1,6 +1,7 @@
 package main.java.memoranda.database;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /*
 GymClassEntity is what is returned by any SQL related queries related to the GymClass table.
@@ -88,6 +89,26 @@ public class GymClassEntity {
 
     public String getCreatedByEmail() {
         return _createdByEmail;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GymClassEntity that = (GymClassEntity) o;
+        return _Id == that._Id &&
+                _roomNumber == that._roomNumber &&
+                _maxClassSize == that._maxClassSize &&
+                _startDateTime.equals(that._startDateTime) &&
+                _endDateTime.equals(that._endDateTime) &&
+                _trainerEmail.equals(that._trainerEmail) &&
+                _minBeltEntityRequired.equals(that._minBeltEntityRequired) &&
+                _createdByEmail.equals(that._createdByEmail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(_Id, _roomNumber, _startDateTime, _endDateTime, _trainerEmail, _maxClassSize, _minBeltEntityRequired, _createdByEmail);
     }
 
     public void setCreatedByEmail(String _createdByEmail) {

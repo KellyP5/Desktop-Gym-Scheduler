@@ -10,10 +10,10 @@ helpful utility class for various create (insert) queries
  */
 public class DbCreateQueries {
 
-    private String _dbUrl;
+    private Connection _dbConnection;
 
-    public DbCreateQueries(String url) {
-        this._dbUrl = url;
+    public DbCreateQueries(Connection dbConn) {
+        this._dbConnection = dbConn;
     }
 
     /*
@@ -28,8 +28,8 @@ public class DbCreateQueries {
                            RoleEntity role) throws SQLException {
         String sql = "INSERT INTO USER" +
                 "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
-        Connection conn = DriverManager.getConnection(_dbUrl);
-        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
         pstmt.setString(3, lastName);
@@ -56,8 +56,8 @@ public class DbCreateQueries {
                             BeltEntity trainingBelt) throws SQLException {
         String sql = "INSERT INTO USER" +
                 "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
-        Connection conn = DriverManager.getConnection(_dbUrl);
-        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
         pstmt.setString(3, lastName);
@@ -73,7 +73,7 @@ public class DbCreateQueries {
     BeltEntity minBeltRequired = new BeltEntity(BeltEntity.Rank.white);
     insertClass(1, "04/11/2020", 12.0, 13.0, "kevin@gmail.com", 20, minBeltRequired,
                 "admin@gmail.com");
-    Note that start time and end time is a double, 0.0 indicates midnight and 23.99 is right
+    Note that start time and end time is a double, 0.0 indicates midnight and 23.59 is right
     before midnight
      */
     public void insertClass(int roomNumber,
@@ -87,8 +87,8 @@ public class DbCreateQueries {
         String sql = "INSERT INTO GYMCLASS" +
         "(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
         "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
-        Connection conn = DriverManager.getConnection(_dbUrl);
-        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
         pstmt.setInt(1, roomNumber);
         pstmt.setString(2, startDate);
         pstmt.setDouble(3, startTime);
@@ -100,6 +100,41 @@ public class DbCreateQueries {
         pstmt.executeUpdate();
     }
     /*
+    add a new class to the GYMCLASS table, example usage:
+    BeltEntity minBeltRequired = new BeltEntity(BeltEntity.Rank.white);
+    insertClass(1, 1, "04/11/2020", 12.0, 13.0, "kevin@gmail.com", 20, minBeltRequired,
+                "admin@gmail.com");
+    Note that start time and end time is a double, 0.0 indicates midnight and 23.59 is right
+    before midnight
+     */
+    public void insertClass(int id,
+                            int roomNumber,
+                            String startDate,
+                            double startTime,
+                            double endTime,
+                            String trainerEmail,
+                            int maxClassSize,
+                            BeltEntity minBeltRequired,
+                            String createdByEmail) throws SQLException {
+        String sql = "INSERT INTO GYMCLASS" +
+                "(Id, RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
+                "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?,?)";
+
+        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        pstmt.setInt(2, roomNumber);
+        pstmt.setString(3, startDate);
+        pstmt.setDouble(4, startTime);
+        pstmt.setDouble(5, endTime);
+        pstmt.setString(6, trainerEmail);
+        pstmt.setInt(7, maxClassSize);
+        pstmt.setString(8, minBeltRequired.rank.name());
+        pstmt.setString(9, createdByEmail);
+        pstmt.executeUpdate();
+    }
+
+
+    /*
     insert a new trainer availability into TRAINERAVAILABILITY, example usage:
     insertTrainerAvailability("BunsOfSteel@gmail.com", "04/12/2020", 8.0, 9.0);
      */
@@ -109,8 +144,8 @@ public class DbCreateQueries {
                                           double endTime) throws SQLException {
         String sql = "INSERT INTO TRAINERAVAILABILITY" +
                 "(TrainerEmail,StartDate,StartTime,EndTime) VALUES(?,?,?,?)";
-        Connection conn = DriverManager.getConnection(_dbUrl);
-        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
         pstmt.setString(1, trainerEmail);
         pstmt.setString(2, startDate);
         pstmt.setDouble(3, startTime);
@@ -123,8 +158,8 @@ public class DbCreateQueries {
      */
     public void insertEnrolledUser(int classId, String userEmail) throws SQLException {
         String sql = "INSERT INTO ENROLLEDUSER(ClassId,UserEmail) VALUES(?,?)";
-        Connection conn = DriverManager.getConnection(_dbUrl);
-        PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
         pstmt.setInt(1, classId);
         pstmt.setString(2, userEmail);
         pstmt.executeUpdate();

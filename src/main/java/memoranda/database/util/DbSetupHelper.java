@@ -10,55 +10,18 @@ import java.util.ArrayList;
 Utility class with many helpful methods for setup and configuration of the real db and test db
  */
 public class DbSetupHelper {
+    private Connection _dbConnection;
 
-    public static void main(String[] args) throws SQLException {
-        //create primary db
-        DbSetupHelper dbSetupHelper = new DbSetupHelper();
-        dbSetupHelper.createDatabase();
-        dbSetupHelper.createNeujahrskranzTables();
-        //create test db
-        dbSetupHelper.setDbUrl(SqlConstants.DEFAULTTESTDBLOC);
-        dbSetupHelper.createDatabase();
-        dbSetupHelper.createNeujahrskranzTables();
-        //add sample data to test
-        dbSetupHelper.addSampleDataToDb(SqlConstants.DEFAULTTESTDBLOC);
-
+    public DbSetupHelper(Connection _dbConnection) {
+        this._dbConnection = _dbConnection;
     }
 
-    private String _dbUrl;
-
-    public DbSetupHelper() {
-        this._dbUrl = SqlConstants.DEFAULTDBLOC;
-    }
-    public DbSetupHelper(String _dbUrl) {
-        this._dbUrl = _dbUrl;
-    }
-    public String getDbUrl() {
-        return _dbUrl;
-    }
-    public void setDbUrl(String _dbURL) {
-        this._dbUrl = _dbURL;
-    }
-
-    /*
-    creates an sqlite database at dbURL
-     */
-    public void createDatabase(){
-        try (Connection conn = DriverManager.getConnection(_dbUrl)) {
-            if (conn != null) {
-                System.out.println("A new database has been created.");
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
     /*
     closes the database at dbURL
      */
     public void closeDatabase(){
         try {
-            Connection conn = DriverManager.getConnection(_dbUrl);
-            conn.close();
+            _dbConnection.close();
         } catch (SQLException e){
             System.out.println(e.getMessage());
             System.out.println("failed to close!");
@@ -68,20 +31,15 @@ public class DbSetupHelper {
     creates a table at dbURL using the sql string passed in.  The tableName string is just used for
     a nice print out of what the method is doing.
      */
-    public void createTable(String sql, String tableName){
-        try (Connection conn = DriverManager.getConnection(_dbUrl);
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("Table: " + tableName + " was created.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+    public void createTable(String sql, String tableName) throws SQLException {
+        Statement stmt = _dbConnection.createStatement();
+        stmt.execute(sql);
+        System.out.println("Table: " + tableName + " was created.");
     }
     /*
     creates tables specific to the Neujahskranz project
      */
-    public void createNeujahrskranzTables(){
-        createDatabase();
+    public void createNeujahrskranzTables() throws SQLException {
         System.out.println("Preparing to create tables..note that if the tables already exist " +
                 "they will not be created");
         //create USER
@@ -137,7 +95,7 @@ public class DbSetupHelper {
     adds sample data to the database at databaseURL, this method is tightly coupled with the create
     table method and has very specific expecations about what tables exist.
      */
-    public void addSampleDataToDb(String databaseUrl) throws SQLException {
+    public void addSampleDataToDb(Connection databaseUrl) throws SQLException {
         DbCreateQueries dcq = new DbCreateQueries(databaseUrl);
         RoleEntity customer = new RoleEntity(RoleEntity.UserRole.customer);
         RoleEntity admin = new RoleEntity(RoleEntity.UserRole.admin);
@@ -171,7 +129,7 @@ public class DbSetupHelper {
         dcq.insertEnrolledUser(2, "kevin@gmail.com");
     }
     /*
-    drops all of the tables in the test database, useful for unit testing setup
+    drops all of the tables in the test database if they exist, useful for unit testing setup
      */
     public void deleteTestTables() throws SQLException {
         ArrayList<String> sqlDropStatements = new ArrayList<>();
@@ -180,15 +138,14 @@ public class DbSetupHelper {
         sqlDropStatements.add("DROP TABLE IF EXISTS TRAINERAVAILABILITY");
         sqlDropStatements.add("DROP TABLE IF EXISTS ENROLLEDUSER");
 
-        Connection conn = DriverManager.getConnection(SqlConstants.DEFAULTTESTDBLOC);
-        Statement statement  = conn.createStatement();
+        Statement statement  = _dbConnection.createStatement();
 
         for(String dropStatement : sqlDropStatements){
             statement.executeUpdate(dropStatement);
         }
     }
 
-    private void _testAndPrintDataFromDb(String databaseUrl) throws SQLException {
+    private void _testAndPrintDataFromDb(Connection databaseUrl) throws SQLException {
         DbReadQueries drq = new DbReadQueries(databaseUrl);
 
         UserEntity user = null;

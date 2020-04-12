@@ -1,5 +1,7 @@
 package main.java.memoranda.database;
 
+import java.util.Objects;
+
 /*
 UserEntity is what is used for all SQL queries related to USER table.
  */
@@ -89,5 +91,22 @@ public class UserEntity {
         this._trainingBelt = trainingBelt;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserEntity that = (UserEntity) o;
+        return _firstName.equals(that._firstName) &&
+                _lastName.equals(that._lastName) &&
+                _password.equals(that._password) &&
+                _email.equals(that._email) &&
+                _role.equals(that._role) &&
+                Objects.equals(_belt, that._belt) &&
+                Objects.equals(_trainingBelt, that._trainingBelt);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(_firstName, _lastName, _password, _email, _role, _belt, _trainingBelt);
+    }
 }

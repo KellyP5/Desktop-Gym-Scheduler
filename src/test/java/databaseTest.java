@@ -22,13 +22,13 @@ public class databaseTest {
         sqlConnection = SqlConnection.getInstance();
         dcq = sqlConnection.getDcqTest();
         drq = sqlConnection.getDrqTest();
-        sqlConnection.getGetDbSetupHelperTest().deleteTestTables();
-        sqlConnection.getGetDbSetupHelperTest().createNeujahrskranzTables();
+        sqlConnection.getDbSetupHelperTest().deleteTestTables();
+        sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
     }
 
     @AfterClass
     public static void tearDown() throws Exception {
-        sqlConnection.getGetDbSetupHelperTest().closeDatabase();
+        sqlConnection.getDbSetupHelperTest().closeDatabase();
     }
 
     @Test

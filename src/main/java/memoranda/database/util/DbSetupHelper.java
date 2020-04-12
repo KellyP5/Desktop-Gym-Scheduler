@@ -44,13 +44,13 @@ public class DbSetupHelper {
                 "they will not be created");
         //create USER
         String userSql = "CREATE TABLE IF NOT EXISTS USER (\n"
-                + "    Email text PRIMARY KEY NOT NULL,\n"
-                + "    FirstName text NOT NULL,\n"
-                + "    LastName text NOT NULL,\n"
+                + "    Email text PRIMARY KEY NOT NULL COLLATE NOCASE,\n"
+                + "    FirstName text NOT NULL COLLATE NOCASE,\n"
+                + "    LastName text NOT NULL COLLATE NOCASE,\n"
                 + "    Password text NOT NULL,\n"
-                + "    Role text NOT NULL,\n"
-                + "    Belt text,\n"
-                + "    TrainingBelt text\n"
+                + "    Role text NOT NULL COLLATE NOCASE,\n"
+                + "    Belt text COLLATE NOCASE,\n"
+                + "    TrainingBelt text COLLATE NOCASE\n"
                 + ");";
         createTable(userSql, "User");
 
@@ -61,10 +61,10 @@ public class DbSetupHelper {
                 + "    StartDate text NOT NULL,\n"
                 + "    StartTime real NOT NULL,\n"
                 + "    EndTime real NOT NULL,\n"
-                + "    TrainerEmail text NOT NULL,\n"
+                + "    TrainerEmail text NOT NULL COLLATE NOCASE,\n"
                 + "    MaxClassSize integer NOT NULL,\n"
-                + "    MinBeltRequired text NOT NULL,\n"
-                + "    CreatedByEmail text NOT NULL,\n"
+                + "    MinBeltRequired text NOT NULL COLLATE NOCASE,\n"
+                + "    CreatedByEmail text NOT NULL COLLATE NOCASE,\n"
                 + "    FOREIGN KEY(TrainerEmail) REFERENCES USER(Email) ON DELETE CASCADE,\n"
                 + "    FOREIGN KEY(CreatedByEmail) REFERENCES USER(Email) ON DELETE CASCADE\n"
                 + ");";
@@ -72,7 +72,7 @@ public class DbSetupHelper {
 
         //create TRAINERAVAILABILITY
         String trainerAvailSql = "CREATE TABLE IF NOT EXISTS TRAINERAVAILABILITY (\n"
-                + "    TrainerEmail text NOT NULL,\n"
+                + "    TrainerEmail text NOT NULL COLLATE NOCASE,\n"
                 + "    StartDate text NOT NULL,\n"
                 + "    StartTime real NOT NULL,\n"
                 + "    EndTime real NOT NULL,\n"
@@ -84,7 +84,7 @@ public class DbSetupHelper {
         //create ENROLLEDUSER
         String enrolledUsersSql = "CREATE TABLE IF NOT EXISTS ENROLLEDUSER (\n"
                 + "    ClassId integer NOT NULL,\n"
-                + "    UserEmail text NOT NULL,\n"
+                + "    UserEmail text NOT NULL COLLATE NOCASE,\n"
                 + "    PRIMARY KEY(ClassId, UserEmail),\n"
                 + "    FOREIGN KEY(UserEmail) REFERENCES USER(Email) ON DELETE CASCADE\n"
                 + "    FOREIGN KEY(ClassId) REFERENCES GYMCLASS(Id) ON DELETE CASCADE\n"
@@ -95,8 +95,7 @@ public class DbSetupHelper {
     adds sample data to the database at databaseURL, this method is tightly coupled with the create
     table method and has very specific expecations about what tables exist.
      */
-    public void addSampleDataToDb(Connection databaseUrl) throws SQLException {
-        DbCreateQueries dcq = new DbCreateQueries(databaseUrl);
+    public void addSampleDataToDb(DbCreateQueries dcq) throws SQLException {
         RoleEntity customer = new RoleEntity(RoleEntity.UserRole.customer);
         RoleEntity admin = new RoleEntity(RoleEntity.UserRole.admin);
         RoleEntity trainer = new RoleEntity(RoleEntity.UserRole.trainer);

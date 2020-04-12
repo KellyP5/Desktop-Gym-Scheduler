@@ -19,7 +19,17 @@ public class SqlConnection {
     private DbCreateQueries dcq;
     private DbCreateQueries dcqTest;
     private DbSetupHelper dbSetupHelper;
-    private DbSetupHelper getDbSetupHelperTest;
+    private DbSetupHelper dbSetupHelperTest;
+
+    /*
+    This is just a helper main that can be ran to generate the real and test databases.
+     */
+    public static void main(String[] args) throws SQLException {
+        SqlConnection sqlConnection = SqlConnection.getInstance();
+        sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
+        sqlConnection.getDbSetupHelperTest().addSampleDataToDb(sqlConnection.getDcqTest());
+        sqlConnection.getDbSetupHelper().createNeujahrskranzTables();
+    }
 
 
     private static SqlConnection _instance = null;
@@ -34,7 +44,7 @@ public class SqlConnection {
         dcq = new DbCreateQueries(realDbConn);
         dcqTest = new DbCreateQueries(testDbConn);
         dbSetupHelper = new DbSetupHelper(realDbConn);
-        getDbSetupHelperTest = new DbSetupHelper(testDbConn);
+        dbSetupHelperTest = new DbSetupHelper(testDbConn);
     }
 
     /*
@@ -67,7 +77,7 @@ public class SqlConnection {
         return dbSetupHelper;
     }
 
-    public DbSetupHelper getGetDbSetupHelperTest() {
-        return getDbSetupHelperTest;
+    public DbSetupHelper getDbSetupHelperTest() {
+        return dbSetupHelperTest;
     }
 }

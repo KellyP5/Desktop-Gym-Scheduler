@@ -3,8 +3,8 @@ package main.java.memoranda.database;
 import java.time.LocalDateTime;
 
 /*
-GymClassEntity is what is returned by any SQL related queries related to the GymClass table.  This class is also used
-for inserts.
+GymClassEntity is what is returned by any SQL related queries related to the GymClass table.
+This class is also used for inserts.
  */
 public class GymClassEntity {
     private int _Id;
@@ -17,7 +17,9 @@ public class GymClassEntity {
     private String _createdByEmail;
 
 
-    public GymClassEntity(int id, int _roomNumber, LocalDateTime _startDateTime, LocalDateTime _endDateTime, String _trainerEmail, int _maxClassSize, BeltEntity _minBeltEntityRequired, String _createdByEmail) {
+    public GymClassEntity(int id, int _roomNumber, LocalDateTime _startDateTime,
+                          LocalDateTime _endDateTime, String _trainerEmail, int _maxClassSize,
+                          BeltEntity _minBeltEntityRequired, String _createdByEmail) {
         _Id = id;
         this._roomNumber = _roomNumber;
         this._startDateTime = _startDateTime;

@@ -1,8 +1,8 @@
 package main.java.memoranda.database;
 
 /*
-Enrolled Entity is the entity used for all EnrolledUser related SQL.  This is whats returned for any queries
-that try to determine who is in enrolled in what gym class.
+Enrolled Entity is the entity used for all EnrolledUser related SQL.  This is whats returned for
+any queries that try to determine who is in enrolled in what gym class.
  */
 public class EnrolledUserEntity {
     private int _classId;

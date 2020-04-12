@@ -7,8 +7,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /*
-SqlConnection is a singleton pattern.  This class may only be needed if we have multiple threads that are reading/writing
-to the database.  Until users experience issues, they can utilize the Db___Queries classes directly.
+SqlConnection is a singleton pattern.  This class may only be needed if we have multiple threads
+that are reading/writing to the database.  Until users experience issues, they can utilize
+the Db___Queries classes directly.
  */
 public class SqlConnection {
     private static SqlConnection _instance = null;

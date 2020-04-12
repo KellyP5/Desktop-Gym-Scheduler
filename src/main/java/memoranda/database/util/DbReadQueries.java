@@ -56,7 +56,8 @@ public class DbReadQueries {
     /*
     returns all classes a specific user is enrolled in
      */
-    public ArrayList<GymClassEntity> getClassesUserEnrolledInByEmail(String email) throws SQLException {
+    public ArrayList<GymClassEntity> getClassesUserEnrolledInByEmail(String email)
+            throws SQLException {
         String sql = "SELECT * FROM GYMCLASS " +
                      "INNER JOIN ENROLLEDUSER on ENROLLEDUSER.ClassId = GYMCLASS.Id " +
                      "WHERE ENROLLEDUSER.UserEmail=?";
@@ -75,7 +76,8 @@ public class DbReadQueries {
     /*
     returns all of a specific trainers Availability, based on email
      */
-    public ArrayList<TrainerAvailabilityEntity> getTrainerDateTimeAvailabilityByEmail(String email) throws SQLException {
+    public ArrayList<TrainerAvailabilityEntity> getTrainerDateTimeAvailabilityByEmail(String email)
+            throws SQLException {
         String sql = "SELECT * FROM TRAINERAVAILABILITY WHERE TRAINERAVAILABILITY.TrainerEmail=?";
 
         Connection conn = DriverManager.getConnection(_dbUrl);
@@ -145,7 +147,8 @@ public class DbReadQueries {
                 rs.getString("StartDate"),
                 rs.getDouble("EndTime"));
 
-        BeltEntity minBeltRequired = new BeltEntity(BeltEntity.Rank.valueOf(rs.getString("MinBeltRequired")));
+        BeltEntity minBeltRequired = new BeltEntity(
+                BeltEntity.Rank.valueOf(rs.getString("MinBeltRequired")));
 
         return new GymClassEntity(
                 rs.getInt("Id"),
@@ -159,8 +162,9 @@ public class DbReadQueries {
         );
     }
     /*
-    helper method for getting a LocalDateTime from a string representing the date with the format MM/dd/yyyy and a
-    double, which represents the time on a 24 hour period.  Ex: 13.5 is 13:30, which is 1:30pm
+    helper method for getting a LocalDateTime from a string representing the date with the format
+    MM/dd/yyyy and a double, which represents the time on a 24 hour period.  Ex: 13.5 is 13:30,
+    which is 1:30pm
      */
     private LocalDateTime _getLocalDateTimeFromDbFields(String strDate, double time) {
         //get LocalDate

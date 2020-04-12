@@ -21,8 +21,13 @@ public class DbCreateQueries {
     RoleEntity role = new RoleEntity(RoleEntity.UserRole.customer);
     insertUser("steve@gmail.com", "steve", "johnson", "foofoo", role);
     */
-    public void insertUser(String email, String firstName, String lastName, String password, RoleEntity role) throws SQLException {
-        String sql = "INSERT INTO USER(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
+    public void insertUser(String email,
+                           String firstName,
+                           String lastName,
+                           String password,
+                           RoleEntity role) throws SQLException {
+        String sql = "INSERT INTO USER" +
+                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
         Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, email);
@@ -49,7 +54,8 @@ public class DbCreateQueries {
                             RoleEntity role,
                             BeltEntity belt,
                             BeltEntity trainingBelt) throws SQLException {
-        String sql = "INSERT INTO USER(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO USER" +
+                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
         Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, email);
@@ -65,8 +71,10 @@ public class DbCreateQueries {
     /*
     add a new class to the GYMCLASS table, example usage:
     BeltEntity minBeltRequired = new BeltEntity(BeltEntity.Rank.white);
-    insertClass(1, "04/11/2020", 12.0, 13.0, "kevin@gmail.com", 20, minBeltRequired, "admin@gmail.com");
-    Note that start time and end time is a double, 0.0 indicates midnight and 23.99 is right before midnight
+    insertClass(1, "04/11/2020", 12.0, 13.0, "kevin@gmail.com", 20, minBeltRequired,
+                "admin@gmail.com");
+    Note that start time and end time is a double, 0.0 indicates midnight and 23.99 is right
+    before midnight
      */
     public void insertClass(int roomNumber,
                              String startDate,
@@ -76,7 +84,9 @@ public class DbCreateQueries {
                              int maxClassSize,
                              BeltEntity minBeltRequired,
                              String createdByEmail) throws SQLException {
-        String sql = "INSERT INTO GYMCLASS(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired,CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO GYMCLASS" +
+        "(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
+        "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
         Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, roomNumber);
@@ -93,8 +103,12 @@ public class DbCreateQueries {
     insert a new trainer availability into TRAINERAVAILABILITY, example usage:
     insertTrainerAvailability("BunsOfSteel@gmail.com", "04/12/2020", 8.0, 9.0);
      */
-    public void insertTrainerAvailability(String trainerEmail, String startDate, double startTime, double endTime) throws SQLException {
-        String sql = "INSERT INTO TRAINERAVAILABILITY(TrainerEmail,StartDate,StartTime,EndTime) VALUES(?,?,?,?)";
+    public void insertTrainerAvailability(String trainerEmail,
+                                          String startDate,
+                                          double startTime,
+                                          double endTime) throws SQLException {
+        String sql = "INSERT INTO TRAINERAVAILABILITY" +
+                "(TrainerEmail,StartDate,StartTime,EndTime) VALUES(?,?,?,?)";
         Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, trainerEmail);

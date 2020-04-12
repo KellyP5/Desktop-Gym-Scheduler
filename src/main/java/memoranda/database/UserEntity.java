@@ -12,7 +12,8 @@ public class UserEntity {
     private BeltEntity _belt;
     private BeltEntity _trainingBelt;
 
-    public UserEntity(String _firstName, String _lastName, String _password, String _email, RoleEntity _role) {
+    public UserEntity(String _firstName, String _lastName, String _password, String _email,
+                      RoleEntity _role) {
         this._firstName = _firstName;
         this._lastName = _lastName;
         this._password = _password;
@@ -20,7 +21,8 @@ public class UserEntity {
         this._role = _role;
     }
 
-    public UserEntity(String _firstName, String _lastName, String _password, String _email, RoleEntity _role, BeltEntity _belt, BeltEntity _trainingBelt) {
+    public UserEntity(String _firstName, String _lastName, String _password, String _email,
+                      RoleEntity _role, BeltEntity _belt, BeltEntity _trainingBelt) {
         this._firstName = _firstName;
         this._lastName = _lastName;
         this._password = _password;

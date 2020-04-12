@@ -65,8 +65,8 @@ public class DbSetupHelper {
         }
     }
     /*
-    creates a table at dbURL using the sql string passed in.  The tableName string is just used for a nice print
-    out of what the method is doing.
+    creates a table at dbURL using the sql string passed in.  The tableName string is just used for
+    a nice print out of what the method is doing.
      */
     public void createTable(String sql, String tableName){
         try (Connection conn = DriverManager.getConnection(_dbUrl);
@@ -82,7 +82,8 @@ public class DbSetupHelper {
      */
     public void createNeujahrskranzTables(){
         createDatabase();
-        System.out.println("Preparing to create tables..note that if the tables already exist they will not be created");
+        System.out.println("Preparing to create tables..note that if the tables already exist " +
+                "they will not be created");
         //create USER
         String userSql = "CREATE TABLE IF NOT EXISTS USER (\n"
                 + "    Email text PRIMARY KEY NOT NULL,\n"
@@ -133,8 +134,8 @@ public class DbSetupHelper {
         createTable(enrolledUsersSql, "EnrolledUser");
     }
     /*
-    adds sample data to the database at databaseURL, this method is tightly coupled with the create table method
-    and has very specific expecations about what tables exist.
+    adds sample data to the database at databaseURL, this method is tightly coupled with the create
+    table method and has very specific expecations about what tables exist.
      */
     public void addSampleDataToDb(String databaseUrl) throws SQLException {
         DbCreateQueries dcq = new DbCreateQueries(databaseUrl);
@@ -143,19 +144,28 @@ public class DbSetupHelper {
         RoleEntity trainer = new RoleEntity(RoleEntity.UserRole.trainer);
         BeltEntity minRequiredBelt = new BeltEntity(BeltEntity.Rank.white);
         BeltEntity blackBelt = new BeltEntity(BeltEntity.Rank.black1);
-        dcq.insertUser("kevin@gmail.com","kevin","johnson","foo", customer);
-        dcq.insertUser("steve@gmail.com", "steve", "jacobs", "foobar", admin);
-        dcq.insertUser("sarah@gmail.com", "sarah", "baker", "abc123", trainer);
-        dcq.insertUser("brenda@gmail.com", "brenda", "wiley", "sdfsdf", admin, blackBelt, blackBelt);
-        dcq.insertClass(1,"04/11/2020",12.5,13.0,"sarah@gmail.com",
+        dcq.insertUser("kevin@gmail.com","kevin","johnson",
+                "foo", customer);
+        dcq.insertUser("steve@gmail.com", "steve", "jacobs",
+                "foobar", admin);
+        dcq.insertUser("sarah@gmail.com", "sarah", "baker",
+                "abc123", trainer);
+        dcq.insertUser("brenda@gmail.com", "brenda", "wiley",
+                "sdfsdf", admin, blackBelt, blackBelt);
+        dcq.insertClass(1,"04/11/2020",12.5,13.0,
+                "sarah@gmail.com",
                 20,minRequiredBelt,"steve@gmail.com");
-        dcq.insertClass(2,"04/12/2020",14.0,15.5,"sarah@gmail.com",
+        dcq.insertClass(2,"04/12/2020",14.0,15.5,
+                "sarah@gmail.com",
                 20,minRequiredBelt,"steve@gmail.com");
-        dcq.insertClass(3,"04/11/2020",8.0,9.0,"sarah@gmail.com",
+        dcq.insertClass(3,"04/11/2020",8.0,9.0,
+                "sarah@gmail.com",
                 20,minRequiredBelt,"steve@gmail.com");
 
-        dcq.insertTrainerAvailability("sarah@gmail.com", "04/12/2020", 10.0,14.0);
-        dcq.insertTrainerAvailability("sarah@gmail.com", "04/12/2020", 15.0,18.0);
+        dcq.insertTrainerAvailability("sarah@gmail.com", "04/12/2020",
+                10.0,14.0);
+        dcq.insertTrainerAvailability("sarah@gmail.com", "04/12/2020",
+                15.0,18.0);
         dcq.insertEnrolledUser(1, "kevin@gmail.com");
         dcq.insertEnrolledUser(1, "brenda@gmail.com");
         dcq.insertEnrolledUser(2, "kevin@gmail.com");
@@ -173,11 +183,14 @@ public class DbSetupHelper {
         System.out.println("first name is: " + user.getFirstName());
         System.out.println("belt is: " + user.getBelt());
 
-        ArrayList<GymClassEntity> gymClassesForKevin = drq.getClassesUserEnrolledInByEmail("kevin@gmail.com");
+        ArrayList<GymClassEntity> gymClassesForKevin =
+                drq.getClassesUserEnrolledInByEmail("kevin@gmail.com");
         System.out.println(gymClassesForKevin.get(0).getStartDateTime());
         System.out.println(gymClassesForKevin.get(1).getStartDateTime());
-        ArrayList<TrainerAvailabilityEntity> sarahsAvailabilities = drq.getTrainerDateTimeAvailabilityByEmail("sarah@gmail.com");
-        System.out.println("size of trainer sarah Availabilities is " + sarahsAvailabilities.size());
+        ArrayList<TrainerAvailabilityEntity> sarahsAvailabilities =
+                drq.getTrainerDateTimeAvailabilityByEmail("sarah@gmail.com");
+        System.out.println("size of trainer sarah Availabilities is "
+                + sarahsAvailabilities.size());
 
         LocalDate date = LocalDate.of(2020,4,11);
         ArrayList<GymClassEntity> classes = drq.getAllClassesByDate(date);

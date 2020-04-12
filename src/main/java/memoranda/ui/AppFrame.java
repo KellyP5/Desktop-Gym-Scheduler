@@ -14,22 +14,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.JToolBar;
-import javax.swing.KeyStroke;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 
 import main.java.memoranda.CurrentProject;
@@ -90,6 +75,7 @@ public class AppFrame extends JFrame {
 
     Image logoutButtonIcon = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
     JButton logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
+
 
 
     /**
@@ -785,10 +771,24 @@ public class AppFrame extends JFrame {
         //contentPane.add(toolBar, BorderLayout.NORTH);
         contentPane.add(statusBar, BorderLayout.SOUTH);
         contentPane.add(splitPane, BorderLayout.CENTER);
-        logoutButton.setMaximumSize(new Dimension(30,30));
-        logoutButton.setHorizontalAlignment(JButton.RIGHT);
+        /*Creates the logout button, and sets everything in menu bar that's created after
+        // "createHorizontalGlue" to the right. Creates action listener. */
+        logoutButton.setMaximumSize(new Dimension(5,30));
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(logoutButton);
 
-        
+
+        logoutButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                //LOGOUT FUNCTION WILL BE CALLED HERE.
+                //System.out.println("DEBUG: Test");
+            }
+        });
+
+        //End logout button code.
+
+
 
         splitPane.add(projectsPanel, JSplitPane.TOP);
         splitPane.add(workPanel, JSplitPane.BOTTOM);

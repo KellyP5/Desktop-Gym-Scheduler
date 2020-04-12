@@ -73,8 +73,10 @@ public class AppFrame extends JFrame {
      */
     JButton jButton3 = new JButton();
 
-    Image logoutButtonIcon = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
+    Image logoutimg = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
+    Image logoutButtonIcon = logoutimg.getScaledInstance(20,20, Image.SCALE_SMOOTH);
     JButton logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
+
 
 
 
@@ -774,12 +776,16 @@ public class AppFrame extends JFrame {
         /*Creates the logout button, and sets everything in menu bar that's created after
         // "createHorizontalGlue" to the right. Creates action listener. */
         logoutButton.setMaximumSize(new Dimension(5,30));
+        logoutButton.setOpaque(false);
+        logoutButton.setContentAreaFilled(false);
+        logoutButton.setBorderPainted(false);
         menuBar.add(Box.createHorizontalGlue());
         menuBar.add(logoutButton);
 
 
         logoutButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
 
                 //LOGOUT FUNCTION WILL BE CALLED HERE.
                 //System.out.println("DEBUG: Test");

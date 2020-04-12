@@ -1,5 +1,8 @@
 package main.java.memoranda.database.util;
 
+import main.java.memoranda.database.BeltEntity;
+import main.java.memoranda.database.RoleEntity;
+
 import java.sql.*;
 
 public class DbSetupHelper {
@@ -14,7 +17,7 @@ public class DbSetupHelper {
         dbSetupHelper.createDatabase();
         dbSetupHelper.createNeujahrskranzTables();
         //add sample data to test
-        dbSetupHelper.addSampleData();
+        dbSetupHelper.addSampleDataToTestDb(SqlConstants.defaultTestDbLoc);
     }
 
     private String dbURL;
@@ -108,7 +111,21 @@ public class DbSetupHelper {
                 + ");";
         createTable(enrolledUsersSql, "EnrolledUser");
     }
-    public void addSampleData(){
-        //TODO
+    public void addSampleDataToTestDb(String databaseURL){
+        DbCreateQueries dcq = new DbCreateQueries(databaseURL);
+        RoleEntity customer = new RoleEntity(RoleEntity.UserRole.customer);
+        RoleEntity admin = new RoleEntity(RoleEntity.UserRole.admin);
+        RoleEntity trainer = new RoleEntity(RoleEntity.UserRole.trainer);
+        BeltEntity minRequiredBelt = new BeltEntity(BeltEntity.Rank.white);
+        BeltEntity blackBelt = new BeltEntity(BeltEntity.Rank.black1);
+        dcq.insertUser("kevin@gmail.com","kevin","johnson","foo", customer);
+        dcq.insertUser("steve@gmail.com", "steve", "jacobs", "foobar", admin);
+        dcq.insertUser("sarah@gmail.com", "sarah", "baker", "abc123", trainer);
+        dcq.insertUser("brenda@gmail.com", "brenda", "wiley", "sdfsdf", admin, blackBelt, blackBelt);
+        dcq.insertClass(1,"04-11-2020",12.0,13.0,"sarah@gmail.com",
+                20,minRequiredBelt,"steve@gmail.com");
+        dcq.insertTrainerAvailability("sarah@gmail.com", "04-12-2020", 10.0,14.0);
+        dcq.insertEnrolledUser(1, "kevin@gmail.com");
+
     }
 }

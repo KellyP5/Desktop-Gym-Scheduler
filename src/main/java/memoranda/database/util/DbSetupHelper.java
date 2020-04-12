@@ -170,6 +170,23 @@ public class DbSetupHelper {
         dcq.insertEnrolledUser(1, "brenda@gmail.com");
         dcq.insertEnrolledUser(2, "kevin@gmail.com");
     }
+    /*
+    drops all of the tables in the test database, useful for unit testing setup
+     */
+    public void deleteTestTables() throws SQLException {
+        ArrayList<String> sqlDropStatements = new ArrayList<>();
+        sqlDropStatements.add("DROP TABLE IF EXISTS USER");
+        sqlDropStatements.add("DROP TABLE IF EXISTS GYMCLASS");
+        sqlDropStatements.add("DROP TABLE IF EXISTS TRAINERAVAILABILITY");
+        sqlDropStatements.add("DROP TABLE IF EXISTS ENROLLEDUSER");
+
+        Connection conn = DriverManager.getConnection(SqlConstants.DEFAULTTESTDBLOC);
+        Statement statement  = conn.createStatement();
+
+        for(String dropStatement : sqlDropStatements){
+            statement.executeUpdate(dropStatement);
+        }
+    }
 
     private void _testAndPrintDataFromDb(String databaseUrl) throws SQLException {
         DbReadQueries drq = new DbReadQueries(databaseUrl);

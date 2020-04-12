@@ -5,27 +5,27 @@ Enrolled Entity is the entity used for all EnrolledUser related SQL.  This is wh
 that try to determine who is in enrolled in what gym class.
  */
 public class EnrolledUserEntity {
-    private int classId;
-    private String userEmail;
+    private int _classId;
+    private String _userEmail;
 
-    public EnrolledUserEntity(int classId, String userEmail) {
-        this.classId = classId;
-        this.userEmail = userEmail;
+    public EnrolledUserEntity(int _classId, String _userEmail) {
+        this._classId = _classId;
+        this._userEmail = _userEmail;
     }
 
     public int getClassId() {
-        return classId;
+        return _classId;
     }
 
-    public void setClassId(int classId) {
-        this.classId = classId;
+    public void setClassId(int _classId) {
+        this._classId = _classId;
     }
 
     public String getUserEmail() {
-        return userEmail;
+        return _userEmail;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setUserEmail(String _userEmail) {
+        this._userEmail = _userEmail;
     }
 }

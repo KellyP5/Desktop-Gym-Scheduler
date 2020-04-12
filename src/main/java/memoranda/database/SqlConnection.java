@@ -1,5 +1,7 @@
 package main.java.memoranda.database;
 
+import main.java.memoranda.database.util.SqlConstants;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,9 +11,7 @@ SqlConnection is a singleton pattern.  This class may only be needed if we have 
 to the database.  Until users experience issues, they can utilize the Db___Queries classes directly.
  */
 public class SqlConnection {
-    private static SqlConnection instance = null;
-    private final String jdbcUrl = "jdbc:sqlite:/main/resources/database/real.db";
-    private final String jdbcTestUrl = "jdbc:sqlite:/main/resources/database/test.db";
+    private static SqlConnection _instance = null;
 
     private SqlConnection(){
 
@@ -20,11 +20,11 @@ public class SqlConnection {
     /*
     Utilized for singleton pattern, returns new instance if not already in existance
      */
-    public static SqlConnection getInstance() {
-        if(instance == null){
-            instance = new SqlConnection();
+    public static SqlConnection get_instance() {
+        if(_instance == null){
+            _instance = new SqlConnection();
         }
-        return instance;
+        return _instance;
     }
 
     /*
@@ -41,9 +41,9 @@ public class SqlConnection {
 
 
     public Connection getConnection() throws SQLException{
-        return getConnection(this.jdbcUrl);
+        return getConnection(SqlConstants.DEFAULTDBLOC);
     }
     public Connection getTestConnection() throws SQLException{
-        return getConnection(this.jdbcTestUrl);
+        return getConnection(SqlConstants.DEFAULTTESTDBLOC);
     }
 }

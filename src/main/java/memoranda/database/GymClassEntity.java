@@ -7,88 +7,88 @@ GymClassEntity is what is returned by any SQL related queries related to the Gym
 for inserts.
  */
 public class GymClassEntity {
-    private int Id;
-    private int roomNumber;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
-    private String trainerEmail;
-    private int maxClassSize;
-    private BeltEntity minBeltEntityRequired;
-    private String createdByEmail;
+    private int _Id;
+    private int _roomNumber;
+    private LocalDateTime _startDateTime;
+    private LocalDateTime _endDateTime;
+    private String _trainerEmail;
+    private int _maxClassSize;
+    private BeltEntity _minBeltEntityRequired;
+    private String _createdByEmail;
 
 
-    public GymClassEntity(int id, int roomNumber, LocalDateTime startDateTime, LocalDateTime endDateTime, String trainerEmail, int maxClassSize, BeltEntity minBeltEntityRequired, String createdByEmail) {
-        Id = id;
-        this.roomNumber = roomNumber;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-        this.trainerEmail = trainerEmail;
-        this.maxClassSize = maxClassSize;
-        this.minBeltEntityRequired = minBeltEntityRequired;
-        this.createdByEmail = createdByEmail;
+    public GymClassEntity(int id, int _roomNumber, LocalDateTime _startDateTime, LocalDateTime _endDateTime, String _trainerEmail, int _maxClassSize, BeltEntity _minBeltEntityRequired, String _createdByEmail) {
+        _Id = id;
+        this._roomNumber = _roomNumber;
+        this._startDateTime = _startDateTime;
+        this._endDateTime = _endDateTime;
+        this._trainerEmail = _trainerEmail;
+        this._maxClassSize = _maxClassSize;
+        this._minBeltEntityRequired = _minBeltEntityRequired;
+        this._createdByEmail = _createdByEmail;
     }
 
     public int getId() {
-        return Id;
+        return _Id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(int _Id) {
+        this._Id = _Id;
     }
 
     public int getRoomNumber() {
-        return roomNumber;
+        return _roomNumber;
     }
 
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setRoomNumber(int _roomNumber) {
+        this._roomNumber = _roomNumber;
     }
 
     public LocalDateTime getStartDateTime() {
-        return startDateTime;
+        return _startDateTime;
     }
 
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
+    public void setStartDateTime(LocalDateTime _startDateTime) {
+        this._startDateTime = _startDateTime;
     }
 
     public LocalDateTime getEndDateTime() {
-        return endDateTime;
+        return _endDateTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndDateTime(LocalDateTime _endDateTime) {
+        this._endDateTime = _endDateTime;
     }
 
     public String getTrainerEmail() {
-        return trainerEmail;
+        return _trainerEmail;
     }
 
-    public void setTrainerEmail(String trainerEmail) {
-        this.trainerEmail = trainerEmail;
+    public void setTrainerEmail(String _trainerEmail) {
+        this._trainerEmail = _trainerEmail;
     }
 
     public int getMaxClassSize() {
-        return maxClassSize;
+        return _maxClassSize;
     }
 
-    public void setMaxClassSize(int maxClassSize) {
-        this.maxClassSize = maxClassSize;
+    public void setMaxClassSize(int _maxClassSize) {
+        this._maxClassSize = _maxClassSize;
     }
 
     public BeltEntity getMinBeltEntityRequired() {
-        return minBeltEntityRequired;
+        return _minBeltEntityRequired;
     }
 
-    public void setMinBeltEntityRequired(BeltEntity minBeltEntityRequired) {
-        this.minBeltEntityRequired = minBeltEntityRequired;
+    public void setMinBeltEntityRequired(BeltEntity _minBeltEntityRequired) {
+        this._minBeltEntityRequired = _minBeltEntityRequired;
     }
 
     public String getCreatedByEmail() {
-        return createdByEmail;
+        return _createdByEmail;
     }
 
-    public void setCreatedByEmail(String createdByEmail) {
-        this.createdByEmail = createdByEmail;
+    public void setCreatedByEmail(String _createdByEmail) {
+        this._createdByEmail = _createdByEmail;
     }
 }

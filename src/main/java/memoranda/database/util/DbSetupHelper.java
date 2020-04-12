@@ -3,7 +3,6 @@ package main.java.memoranda.database.util;
 import main.java.memoranda.database.*;
 
 import java.sql.*;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -18,34 +17,34 @@ public class DbSetupHelper {
         dbSetupHelper.createDatabase();
         dbSetupHelper.createNeujahrskranzTables();
         //create test db
-        dbSetupHelper.setDbURL(SqlConstants.defaultTestDbLoc);
+        dbSetupHelper.setDbUrl(SqlConstants.DEFAULTTESTDBLOC);
         dbSetupHelper.createDatabase();
         dbSetupHelper.createNeujahrskranzTables();
         //add sample data to test
-        dbSetupHelper.addSampleDataToDb(SqlConstants.defaultTestDbLoc);
+        dbSetupHelper.addSampleDataToDb(SqlConstants.DEFAULTTESTDBLOC);
 
     }
 
-    private String dbURL;
+    private String _dbUrl;
 
     public DbSetupHelper() {
-        this.dbURL = SqlConstants.defaultDbLoc;
+        this._dbUrl = SqlConstants.DEFAULTDBLOC;
     }
-    public DbSetupHelper(String dbURL) {
-        this.dbURL = dbURL;
+    public DbSetupHelper(String _dbUrl) {
+        this._dbUrl = _dbUrl;
     }
-    public String getDbURL() {
-        return dbURL;
+    public String getDbUrl() {
+        return _dbUrl;
     }
-    public void setDbURL(String dbURL) {
-        this.dbURL = dbURL;
+    public void setDbUrl(String _dbURL) {
+        this._dbUrl = _dbURL;
     }
 
     /*
     creates an sqlite database at dbURL
      */
     public void createDatabase(){
-        try (Connection conn = DriverManager.getConnection(dbURL)) {
+        try (Connection conn = DriverManager.getConnection(_dbUrl)) {
             if (conn != null) {
                 System.out.println("A new database has been created.");
             }
@@ -58,7 +57,7 @@ public class DbSetupHelper {
      */
     public void closeDatabase(){
         try {
-            Connection conn = DriverManager.getConnection(dbURL);
+            Connection conn = DriverManager.getConnection(_dbUrl);
             conn.close();
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -70,7 +69,7 @@ public class DbSetupHelper {
     out of what the method is doing.
      */
     public void createTable(String sql, String tableName){
-        try (Connection conn = DriverManager.getConnection(dbURL);
+        try (Connection conn = DriverManager.getConnection(_dbUrl);
              Statement stmt = conn.createStatement()) {
             stmt.execute(sql);
             System.out.println("Table: " + tableName + " was created.");
@@ -137,8 +136,8 @@ public class DbSetupHelper {
     adds sample data to the database at databaseURL, this method is tightly coupled with the create table method
     and has very specific expecations about what tables exist.
      */
-    public void addSampleDataToDb(String databaseURL) throws SQLException {
-        DbCreateQueries dcq = new DbCreateQueries(databaseURL);
+    public void addSampleDataToDb(String databaseUrl) throws SQLException {
+        DbCreateQueries dcq = new DbCreateQueries(databaseUrl);
         RoleEntity customer = new RoleEntity(RoleEntity.UserRole.customer);
         RoleEntity admin = new RoleEntity(RoleEntity.UserRole.admin);
         RoleEntity trainer = new RoleEntity(RoleEntity.UserRole.trainer);
@@ -162,8 +161,8 @@ public class DbSetupHelper {
         dcq.insertEnrolledUser(2, "kevin@gmail.com");
     }
 
-    private void testAndPrintDataFromDb() throws SQLException {
-        DbReadQueries drq = new DbReadQueries(SqlConstants.defaultTestDbLoc);
+    private void _testAndPrintDataFromDb(String databaseUrl) throws SQLException {
+        DbReadQueries drq = new DbReadQueries(databaseUrl);
 
         UserEntity user = null;
         try {

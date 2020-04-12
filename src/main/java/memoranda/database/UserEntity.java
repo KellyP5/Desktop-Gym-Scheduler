@@ -4,87 +4,87 @@ package main.java.memoranda.database;
 UserEntity is what is used for all SQL queries related to USER table.
  */
 public class UserEntity {
-    private String firstName;
-    private String lastName;
-    private String password;
-    private String email;
-    private RoleEntity role;
-    private BeltEntity belt;
-    private BeltEntity trainingBelt;
+    private String _firstName;
+    private String _lastName;
+    private String _password;
+    private String _email;
+    private RoleEntity _role;
+    private BeltEntity _belt;
+    private BeltEntity _trainingBelt;
 
-    public UserEntity(String firstName, String lastName, String password, String email, RoleEntity role) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.email = email;
-        this.role = role;
+    public UserEntity(String _firstName, String _lastName, String _password, String _email, RoleEntity _role) {
+        this._firstName = _firstName;
+        this._lastName = _lastName;
+        this._password = _password;
+        this._email = _email;
+        this._role = _role;
     }
 
-    public UserEntity(String firstName, String lastName, String password, String email, RoleEntity role, BeltEntity belt, BeltEntity trainingBelt) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.belt = belt;
-        this.trainingBelt = trainingBelt;
+    public UserEntity(String _firstName, String _lastName, String _password, String _email, RoleEntity _role, BeltEntity _belt, BeltEntity _trainingBelt) {
+        this._firstName = _firstName;
+        this._lastName = _lastName;
+        this._password = _password;
+        this._email = _email;
+        this._role = _role;
+        this._belt = _belt;
+        this._trainingBelt = _trainingBelt;
     }
 
     public String getEmail() {
-        return email;
+        return _email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this._email = email;
     }
 
 
     public String getFirstName() {
-        return firstName;
+        return _firstName;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this._firstName = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return _lastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this._lastName = lastName;
     }
 
     public String getPassword() {
-        return password;
+        return _password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this._password = password;
     }
 
     public RoleEntity getRole() {
-        return role;
+        return _role;
     }
 
     public void setRole(RoleEntity role) {
-        this.role = role;
+        this._role = role;
     }
 
     public BeltEntity getBelt() {
-        return belt;
+        return _belt;
     }
 
     public void setBelt(BeltEntity belt) {
-        this.belt = belt;
+        this._belt = belt;
     }
 
     public BeltEntity getTrainingBelt() {
-        return trainingBelt;
+        return _trainingBelt;
     }
 
     public void setTrainingBelt(BeltEntity trainingBelt) {
-        this.trainingBelt = trainingBelt;
+        this._trainingBelt = trainingBelt;
     }
 
 

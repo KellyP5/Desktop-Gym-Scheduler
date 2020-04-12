@@ -10,10 +10,10 @@ helpful utility class for various create (insert) queries
  */
 public class DbCreateQueries {
 
-    private String dbURL;
+    private String _dbUrl;
 
     public DbCreateQueries(String url) {
-        this.dbURL = url;
+        this._dbUrl = url;
     }
 
     /*
@@ -23,7 +23,7 @@ public class DbCreateQueries {
     */
     public void insertUser(String email, String firstName, String lastName, String password, RoleEntity role) throws SQLException {
         String sql = "INSERT INTO USER(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
@@ -50,7 +50,7 @@ public class DbCreateQueries {
                             BeltEntity belt,
                             BeltEntity trainingBelt) throws SQLException {
         String sql = "INSERT INTO USER(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
@@ -77,7 +77,7 @@ public class DbCreateQueries {
                              BeltEntity minBeltRequired,
                              String createdByEmail) throws SQLException {
         String sql = "INSERT INTO GYMCLASS(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired,CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, roomNumber);
         pstmt.setString(2, startDate);
@@ -95,7 +95,7 @@ public class DbCreateQueries {
      */
     public void insertTrainerAvailability(String trainerEmail, String startDate, double startTime, double endTime) throws SQLException {
         String sql = "INSERT INTO TRAINERAVAILABILITY(TrainerEmail,StartDate,StartTime,EndTime) VALUES(?,?,?,?)";
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, trainerEmail);
         pstmt.setString(2, startDate);
@@ -109,7 +109,7 @@ public class DbCreateQueries {
      */
     public void insertEnrolledUser(int classId, String userEmail) throws SQLException {
         String sql = "INSERT INTO ENROLLEDUSER(ClassId,UserEmail) VALUES(?,?)";
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, classId);
         pstmt.setString(2, userEmail);

@@ -4,7 +4,6 @@ import main.java.memoranda.database.*;
 
 
 import java.sql.*;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -18,10 +17,10 @@ public class DbReadQueries {
 
     public static final int MIN_PER_HOUR = 60;
     public static final double MOVE_DECIMAL_LEFT_ONE = .1;
-    private String dbURL;
+    private String _dbUrl;
 
     public DbReadQueries(String url) {
-        this.dbURL = url;
+        this._dbUrl = url;
     }
 
     /*
@@ -30,12 +29,12 @@ public class DbReadQueries {
     public UserEntity getUserByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM user WHERE Email=?";
 
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
 
-        return getUserFromResultSet(rs);
+        return _getUserFromResultSet(rs);
     }
 
     /*
@@ -44,13 +43,13 @@ public class DbReadQueries {
     public ArrayList<UserEntity> getAllUsers() throws SQLException {
         String sql = "SELECT * FROM user";
 
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         Statement statement  = conn.createStatement();
         ResultSet rs = statement.executeQuery(sql);
 
         ArrayList<UserEntity> users = new ArrayList<>();
         while(rs.next()){
-            users.add(getUserFromResultSet(rs));
+            users.add(_getUserFromResultSet(rs));
         }
         return users;
     }
@@ -62,14 +61,14 @@ public class DbReadQueries {
                      "INNER JOIN ENROLLEDUSER on ENROLLEDUSER.ClassId = GYMCLASS.Id " +
                      "WHERE ENROLLEDUSER.UserEmail=?";
 
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
 
         ArrayList<GymClassEntity> gymClasses = new ArrayList<>();
         while(rs.next()){
-            gymClasses.add(getGymClassFromResultSet(rs));
+            gymClasses.add(_getGymClassFromResultSet(rs));
         }
         return gymClasses;
     }
@@ -79,17 +78,17 @@ public class DbReadQueries {
     public ArrayList<TrainerAvailabilityEntity> getTrainerDateTimeAvailabilityByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM TRAINERAVAILABILITY WHERE TRAINERAVAILABILITY.TrainerEmail=?";
 
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
 
         ArrayList<TrainerAvailabilityEntity> trainerAvailabilities = new ArrayList<>();
         while(rs.next()){
-            LocalDateTime startDateTime = getLocalDateTimeFromDbFields(
+            LocalDateTime startDateTime = _getLocalDateTimeFromDbFields(
                     rs.getString("StartDate"),
                     rs.getDouble("StartTime"));
-            LocalDateTime stopDateTime = getLocalDateTimeFromDbFields(
+            LocalDateTime stopDateTime = _getLocalDateTimeFromDbFields(
                     rs.getString("StartDate"),
                     rs.getDouble("EndTime"));
             trainerAvailabilities.add(new TrainerAvailabilityEntity(startDateTime, stopDateTime));
@@ -105,14 +104,14 @@ public class DbReadQueries {
 
         String sql = "SELECT * FROM GYMCLASS WHERE StartDate=?";
 
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,strDate);
         ResultSet rs  = pstmt.executeQuery();
 
         ArrayList<GymClassEntity> gymClasses = new ArrayList<>();
         while(rs.next()){
-            gymClasses.add(getGymClassFromResultSet(rs));
+            gymClasses.add(_getGymClassFromResultSet(rs));
         }
         return gymClasses;
     }
@@ -122,27 +121,27 @@ public class DbReadQueries {
     public ArrayList<UserEntity> getAllUsersOfCertainRole(RoleEntity role) throws SQLException {
         String sql = "SELECT * FROM USER WHERE Role=?";
 
-        Connection conn = DriverManager.getConnection(dbURL);
+        Connection conn = DriverManager.getConnection(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,role.userRole.name().toLowerCase());
         ResultSet rs  = pstmt.executeQuery();
 
         ArrayList<UserEntity> users = new ArrayList<>();
         while(rs.next()){
-            users.add(getUserFromResultSet(rs));
+            users.add(_getUserFromResultSet(rs));
         }
         return users;
     }
     /*
     helper method for creating and returning a GymClassEntity from a result set
      */
-    private GymClassEntity getGymClassFromResultSet(ResultSet rs) throws SQLException {
+    private GymClassEntity _getGymClassFromResultSet(ResultSet rs) throws SQLException {
 
-        LocalDateTime startDateTime = getLocalDateTimeFromDbFields(
+        LocalDateTime startDateTime = _getLocalDateTimeFromDbFields(
                 rs.getString("StartDate"),
                 rs.getDouble("StartTime"));
 
-        LocalDateTime endDateTime = getLocalDateTimeFromDbFields(
+        LocalDateTime endDateTime = _getLocalDateTimeFromDbFields(
                 rs.getString("StartDate"),
                 rs.getDouble("EndTime"));
 
@@ -163,7 +162,7 @@ public class DbReadQueries {
     helper method for getting a LocalDateTime from a string representing the date with the format MM/dd/yyyy and a
     double, which represents the time on a 24 hour period.  Ex: 13.5 is 13:30, which is 1:30pm
      */
-    private LocalDateTime getLocalDateTimeFromDbFields(String strDate, double time) {
+    private LocalDateTime _getLocalDateTimeFromDbFields(String strDate, double time) {
         //get LocalDate
         DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         LocalDate localDate = LocalDate.parse(strDate, f);
@@ -180,7 +179,7 @@ public class DbReadQueries {
     /*
     helper method for creating and returning a UserEntity from the result set provided
      */
-    private UserEntity getUserFromResultSet(ResultSet rs) throws SQLException {
+    private UserEntity _getUserFromResultSet(ResultSet rs) throws SQLException {
         String strBelt = rs.getString("Belt");
         BeltEntity belt = null;
         if (strBelt != null){

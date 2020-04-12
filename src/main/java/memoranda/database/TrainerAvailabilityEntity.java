@@ -7,27 +7,27 @@ TrainerAvailabilityEntity is whats returned and used for all SQL queries related
 This shows what the trainers availability is to be scheduled for gym classes.
  */
 public class TrainerAvailabilityEntity {
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
+    private LocalDateTime _startDateTime;
+    private LocalDateTime _endDateTime;
 
-    public TrainerAvailabilityEntity(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+    public TrainerAvailabilityEntity(LocalDateTime _startDateTime, LocalDateTime _endDateTime) {
+        this._startDateTime = _startDateTime;
+        this._endDateTime = _endDateTime;
     }
 
     public LocalDateTime getStartDateTime() {
-        return startDateTime;
+        return _startDateTime;
     }
 
-    public void setStartDateTime(LocalDateTime startDateTime) {
-        this.startDateTime = startDateTime;
+    public void setStartDateTime(LocalDateTime _startDateTime) {
+        this._startDateTime = _startDateTime;
     }
 
     public LocalDateTime getEndDateTime() {
-        return endDateTime;
+        return _endDateTime;
     }
 
-    public void setEndDateTime(LocalDateTime endDateTime) {
-        this.endDateTime = endDateTime;
+    public void setEndDateTime(LocalDateTime _endDateTime) {
+        this._endDateTime = _endDateTime;
     }
 }

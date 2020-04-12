@@ -10,10 +10,10 @@ helpful utility class for various create (insert) queries
  */
 public class DbCreateQueries {
 
-    private Connection _dbConnection;
+    private String _dbUrl;
 
-    public DbCreateQueries(Connection dbConn) {
-        this._dbConnection = dbConn;
+    public DbCreateQueries(String dbUrl) {
+        this._dbUrl = dbUrl;
     }
 
     /*
@@ -29,7 +29,8 @@ public class DbCreateQueries {
         String sql = "INSERT INTO USER" +
                 "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
 
-        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
         pstmt.setString(3, lastName);
@@ -39,6 +40,8 @@ public class DbCreateQueries {
         pstmt.setNull(7, Types.NULL);
         pstmt.executeUpdate();
 
+        pstmt.close();
+        conn.close();
     }
     /*
     add a new user to the USER table, example usage:
@@ -57,7 +60,8 @@ public class DbCreateQueries {
         String sql = "INSERT INTO USER" +
                 "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
 
-        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
         pstmt.setString(3, lastName);
@@ -67,6 +71,8 @@ public class DbCreateQueries {
         pstmt.setString(7, trainingBelt.rank.name());
         pstmt.executeUpdate();
 
+        pstmt.close();
+        conn.close();
     }
     /*
     add a new class to the GYMCLASS table, example usage:
@@ -88,7 +94,8 @@ public class DbCreateQueries {
         "(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
         "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
 
-        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, roomNumber);
         pstmt.setString(2, startDate);
         pstmt.setDouble(3, startTime);
@@ -98,6 +105,9 @@ public class DbCreateQueries {
         pstmt.setString(7, minBeltRequired.rank.name());
         pstmt.setString(8, createdByEmail);
         pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
     }
     /*
     add a new class to the GYMCLASS table, example usage:
@@ -120,7 +130,8 @@ public class DbCreateQueries {
                 "(Id, RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
                 "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?,?)";
 
-        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, id);
         pstmt.setInt(2, roomNumber);
         pstmt.setString(3, startDate);
@@ -131,6 +142,9 @@ public class DbCreateQueries {
         pstmt.setString(8, minBeltRequired.rank.name());
         pstmt.setString(9, createdByEmail);
         pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
     }
 
 
@@ -145,12 +159,16 @@ public class DbCreateQueries {
         String sql = "INSERT INTO TRAINERAVAILABILITY" +
                 "(TrainerEmail,StartDate,StartTime,EndTime) VALUES(?,?,?,?)";
 
-        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, trainerEmail);
         pstmt.setString(2, startDate);
         pstmt.setDouble(3, startTime);
         pstmt.setDouble(4, endTime);
         pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
     }
     /*
     insert a new user that's signed up for a class (add user to EnrolledUser), example usage:
@@ -159,10 +177,13 @@ public class DbCreateQueries {
     public void insertEnrolledUser(int classId, String userEmail) throws SQLException {
         String sql = "INSERT INTO ENROLLEDUSER(ClassId,UserEmail) VALUES(?,?)";
 
-        PreparedStatement pstmt = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, classId);
         pstmt.setString(2, userEmail);
         pstmt.executeUpdate();
 
+        pstmt.close();
+        conn.close();
     }
 }

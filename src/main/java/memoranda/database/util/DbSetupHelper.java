@@ -10,10 +10,10 @@ import java.util.ArrayList;
 Utility class with many helpful methods for setup and configuration of the real db and test db
  */
 public class DbSetupHelper {
-    private Connection _dbConnection;
+    private String _dbUrl;
 
-    public DbSetupHelper(Connection _dbConnection) {
-        this._dbConnection = _dbConnection;
+    public DbSetupHelper(String dbUrl) {
+        this._dbUrl = dbUrl;
     }
 
     /*
@@ -21,7 +21,8 @@ public class DbSetupHelper {
      */
     public void closeDatabase(){
         try {
-            _dbConnection.close();
+            Connection conn = DriverManager.getConnection(_dbUrl);
+            conn.close();
         } catch (SQLException e){
             System.out.println(e.getMessage());
             System.out.println("failed to close!");
@@ -32,9 +33,13 @@ public class DbSetupHelper {
     a nice print out of what the method is doing.
      */
     public void createTable(String sql, String tableName) throws SQLException {
-        Statement stmt = _dbConnection.createStatement();
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        Statement stmt = conn.createStatement();
         stmt.execute(sql);
         System.out.println("Table: " + tableName + " was created.");
+
+        stmt.close();
+        conn.close();
     }
     /*
     creates tables specific to the Neujahskranz project
@@ -137,14 +142,18 @@ public class DbSetupHelper {
         sqlDropStatements.add("DROP TABLE IF EXISTS TRAINERAVAILABILITY");
         sqlDropStatements.add("DROP TABLE IF EXISTS ENROLLEDUSER");
 
-        Statement statement  = _dbConnection.createStatement();
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        Statement statement  = conn.createStatement();
 
         for(String dropStatement : sqlDropStatements){
             statement.executeUpdate(dropStatement);
         }
+
+        statement.close();
+        conn.close();
     }
 
-    private void _testAndPrintDataFromDb(Connection databaseUrl) throws SQLException {
+    private void _testAndPrintDataFromDb(String databaseUrl) throws SQLException {
         DbReadQueries drq = new DbReadQueries(databaseUrl);
 
         UserEntity user = null;

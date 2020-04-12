@@ -39,12 +39,12 @@ public class SqlConnection {
         Connection testDbConn = DriverManager.getConnection(SqlConstants.DEFAULTTESTDBLOC);
 
 
-        drq = new DbReadQueries(realDbConn);
-        drqTest = new DbReadQueries(testDbConn);
-        dcq = new DbCreateQueries(realDbConn);
-        dcqTest = new DbCreateQueries(testDbConn);
-        dbSetupHelper = new DbSetupHelper(realDbConn);
-        dbSetupHelperTest = new DbSetupHelper(testDbConn);
+        drq = new DbReadQueries(SqlConstants.DEFAULTDBLOC);
+        drqTest = new DbReadQueries(SqlConstants.DEFAULTTESTDBLOC);
+        dcq = new DbCreateQueries(SqlConstants.DEFAULTDBLOC);
+        dcqTest = new DbCreateQueries(SqlConstants.DEFAULTTESTDBLOC);
+        dbSetupHelper = new DbSetupHelper(SqlConstants.DEFAULTDBLOC);
+        dbSetupHelperTest = new DbSetupHelper(SqlConstants.DEFAULTTESTDBLOC);
     }
 
     /*

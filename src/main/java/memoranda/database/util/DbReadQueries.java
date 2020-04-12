@@ -14,11 +14,11 @@ Class for all read related queries
  */
 public class DbReadQueries {
 
-    private Connection _dbConnection;
+    private String _dbUrl;
 
 
-    public DbReadQueries(Connection dbConn) {
-        this._dbConnection = dbConn;
+    public DbReadQueries(String dbUrl) {
+        this._dbUrl = dbUrl;
     }
 
     /*
@@ -27,11 +27,14 @@ public class DbReadQueries {
     public UserEntity getUserByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM user WHERE Email=?";
 
-        PreparedStatement pstmt  = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
-
-        return _getUserFromResultSet(rs);
+        UserEntity userEntity = _getUserFromResultSet(rs);
+        pstmt.close();
+        conn.close();
+        return userEntity;
     }
 
     /*
@@ -40,13 +43,16 @@ public class DbReadQueries {
     public ArrayList<UserEntity> getAllUsers() throws SQLException {
         String sql = "SELECT * FROM user";
 
-        Statement statement  = _dbConnection.createStatement();
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        Statement statement  = conn.createStatement();
         ResultSet rs = statement.executeQuery(sql);
 
         ArrayList<UserEntity> users = new ArrayList<>();
         while(rs.next()){
             users.add(_getUserFromResultSet(rs));
         }
+        statement.close();
+        conn.close();
         return users;
     }
     /*
@@ -58,7 +64,8 @@ public class DbReadQueries {
                      "INNER JOIN ENROLLEDUSER on ENROLLEDUSER.ClassId = GYMCLASS.Id " +
                      "WHERE ENROLLEDUSER.UserEmail=?";
 
-        PreparedStatement pstmt  = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
 
@@ -66,6 +73,8 @@ public class DbReadQueries {
         while(rs.next()){
             gymClasses.add(_getGymClassFromResultSet(rs));
         }
+        pstmt.close();
+        conn.close();
         return gymClasses;
     }
     /*
@@ -75,7 +84,8 @@ public class DbReadQueries {
             throws SQLException {
         String sql = "SELECT * FROM TRAINERAVAILABILITY WHERE TRAINERAVAILABILITY.TrainerEmail=?";
 
-        PreparedStatement pstmt  = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
 
@@ -89,6 +99,9 @@ public class DbReadQueries {
                     rs.getDouble("EndTime"));
             trainerAvailabilities.add(new TrainerAvailabilityEntity(startDateTime, stopDateTime));
         }
+
+        pstmt.close();
+        conn.close();
         return trainerAvailabilities;
     }
     /*
@@ -99,7 +112,8 @@ public class DbReadQueries {
 
         String sql = "SELECT * FROM GYMCLASS WHERE StartDate=?";
 
-        PreparedStatement pstmt  = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,strDate);
         ResultSet rs  = pstmt.executeQuery();
 
@@ -107,6 +121,9 @@ public class DbReadQueries {
         while(rs.next()){
             gymClasses.add(_getGymClassFromResultSet(rs));
         }
+
+        pstmt.close();
+        conn.close();
         return gymClasses;
     }
     /*
@@ -115,7 +132,8 @@ public class DbReadQueries {
     public ArrayList<UserEntity> getAllUsersOfCertainRole(RoleEntity role) throws SQLException {
         String sql = "SELECT * FROM USER WHERE Role=?";
 
-        PreparedStatement pstmt  = _dbConnection.prepareStatement(sql);
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,role.userRole.name().toLowerCase());
         ResultSet rs  = pstmt.executeQuery();
 
@@ -123,6 +141,9 @@ public class DbReadQueries {
         while(rs.next()){
             users.add(_getUserFromResultSet(rs));
         }
+
+        pstmt.close();
+        conn.close();
         return users;
     }
     /*

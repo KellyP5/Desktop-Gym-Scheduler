@@ -2,6 +2,10 @@ package main.java.memoranda.database;
 
 import java.time.LocalDateTime;
 
+/*
+TrainerAvailabilityEntity is whats returned and used for all SQL queries related to the TrainerAvailability Table.
+This shows what the trainers availability is to be scheduled for gym classes.
+ */
 public class TrainerAvailabilityEntity {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;

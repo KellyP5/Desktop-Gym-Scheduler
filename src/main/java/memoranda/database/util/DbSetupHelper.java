@@ -7,9 +7,12 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/*
+Utility class with many helpful methods for setup and configuration of the real db and test db
+ */
 public class DbSetupHelper {
 
-    public static void main(String[] args) throws SQLException, ParseException {
+    public static void main(String[] args) throws SQLException {
         //create primary db
         DbSetupHelper dbSetupHelper = new DbSetupHelper();
         dbSetupHelper.createDatabase();
@@ -141,7 +144,7 @@ public class DbSetupHelper {
         dcq.insertEnrolledUser(2, "kevin@gmail.com");
     }
 
-    private void testAndPrintDataFromDb() throws SQLException, ParseException {
+    private void testAndPrintDataFromDb() throws SQLException {
         DbReadQueries drq = new DbReadQueries(SqlConstants.defaultTestDbLoc);
 
         UserEntity user = null;

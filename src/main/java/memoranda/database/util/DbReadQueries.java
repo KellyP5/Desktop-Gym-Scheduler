@@ -11,7 +11,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-
+/*
+Class for all read related queries
+ */
 public class DbReadQueries {
 
     public static final int MIN_PER_HOUR = 60;
@@ -47,7 +49,7 @@ public class DbReadQueries {
         return users;
     }
 
-    public ArrayList<GymClassEntity> getClassesUserEnrolledInByEmail(String email) throws SQLException, ParseException {
+    public ArrayList<GymClassEntity> getClassesUserEnrolledInByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM GYMCLASS " +
                      "INNER JOIN ENROLLEDUSER on ENROLLEDUSER.ClassId = GYMCLASS.Id " +
                      "WHERE ENROLLEDUSER.UserEmail=?";
@@ -85,7 +87,7 @@ public class DbReadQueries {
         return trainerAvailabilities;
     }
 
-    public ArrayList<GymClassEntity> getAllClassesByDate(LocalDate localDate) throws SQLException, ParseException {
+    public ArrayList<GymClassEntity> getAllClassesByDate(LocalDate localDate) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         String strDate = localDate.format(formatter);
 

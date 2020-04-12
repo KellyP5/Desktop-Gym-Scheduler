@@ -2,6 +2,10 @@ package main.java.memoranda.database;
 
 import java.time.LocalDateTime;
 
+/*
+GymClassEntity is what is returned by any SQL related queries related to the GymClass table.  This class is also used
+for inserts.
+ */
 public class GymClassEntity {
     private int Id;
     private int roomNumber;

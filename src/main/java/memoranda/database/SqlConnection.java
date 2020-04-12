@@ -3,8 +3,11 @@ package main.java.memoranda.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
+/*
+SqlConnection is a singleton pattern.  This class may only be needed if we have multiple threads that are reading/writing
+to the database.  Until users experience issues, they can utilize the Db___Queries classes directly.
+ */
 public class SqlConnection {
     private static SqlConnection instance = null;
     private final String jdbcUrl = "jdbc:sqlite:/main/resources/database/real.db";
@@ -22,10 +25,8 @@ public class SqlConnection {
     }
 
     private Connection getConnection(String url) throws SQLException{
-        Connection conn = null;
         try {
-            conn = DriverManager.getConnection(url);
-            return conn;
+            return DriverManager.getConnection(url);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new SQLException("Cannot connect to database", e);

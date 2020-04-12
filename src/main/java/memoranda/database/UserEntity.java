@@ -1,6 +1,8 @@
 package main.java.memoranda.database;
 
-
+/*
+UserEntity is what is used for all SQL queries related to USER table.
+ */
 public class UserEntity {
     private String firstName;
     private String lastName;

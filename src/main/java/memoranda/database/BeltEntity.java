@@ -1,5 +1,8 @@
 package main.java.memoranda.database;
 
+/*
+Belt Entity is the entity used for all Belt related SQL
+ */
 public class BeltEntity {
     public enum Rank{
         white,

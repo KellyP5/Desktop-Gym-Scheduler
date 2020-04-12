@@ -40,6 +40,10 @@ public class DbSetupHelper {
     public void setDbURL(String dbURL) {
         this.dbURL = dbURL;
     }
+
+    /*
+    creates an sqlite database at dbURL
+     */
     public void createDatabase(){
         try (Connection conn = DriverManager.getConnection(dbURL)) {
             if (conn != null) {
@@ -49,6 +53,9 @@ public class DbSetupHelper {
             System.out.println(e.getMessage());
         }
     }
+    /*
+    closes the database at dbURL
+     */
     public void closeDatabase(){
         try {
             Connection conn = DriverManager.getConnection(dbURL);
@@ -58,6 +65,10 @@ public class DbSetupHelper {
             System.out.println("failed to close!");
         }
     }
+    /*
+    creates a table at dbURL using the sql string passed in.  The tableName string is just used for a nice print
+    out of what the method is doing.
+     */
     public void createTable(String sql, String tableName){
         try (Connection conn = DriverManager.getConnection(dbURL);
              Statement stmt = conn.createStatement()) {
@@ -67,6 +78,9 @@ public class DbSetupHelper {
             System.out.println(e.getMessage());
         }
     }
+    /*
+    creates tables specific to the Neujahskranz project
+     */
     public void createNeujahrskranzTables(){
         createDatabase();
         System.out.println("Preparing to create tables..note that if the tables already exist they will not be created");
@@ -119,6 +133,10 @@ public class DbSetupHelper {
                 + ");";
         createTable(enrolledUsersSql, "EnrolledUser");
     }
+    /*
+    adds sample data to the database at databaseURL, this method is tightly coupled with the create table method
+    and has very specific expecations about what tables exist.
+     */
     public void addSampleDataToDb(String databaseURL) throws SQLException {
         DbCreateQueries dcq = new DbCreateQueries(databaseURL);
         RoleEntity customer = new RoleEntity(RoleEntity.UserRole.customer);

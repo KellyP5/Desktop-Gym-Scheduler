@@ -24,6 +24,9 @@ public class DbReadQueries {
         this.dbURL = url;
     }
 
+    /*
+    gets all of a USER's information based on the email provided
+     */
     public UserEntity getUserByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM user WHERE Email=?";
 
@@ -35,6 +38,9 @@ public class DbReadQueries {
         return getUserFromResultSet(rs);
     }
 
+    /*
+    returns list of all users in the USER table
+     */
     public ArrayList<UserEntity> getAllUsers() throws SQLException {
         String sql = "SELECT * FROM user";
 
@@ -48,7 +54,9 @@ public class DbReadQueries {
         }
         return users;
     }
-
+    /*
+    returns all classes a specific user is enrolled in
+     */
     public ArrayList<GymClassEntity> getClassesUserEnrolledInByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM GYMCLASS " +
                      "INNER JOIN ENROLLEDUSER on ENROLLEDUSER.ClassId = GYMCLASS.Id " +
@@ -65,7 +73,9 @@ public class DbReadQueries {
         }
         return gymClasses;
     }
-
+    /*
+    returns all of a specific trainers Availability, based on email
+     */
     public ArrayList<TrainerAvailabilityEntity> getTrainerDateTimeAvailabilityByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM TRAINERAVAILABILITY WHERE TRAINERAVAILABILITY.TrainerEmail=?";
 
@@ -86,7 +96,9 @@ public class DbReadQueries {
         }
         return trainerAvailabilities;
     }
-
+    /*
+    returns all classes on a specific date, expects the date to be in the format MM/dd/yyyy
+     */
     public ArrayList<GymClassEntity> getAllClassesByDate(LocalDate localDate) throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         String strDate = localDate.format(formatter);
@@ -104,7 +116,9 @@ public class DbReadQueries {
         }
         return gymClasses;
     }
-
+    /*
+    gets all users based on a role provided, ex: get all admins, etc.
+     */
     public ArrayList<UserEntity> getAllUsersOfCertainRole(RoleEntity role) throws SQLException {
         String sql = "SELECT * FROM USER WHERE Role=?";
 
@@ -119,7 +133,9 @@ public class DbReadQueries {
         }
         return users;
     }
-
+    /*
+    helper method for creating and returning a GymClassEntity from a result set
+     */
     private GymClassEntity getGymClassFromResultSet(ResultSet rs) throws SQLException {
 
         LocalDateTime startDateTime = getLocalDateTimeFromDbFields(
@@ -143,7 +159,10 @@ public class DbReadQueries {
                 rs.getString("CreatedByEmail")
         );
     }
-
+    /*
+    helper method for getting a LocalDateTime from a string representing the date with the format MM/dd/yyyy and a
+    double, which represents the time on a 24 hour period.  Ex: 13.5 is 13:30, which is 1:30pm
+     */
     private LocalDateTime getLocalDateTimeFromDbFields(String strDate, double time) {
         //get LocalDate
         DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -158,7 +177,9 @@ public class DbReadQueries {
 
         return LocalDateTime.of(localDate, localTime);
     }
-
+    /*
+    helper method for creating and returning a UserEntity from the result set provided
+     */
     private UserEntity getUserFromResultSet(ResultSet rs) throws SQLException {
         String strBelt = rs.getString("Belt");
         BeltEntity belt = null;

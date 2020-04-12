@@ -17,6 +17,9 @@ public class SqlConnection {
 
     }
 
+    /*
+    Utilized for singleton pattern, returns new instance if not already in existance
+     */
     public static SqlConnection getInstance() {
         if(instance == null){
             instance = new SqlConnection();
@@ -24,6 +27,9 @@ public class SqlConnection {
         return instance;
     }
 
+    /*
+    returns the connection to the database at url
+     */
     private Connection getConnection(String url) throws SQLException{
         try {
             return DriverManager.getConnection(url);

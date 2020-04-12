@@ -19,7 +19,7 @@ public class DbSetupHelper {
         dbSetupHelper.createDatabase();
         dbSetupHelper.createNeujahrskranzTables();
         //add sample data to test
-        dbSetupHelper.addSampleDataToTestDb(SqlConstants.defaultTestDbLoc);
+        dbSetupHelper.addSampleDataToDb(SqlConstants.defaultTestDbLoc);
 
     }
 
@@ -116,7 +116,7 @@ public class DbSetupHelper {
                 + ");";
         createTable(enrolledUsersSql, "EnrolledUser");
     }
-    public void addSampleDataToTestDb(String databaseURL) throws SQLException {
+    public void addSampleDataToDb(String databaseURL) throws SQLException {
         DbCreateQueries dcq = new DbCreateQueries(databaseURL);
         RoleEntity customer = new RoleEntity(RoleEntity.UserRole.customer);
         RoleEntity admin = new RoleEntity(RoleEntity.UserRole.admin);

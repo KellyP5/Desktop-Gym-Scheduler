@@ -18,6 +18,16 @@ public class UserEntity {
         this.role = role;
     }
 
+    public UserEntity(String firstName, String lastName, String password, String email, RoleEntity role, BeltEntity belt, BeltEntity trainingBelt) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.belt = belt;
+        this.trainingBelt = trainingBelt;
+    }
+
     public String getEmail() {
         return email;
     }

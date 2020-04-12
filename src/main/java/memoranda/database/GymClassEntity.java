@@ -1,24 +1,23 @@
 package main.java.memoranda.database;
 
-import main.java.memoranda.database.BeltEntity;
 import java.time.LocalDateTime;
 
 public class GymClassEntity {
     private int Id;
     private int roomNumber;
     private LocalDateTime startDateTime;
-    private float duration;
+    private LocalDateTime endDateTime;
     private String trainerEmail;
     private int maxClassSize;
     private BeltEntity minBeltEntityRequired;
     private String createdByEmail;
 
 
-    public GymClassEntity(int id, int roomNumber, LocalDateTime startDateTime, float duration, String trainerEmail, int maxClassSize, BeltEntity minBeltEntityRequired, String createdByEmail) {
+    public GymClassEntity(int id, int roomNumber, LocalDateTime startDateTime, LocalDateTime endDateTime, String trainerEmail, int maxClassSize, BeltEntity minBeltEntityRequired, String createdByEmail) {
         Id = id;
         this.roomNumber = roomNumber;
         this.startDateTime = startDateTime;
-        this.duration = duration;
+        this.endDateTime = endDateTime;
         this.trainerEmail = trainerEmail;
         this.maxClassSize = maxClassSize;
         this.minBeltEntityRequired = minBeltEntityRequired;
@@ -49,12 +48,12 @@ public class GymClassEntity {
         this.startDateTime = startDateTime;
     }
 
-    public float getDuration() {
-        return duration;
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 
-    public void setDuration(float duration) {
-        this.duration = duration;
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
     }
 
     public String getTrainerEmail() {

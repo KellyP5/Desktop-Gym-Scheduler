@@ -1,13 +1,14 @@
 package main.java.memoranda.database.util;
 
-import main.java.memoranda.database.BeltEntity;
-import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.*;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.util.ArrayList;
 
 public class DbSetupHelper {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, ParseException {
         //create primary db
         DbSetupHelper dbSetupHelper = new DbSetupHelper();
         dbSetupHelper.createDatabase();
@@ -94,24 +95,26 @@ public class DbSetupHelper {
 
         //create TRAINERAVAILABILITY
         String trainerAvailSql = "CREATE TABLE IF NOT EXISTS TRAINERAVAILABILITY (\n"
-                + "    TrainerEmail text PRIMARY KEY NOT NULL,\n"
+                + "    TrainerEmail text NOT NULL,\n"
                 + "    StartDate text NOT NULL,\n"
                 + "    StartTime real NOT NULL,\n"
                 + "    EndTime real NOT NULL,\n"
+                + "    PRIMARY KEY(TrainerEmail, StartDate, StartTime, EndTime),\n"
                 + "    FOREIGN KEY(TrainerEmail) REFERENCES USER(Email) ON DELETE CASCADE\n"
                 + ");";
         createTable(trainerAvailSql, "TrainerAvailability");
 
         //create ENROLLEDUSER
         String enrolledUsersSql = "CREATE TABLE IF NOT EXISTS ENROLLEDUSER (\n"
-                + "    ClassId integer PRIMARY KEY NOT NULL,\n"
+                + "    ClassId integer NOT NULL,\n"
                 + "    UserEmail text NOT NULL,\n"
+                + "    PRIMARY KEY(ClassId, UserEmail),\n"
                 + "    FOREIGN KEY(UserEmail) REFERENCES USER(Email) ON DELETE CASCADE\n"
                 + "    FOREIGN KEY(ClassId) REFERENCES GYMCLASS(Id) ON DELETE CASCADE\n"
                 + ");";
         createTable(enrolledUsersSql, "EnrolledUser");
     }
-    public void addSampleDataToTestDb(String databaseURL){
+    public void addSampleDataToTestDb(String databaseURL) throws SQLException {
         DbCreateQueries dcq = new DbCreateQueries(databaseURL);
         RoleEntity customer = new RoleEntity(RoleEntity.UserRole.customer);
         RoleEntity admin = new RoleEntity(RoleEntity.UserRole.admin);
@@ -122,10 +125,14 @@ public class DbSetupHelper {
         dcq.insertUser("steve@gmail.com", "steve", "jacobs", "foobar", admin);
         dcq.insertUser("sarah@gmail.com", "sarah", "baker", "abc123", trainer);
         dcq.insertUser("brenda@gmail.com", "brenda", "wiley", "sdfsdf", admin, blackBelt, blackBelt);
-        dcq.insertClass(1,"04-11-2020",12.0,13.0,"sarah@gmail.com",
+        dcq.insertClass(1,"04/11/2020",12.5,13.0,"sarah@gmail.com",
                 20,minRequiredBelt,"steve@gmail.com");
-        dcq.insertTrainerAvailability("sarah@gmail.com", "04-12-2020", 10.0,14.0);
+        dcq.insertClass(2,"04/12/2020",14.0,15.5,"sarah@gmail.com",
+                20,minRequiredBelt,"steve@gmail.com");
+        dcq.insertTrainerAvailability("sarah@gmail.com", "04/12/2020", 10.0,14.0);
+        dcq.insertTrainerAvailability("sarah@gmail.com", "04/12/2020", 15.0,18.0);
         dcq.insertEnrolledUser(1, "kevin@gmail.com");
-
+        dcq.insertEnrolledUser(1, "brenda@gmail.com");
+        dcq.insertEnrolledUser(2, "kevin@gmail.com");
     }
 }

@@ -43,7 +43,7 @@ public class UserManagement extends JPanel {
 
         this.userEntities = App.conn.getDrqTest().getAllUsers();
 
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BorderLayout());
 
         initButtons();//initializes all the buttons
         initTable();
@@ -52,14 +52,22 @@ public class UserManagement extends JPanel {
     }
 
     private void initButtons(){
-
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
         addUserButton = new JButton("Add User");
         editUser = new JButton("Edit User");
         deleteUser  = new JButton("Delete User");
 
-        this.add(this.addUserButton,BorderLayout.NORTH);
-        this.add(this.editUser,BorderLayout.NORTH);
-        this.add(this.deleteUser,BorderLayout.NORTH);
+        Dimension dem = new Dimension(100,100);
+        addUserButton.setPreferredSize(dem);
+        editUser.setPreferredSize(dem);
+        deleteUser.setPreferredSize(dem);
+        buttonPanel.add(this.addUserButton);
+        buttonPanel.add(this.editUser);
+        buttonPanel.add(this.deleteUser);
+
+        this.add(buttonPanel,BorderLayout.NORTH);
+
 
     }
 
@@ -79,8 +87,6 @@ public class UserManagement extends JPanel {
             d.add(e);
         }
 
-
-
         String[][] data = new String[d.size()][];
         for(int i = 0;i<d.size();i++){
             ArrayList<String> current = d.get(i);
@@ -93,25 +99,38 @@ public class UserManagement extends JPanel {
         }
 
 
-/*        String[][] data = {
-                { "n", "r", "r" },
-                { "r", "r", "r" }
-        };*/
-
         userList = new JTable(data,columnNames);
-        userList.setBounds(30,40,200,300);
-        //this.userList.setPreferredSize(new Dimension(500,500));
-        //this.setSize(500,200);
 
+        //allows you to select but prevents being able to edit
+        userList.setDefaultEditor(Object.class,null);
+
+        userList.setBounds(0,0,200,300);
         scrollPane = new JScrollPane(this.userList);
-        this.add(this.scrollPane, BorderLayout.SOUTH);
+        this.add(this.scrollPane, BorderLayout.CENTER);
 
     }
 
     private void setActions(){
 
+        this.addUserButton.addActionListener(actionEvent -> {
+            System.out.println("//TODO Add user button");
+            //TODO
+        });
 
+        this.editUser.addActionListener(actionEvent -> {
+            System.out.println("//TODO Edit user button");
+            //TODO
+        });
+
+        this.deleteUser.addActionListener(actionEvent -> {
+            System.out.println("//TODO Delete user button");
+            //TODO
+        });
 
     }
+
+
+
+
 
 }

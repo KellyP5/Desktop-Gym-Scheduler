@@ -208,11 +208,8 @@ public class LoginBox extends JFrame {
                     }
                 }
             }
-
-
         } catch (SQLException exc) {
             exc.printStackTrace();
         }
-
     }
 }

@@ -1,7 +1,9 @@
-package main.java.memoranda.ui;
+package main.java.memoranda.ui.usermanagment;
 
 
 import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.ui.App;
+import main.java.memoranda.ui.ExceptionDialog;
 
 import javax.swing.*;
 import java.awt.*;

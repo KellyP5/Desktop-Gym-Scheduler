@@ -42,7 +42,7 @@ public class WorkPanel extends JPanel {
     /**
      * The Files panel.
      */
-    public UserManagement filesPanel = new UserManagement();
+    public UserManagement userManagement = new UserManagement();
     /**
      * The Agenda b.
      */
@@ -237,7 +237,7 @@ public class WorkPanel extends JPanel {
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
-		panel.add(filesPanel, "FILES");
+		panel.add(userManagement, "USERMANAGMENT");
 		toolBar.add(agendaB, null);
 		toolBar.add(classesB, null);
 		toolBar.add(tasksB, null);
@@ -252,7 +252,7 @@ public class WorkPanel extends JPanel {
 		toolBar.setBorder(null);
 		panel.setBorder(null);
 		dailyItemsPanel.setBorder(null);
-		filesPanel.setBorder(null);
+		userManagement.setBorder(null);
 
 	}
 
@@ -269,7 +269,7 @@ public class WorkPanel extends JPanel {
 				tasksB_actionPerformed(null);
 			else if (pan.equals("CLASSES"))
 				classesB_actionPerformed(null);
-			else if (pan.equals("FILES"))
+			else if (pan.equals("USERMANAGMENT"))
 				filesB_actionPerformed(null);
 		}
 	}
@@ -328,9 +328,9 @@ public class WorkPanel extends JPanel {
      * @param e the e
      */
     public void filesB_actionPerformed(ActionEvent e) {
-		cardLayout1.show(panel, "FILES");
+		cardLayout1.show(panel, "USERMANAGMENT");
 		setCurrentButton(userMgmt);
-		Context.put("CURRENT_PANEL", "FILES");
+		Context.put("CURRENT_PANEL", "USERMANAGMENT");
 	}
 
     /**

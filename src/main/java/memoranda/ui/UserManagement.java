@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class UserManagement extends JPanel {
 
-    BorderLayout borderLayout1 = new BorderLayout();
+    BorderLayout borderLayout = new BorderLayout();
 
     public UserManagement() {
         try {
@@ -22,8 +22,16 @@ public class UserManagement extends JPanel {
      * @throws Exception the exception
      */
     void jbInit() throws Exception {
+        TextField txt = new TextField();
+        txt.setText("hello world!");
+        borderLayout.addLayoutComponent(txt,BorderLayout.CENTER);
 
-        this.setLayout(borderLayout1);
+        this.setLayout(borderLayout);
+
+
+
+
+
     }
 
 

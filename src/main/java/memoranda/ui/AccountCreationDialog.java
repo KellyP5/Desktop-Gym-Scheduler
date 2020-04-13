@@ -18,7 +18,7 @@ public class AccountCreationDialog extends JFrame {
     JButton createButton;
     JTextField firstName;
     JTextField lastName;
-    JTextField user;
+    JTextField email;
     JPasswordField pass;
     JPasswordField pass2;
     JLabel accountSelection;
@@ -40,7 +40,7 @@ public class AccountCreationDialog extends JFrame {
         createButton = new JButton("Create");
         firstName = new JTextField(20);
         lastName = new JTextField(20);
-        user = new JTextField(20);
+        email = new JTextField(20);
         pass = new JPasswordField(20);
         pass2 = new JPasswordField(20);
         trainerButton = new JRadioButton();
@@ -70,8 +70,8 @@ public class AccountCreationDialog extends JFrame {
         lastName.setText("Last Name");
         lastName.setForeground(Color.LIGHT_GRAY);
 
-        user.setText("E-mail");
-        user.setForeground(Color.LIGHT_GRAY);
+        email.setText("E-mail");
+        email.setForeground(Color.LIGHT_GRAY);
         pass.setForeground(Color.LIGHT_GRAY);
         pass.setEchoChar('*');
         pass2.setForeground(Color.LIGHT_GRAY);
@@ -79,7 +79,7 @@ public class AccountCreationDialog extends JFrame {
 
         accountCreate.setLayout(null);
 
-        user.setBounds(70, 230, 150, 25);
+        email.setBounds(70, 230, 150, 25);
         pass.setBounds(125, 270, 150, 25);
         pass2.setBounds(125, 310, 150, 25);
         password.setBounds(50, 270, 150, 25);
@@ -107,7 +107,7 @@ public class AccountCreationDialog extends JFrame {
         accountCreate.add(logo);
         accountCreate.add(firstName);
         accountCreate.add(lastName);
-        accountCreate.add(user);
+        accountCreate.add(email);
         accountCreate.add(pass);
         accountCreate.add(pass2);
         accountCreate.add(accountSelection);
@@ -178,16 +178,16 @@ public class AccountCreationDialog extends JFrame {
         });
 
         // When the cursor is in the Username Text Field
-        user.addFocusListener(new FocusListener() {
+        email.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent focusEvent) {
                 // Clear out the text field so the user can type
-                if (user.getText().equals("E-mail")) {
-                    user.setText("");
-                    user.setForeground(Color.BLACK);
+                if (email.getText().equals("E-mail")) {
+                    email.setText("");
+                    email.setForeground(Color.BLACK);
                 } else {
                     // Highlight all characters in text box
-                    user.selectAll();
+                    email.selectAll();
                 }
             }
 
@@ -196,9 +196,9 @@ public class AccountCreationDialog extends JFrame {
                 // When the user clicks/tabs away from Username,
                 // if nothing was typed in the box, put the grayed
                 // out 'Username' in the box
-                if (user.getText().equals("")) {
-                    user.setText("E-mail");
-                    user.setForeground(Color.LIGHT_GRAY);
+                if (email.getText().equals("")) {
+                    email.setText("E-mail");
+                    email.setForeground(Color.LIGHT_GRAY);
                 }
             }
         });
@@ -268,7 +268,6 @@ public class AccountCreationDialog extends JFrame {
      * @param error Message to display to the user
      */
     public void throwInputError (String error) {
-        System.out.println("Throwing input error");
         final JFrame parent = new JFrame();
         JOptionPane.showMessageDialog(parent, error);
     }
@@ -281,7 +280,7 @@ public class AccountCreationDialog extends JFrame {
         panel.add(new JLabel(""));
         panel.add(new JLabel("Last Name:     " + lastName.getText()));
         panel.add(new JLabel(""));
-        panel.add(new JLabel("E-mail:        " + user.getText()));
+        panel.add(new JLabel("E-mail:        " + email.getText()));
 
         int result = JOptionPane.showOptionDialog(null, panel, "",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
@@ -302,10 +301,11 @@ public class AccountCreationDialog extends JFrame {
             throwInputError("You did not enter a first name");
         } else if (lastName.getText().equals("Last Name")) {
             throwInputError("You did not enter a Last name");
-        } else if (user.getText().equals("E-mail")) {
+        } else if (email.getText().equals("E-mail")) {
             throwInputError("You did not enter an E-mail");
+        } else if (!email.getText().contains("@") || !email.getText().contains(".")) {
+            throwInputError("Invalid E-mail");
         } else if (pass.getPassword().length == 0) {
-            System.out.println(pass.getPassword());
             throwInputError("You did not enter a password");
         } else if (pass2.getPassword().length == 0) {
             throwInputError("You did not verify your password");
@@ -313,11 +313,11 @@ public class AccountCreationDialog extends JFrame {
             throwInputError("Your passwords do not match");
         } else if (trainerButton.isSelected() || studentButton.isSelected()){
             if (verifyInfo() == false) return;
-            System.out.println("Attempting to create account with E-mail: "+ user.getText() );
+            System.out.println("Attempting to create account with E-mail: "+ email.getText() );
             SqlConnection sql = SqlConnection.getInstance();
             DbReadQueries dbrq = sql.getDrq();
             try {
-                dbrq.getUserByEmail(user.getText());
+                dbrq.getUserByEmail(email.getText());
                 throwInputError("An account with that E-mail already exists!");
             } catch (SQLException ex) {
                 System.out.println("E-mail does not exist. Creating Account.");

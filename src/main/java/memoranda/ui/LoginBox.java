@@ -199,7 +199,7 @@ public class LoginBox extends JFrame {
 
                 if (user == null) {
                     // User doesn't exist, prompt to create account
-                    //
+                    // Pop up Account Creation
                     App.connection.getDcq().insertUser(email.getText(), "First", "Last", pass.getText(), new RoleEntity(RoleEntity.UserRole.trainer));
                 } else {
                     if (user.getPassword().equals(pass.getText())) {

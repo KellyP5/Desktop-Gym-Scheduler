@@ -1,20 +1,17 @@
 package main.java.memoranda.ui;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Toolkit;
+import main.java.memoranda.EventsScheduler;
+import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.util.Configuration;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Properties;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.UIManager;
-
-import main.java.memoranda.EventsScheduler;
-import main.java.memoranda.util.Configuration;
 //import org.swingexplorer.Log;
 
 /**
@@ -44,6 +41,8 @@ public class App {
      * The constant WEBSITE_URL.
      */
     public static final String WEBSITE_URL = "http://globogym.com";
+
+    public static SqlConnection conn = null;
 
 
 
@@ -93,6 +92,15 @@ public class App {
      */
     public App(boolean fullmode) throws IOException {
 		super();
+
+		try{
+			conn = SqlConnection.getInstance();
+			conn.getDcq().insertUser("admin@gym.com","adminFirst","adminLast","1234",new RoleEntity(RoleEntity.UserRole.admin));
+		}catch(SQLException ecp){
+			ecp.printStackTrace();
+		}
+
+
 
 		// Updates the version and build numbers via the build.gradle file
 		try {

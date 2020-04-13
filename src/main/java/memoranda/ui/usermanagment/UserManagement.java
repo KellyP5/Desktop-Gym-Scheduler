@@ -137,7 +137,7 @@ public class UserManagement extends JPanel {
 
         this.deleteUser.addActionListener(actionEvent -> {
             System.out.println("//TODO Delete user button");
-            new UserManagementDeleteUser(deleteUser);
+            //TODO
         });
 
     }

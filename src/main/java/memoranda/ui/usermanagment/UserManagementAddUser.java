@@ -12,7 +12,7 @@ public class UserManagementAddUser extends JDialog {
         super(new JFrame());
 
         mainPanel = new JPanel();
-        b1 = new JButton("poop");
+        b1 = new JButton("TODO");
 
         this.setTitle("Add User");
         mainPanel.setPreferredSize(new Dimension(200,100));

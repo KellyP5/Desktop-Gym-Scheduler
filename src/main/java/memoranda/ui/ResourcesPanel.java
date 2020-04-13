@@ -144,10 +144,9 @@ public class ResourcesPanel extends JPanel {
         toolBar.addSeparator(new Dimension(8, 24));
         toolBar.addSeparator(new Dimension(8, 24));
 
-
-        PopupListener ppListener = new PopupListener();
-        scrollPane.addMouseListener(ppListener);
-        resourcesTable.addMouseListener(ppListener);
+        //PopupListener ppListener = new PopupListener();
+        //scrollPane.addMouseListener(ppListener);
+        //resourcesTable.addMouseListener(ppListener);
 
         resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {

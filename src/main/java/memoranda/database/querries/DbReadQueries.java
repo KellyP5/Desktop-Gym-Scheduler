@@ -27,7 +27,6 @@ public class DbReadQueries {
         UserEntity userEntity = _getUserFromResultSet(rs);
 
         pstmt.close();
-        conn.close();
         return userEntity;
     }
 
@@ -44,7 +43,6 @@ public class DbReadQueries {
             users.add(_getUserFromResultSet(rs));
         }
         statement.close();
-        conn.close();
         return users;
     }
 
@@ -64,7 +62,7 @@ public class DbReadQueries {
             gymClasses.add(_getGymClassFromResultSet(rs));
         }
         pstmt.close();
-        conn.close();
+
         return gymClasses;
     }
 
@@ -89,7 +87,7 @@ public class DbReadQueries {
         }
 
         pstmt.close();
-        conn.close();
+
         return trainerAvailabilities;
     }
 
@@ -109,7 +107,7 @@ public class DbReadQueries {
         }
 
         pstmt.close();
-        conn.close();
+
         return gymClasses;
     }
     /*
@@ -129,7 +127,7 @@ public class DbReadQueries {
         }
 
         pstmt.close();
-        conn.close();
+
         return users;
     }
 

@@ -197,7 +197,7 @@ public class AccountCreationDialog extends JFrame {
                 // if nothing was typed in the box, put the grayed
                 // out 'Username' in the box
                 if (user.getText().equals("")) {
-                    user.setText("Email");
+                    user.setText("E-mail");
                     user.setForeground(Color.LIGHT_GRAY);
                 }
             }
@@ -273,6 +273,26 @@ public class AccountCreationDialog extends JFrame {
         JOptionPane.showMessageDialog(parent, error);
     }
 
+    public boolean verifyInfo () {
+        Object[] options1 = { "Information is correct", "Information incorrect"};
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel("First Name:    " + firstName.getText()));
+        panel.add(new JLabel(""));
+        panel.add(new JLabel("Last Name:     " + lastName.getText()));
+        panel.add(new JLabel(""));
+        panel.add(new JLabel("E-mail:        " + user.getText()));
+
+        int result = JOptionPane.showOptionDialog(null, panel, "",
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, options1, null);
+        if (result == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Call to create account. Tests fields on Account Creation window for data.
      * @throws SQLException Throws exception is account does not exist.
@@ -292,6 +312,7 @@ public class AccountCreationDialog extends JFrame {
         } else if (!Arrays.equals(pass.getPassword(), pass2.getPassword())) {
             throwInputError("Your passwords do not match");
         } else if (trainerButton.isSelected() || studentButton.isSelected()){
+            if (verifyInfo() == false) return;
             System.out.println("Attempting to create account with E-mail: "+ user.getText() );
             SqlConnection sql = SqlConnection.getInstance();
             DbReadQueries dbrq = sql.getDrq();

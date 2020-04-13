@@ -1,6 +1,7 @@
 package main.java.memoranda.database.util;
 
 import main.java.memoranda.database.*;
+import main.java.memoranda.gym.Gym;
 
 
 import java.sql.*;
@@ -146,6 +147,26 @@ public class DbReadQueries {
         conn.close();
         return users;
     }
+
+
+    public ArrayList<GymClassEntity> getAllClassesTrainerIsTeachingByEmail(String email) throws SQLException {
+        String sql = "SELECT * FROM GYMCLASS WHERE GYMCLASS.TrainerEmail=?";
+
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
+        pstmt.setString(1,email);
+        ResultSet rs  = pstmt.executeQuery();
+
+        ArrayList<GymClassEntity> classesTrainerIsTeaching = new ArrayList<>();
+        while(rs.next()){
+            classesTrainerIsTeaching.add(_getGymClassFromResultSet(rs));
+        }
+
+        pstmt.close();
+        conn.close();
+        return classesTrainerIsTeaching;
+    }
+
     /*
     helper method for creating and returning a GymClassEntity from a result set
      */

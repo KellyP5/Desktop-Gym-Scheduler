@@ -2,6 +2,7 @@ package main.java.memoranda.ui;
 
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Configuration;
 
 import javax.swing.*;
@@ -42,6 +43,8 @@ public class App {
     public static final String WEBSITE_URL = "http://globogym.com";
 
     public static SqlConnection connection = null;
+
+    public static Gym gym = null;
 
 	private JFrame splash = null;
 	FileInputStream input;
@@ -92,6 +95,8 @@ public class App {
 
         try {
             this.connection = SqlConnection.getInstance();
+            this.gym = new Gym();//insert connection code
+
 
         } catch (SQLException sec) {
             sec.printStackTrace();

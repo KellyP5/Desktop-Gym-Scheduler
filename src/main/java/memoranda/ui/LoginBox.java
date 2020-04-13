@@ -1,8 +1,14 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.database.querries.DbCreateQueries;
+import main.java.memoranda.database.querries.DbReadQueries;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class LoginBox extends JFrame {
 
@@ -87,7 +93,8 @@ public class LoginBox extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                App.init();
+                //App.init();
+                userVerification();
                 dispose(); // Close the login dialog box
             }
         });
@@ -98,7 +105,8 @@ public class LoginBox extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    App.init();
+                    userVerification();
+                    //App.init();
                 }
             }
         });
@@ -182,7 +190,29 @@ public class LoginBox extends JFrame {
                 }
             }
         });
+    }
 
+    public void userVerification() {
+
+        try {
+            if (email.getText() != null) {
+                UserEntity user = DbReadQueries.getUserByEmail(App.db, email.getText());
+                if (user == null) {
+                    DbCreateQueries.insertUser(App.db, email.getText(), "hello", "aldksf", pass.getText(), new RoleEntity(RoleEntity.UserRole.trainer));
+                } else {
+                    if (user.getPassword().equals(pass.getText())) {
+                            App.init();
+                            dispose();
+                    } else {
+                        System.out.println("WRONG PASSWORD");
+                    }
+                }
+            }
+
+
+        } catch (SQLException exc) {
+            exc.printStackTrace();
+        }
 
     }
 }

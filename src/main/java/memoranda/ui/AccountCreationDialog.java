@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 public class AccountCreationDialog extends JFrame {
 
@@ -18,12 +19,15 @@ public class AccountCreationDialog extends JFrame {
     JTextField firstName;
     JTextField lastName;
     JTextField user;
-    JTextField pass;
+    JPasswordField pass;
+    JPasswordField pass2;
     JLabel accountSelection;
     ButtonGroup buttons;
     JRadioButton trainerButton;
     JRadioButton studentButton;
     JLabel fillOutForm;
+    JLabel password;
+    JLabel password2;
     JLabel alreadyHaveAccount;
     JButton loginButton;
     LoginBox loginBox;
@@ -37,12 +41,15 @@ public class AccountCreationDialog extends JFrame {
         firstName = new JTextField(20);
         lastName = new JTextField(20);
         user = new JTextField(20);
-        pass = new JTextField(20);
+        pass = new JPasswordField(20);
+        pass2 = new JPasswordField(20);
         trainerButton = new JRadioButton();
         studentButton = new JRadioButton();
         fillOutForm = new JLabel("Please fill out the form with your information");
         accountSelection = new JLabel("Which type of account would you like to create?");
         alreadyHaveAccount = new JLabel("Already have an account?");
+        password = new JLabel("Password: ");
+        password2 = new JLabel("Verify Password: ");
         loginButton = new JButton("Login");
         buttons = new ButtonGroup(); // Ensures that only 1 option can be chosen
         buttons.add(trainerButton);
@@ -64,32 +71,37 @@ public class AccountCreationDialog extends JFrame {
         lastName.setForeground(Color.LIGHT_GRAY);
 
         user.setText("E-mail");
-        pass.setText("Password");
         user.setForeground(Color.LIGHT_GRAY);
         pass.setForeground(Color.LIGHT_GRAY);
+        pass.setEchoChar('*');
+        pass2.setForeground(Color.LIGHT_GRAY);
+        pass2.setEchoChar('*');
 
         accountCreate.setLayout(null);
 
         user.setBounds(70, 230, 150, 25);
-        pass.setBounds(70, 270, 150, 25);
+        pass.setBounds(125, 270, 150, 25);
+        pass2.setBounds(125, 310, 150, 25);
+        password.setBounds(50, 270, 150, 25);
+        password2.setBounds(10, 310, 150, 25);
 
         firstName.setBounds(70, 150, 150, 25);
         lastName.setBounds(70, 190, 150, 25);
 
-        accountSelection.setBounds(10, 285, 300, 50);
+        accountSelection.setBounds(0, 330, 300, 50);
 
         trainerButton.setText("Trainer");
-        trainerButton.setBounds(50, 320, 100, 20);
+        trainerButton.setBounds(50, 370, 100, 20);
         trainerButton.setBackground(new java.awt.Color(230,230,230));
         studentButton.setText("Student");
-        studentButton.setBounds(150, 320, 100, 20);
+        studentButton.setBounds(150, 370, 100, 20);
         studentButton.setBackground(new java.awt.Color(230,230,230));
 
-        createButton.setBounds(100, 360, 80, 20);
+        createButton.setBounds(100, 400, 80, 20);
 
-        alreadyHaveAccount.setBounds(20, 430, 150, 20);
+        alreadyHaveAccount.setBounds(10, 440, 180, 20);
 
-        loginButton.setBounds(170, 430, 90, 20);
+        loginButton.setBounds(185, 440, 90, 20);
 
         accountCreate.add(createButton);
         accountCreate.add(logo);
@@ -97,12 +109,15 @@ public class AccountCreationDialog extends JFrame {
         accountCreate.add(lastName);
         accountCreate.add(user);
         accountCreate.add(pass);
+        accountCreate.add(pass2);
         accountCreate.add(accountSelection);
         accountCreate.add(trainerButton);
         accountCreate.add(studentButton);
         accountCreate.add(fillOutForm);
         accountCreate.add(alreadyHaveAccount);
         accountCreate.add(loginButton);
+        accountCreate.add(password);
+        accountCreate.add(password2);
         accountCreate.setBackground(new java.awt.Color(230, 230, 230));
 
         getContentPane().add(accountCreate);
@@ -167,7 +182,7 @@ public class AccountCreationDialog extends JFrame {
             @Override
             public void focusGained(FocusEvent focusEvent) {
                 // Clear out the text field so the user can type
-                if (user.getText().equals("Email")) {
+                if (user.getText().equals("E-mail")) {
                     user.setText("");
                     user.setForeground(Color.BLACK);
                 } else {
@@ -188,31 +203,6 @@ public class AccountCreationDialog extends JFrame {
             }
         });
 
-        // When the cursor is in the Password Text Field
-        pass.addFocusListener(new FocusListener() {
-            @Override
-            // Clear out the text field so the user can type
-            public void focusGained(FocusEvent focusEvent) {
-                if (pass.getText().equals("Password")) {
-                    pass.setText("");
-                    pass.setForeground(Color.BLACK);
-                } else {
-                    // Highlight all characters in text box
-                    pass.selectAll();
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent focusEvent) {
-                // When the cursor moves away from the Password text box
-                // if the user didn't type anything, put the grayed out
-                // 'Password' back in the box
-                if (pass.getText().equals("")) {
-                    pass.setText("Password");
-                    pass.setForeground(Color.LIGHT_GRAY);
-                }
-            }
-        });
 
         // For now when the Create button is pressed, the app is launched
         // and no user authentication is done (will be added later)
@@ -294,8 +284,13 @@ public class AccountCreationDialog extends JFrame {
             throwInputError("You did not enter a Last name");
         } else if (user.getText().equals("E-mail")) {
             throwInputError("You did not enter an E-mail");
-        } else if (pass.getText().equals("Password")) {
+        } else if (pass.getPassword().length == 0) {
+            System.out.println(pass.getPassword());
             throwInputError("You did not enter a password");
+        } else if (pass2.getPassword().length == 0) {
+            throwInputError("You did not verify your password");
+        } else if (!Arrays.equals(pass.getPassword(), pass2.getPassword())) {
+            throwInputError("Your passwords do not match");
         } else if (trainerButton.isSelected() || studentButton.isSelected()){
             System.out.println("Attempting to create account with E-mail: "+ user.getText() );
             SqlConnection sql = SqlConnection.getInstance();

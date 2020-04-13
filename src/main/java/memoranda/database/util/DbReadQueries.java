@@ -148,7 +148,9 @@ public class DbReadQueries {
         return users;
     }
 
-
+    /*
+    returns all classes that a trainer is leading, queried by email
+     */
     public ArrayList<GymClassEntity> getAllClassesTrainerIsTeachingByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM GYMCLASS WHERE GYMCLASS.TrainerEmail=?";
 

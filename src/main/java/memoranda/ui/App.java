@@ -41,13 +41,8 @@ public class App {
      */
     public static final String WEBSITE_URL = "http://globogym.com";
 
-<<<<<<< HEAD
+
     public static SqlConnection conn = null;
-
-
-=======
-    public static SqlConnection connection = null;
->>>>>>> 1073c1eca4410d2eb66e8f49b4c5ffe5dd9138c7
 
 	private JFrame splash = null;
 	FileInputStream input;

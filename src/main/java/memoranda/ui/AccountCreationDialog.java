@@ -302,6 +302,7 @@ public class AccountCreationDialog extends JFrame {
             DbReadQueries dbrq = sql.getDrq();
             try {
                 dbrq.getUserByEmail(user.getText());
+                throwInputError("An account with that E-mail already exists!");
             } catch (SQLException ex) {
                 System.out.println("E-mail does not exist. Creating Account.");
                 //Code to create account

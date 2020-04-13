@@ -1,8 +1,11 @@
 package main.java.memoranda.ui;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Toolkit;
+import main.java.memoranda.EventsScheduler;
+import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.util.Configuration;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,7 +20,6 @@ import javax.swing.UIManager;
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.util.Configuration;
-//import org.swingexplorer.Log;
 
 /**
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net

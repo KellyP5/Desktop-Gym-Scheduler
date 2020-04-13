@@ -1,7 +1,6 @@
 package main.java.memoranda.ui;
 
 import main.java.memoranda.EventsScheduler;
-import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.util.Configuration;
 
@@ -95,12 +94,9 @@ public class App {
 
 		try{
 			conn = SqlConnection.getInstance();
-			conn.getDcq().insertUser("admin@gym.com","adminFirst","adminLast","1234",new RoleEntity(RoleEntity.UserRole.admin));
 		}catch(SQLException ecp){
 			ecp.printStackTrace();
 		}
-
-
 
 		// Updates the version and build numbers via the build.gradle file
 		try {

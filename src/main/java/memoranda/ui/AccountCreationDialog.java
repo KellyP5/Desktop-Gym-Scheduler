@@ -1,8 +1,13 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.util.DbReadQueries;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class AccountCreationDialog extends JFrame {
 
@@ -58,7 +63,7 @@ public class AccountCreationDialog extends JFrame {
         lastName.setText("Last Name");
         lastName.setForeground(Color.LIGHT_GRAY);
 
-        user.setText("Username");
+        user.setText("E-mail");
         pass.setText("Password");
         user.setForeground(Color.LIGHT_GRAY);
         pass.setForeground(Color.LIGHT_GRAY);
@@ -162,7 +167,7 @@ public class AccountCreationDialog extends JFrame {
             @Override
             public void focusGained(FocusEvent focusEvent) {
                 // Clear out the text field so the user can type
-                if (user.getText().equals("Username")) {
+                if (user.getText().equals("Email")) {
                     user.setText("");
                     user.setForeground(Color.BLACK);
                 } else {
@@ -177,7 +182,7 @@ public class AccountCreationDialog extends JFrame {
                 // if nothing was typed in the box, put the grayed
                 // out 'Username' in the box
                 if (user.getText().equals("")) {
-                    user.setText("Username");
+                    user.setText("Email");
                     user.setForeground(Color.LIGHT_GRAY);
                 }
             }
@@ -214,9 +219,14 @@ public class AccountCreationDialog extends JFrame {
         createButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                App.init();
-                dispose(); // Close the account creation dialog
+                try {
+                    createAccount();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+                //super.mouseClicked(e);
+                //App.init();
+                //dispose(); // Close the account creation dialog
             }
         });
 
@@ -226,8 +236,13 @@ public class AccountCreationDialog extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    App.init();
-                    dispose();
+                    try {
+                        createAccount();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                    //App.init();
+                    //dispose();
                 }
             }
         });
@@ -256,5 +271,43 @@ public class AccountCreationDialog extends JFrame {
             }
         });
 
+    }
+
+    /**
+     * Throws JOptionPane window on error
+     * @param error Message to display to the user
+     */
+    public void throwInputError (String error) {
+        System.out.println("Throwing input error");
+        final JFrame parent = new JFrame();
+        JOptionPane.showMessageDialog(parent, error);
+    }
+
+    /**
+     * Call to create account. Tests fields on Account Creation window for data.
+     * @throws SQLException Throws exception is account does not exist.
+     */
+    public void createAccount () throws SQLException {
+        if (firstName.getText().equals("First Name")) {
+            throwInputError("You did not enter a first name");
+        } else if (lastName.getText().equals("Last Name")) {
+            throwInputError("You did not enter a Last name");
+        } else if (user.getText().equals("E-mail")) {
+            throwInputError("You did not enter an E-mail");
+        } else if (pass.getText().equals("Password")) {
+            throwInputError("You did not enter a password");
+        } else if (trainerButton.isSelected() || studentButton.isSelected()){
+            System.out.println("Attempting to create account with E-mail: "+ user.getText() );
+            SqlConnection sql = SqlConnection.getInstance();
+            DbReadQueries dbrq = sql.getDrq();
+            try {
+                dbrq.getUserByEmail(user.getText());
+            } catch (SQLException ex) {
+                System.out.println("E-mail does not exist. Creating Account.");
+                //Code to create account
+            }
+        } else {
+            throwInputError("Select the type of account to create");
+        }
     }
 }

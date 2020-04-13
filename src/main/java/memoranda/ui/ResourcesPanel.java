@@ -42,18 +42,19 @@ public class ResourcesPanel extends JPanel {
      * The Border layout 1.
      */
     BorderLayout borderLayout1 = new BorderLayout();
-    /**
-     * The Tool bar.
-     */
-    JToolBar toolBar = new JToolBar();
+
     /**
      * The New res b.
      */
     JButton newResB = new JButton();
+
+
     /**
      * The Resources table.
      */
     ResourcesTable resourcesTable = new ResourcesTable();
+
+
     /**
      * The Remove res b.
      */
@@ -62,10 +63,6 @@ public class ResourcesPanel extends JPanel {
      * The Scroll pane.
      */
     JScrollPane scrollPane = new JScrollPane();
-    /**
-     * The Refresh b.
-     */
-    JButton refreshB = new JButton();
     /**
      * The Res pp menu.
      */
@@ -105,7 +102,7 @@ public class ResourcesPanel extends JPanel {
      * @throws Exception the exception
      */
     void jbInit() throws Exception {
-        toolBar.setFloatable(false);
+
         this.setLayout(borderLayout1);
         newResB.setIcon(
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/addresource.png")));
@@ -141,12 +138,6 @@ public class ResourcesPanel extends JPanel {
                 main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/removeresource.png")));
         removeResB.setEnabled(false);
         scrollPane.getViewport().setBackground(Color.white);
-        toolBar.addSeparator(new Dimension(8, 24));
-        toolBar.addSeparator(new Dimension(8, 24));
-
-        //PopupListener ppListener = new PopupListener();
-        //scrollPane.addMouseListener(ppListener)
-        //resourcesTable.addMouseListener(ppListener);
 
         resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
@@ -156,21 +147,7 @@ public class ResourcesPanel extends JPanel {
                 ppRun.setEnabled(enbl);
             }
         });
-        refreshB.setBorderPainted(false);
-        refreshB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                refreshB_actionPerformed(e);
-            }
-        });
-        refreshB.setFocusable(false);
-        refreshB.setPreferredSize(new Dimension(24, 24));
-        refreshB.setRequestFocusEnabled(false);
-        refreshB.setToolTipText(Local.getString("Refresh"));
-        refreshB.setMinimumSize(new Dimension(24, 24));
-        refreshB.setMaximumSize(new Dimension(24, 24));
-        refreshB.setEnabled(true);
-        refreshB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png")));
+
         resPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
     ppRun.setFont(new java.awt.Font("Dialog", 1, 11));
     ppRun.setText(Local.getString("Open resource")+"...");
@@ -208,13 +185,12 @@ public class ResourcesPanel extends JPanel {
     });
     ppRefresh.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/refreshres.png")));
 
-    toolBar.add(newResB, null);
-        toolBar.add(removeResB, null);
-        toolBar.addSeparator();
-        toolBar.add(refreshB, null);
-        this.add(scrollPane, BorderLayout.CENTER);
-        scrollPane.getViewport().add(resourcesTable, null);
-        this.add(toolBar, BorderLayout.NORTH);
+    this.add(scrollPane, BorderLayout.CENTER);
+    scrollPane.getViewport().add(resourcesTable, null);
+
+/*    this.add(toolBar, BorderLayout.NORTH);*/
+
+
     resPPMenu.add(ppRun);
     resPPMenu.addSeparator();
     resPPMenu.add(ppNewRes);

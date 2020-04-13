@@ -1,8 +1,12 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.UserEntity;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class LoginBox extends JFrame {
 
@@ -87,7 +91,8 @@ public class LoginBox extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                App.init();
+                //App.init();
+                userVerification();
                 dispose(); // Close the login dialog box
             }
         });
@@ -98,7 +103,8 @@ public class LoginBox extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    App.init();
+                    //App.init();
+                    userVerification();
                 }
             }
         });
@@ -182,7 +188,31 @@ public class LoginBox extends JFrame {
                 }
             }
         });
+    }
 
+    public void userVerification() {
+
+        try {
+            if (email.getText() != null) {
+
+                UserEntity user = App.connection.getDrq().getUserByEmail(email.getText());
+
+                if (user == null) {
+                    App.connection.getDcq().insertUser(email.getText(), "First", "Last", pass.getText(), new RoleEntity(RoleEntity.UserRole.trainer));
+                } else {
+                    if (user.getPassword().equals(pass.getText())) {
+                        App.init();
+                        dispose();
+                    } else {
+                        System.out.println("WRONG PASSWORD");
+                    }
+                }
+            }
+
+
+        } catch (SQLException exc) {
+            exc.printStackTrace();
+        }
 
     }
 }

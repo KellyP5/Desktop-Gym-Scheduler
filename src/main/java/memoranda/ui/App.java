@@ -5,6 +5,7 @@ import java.awt.Frame;
 import java.awt.Toolkit;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Properties;
 
@@ -14,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 import main.java.memoranda.EventsScheduler;
+import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.util.Configuration;
 //import org.swingexplorer.Log;
 
@@ -45,7 +47,7 @@ public class App {
      */
     public static final String WEBSITE_URL = "http://globogym.com";
 
-
+	public static SqlConnection connection = null;
 
 	private JFrame splash = null;
 	FileInputStream input;
@@ -93,6 +95,13 @@ public class App {
      */
     public App(boolean fullmode) {
 		super();
+
+		try {
+			this.connection = SqlConnection.getInstance();
+
+		} catch (SQLException sec) {
+			sec.printStackTrace();
+		}
 
 		// Updates the version and build numbers via the build.gradle file
 		try {

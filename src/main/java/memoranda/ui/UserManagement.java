@@ -5,6 +5,7 @@ import main.java.memoranda.database.UserEntity;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -25,8 +26,9 @@ public class UserManagement extends JPanel {
     public UserManagement() {
         try {
             init();
-        }
-        catch (Exception ex) {
+        } catch(SQLException cep){
+            cep.printStackTrace();
+        } catch (Exception ex) {
            new ExceptionDialog(ex);
         }
     }
@@ -38,7 +40,8 @@ public class UserManagement extends JPanel {
      */
     private void init() throws Exception {
 
-        this.userEntities = App.conn.getDrq().getAllUsers();
+
+        this.userEntities = App.conn.getDrqTest().getAllUsers();
 
         this.setLayout(new FlowLayout());
 
@@ -62,12 +65,38 @@ public class UserManagement extends JPanel {
 
     private void initTable(){
 
-        String[] columnNames = {"User Name", "User Rank", "Role"};
+        String[] columnNames = {"Email", "User Rank", "Role"};
 
-        String[][] data = {
+        ArrayList<ArrayList<String>> d = new ArrayList<ArrayList<String>>();
+        ArrayList<String> e1 = new ArrayList<>();
+
+
+        for(int i = 0;i< this.userEntities.size();i++){
+            ArrayList<String> e = new ArrayList<>();
+            e.add(this.userEntities.get(i).getEmail());
+            e.add(this.userEntities.get(i).getBelt().toString());
+            e.add(this.userEntities.get(i).getRole().toString());
+            d.add(e);
+        }
+
+
+
+        String[][] data = new String[d.size()][];
+        for(int i = 0;i<d.size();i++){
+            ArrayList<String> current = d.get(i);
+
+            String[] copy = new String[current.size()];
+            for(int j = 0;j< current.size();j++){
+                copy[j] = current.get(j);
+            }
+            data[i] = copy;
+        }
+
+
+/*        String[][] data = {
                 { "n", "r", "r" },
                 { "r", "r", "r" }
-        };
+        };*/
 
         userList = new JTable(data,columnNames);
         userList.setBounds(30,40,200,300);

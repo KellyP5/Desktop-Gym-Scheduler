@@ -1,6 +1,8 @@
-package main.java.memoranda.database.util;
+package main.java.memoranda.database;
 
-import main.java.memoranda.database.*;
+import main.java.memoranda.database.entities.*;
+import main.java.memoranda.database.querries.DbCreateQueries;
+import main.java.memoranda.database.querries.DbReadQueries;
 
 import java.sql.*;
 import java.time.LocalDate;

@@ -1,6 +1,10 @@
 import main.java.memoranda.database.*;
-import main.java.memoranda.database.util.DbCreateQueries;
-import main.java.memoranda.database.util.DbReadQueries;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.database.querries.DbCreateQueries;
+import main.java.memoranda.database.querries.DbReadQueries;
 import main.java.memoranda.database.util.SqlConstants;
 import org.junit.*;
 

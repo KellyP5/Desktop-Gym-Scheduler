@@ -1,15 +1,17 @@
 package main.java.memoranda.ui;
 
 import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.database.util.DbReadQueries;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.Arrays;
 
+
+/**
+ * Account Creation Dialog box creation window.
+ */
 public class AccountCreationDialog extends JFrame {
 
     JPanel accountCreate;
@@ -125,7 +127,10 @@ public class AccountCreationDialog extends JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
 
-        // When the cursor is in the First Name text field
+
+        /**
+         * Manages first name entry box.
+         */
         firstName.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent focusEvent) {
@@ -151,6 +156,9 @@ public class AccountCreationDialog extends JFrame {
             }
         });
 
+        /**
+         * Manages last name entry box
+         */
         // When the cursor is in the Last Name text field
         lastName.addFocusListener(new FocusListener() {
             @Override
@@ -177,7 +185,9 @@ public class AccountCreationDialog extends JFrame {
             }
         });
 
-        // When the cursor is in the Username Text Field
+        /**
+         * Manages e-mail entry box
+         */
         email.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent focusEvent) {
@@ -204,8 +214,9 @@ public class AccountCreationDialog extends JFrame {
         });
 
 
-        // For now when the Create button is pressed, the app is launched
-        // and no user authentication is done (will be added later)
+        /**
+         * Manages create button entry box
+         */
         createButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -214,9 +225,6 @@ public class AccountCreationDialog extends JFrame {
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
-                //super.mouseClicked(e);
-                //App.init();
-                //dispose(); // Close the account creation dialog
             }
         });
 
@@ -231,14 +239,13 @@ public class AccountCreationDialog extends JFrame {
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
-                    //App.init();
-                    //dispose();
                 }
             }
         });
 
-        // If the user already has an account and wants to login,
-        // the Login button takes them back to the Login dialog box
+        /**
+         * Manages Login button
+         */
         loginButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -248,8 +255,9 @@ public class AccountCreationDialog extends JFrame {
             }
         });
 
-        // Allow an enter key press on the Login button
-        // to launch the Login dialog box
+        /**
+         * Manages login button
+         */
         loginButton.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -264,7 +272,7 @@ public class AccountCreationDialog extends JFrame {
     }
 
     /**
-     * Throws JOptionPane window on error
+     * Throws JOptionPane window on error.
      * @param error Message to display to the user
      */
     public void throwInputError (String error) {
@@ -272,6 +280,10 @@ public class AccountCreationDialog extends JFrame {
         JOptionPane.showMessageDialog(parent, error);
     }
 
+    /**
+     * Populates verify info popup after user enters information to verify info.
+     * @return boolean true if user agrees information is correct
+     */
     public boolean verifyInfo () {
         Object[] options1 = { "Information is correct", "Information incorrect"};
 
@@ -322,6 +334,8 @@ public class AccountCreationDialog extends JFrame {
             } catch (SQLException ex) {
                 System.out.println("E-mail does not exist. Creating Account.");
                 //Code to create account
+                //App.init();
+                //dispose();
             }
         } else {
             throwInputError("Select the type of account to create");

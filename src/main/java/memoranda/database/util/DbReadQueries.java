@@ -32,6 +32,7 @@ public class DbReadQueries {
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
         UserEntity userEntity = _getUserFromResultSet(rs);
+
         pstmt.close();
         conn.close();
         return userEntity;
@@ -199,6 +200,10 @@ public class DbReadQueries {
     helper method for creating and returning a UserEntity from the result set provided
      */
     private UserEntity _getUserFromResultSet(ResultSet rs) throws SQLException {
+        if (!rs.next()) {
+            return null;
+        }
+
         String strBelt = rs.getString("Belt");
         BeltEntity belt = null;
         if (strBelt != null){

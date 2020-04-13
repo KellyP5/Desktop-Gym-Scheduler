@@ -10,6 +10,19 @@ mainClassName = 'main/java/memoranda/Start'
 compileJava.options.encoding = 'UTF-8'
 //compileJava.options.encoding = "Windows-1252"
 
+
+sourceSets {
+  main {
+    java {
+      srcDirs = ['src']
+    }
+    resources {
+      srcDirs = ['src/main/resources']
+    }
+  }
+}
+
+
 // Repositories and dependencies for code go here
 repositories {
   mavenCentral()
@@ -20,6 +33,8 @@ dependencies {
   compile 'com.io7m.xom:xom:1.2.+'
   compile 'net.sourceforge.nekohtml:nekohtml:1.9.+'
   compile 'org.json:json:20190722'
+  compile group:'org.xerial', name:'sqlite-jdbc', version:'3.30.1'
+  compile "junit:junit:4.12"
 }
 
 

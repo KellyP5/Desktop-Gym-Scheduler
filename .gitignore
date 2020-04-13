@@ -21,6 +21,10 @@
 ### Gradle ###
 .gradle
 /build/
+/caches/
+/daemon/
+/native/
+/wrapper/
 
 # Mac DS file
 .DS_Store

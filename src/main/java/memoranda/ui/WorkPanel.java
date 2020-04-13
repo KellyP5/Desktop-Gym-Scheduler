@@ -1,23 +1,13 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-
 import main.java.memoranda.util.Context;
 import main.java.memoranda.util.Local;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -52,7 +42,7 @@ public class WorkPanel extends JPanel {
     /**
      * The Files panel.
      */
-    public ResourcesPanel filesPanel = new ResourcesPanel();
+    public UserManagement userManagement = new UserManagement();
     /**
      * The Agenda b.
      */
@@ -247,7 +237,7 @@ public class WorkPanel extends JPanel {
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
-		panel.add(filesPanel, "FILES");
+		panel.add(userManagement, "USERMANAGMENT");
 		toolBar.add(agendaB, null);
 		toolBar.add(classesB, null);
 		toolBar.add(tasksB, null);
@@ -262,7 +252,7 @@ public class WorkPanel extends JPanel {
 		toolBar.setBorder(null);
 		panel.setBorder(null);
 		dailyItemsPanel.setBorder(null);
-		filesPanel.setBorder(null);
+		userManagement.setBorder(null);
 
 	}
 
@@ -279,7 +269,7 @@ public class WorkPanel extends JPanel {
 				tasksB_actionPerformed(null);
 			else if (pan.equals("CLASSES"))
 				classesB_actionPerformed(null);
-			else if (pan.equals("FILES"))
+			else if (pan.equals("USERMANAGMENT"))
 				filesB_actionPerformed(null);
 		}
 	}
@@ -338,9 +328,9 @@ public class WorkPanel extends JPanel {
      * @param e the e
      */
     public void filesB_actionPerformed(ActionEvent e) {
-		cardLayout1.show(panel, "FILES");
+		cardLayout1.show(panel, "USERMANAGMENT");
 		setCurrentButton(userMgmt);
-		Context.put("CURRENT_PANEL", "FILES");
+		Context.put("CURRENT_PANEL", "USERMANAGMENT");
 	}
 
     /**

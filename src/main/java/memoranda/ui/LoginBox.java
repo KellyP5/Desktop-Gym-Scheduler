@@ -191,7 +191,6 @@ public class LoginBox extends JFrame {
     }
 
     public void userVerification() {
-
         try {
             if (email.getText() != null) {
 
@@ -223,8 +222,7 @@ public class LoginBox extends JFrame {
         if (x == JOptionPane.YES_OPTION) {
             createAcc = new AccountCreationDialog();
         } else {
-            dispose();
-            this.setVisible(true);
+            new LoginBox();
         }
     }
 

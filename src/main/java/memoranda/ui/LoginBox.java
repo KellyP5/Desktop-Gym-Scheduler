@@ -198,12 +198,15 @@ public class LoginBox extends JFrame {
                 UserEntity user = App.connection.getDrq().getUserByEmail(email.getText());
 
                 if (user == null) {
+                    // User doesn't exist, prompt to create account
+                    //
                     App.connection.getDcq().insertUser(email.getText(), "First", "Last", pass.getText(), new RoleEntity(RoleEntity.UserRole.trainer));
                 } else {
                     if (user.getPassword().equals(pass.getText())) {
                         App.init();
                         dispose();
                     } else {
+                        // Prompt for wrong password, have them try again
                         System.out.println("WRONG PASSWORD");
                     }
                 }

@@ -199,15 +199,13 @@ public class LoginBox extends JFrame {
 
                 if (user == null) {
                     // User doesn't exist, prompt to create account
-                    // Pop up Account Creation
-                    App.connection.getDcq().insertUser(email.getText(), "First", "Last", pass.getText(), new RoleEntity(RoleEntity.UserRole.trainer));
+                    accountDoesNotExist();
                 } else {
                     if (user.getPassword().equals(pass.getText())) {
                         App.init();
                         dispose();
                     } else {
                         // Prompt for wrong password, have them try again
-                        System.out.println("WRONG PASSWORD");
                     }
                 }
             }
@@ -215,4 +213,19 @@ public class LoginBox extends JFrame {
             exc.printStackTrace();
         }
     }
+
+    public void accountDoesNotExist() {
+        Object[] options = {"Yes", "No"};
+        int x = JOptionPane.showOptionDialog(null, "An account with that username could not be found." +
+                        " Would you like to create one?", "Account Not Found", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, options, null);
+
+        if (x == JOptionPane.YES_OPTION) {
+            createAcc = new AccountCreationDialog();
+        } else {
+            dispose();
+            this.setVisible(true);
+        }
+    }
+
 }

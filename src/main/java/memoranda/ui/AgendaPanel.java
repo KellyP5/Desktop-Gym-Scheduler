@@ -1,17 +1,14 @@
 package main.java.memoranda.ui;
 
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import java.util.concurrent.Flow;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.EventNotificationListener;
@@ -24,9 +21,15 @@ import main.java.memoranda.ProjectListener;
 import main.java.memoranda.ProjectManager;
 import main.java.memoranda.ResourcesList;
 import main.java.memoranda.TaskList;
+import main.java.memoranda.database.BeltEntity;
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
+import main.java.memoranda.gym.Belt;
+import main.java.memoranda.gym.Class;
+import main.java.memoranda.gym.ConsoleGymApp;
+import main.java.memoranda.gym.ManageClasses;
 import main.java.memoranda.util.AgendaGenerator;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
@@ -64,7 +67,7 @@ public class AgendaPanel extends JPanel {
      */
 
     JPanel agendaPanel = new JPanel();
-    JTable classesTable = new JTable(0,2);
+    JTable classesTable = new JTable(0,5);
    FlowLayout agendaGridLayout = new FlowLayout();
 
     JEditorPane viewer = new JEditorPane("text/html", "");
@@ -375,10 +378,36 @@ public class AgendaPanel extends JPanel {
 		agendaPanel.removeAll();
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		scrollPane.setMinimumSize(screensize);
+		ArrayList<Class> classes = null;
+		classes = getClassesForTrainer();
+		System.out.println("Classes size: " + classes.size());
+		Object tableOrganizer[][] = new Object[classes.size()][6];
+
+		for(int i = 0; i < classes.size(); i++){
+			tableOrganizer[i][0] = classes.get(i).getTime();
+			tableOrganizer[i][1] = classes.get(i).duration;
+			tableOrganizer[i][2] = classes.get(i).getRoomNumber();
+			tableOrganizer[i][3] = classes.get(i).getUsers().size();
+			tableOrganizer[i][4] = classes.get(i).beltReq.rank.toString();
+			for(int x = 0; x < 6; x++) {
+				classesTable.getModel().setValueAt(tableOrganizer[i][x], i, x);
+			}
+		}
+
+
+
+
 
 		classesTable.getColumnModel().getColumn(0).setHeaderValue("Date");
-		classesTable.getColumnModel().getColumn(1).setHeaderValue("Class Description");
+		classesTable.getColumnModel().getColumn(1).setHeaderValue("Duration");
+		classesTable.getColumnModel().getColumn(2).setHeaderValue("Room Number");
+		classesTable.getColumnModel().getColumn(3).setHeaderValue("Current Class Size");
+		classesTable.getColumnModel().getColumn(4).setHeaderValue("Belt Requirement");
+		classesTable.getColumnModel().getColumn(4).setHeaderValue("Belt Requirement");
 		classesTable.getColumnModel().getColumn(0).setMaxWidth(Math.round(screensize.width * 0.25f));
+
+
+
     	agendaPanel.setLayout(new GridLayout(0,1));
 		classesTable.setRowHeight(50);
 		JScrollPane classScroller = new JScrollPane(classesTable);
@@ -392,7 +421,31 @@ public class AgendaPanel extends JPanel {
 
 	}
 
-    /**
+public ArrayList<Class> getClassesForTrainer(){
+    	createTestClass();
+    	String currentUser = "alex.mack@mail.com";
+    	ArrayList<Class> resultingClasses = null;
+	ManageClasses manage = new ManageClasses();
+	ArrayList<Class> classes = manage.getClasses();
+
+	for(int i = 0; i < classes.size(); i++){
+		if(classes.get(i).getTrainer().equals(currentUser)){
+			resultingClasses.add(classes.get(i));
+		}
+	}
+	return resultingClasses;
+	}
+
+	private void createTestClass() {
+		//ConsoleGymApp gym = new ConsoleGymApp();
+		//gym.run();
+    	/*BeltEntity belt = new BeltEntity(BeltEntity.Rank.black1);
+    	belt.rank = BeltEntity.Rank.blue;
+		GymClassEntity entity = new GymClassEntity(5, 8, LocalDateTime.MAX, LocalDateTime.MAX, "alex.mack@mail.com", 5, belt, "alex.mack@mail.com");
+		*/
+	}
+
+	/**
      * Sets active.
      *
      * @param isa the isa

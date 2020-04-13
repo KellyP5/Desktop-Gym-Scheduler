@@ -1,23 +1,13 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-
 import main.java.memoranda.util.Context;
 import main.java.memoranda.util.Local;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -52,7 +42,7 @@ public class WorkPanel extends JPanel {
     /**
      * The Files panel.
      */
-    public ResourcesPanel filesPanel = new ResourcesPanel();
+    public UserManagement filesPanel = new UserManagement();
     /**
      * The Agenda b.
      */

@@ -116,17 +116,17 @@ public class UserManagement extends JPanel {
 
         this.addUserButton.addActionListener(actionEvent -> {
             System.out.println("//TODO Add user button");
-            //TODO
+            new UserManagementAddUser(addUserButton);
         });
 
         this.editUser.addActionListener(actionEvent -> {
             System.out.println("//TODO Edit user button");
-            //TODO
+            new UserManagementEditUser(editUser);
         });
 
         this.deleteUser.addActionListener(actionEvent -> {
             System.out.println("//TODO Delete user button");
-            //TODO
+            new UserManagementDeleteUser(deleteUser);
         });
 
     }

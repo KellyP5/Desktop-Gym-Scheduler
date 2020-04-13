@@ -13,6 +13,10 @@ import java.util.ArrayList;
 
 public class UserManagement extends JPanel {
 
+    String currentlySelectedEmail;      //these variables are updated when a row is selected on the JTable
+    String currentlySelectedUserRank;   //these variables are updated when a row is selected on the JTable
+    String currentlySelectedRole;       //these variables are updated when a row is selected on the JTable
+
     ArrayList<UserEntity> userEntities;
 
     JButton addUserButton;
@@ -78,8 +82,6 @@ public class UserManagement extends JPanel {
         String[] columnNames = {"Email", "User Rank", "Role"};
 
         ArrayList<ArrayList<String>> d = new ArrayList<ArrayList<String>>();
-        ArrayList<String> e1 = new ArrayList<>();
-
 
         for(int i = 0;i< this.userEntities.size();i++){
             ArrayList<String> e = new ArrayList<>();
@@ -100,8 +102,17 @@ public class UserManagement extends JPanel {
             data[i] = copy;
         }
 
-
         userList = new JTable(data,columnNames);
+
+        //Forces selection to be just 1 row at a time
+        userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        //Set up event listener for selecting a row
+        userList.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
+            this.currentlySelectedEmail = (String) userList.getModel().getValueAt(userList.getSelectedRow(),0);
+            this.currentlySelectedUserRank = (String) userList.getModel().getValueAt(userList.getSelectedRow(),1);
+            this.currentlySelectedRole = (String) userList.getModel().getValueAt(userList.getSelectedRow(),2);
+        });
 
         //allows you to select but prevents being able to edit
         userList.setDefaultEditor(Object.class,null);

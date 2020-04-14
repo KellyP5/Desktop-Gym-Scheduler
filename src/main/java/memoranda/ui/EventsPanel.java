@@ -1,5 +1,6 @@
 package main.java.memoranda.ui;
 
+import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,7 +40,7 @@ import main.java.memoranda.util.Util;
  * The type Events panel.
  */
 /*$Id: EventsPanel.java,v 1.25 2005/02/19 10:06:25 rawsushi Exp $*/
-public class EventsPanel extends JPanel {
+public class EventsPanel<newButtonFont> extends JPanel {
     /**
      * The Border layout 1.
      */
@@ -59,11 +60,17 @@ public class EventsPanel extends JPanel {
     /**
      * The New event b.
      */
-    JButton newEventB = new JButton();
+    JButton newEventB = new JButton("Schedule New Class");
+
+
     /**
      * The Edit event b.
      */
-    JButton editEventB = new JButton();
+    JButton editEventB = new JButton("Edit Existing Class");
+    /**
+     * The Set Availability event b.
+     */
+    JButton setEventB = new JButton("Set Availability");
     /**
      * The Remove event b.
      */
@@ -140,14 +147,17 @@ public class EventsPanel extends JPanel {
         historyForwardB.setMaximumSize(new Dimension(24, 24));
         historyForwardB.setText("");
 
-        newEventB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_new.png")));
+
+        newEventB.setFont(
+               new Font("Arial", Font.PLAIN, 10));
+
+
         newEventB.setEnabled(true);
-        newEventB.setMaximumSize(new Dimension(24, 24));
-        newEventB.setMinimumSize(new Dimension(24, 24));
+        newEventB.setMaximumSize(new Dimension(120, 24));
+        newEventB.setMinimumSize(new Dimension(120, 24));
         newEventB.setToolTipText(Local.getString("New event"));
         newEventB.setRequestFocusEnabled(false);
-        newEventB.setPreferredSize(new Dimension(24, 24));
+        newEventB.setPreferredSize(new Dimension(120, 24));
         newEventB.setFocusable(false);
         newEventB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -163,16 +173,34 @@ public class EventsPanel extends JPanel {
                 editEventB_actionPerformed(e);
             }
         });
-        editEventB.setPreferredSize(new Dimension(24, 24));
+        editEventB.setPreferredSize(new Dimension(120, 24));
         editEventB.setRequestFocusEnabled(false);
         editEventB.setToolTipText(Local.getString("Edit event"));
-        editEventB.setMinimumSize(new Dimension(24, 24));
-        editEventB.setMaximumSize(new Dimension(24, 24));
+        editEventB.setMinimumSize(new Dimension(120, 24));
+        editEventB.setMaximumSize(new Dimension(120, 24));
         editEventB.setEnabled(true);
-        editEventB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_edit.png")));
+        editEventB.setFont(
+                new Font("Arial", Font.PLAIN, 10));
 
-        removeEventB.setBorderPainted(false);
+        setEventB.setFont(
+                new Font("Arial", Font.PLAIN, 10));
+
+
+        setEventB.setEnabled(true);
+        setEventB.setMaximumSize(new Dimension(120, 24));
+        setEventB.setMinimumSize(new Dimension(120, 24));
+        setEventB.setToolTipText(Local.getString("Set Availability"));
+        setEventB.setRequestFocusEnabled(false);
+        setEventB.setPreferredSize(new Dimension(120, 24));
+        setEventB.setFocusable(false);
+     //   setEventB.addActionListener(new java.awt.event.ActionListener() {
+          //  public void actionPerformed(ActionEvent e) {
+            //    setEventB(e);
+            //}
+     //   });
+        setEventB.setBorderPainted(false);
+
+       /* removeEventB.setBorderPainted(false);
         removeEventB.setFocusable(false);
         removeEventB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -185,7 +213,7 @@ public class EventsPanel extends JPanel {
         removeEventB.setMinimumSize(new Dimension(24, 24));
         removeEventB.setMaximumSize(new Dimension(24, 24));
         removeEventB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_remove.png")));
+            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_remove.png")));*/
 
         this.setLayout(borderLayout1);
         scrollPane.getViewport().setBackground(Color.white);
@@ -228,9 +256,14 @@ public class EventsPanel extends JPanel {
         eventsToolBar.addSeparator(new Dimension(8, 24));
 
         eventsToolBar.add(newEventB, null);
-        eventsToolBar.add(removeEventB, null);
         eventsToolBar.addSeparator(new Dimension(8, 24));
         eventsToolBar.add(editEventB, null);
+        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.add(setEventB, null);
+        eventsToolBar.addSeparator(new Dimension(8, 24));
+        //eventsToolBar.add(removeEventB, null);
+        eventsToolBar.addSeparator(new Dimension(8, 24));
+
 
         this.add(eventsToolBar, BorderLayout.NORTH);
 

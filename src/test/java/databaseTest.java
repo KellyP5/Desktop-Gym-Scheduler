@@ -2,7 +2,9 @@ import main.java.memoranda.database.*;
 import main.java.memoranda.database.util.DbCreateQueries;
 import main.java.memoranda.database.util.DbReadQueries;
 import main.java.memoranda.database.util.SqlConstants;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -113,9 +115,38 @@ public class databaseTest {
     }
 
     @Test
-    public void testIfNull_emptyDb_drq_getUserByEmail() throws SQLException{
+    public void testNull_emptyDb_drq_getUserByEmail() throws SQLException{
         UserEntity ue = drq.getUserByEmail("IDONTEXISTS@yourmoma.com");
         assertEquals(null,ue);
+    }
+
+    @Test
+    public void testNotNull_nonEmptyDb_drq_getUserByEmail() throws SQLException{
+
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
+
+        UserEntity ue1 = new UserEntity("kevin",
+                "kevin","kevin",
+                "kevin@kevin.com",
+                re,
+                be,
+                be);
+
+        dcq.insertUser(ue1.getEmail(),
+                ue1.getFirstName(),
+                ue1.getLastName(),
+                ue1.getPassword(),
+                ue1.getRole(),
+                ue1.getBelt(),
+                ue1.getTrainingBelt());
+
+        UserEntity expected = ue1;
+        UserEntity testEntity = drq.getUserByEmail("kevin@kevin.com");
+
+        assertEquals(expected,testEntity);
+
+
     }
 
 

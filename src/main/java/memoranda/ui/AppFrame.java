@@ -50,7 +50,7 @@ public class AppFrame extends JFrame {
     /**
      * The Content pane.
      */
-    JPanel contentPane;
+    private JPanel contentPane;
     /**
      * The Menu bar.
      */
@@ -63,7 +63,6 @@ public class AppFrame extends JFrame {
      * The J menu file exit.
      */
     JMenuItem jMenuFileExit = new JMenuItem();
-
     /**
      * The Tool bar.
      */
@@ -74,44 +73,17 @@ public class AppFrame extends JFrame {
     JButton jButton3 = new JButton();
 
     Image logoutimg = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
+
     Image logoutButtonIcon = logoutimg.getScaledInstance(20,20, Image.SCALE_SMOOTH);
+
     JButton logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
 
-
-
-
-    /**
-     * The Image 1.
-     */
-    ImageIcon image1;
-    /**
-     * The Image 2.
-     */
-    ImageIcon image2;
-    /**
-     * The Image 3.
-     */
-    ImageIcon image3;
-    /**
-     * The Status bar.
-     */
     JLabel statusBar = new JLabel();
     /**
      * The Border layout 1.
      */
+
     BorderLayout borderLayout1 = new BorderLayout();
-    /**
-     * The Split pane.
-     */
-    JSplitPane splitPane = new JSplitPane();
-    /**
-     * The Projects panel.
-     */
-    ProjectsPanel projectsPanel = new ProjectsPanel();
-    /**
-     * The Pr panel expanded.
-     */
-    boolean prPanelExpanded = false;
 
     /**
      * The J menu edit.
@@ -602,18 +574,20 @@ public class AppFrame extends JFrame {
         });
         //jButton3.setIcon(image3);
         jButton3.setToolTipText(Local.getString("Help"));
-        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+/*        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 
         splitPane.setContinuousLayout(true);
         splitPane.setDividerSize(3);
         //splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(28);
+        splitPane.setDividerLocation(28);*/
         //projectsPanel.setMaximumSize(new Dimension(2147483647, 200));
-        projectsPanel.setMinimumSize(new Dimension(10, 28));
-        projectsPanel.setPreferredSize(new Dimension(10, 28));
-        /*workPanel.setMinimumSize(new Dimension(734, 300));
-         workPanel.setPreferredSize(new Dimension(1073, 300));*/
-        splitPane.setDividerLocation(28);
+
+
+        //projectsPanel.setMinimumSize(new Dimension(10, 28));
+        //projectsPanel.setPreferredSize(new Dimension(10, 28));
+
+         workPanel.setPreferredSize(new Dimension(1073, 300));
+       // splitPane.setDividerLocation(28);
 
         /* jMenuFileNewPrj.setText(Local.getString("New project") + "...");
          jMenuFileNewPrj.addActionListener(new ActionListener() {
@@ -622,7 +596,7 @@ public class AppFrame extends JFrame {
          }
          });
          */
-        jMenuFileNewPrj.setAction(projectsPanel.newProjectAction);
+       // jMenuFileNewPrj.setAction(projectsPanel.newProjectAction);
 
         jMenuFileUnpackPrj.setText(Local.getString("Unpack project") + "...");
         jMenuFileExportNote.setText(Local.getString("Export current note")
@@ -770,9 +744,11 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuGo);
         menuBar.add(jMenuHelp);
         this.setJMenuBar(menuBar);
+
         //contentPane.add(toolBar, BorderLayout.NORTH);
+
         contentPane.add(statusBar, BorderLayout.SOUTH);
-        contentPane.add(splitPane, BorderLayout.CENTER);
+       // contentPane.add(splitPane, BorderLayout.CENTER);
         /*Creates the logout button, and sets everything in menu bar that's created after
         // "createHorizontalGlue" to the right. Creates action listener. */
         logoutButton.setMaximumSize(new Dimension(5,30));
@@ -797,8 +773,11 @@ public class AppFrame extends JFrame {
 
 
 
-        splitPane.add(projectsPanel, JSplitPane.TOP);
-        splitPane.add(workPanel, JSplitPane.BOTTOM);
+        //splitPane.add(projectsPanel, JSplitPane.TOP);
+        this.contentPane.add(workPanel);
+
+
+       // splitPane.add(workPanel, JSplitPane.BOTTOM);
         jMenuEdit.add(jMenuEditUndo);
         jMenuEdit.add(jMenuEditRedo);
         jMenuEdit.addSeparator();
@@ -873,23 +852,10 @@ public class AppFrame extends JFrame {
         jMenuGo.add(jMenuGoDayFwd);
         jMenuGo.add(jMenuGoToday);
 
-        splitPane.setBorder(null);
+       // splitPane.setBorder(null);
         workPanel.setBorder(null);
 
         setEnabledEditorMenus(false);
-
-        projectsPanel.AddExpandListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (prPanelExpanded) {
-                    prPanelExpanded = false;
-                    splitPane.setDividerLocation(28);
-                }
-                else {
-                    prPanelExpanded = true;
-                    splitPane.setDividerLocation(0.2);
-                }
-            }
-        });
 
         java.awt.event.ActionListener setMenusDisabled = new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -1049,15 +1015,6 @@ public class AppFrame extends JFrame {
         exitListeners.add(al);
     }
 
-    /**
-     * Gets exit listeners.
-     *
-     * @return the exit listeners
-     */
-    public static Collection getExitListeners() {
-        return exitListeners;
-    }
-
     private static void exitNotify() {
         for (int i = 0; i < exitListeners.size(); i++)
             ((ActionListener) exitListeners.get(i)).actionPerformed(null);
@@ -1192,7 +1149,7 @@ public class AppFrame extends JFrame {
         Context.put("LAST_SELECTED_PACK_FILE", chooser.getSelectedFile());        
         java.io.File f = chooser.getSelectedFile();
         ProjectPackager.unpack(f);
-        projectsPanel.prjTablePanel.updateUI();
+       // projectsPanel.prjTablePanel.updateUI();
     }
 
     /**

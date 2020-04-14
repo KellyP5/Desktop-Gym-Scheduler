@@ -245,9 +245,9 @@ public class EventDialog extends JDialog implements WindowListener {
         headerPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
         header.setFont(new java.awt.Font("Dialog", 0, 20));
         header.setForeground(new Color(0, 0, 124));
-        header.setText(Local.getString("Create Class"));
-        header.setIcon(new ImageIcon(main.java.memoranda.ui.EventDialog.class.getResource(
-            "/ui/icons/event48.png")));
+       // header.setText(Local.getString("Schedule Class"));
+      //  header.setIcon(new ImageIcon(main.java.memoranda.ui.EventDialog.class.getResource(
+     //       "/ui/icons/event48.png")));
         headerPanel.add(header);
         
         // Build eventPanel
@@ -266,8 +266,11 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(timeSpin, gbc);
 
+
+
+
         //Belt selection menu
-        lblBelt.setText(Local.getString("Belt"));
+        lblBelt.setText(Local.getString("Min Belt"));
         lblBelt.setMinimumSize(new Dimension(60, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 1;

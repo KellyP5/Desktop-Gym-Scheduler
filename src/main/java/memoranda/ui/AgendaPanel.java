@@ -378,26 +378,7 @@ public class AgendaPanel extends JPanel {
 		agendaPanel.removeAll();
 		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 		scrollPane.setMinimumSize(screensize);
-		ArrayList<Class> classes = null;
-		classes = getClassesForTrainer();
-		System.out.println("Classes size: " + classes.size());
-		Object tableOrganizer[][] = new Object[classes.size()][6];
-
-		for(int i = 0; i < classes.size(); i++){
-			tableOrganizer[i][0] = classes.get(i).getTime();
-			tableOrganizer[i][1] = classes.get(i).duration;
-			tableOrganizer[i][2] = classes.get(i).getRoomNumber();
-			tableOrganizer[i][3] = classes.get(i).getUsers().size();
-			tableOrganizer[i][4] = classes.get(i).beltReq.rank.toString();
-			for(int x = 0; x < 6; x++) {
-				classesTable.getModel().setValueAt(tableOrganizer[i][x], i, x);
-			}
-		}
-
-
-
-
-
+		
 		classesTable.getColumnModel().getColumn(0).setHeaderValue("Date");
 		classesTable.getColumnModel().getColumn(1).setHeaderValue("Duration");
 		classesTable.getColumnModel().getColumn(2).setHeaderValue("Room Number");

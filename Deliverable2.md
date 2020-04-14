@@ -50,24 +50,24 @@ I would also advise you to already fill out the Contributions section (End of sp
 | Date  | Attendees  |Minutes   | Burndown Info | TravisCI info | Additional Info  |
 |---|---|---|---|--|--|
 | 4/9  | Kelly P, Kelly E, Kevin W, Alex M, Rita B, Kevin S asynchronously through text   | Went through each task in the backlog and made sure it was valid to stay this sprint and that none overlapped. Evaluated the board for distribution of points. Started the sprint. | 0%  | N/A | N/A |
-| 4/11  | Kelly P, Kelly E, Kevin W, Kevin S, Alex M, Rita B  | **Rita** will work on the Schedule GUI/layout/popup windows - No blockers. **Kevin W** is waiting on the database implementation to be done before starting tasks. **Kevin S** has designed the DB tables/relations and got feedback from the team. Created POJOs for DB and SQL queries to create the DB and tables with relations. Created the actual DB and a test DB for unit testing. Updated the gradle file to include SQLite and other updates to make IntelliJ more smooth. Will work on creating dummy data for test DB and creating on the interface for the DB that we'll use. Should be done today. Only 'blocker' is that SQLite doesn't have a datetime data type, but found a workaround. **Alex M** will work on the Agenda page. DB is the only blocker. **Kelly P** is also waiting for the DB to be finished before starting tasks. **Kelly E** Updated small things on the Login GUI - Masking the password with * 's and changing Username to Email. Updated Resources on the left to User Management. Waiting on DB to be done. | 0%  | N/A | N/A  |
-|   |   |   |   |  |  |
+| 4/11  | Kelly P, Kelly E, Kevin W, Kevin S, Alex M, Rita B  | **Rita** will work on the Schedule GUI/layout/popup windows - No blockers. **Kevin W** is waiting on the database implementation to be done before starting tasks. **Kevin S** has designed the DB tables/relations and got feedback from the team. Created POJOs for DB and SQL queries to create the DB and tables with relations. Created the actual DB and a test DB for unit testing. Updated the gradle file to include SQLite and other updates to make IntelliJ more smooth. Will work on creating dummy data for test DB and creating on the interface for the DB that we'll use. Should be done today. Only 'blocker' is that SQLite doesn't have a datetime data type, but found a workaround. **Alex M** will work on the Agenda page. DB is the only blocker. **Kelly P** is also waiting for the DB to be finished before starting tasks. **Kelly E** Updated small things on the Login GUI - Masking the password with * 's and changing Username to Email. Updated Resources on the left to User Management. Waiting on DB to be done. | 0%  | Develop build passed | N/A  |
+| 4/14  | Kelly P, Kelly E, Kevin W, Kevin S, Alex M, Rita B  | **Rita** has been working on the Class Schedule landing page with all the buttons according to the design documents. **Kevin W** Implemented the User Management landing page with buttons/display. Removed the Project Bar from the top. Added tests to the database. Working on creating an interface 'middle layer' that all database functionality can be encapsulated in - Gym class. Working on retrieving the user's role from the db when a user is logged in. **Kevin S** Finished the database - basic CRUD operations & queries. Added some unit tests. Will work on the individual assignment and code reviews/PRs because HE'S DONE SO MUCH THIS SPRINT :) **Alex M** Added a logout button. Working on the Agenda landing screen. Will work together with Rita since they're working on the same parts of the code/GUIs. No blockers. **Kelly P** Finished the account creation GUI - masked the user's password with * 's, verifies correct information. Working on some newly added tasks for implementing pop up windows for buttons in the schedule view. No blockers. **Kelly E** Masked the user's password with * 's on the Login GUI, verified account information with database. Will continue to work on pop ups for incorrect password/no account found in Login GUI, and will implement pop up window for buttons on the Schedule page. No blockers.| 28%  | Develop build passed  | N/A  |
 
 ### Meeting Summary:
 
 > Add rows as needed and add the number how many meetings they attended:
 
-   Kelly Petrone : 2
+   Kelly Petrone : 3
 
-   Kelly Ellis : 2
+   Kelly Ellis : 3
    
-   Kevin Wilkinson : 2
+   Kevin Wilkinson : 3
    
-   Kevin Somers : 2
+   Kevin Somers : 3
    
-   Alex Mack : 2
+   Alex Mack : 3
    
-   Rita Barrilleaux : 2
+   Rita Barrilleaux : 3
    
 
 

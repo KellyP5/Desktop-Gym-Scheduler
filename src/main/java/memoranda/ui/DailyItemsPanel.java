@@ -38,10 +38,8 @@ public class DailyItemsPanel extends JPanel {
 
     public EditorPanel editorPanel = new EditorPanel(this);
 
-    TaskPanel tasksPanel = new TaskPanel(this);
-
+    //TaskPanel tasksPanel = new TaskPanel(this);
     EventsPanel eventsPanel = new EventsPanel(this);
-
     AgendaPanel agendaPanel = new AgendaPanel(this);
 
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
@@ -269,7 +267,7 @@ public class DailyItemsPanel extends JPanel {
         
         editorsPanel.add(agendaPanel, "AGENDA");
         editorsPanel.add(eventsPanel, "CLASSES");
-        editorsPanel.add(tasksPanel, "TASKS");
+
         editorsPanel.add(editorPanel, "NOTES");
         
         splitPane.add(mainPanel, JSplitPane.RIGHT);
@@ -508,17 +506,6 @@ public class DailyItemsPanel extends JPanel {
         if (calendar.jnCalendar.renderer.getTask() != null) {
             calendar.jnCalendar.renderer.setTask(null);
          //   calendar.jnCalendar.updateUI();
-        }
-        if (pan.equals("TASKS") && (tasksPanel.taskTable.getSelectedRow() > -1)) {
-            Task t =
-                CurrentProject.getTaskList().getTask(
-                    tasksPanel
-                        .taskTable
-                        .getModel()
-                        .getValueAt(tasksPanel.taskTable.getSelectedRow(), TaskTable.TASK_ID)
-                        .toString());
-            calendar.jnCalendar.renderer.setTask(t);
-       //     calendar.jnCalendar.updateUI();
         }
         boolean isAg = pan.equals("AGENDA");
         agendaPanel.setActive(isAg);

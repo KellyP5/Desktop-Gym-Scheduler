@@ -235,11 +235,11 @@ public class databaseTest {
 
         LocalDate localDate = LocalDate.of(2020,4,11);
         LocalTime lst = LocalTime.of(12,30);
-        LocalTime let = LocalTime.of(13,30);
+        LocalTime localEndTime = LocalTime.of(13,30);
         LocalDateTime localStartDateTime = LocalDateTime.of(localDate,lst);
         LocalDateTime localEndDateTime = LocalDateTime.of(localDate, localEndTime);
 
-        GymClassEntity class1 = new GymClassEntity(1,
+/*        GymClassEntity class1 = new GymClassEntity(1,
                 1,
                 localStartDateTime,
                 localEndDateTime,
@@ -248,7 +248,7 @@ public class databaseTest {
                 minBelt,
                 trainer.getEmail());
 
-        dcq.insertClass(1);
+        dcq.insertClass(1);*/
     }
 
     public void addCustomerData_5Whites() throws SQLException {

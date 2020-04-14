@@ -44,7 +44,7 @@ public class DbReadQueries {
     returns list of all users in the USER table
      */
     public ArrayList<UserEntity> getAllUsers() throws SQLException {
-        String sql = "SELECT * FROM user";
+        String sql = "SELECT * FROM user;";
 
         Connection conn = DriverManager.getConnection(_dbUrl);
         Statement statement  = conn.createStatement();

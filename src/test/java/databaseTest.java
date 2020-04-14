@@ -1,3 +1,5 @@
+package test.java;
+
 import main.java.memoranda.database.*;
 import main.java.memoranda.database.util.DbCreateQueries;
 import main.java.memoranda.database.util.DbReadQueries;

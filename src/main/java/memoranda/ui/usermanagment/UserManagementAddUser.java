@@ -5,9 +5,13 @@ import java.awt.*;
 
 public class UserManagementAddUser extends JDialog {
 
-    JPanel mainPanel;
-    JButton b1;
+    private JPanel mainPanel;
+    private JButton b1;
 
+    /**
+     * Constructor for our Add User popup.
+     * @param rel is used to set relative position of the popup.
+     */
     public UserManagementAddUser(Component rel){
         super(new JFrame());
 

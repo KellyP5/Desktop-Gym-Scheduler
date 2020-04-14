@@ -5,9 +5,13 @@ import java.awt.*;
 
 public class UserManagementEditUser extends JDialog {
 
-    JPanel mainPanel;
-    JButton b1;
+    private JPanel mainPanel;
+    private JButton b1;
 
+    /**
+     * Constructor for our Edit User popup
+     * @param rel uses this variable to set the relative position of the popup.
+     */
     public UserManagementEditUser(Component rel){
         super(new JFrame());
 

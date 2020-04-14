@@ -1,6 +1,5 @@
 package main.java.memoranda.ui.usermanagment;
 
-
 import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.ui.ExceptionDialog;
@@ -10,25 +9,30 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+/**
+ * This controls the UserManagemnent panel on the LHS of our application.
+ */
 public class UserManagement extends JPanel {
 
-    String currentlySelectedEmail;      //these variables are updated when a row is selected on the JTable
-    String currentlySelectedUserRank;   //these variables are updated when a row is selected on the JTable
-    String currentlySelectedRole;       //these variables are updated when a row is selected on the JTable
+    private String currentlySelectedEmail;      //these variables are updated when a row is selected on the JTable
+    private String currentlySelectedUserRank;   //these variables are updated when a row is selected on the JTable
+    private String currentlySelectedRole;       //these variables are updated when a row is selected on the JTable
 
-    ArrayList<UserEntity> userEntities;
+    private ArrayList<UserEntity> userEntities;
 
-    JButton addUserButton;
+    private JButton addUserButton;
 
-    JButton editUser;
+    private JButton editUser;
 
-    JButton deleteUser;
+    private JButton deleteUser;
 
-    JScrollPane scrollPane;
+    private JScrollPane scrollPane;
 
-    JTable userList;
+    private JTable userList;
 
+    /**
+     * Constructor for our UserManagement class
+     */
     public UserManagement() {
         try {
             init();
@@ -40,9 +44,8 @@ public class UserManagement extends JPanel {
     }
 
     /**
-     * Jb init.
-     *
-     * @throws Exception the exception
+     * Master init method that runs all our other init methods
+     * @throws Exception exception.
      */
     private void init() throws Exception {
 
@@ -57,6 +60,9 @@ public class UserManagement extends JPanel {
 
     }
 
+    /**
+     * Initializes our buttons.
+     */
     private void initButtons(){
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
@@ -77,6 +83,9 @@ public class UserManagement extends JPanel {
 
     }
 
+    /**
+     * Initializes the table
+     */
     private void initTable(){
 
         String[] columnNames = {"Email", "User Rank", "Role"};
@@ -123,6 +132,9 @@ public class UserManagement extends JPanel {
 
     }
 
+    /**
+     * Creates the action listensers.
+     */
     private void setActions(){
 
         this.addUserButton.addActionListener(actionEvent -> {
@@ -141,9 +153,5 @@ public class UserManagement extends JPanel {
         });
 
     }
-
-
-
-
 
 }

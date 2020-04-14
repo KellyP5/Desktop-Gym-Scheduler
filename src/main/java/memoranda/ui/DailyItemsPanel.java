@@ -12,28 +12,32 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
- */
 
-/*$Id: DailyItemsPanel.java,v 1.22 2005/02/13 03:06:10 rawsushi Exp $*/
+/**
+ * DailyItemsPanel is the panel everyone sees.
+ *
+ * This class is reused in Agenda, Classes, Tasks, Notes tabs on the left of Globogym
+ */
 public class DailyItemsPanel extends JPanel {
 
 
     BorderLayout borderLayout1 = new BorderLayout();
     BorderLayout borderLayout2 = new BorderLayout();
     BorderLayout borderLayout3 = new BorderLayout();
-    BorderLayout borderLayout4 = new BorderLayout();
+    BorderLayout borderLayout4 = new BorderLayout();       //Used by statusPanel
 
     CardLayout cardLayout1 = new CardLayout();
 
     JSplitPane splitPane = new JSplitPane();
 
-    JPanel controlPanel = new JPanel(); /* Contains the calendar */
+    JPanel controlPanel = new JPanel();     //Holds the calender on the left hand side
     JPanel mainPanel = new JPanel();
-    JPanel statusPanel = new JPanel();
+
+    JPanel statusPanel = new JPanel();      //The top bar that displays the current day with black background
+    JLabel currentDateLabel = new JLabel(); //The label that goes into the status panel.
+
     JPanel editorsPanel = new JPanel();
-    JLabel currentDateLabel = new JLabel();
+
 
 
 
@@ -50,25 +54,11 @@ public class DailyItemsPanel extends JPanel {
 
     CalendarDate currentDate;
 
-    /**
-     * The Calendar ignore change.
-     */
+
     boolean calendarIgnoreChange = false;
-    /**
-     * The Date changed by calendar.
-     */
     boolean dateChangedByCalendar = false;
-    /**
-     * The Changed by history.
-     */
     boolean changedByHistory = false;
-    /**
-     * The Cmain panel.
-     */
     JPanel cmainPanel = new JPanel();
-    /**
-     * The Calendar.
-     */
     JNCalendarPanel calendar = new JNCalendarPanel();
     /**
      * The Toggle tool bar.

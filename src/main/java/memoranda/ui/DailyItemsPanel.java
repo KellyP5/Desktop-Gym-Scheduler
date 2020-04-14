@@ -4,7 +4,6 @@ import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
-import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;
@@ -36,7 +35,6 @@ public class DailyItemsPanel extends JPanel {
     JPanel editorsPanel = new JPanel();
     JLabel currentDateLabel = new JLabel();
 
-    public EditorPanel editorPanel = new EditorPanel(this);
 
 
     AgendaPanel agendaPanel = new AgendaPanel(this);
@@ -267,7 +265,7 @@ public class DailyItemsPanel extends JPanel {
         editorsPanel.add(agendaPanel, "AGENDA");
 
 
-        editorsPanel.add(editorPanel, "NOTES");
+
         
         splitPane.add(mainPanel, JSplitPane.RIGHT);
         splitPane.add(controlPanel, JSplitPane.LEFT);
@@ -319,13 +317,7 @@ public class DailyItemsPanel extends JPanel {
             }
         });
 
-        AppFrame.addExitListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (editorPanel.isDocumentChanged()) {
-                    CurrentStorage.get().storeNoteList(CurrentProject.getNoteList(), CurrentProject.get());
-                }
-            }
-        });
+
 
         History.addHistoryListener(new HistoryListener() {
             public void historyWasRolledTo(HistoryItem hi) {

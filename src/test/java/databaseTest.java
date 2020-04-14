@@ -2,7 +2,7 @@ import main.java.memoranda.database.*;
 import main.java.memoranda.database.util.DbCreateQueries;
 import main.java.memoranda.database.util.DbReadQueries;
 import main.java.memoranda.database.util.SqlConstants;
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -29,10 +29,13 @@ public class databaseTest {
         sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
     }
 
-    @AfterClass
-    public static void tearDown() throws Exception {
+    @After
+    public void tearDown() throws Exception {
         //sqlConnection.getDbSetupHelperTest().closeDatabase();
+        sqlConnection.getDbSetupHelperTest().deleteTestTables();
+        sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
         SqlConnection.close();
+
     }
 
     @Test
@@ -122,7 +125,6 @@ public class databaseTest {
 
     @Test
     public void testNotNull_nonEmptyDb_drq_getUserByEmail() throws SQLException{
-
         RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
         BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
 
@@ -150,7 +152,7 @@ public class databaseTest {
     }
 
     @Test
-    public void test1000Inserts_dbq() throws SQLException{
+    public void test1000Inserts_drq() throws SQLException{
         RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
         BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
 
@@ -184,6 +186,18 @@ public class databaseTest {
         assertEquals(1000,ues.size());
         assertEquals(expected.getEmail()+499,ues.get(499).getEmail());
     }
+
+    @Test
+    public void test0Inserts_drq() throws SQLException{
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
+
+        ArrayList<UserEntity> ues = drq.getAllUsers();
+
+        assertEquals(0,ues.size());
+    }
+
+
 
 
 

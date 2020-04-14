@@ -58,6 +58,7 @@ public class DbReadQueries {
         conn.close();
         return users;
     }
+
     /*
     returns all classes a specific user is enrolled in
      */

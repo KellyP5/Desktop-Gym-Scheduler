@@ -50,7 +50,7 @@ public class UserManagement extends JPanel {
     private void init() throws Exception {
 
 
-        this.userEntities = App.conn.getDrq().getAllUsers();
+        this.userEntities = App.conn.getDrqTest().getAllUsers();
 
         this.setLayout(new BorderLayout());
 

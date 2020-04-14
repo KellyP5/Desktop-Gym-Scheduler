@@ -95,7 +95,7 @@ public class App {
      *
      * @param fullmode the fullmode
      */
-    public App(boolean fullmode) {
+    public App(boolean fullmode) throws IOException {
 		super();
 
 		try {

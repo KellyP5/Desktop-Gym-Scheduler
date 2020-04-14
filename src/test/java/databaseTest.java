@@ -197,10 +197,107 @@ public class databaseTest {
         assertEquals(0,ues.size());
     }
 
+    @Test
+    public void testgetAllClassesByDate_classData1(){
+
+    }
+
+    /**
+     * Pupulates testdb with test classes
+     *
+     *
+     *
+     */
 
 
 
+    /*
 
+        The following are database creation methods for testing
+        the database.
 
+     */
 
+    public void classData1(){
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.trainer);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
+
+        UserEntity trainer = new UserEntity("kevin",
+                "kevin","kevin",
+                "kevin@kevin.com",
+                re,
+                be,
+                be);
+
+        //dcq.insertClass();
+    }
+
+    public void addCustomerData_5Whites() throws SQLException {
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.customer);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.white);
+
+        ArrayList<UserEntity> customers = new ArrayList<UserEntity>();
+        for(int i = 0;i< 5;i++){
+            UserEntity ue = new UserEntity("white"+i,
+                    "white"+i,"white"+i,
+                    "white@white.com"+i,
+                    re,
+                    be,
+                    be);
+
+            dcq.insertUser(ue.getEmail(),
+                    ue.getFirstName(),
+                    ue.getLastName(),
+                    ue.getPassword(),
+                    ue.getRole(),
+                    ue.getBelt(),
+                    ue.getTrainingBelt());
+        }
+    }
+
+    public void addCustomerData_5GreenStripes() throws SQLException {
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.customer);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.green_stripe);
+
+        ArrayList<UserEntity> customers = new ArrayList<UserEntity>();
+        for(int i = 0;i< 5;i++){
+            UserEntity ue = new UserEntity("greenStripe"+i,
+                    "greenStripe"+i,"greenStripe"+i,
+                    "greenStripe@greenStripe.com"+i,
+                    re,
+                    be,
+                    be);
+
+            dcq.insertUser(ue.getEmail(),
+                    ue.getFirstName(),
+                    ue.getLastName(),
+                    ue.getPassword(),
+                    ue.getRole(),
+                    ue.getBelt(),
+                    ue.getTrainingBelt());
+        }
+    }
+
+    public void addCustomerData_5black3() throws SQLException {
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.customer);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
+
+        ArrayList<UserEntity> customers = new ArrayList<UserEntity>();
+        for(int i = 0;i< 5;i++){
+            UserEntity ue = new UserEntity("black3"+i,
+                    "black3"+i,"black3"+i,
+                    "black3@black3.com"+i,
+                    re,
+                    be,
+                    be);
+
+            dcq.insertUser(ue.getEmail(),
+                    ue.getFirstName(),
+                    ue.getLastName(),
+                    ue.getPassword(),
+                    ue.getRole(),
+                    ue.getBelt(),
+                    ue.getTrainingBelt());
+        }
+    }
 }

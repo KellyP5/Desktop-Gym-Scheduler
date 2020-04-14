@@ -154,6 +154,39 @@ public class databaseTest {
     }
 
     @Test
+    public void test1Inserts_drq() throws SQLException{
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
+
+        UserEntity expected = new UserEntity("kevin",
+                "kevin","kevin",
+                "kevin@kevin.com",
+                re,
+                be,
+                be);
+
+        UserEntity ue1 = new UserEntity("kevin",
+                "kevin","kevin",
+                "kevin@kevin.com",
+                re,
+                be,
+                be);
+
+        dcq.insertUser(ue1.getEmail(),
+                ue1.getFirstName(),
+                ue1.getLastName(),
+                ue1.getPassword(),
+                ue1.getRole(),
+                ue1.getBelt(),
+                ue1.getTrainingBelt());
+
+        ArrayList<UserEntity> ues = drq.getAllUsers();
+
+        assertEquals(1,ues.size());
+        assertEquals("kevin@kevin.com",ues.get(0).getEmail());
+    }
+
+    @Test
     public void test1000Inserts_drq() throws SQLException{
         RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
         BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);

@@ -19,6 +19,7 @@ public class databaseTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
+
         sqlConnection = SqlConnection.getInstance();
         dcq = sqlConnection.getDcqTest();
         drq = sqlConnection.getDrqTest();
@@ -28,7 +29,8 @@ public class databaseTest {
 
     @AfterClass
     public static void tearDown() throws Exception {
-        sqlConnection.getDbSetupHelperTest().closeDatabase();
+        //sqlConnection.getDbSetupHelperTest().closeDatabase();
+        SqlConnection.close();
     }
 
     @Test
@@ -109,6 +111,14 @@ public class databaseTest {
         ArrayList<GymClassEntity> classes = drq.getAllClassesByDate(localDate);
         assertEquals(classes.get(0), classOriginal);
     }
+
+    @Test
+    public void testIfNull_emptyDb_drq_getUserByEmail() throws SQLException{
+        UserEntity ue = drq.getUserByEmail("IDONTEXISTS@yourmoma.com");
+        assertEquals(null,ue);
+    }
+
+
 
 
 

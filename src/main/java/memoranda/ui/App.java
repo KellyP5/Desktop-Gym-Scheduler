@@ -49,7 +49,10 @@ public class App {
      */
     public static final String WEBSITE_URL = "http://globogym.com";
 
-	public static SqlConnection connection = null;
+
+
+    public static SqlConnection conn = null;
+
 
 	private JFrame splash = null;
 	FileInputStream input;
@@ -95,14 +98,15 @@ public class App {
      *
      * @param fullmode the fullmode
      */
-    public App(boolean fullmode) {
+    public App(boolean fullmode) throws IOException {
 		super();
 
-		try {
-			this.connection = SqlConnection.getInstance();
 
-		} catch (SQLException sec) {
-			sec.printStackTrace();
+
+		try{
+			conn = SqlConnection.getInstance();
+		}catch(SQLException ecp){
+			ecp.printStackTrace();
 		}
 
 		// Updates the version and build numbers via the build.gradle file

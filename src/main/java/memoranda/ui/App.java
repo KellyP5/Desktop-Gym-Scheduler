@@ -49,7 +49,7 @@ public class App {
      */
     public static final String WEBSITE_URL = "http://globogym.com";
 
-	public static SqlConnection connection = null;
+	public static SqlConnection conn = null;
 
 	private JFrame splash = null;
 	FileInputStream input;
@@ -99,7 +99,7 @@ public class App {
 		super();
 
 		try {
-			this.connection = SqlConnection.getInstance();
+			this.conn = SqlConnection.getInstance();
 
 		} catch (SQLException sec) {
 			sec.printStackTrace();

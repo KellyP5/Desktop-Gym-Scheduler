@@ -340,7 +340,7 @@ public class AccountCreationDialog extends JFrame {
                         role = new RoleEntity(RoleEntity.UserRole.customer);
                     }
                     // Add new user to database
-                    App.connection.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role);
+                    App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role);
                     dispose();
                     createdSuccessfully();
                 } catch (SQLException ex) {

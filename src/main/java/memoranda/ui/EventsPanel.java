@@ -160,7 +160,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
         historyForwardB.setText("");
 
 
-
+    // newEventB Schedule Class Button for Class Page with event handler that creates new classes
         Color color = Color.decode("#16034f");
         newEventB.setBackground(color);
         newEventB.setForeground(Color.WHITE);
@@ -180,7 +180,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
         newEventB.setFont(
                 new Font("Arial", Font.PLAIN, 12));
 
-
+        // editEventB Edit Existing Class Button for Class Page with event handler that modifies created classes
         editEventB.setBackground(color);
         editEventB.setForeground(Color.WHITE);
         editEventB.setBorderPainted(false);
@@ -200,16 +200,17 @@ public class EventsPanel<newButtonFont> extends JPanel {
                 new Font("Arial", Font.PLAIN, 12));
 
 
-
+        // setEventB Set Availability Button for Class Page with event handler that lets trainer or admit
+        //to set their available time
         setEventB.setBackground(Color.GRAY);
         setEventB.setForeground(Color.WHITE);
         setEventB.setBorderPainted(false);
         setEventB.setFocusable(false);
-        setEventB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                editEventB_actionPerformed(e);
-            }
-        });
+     //  setEventB.addActionListener(new java.awt.event.ActionListener() {
+     //       public void actionPerformed(ActionEvent e) {
+        //        editEventB_actionPerformed(e);
+        //    }
+     //   });
         setEventB.setPreferredSize(new Dimension(140, 24));
         setEventB.setRequestFocusEnabled(false);
         setEventB.setToolTipText(Local.getString("Set Availability"));
@@ -221,6 +222,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
 
 
 
+        // privateEventB Schedule private Button for Class Page with event handler that allows to created private classes
 
         privateClassEventB.setBackground(Color.GRAY);
         privateClassEventB.setForeground(Color.WHITE);
@@ -240,6 +242,9 @@ public class EventsPanel<newButtonFont> extends JPanel {
         privateClassEventB.setFont(
                 new Font("Arial", Font.PLAIN, 12));
 
+
+
+        // enrollEventB Enroll in Class Button for Class Page with event handler that allows all users to enroll to class
 
         Color color1 = Color.decode("#5a2980");
         enrollClassEventB.setBackground(color1);
@@ -261,6 +266,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
                 new Font("Arial", Font.PLAIN, 12));
 
 
+        // editEnrollEventB Edit My Enrolled Classes Button for Class Page with event handler that modifies enrolment of the user
 
         editEnrollClassEventB.setBackground(color1);
         editEnrollClassEventB.setForeground(Color.WHITE);
@@ -279,6 +285,8 @@ public class EventsPanel<newButtonFont> extends JPanel {
         editEnrollClassEventB.setEnabled(true);
         editEnrollClassEventB.setFont(
                 new Font("Arial", Font.PLAIN, 12));
+
+
 
        /* removeEventB.setBorderPainted(false);
         removeEventB.setFocusable(false);
@@ -310,6 +318,9 @@ public class EventsPanel<newButtonFont> extends JPanel {
         ppEditEvent.setEnabled(false);
         ppEditEvent.setIcon(
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_edit.png")));
+
+
+
         ppRemoveEvent.setFont(new java.awt.Font("Dialog", 1, 11));
         ppRemoveEvent.setText(Local.getString("Remove event"));
         ppRemoveEvent.addActionListener(new java.awt.event.ActionListener() {
@@ -320,6 +331,10 @@ public class EventsPanel<newButtonFont> extends JPanel {
         ppRemoveEvent.setIcon(
             new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_remove.png")));
         ppRemoveEvent.setEnabled(false);
+
+
+
+
         ppNewEvent.setFont(new java.awt.Font("Dialog", 1, 11));
         ppNewEvent.setText(Local.getString("New event") + "...");
         ppNewEvent.addActionListener(new java.awt.event.ActionListener() {
@@ -339,9 +354,9 @@ public class EventsPanel<newButtonFont> extends JPanel {
         eventsToolBar.addSeparator(new Dimension(10, 24));
         eventsToolBar.add(editEventB, null);
         eventsToolBar.addSeparator(new Dimension(10, 24));
-        eventsToolBar.add(setEventB, null);
-        eventsToolBar.addSeparator(new Dimension(10, 24));
         eventsToolBar.add(privateClassEventB, null);
+        eventsToolBar.addSeparator(new Dimension(10, 24));
+        eventsToolBar.add(setEventB, null);
         eventsToolBar.addSeparator(new Dimension(10, 24));
         eventsToolBar.add(enrollClassEventB, null);
         eventsToolBar.addSeparator(new Dimension(10, 24));
@@ -367,6 +382,8 @@ public class EventsPanel<newButtonFont> extends JPanel {
                 ppEditEvent.setEnabled(false);
                 removeEventB.setEnabled(false);
                 ppRemoveEvent.setEnabled(false);
+               // enrollClassEventB.setEnabled(false);
+                //editEnrollClassEventB.setEnabled(false);
             }
         });
 
@@ -404,7 +421,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
      * @param e the e
      */
     void editEventB_actionPerformed(ActionEvent e) {
-        EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("Event"));
+        EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("Edit Existing Class"));
         main.java.memoranda.Event ev =
             (main.java.memoranda.Event) eventsTable.getModel().getValueAt(
                 eventsTable.getSelectedRow(),
@@ -507,7 +524,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
      * @param endDate   the end date
      */
     void newEventB_actionPerformed(ActionEvent e, String tasktext, Date startDate, Date endDate) {
-    	EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("New event"));
+    	EventDialog dlg = new EventDialog(App.getFrame(), Local.getString("Schedule New Public Class"));
     	Dimension frmSize = App.getFrame().getSize();
     	Point loc = App.getFrame().getLocation();
     	if (tasktext != null) {

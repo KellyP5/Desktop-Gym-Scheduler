@@ -218,37 +218,23 @@ public class databaseTest {
 
      */
 
-    public void classData1(){
-        RoleEntity re = new RoleEntity(RoleEntity.UserRole.trainer);
-        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
+    /**
+     * Should throw an exception because there is no users in the database.
+     * @throws SQLException
+     */
+    @Test(expected = SQLException.class)
+    public void testCreatedByReference() throws SQLException {
 
         BeltEntity minBelt = new BeltEntity(BeltEntity.Rank.white);
-
-        UserEntity trainer = new UserEntity("kevin",
-                "kevin","kevin",
-                "kevin@kevin.com",
-                re,
-                be,
-                be);
-
-
-
-        LocalDate localDate = LocalDate.of(2020,4,11);
-        LocalTime lst = LocalTime.of(12,30);
-        LocalTime localEndTime = LocalTime.of(13,30);
-        LocalDateTime localStartDateTime = LocalDateTime.of(localDate,lst);
-        LocalDateTime localEndDateTime = LocalDateTime.of(localDate, localEndTime);
-
-/*        GymClassEntity class1 = new GymClassEntity(1,
+        dcq.insertClass(
                 1,
-                localStartDateTime,
-                localEndDateTime,
-                trainer.getEmail(),
+                "04/28/2020",
+                12.0,
+                13.0,
+                "kevin@kevin.com",
                 20,
                 minBelt,
-                trainer.getEmail());
-
-        dcq.insertClass(1);*/
+                "kevin@kevin.com");
     }
 
     public void addCustomerData_5Whites() throws SQLException {

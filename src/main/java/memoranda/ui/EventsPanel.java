@@ -72,6 +72,18 @@ public class EventsPanel<newButtonFont> extends JPanel {
      */
     JButton setEventB = new JButton("Set Availability");
     /**
+     * The Schedule Private Class event b.
+     */
+    JButton privateClassEventB = new JButton("Schedule Private Class");
+    /**
+     * The Enroll in Class event b.
+     */
+    JButton enrollClassEventB = new JButton("Enroll in Class");
+    /**
+     * The Enroll in Class event b.
+     */
+    JButton editEnrollClassEventB = new JButton("Edit My Enrolled Class");
+    /**
      * The Remove event b.
      */
     JButton removeEventB = new JButton();
@@ -148,16 +160,16 @@ public class EventsPanel<newButtonFont> extends JPanel {
         historyForwardB.setText("");
 
 
-        newEventB.setFont(
-               new Font("Arial", Font.PLAIN, 10));
 
-
+        Color color = Color.decode("#16034f");
+        newEventB.setBackground(color);
+        newEventB.setForeground(Color.WHITE);
         newEventB.setEnabled(true);
-        newEventB.setMaximumSize(new Dimension(120, 24));
-        newEventB.setMinimumSize(new Dimension(120, 24));
-        newEventB.setToolTipText(Local.getString("New event"));
+        newEventB.setMaximumSize(new Dimension(140, 24));
+        newEventB.setMinimumSize(new Dimension(140, 24));
+        newEventB.setToolTipText(Local.getString("Schedule Class"));
         newEventB.setRequestFocusEnabled(false);
-        newEventB.setPreferredSize(new Dimension(120, 24));
+        newEventB.setPreferredSize(new Dimension(140, 24));
         newEventB.setFocusable(false);
         newEventB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -165,7 +177,12 @@ public class EventsPanel<newButtonFont> extends JPanel {
             }
         });
         newEventB.setBorderPainted(false);
+        newEventB.setFont(
+                new Font("Arial", Font.PLAIN, 12));
 
+
+        editEventB.setBackground(color);
+        editEventB.setForeground(Color.WHITE);
         editEventB.setBorderPainted(false);
         editEventB.setFocusable(false);
         editEventB.addActionListener(new java.awt.event.ActionListener() {
@@ -173,32 +190,95 @@ public class EventsPanel<newButtonFont> extends JPanel {
                 editEventB_actionPerformed(e);
             }
         });
-        editEventB.setPreferredSize(new Dimension(120, 24));
+        editEventB.setPreferredSize(new Dimension(140, 24));
         editEventB.setRequestFocusEnabled(false);
-        editEventB.setToolTipText(Local.getString("Edit event"));
-        editEventB.setMinimumSize(new Dimension(120, 24));
-        editEventB.setMaximumSize(new Dimension(120, 24));
+        editEventB.setToolTipText(Local.getString("Edit Existing Class"));
+        editEventB.setMinimumSize(new Dimension(140, 24));
+        editEventB.setMaximumSize(new Dimension(140, 24));
         editEventB.setEnabled(true);
         editEventB.setFont(
-                new Font("Arial", Font.PLAIN, 10));
-
-        setEventB.setFont(
-                new Font("Arial", Font.PLAIN, 10));
+                new Font("Arial", Font.PLAIN, 12));
 
 
-        setEventB.setEnabled(true);
-        setEventB.setMaximumSize(new Dimension(120, 24));
-        setEventB.setMinimumSize(new Dimension(120, 24));
-        setEventB.setToolTipText(Local.getString("Set Availability"));
-        setEventB.setRequestFocusEnabled(false);
-        setEventB.setPreferredSize(new Dimension(120, 24));
-        setEventB.setFocusable(false);
-     //   setEventB.addActionListener(new java.awt.event.ActionListener() {
-          //  public void actionPerformed(ActionEvent e) {
-            //    setEventB(e);
-            //}
-     //   });
+
+        setEventB.setBackground(Color.GRAY);
+        setEventB.setForeground(Color.WHITE);
         setEventB.setBorderPainted(false);
+        setEventB.setFocusable(false);
+        setEventB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                editEventB_actionPerformed(e);
+            }
+        });
+        setEventB.setPreferredSize(new Dimension(140, 24));
+        setEventB.setRequestFocusEnabled(false);
+        setEventB.setToolTipText(Local.getString("Set Availability"));
+        setEventB.setMinimumSize(new Dimension(140, 24));
+        setEventB.setMaximumSize(new Dimension(140, 24));
+        setEventB.setEnabled(true);
+        setEventB.setFont(
+                new Font("Arial", Font.PLAIN, 12));
+
+
+
+
+        privateClassEventB.setBackground(Color.GRAY);
+        privateClassEventB.setForeground(Color.WHITE);
+        privateClassEventB.setEnabled(true);
+        privateClassEventB.setMaximumSize(new Dimension(140, 24));
+        privateClassEventB.setMinimumSize(new Dimension(140, 24));
+        privateClassEventB.setToolTipText(Local.getString("Schedule Private Class"));
+        privateClassEventB.setRequestFocusEnabled(false);
+        privateClassEventB.setPreferredSize(new Dimension(140, 24));
+        privateClassEventB.setFocusable(false);
+ //       privateClassEventB.addActionListener(new java.awt.event.ActionListener() {
+ //           public void actionPerformed(ActionEvent e) {
+ //               newEventB_actionPerformed(e);
+ //           }
+ //       });
+        privateClassEventB.setBorderPainted(false);
+        privateClassEventB.setFont(
+                new Font("Arial", Font.PLAIN, 12));
+
+
+        Color color1 = Color.decode("#5a2980");
+        enrollClassEventB.setBackground(color1);
+        enrollClassEventB.setForeground(Color.WHITE);
+        enrollClassEventB.setBorderPainted(false);
+        enrollClassEventB.setFocusable(false);
+ //       enrollClassEventB.addActionListener(new java.awt.event.ActionListener() {
+ //           public void actionPerformed(ActionEvent e) {
+ //               editEventB_actionPerformed(e);
+ //           }
+ //       });
+        enrollClassEventB.setPreferredSize(new Dimension(140, 24));
+        enrollClassEventB.setRequestFocusEnabled(false);
+        enrollClassEventB.setToolTipText(Local.getString("Enroll in Class"));
+        enrollClassEventB.setMinimumSize(new Dimension(140, 24));
+        enrollClassEventB.setMaximumSize(new Dimension(140, 24));
+        enrollClassEventB.setEnabled(true);
+        enrollClassEventB.setFont(
+                new Font("Arial", Font.PLAIN, 12));
+
+
+
+        editEnrollClassEventB.setBackground(color1);
+        editEnrollClassEventB.setForeground(Color.WHITE);
+        editEnrollClassEventB.setBorderPainted(false);
+        editEnrollClassEventB.setFocusable(false);
+        //      enrollEventB.addActionListener(new java.awt.event.ActionListener() {
+        //         public void actionPerformed(ActionEvent e) {
+        //            editEventB_actionPerformed(e);
+        //       }
+        //  });
+        editEnrollClassEventB.setPreferredSize(new Dimension(140, 24));
+        editEnrollClassEventB.setRequestFocusEnabled(false);
+        editEnrollClassEventB.setToolTipText(Local.getString("Edit My Enrolled Class"));
+        editEnrollClassEventB.setMinimumSize(new Dimension(140, 24));
+        editEnrollClassEventB.setMaximumSize(new Dimension(140, 24));
+        editEnrollClassEventB.setEnabled(true);
+        editEnrollClassEventB.setFont(
+                new Font("Arial", Font.PLAIN, 12));
 
        /* removeEventB.setBorderPainted(false);
         removeEventB.setFocusable(false);
@@ -253,16 +333,22 @@ public class EventsPanel<newButtonFont> extends JPanel {
         this.add(scrollPane, BorderLayout.CENTER);
         eventsToolBar.add(historyBackB, null);
         eventsToolBar.add(historyForwardB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
-
+        eventsToolBar.addSeparator(new Dimension(10, 24));
+        eventsToolBar.addSeparator(new Dimension(10, 24));
         eventsToolBar.add(newEventB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.addSeparator(new Dimension(10, 24));
         eventsToolBar.add(editEventB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.addSeparator(new Dimension(10, 24));
         eventsToolBar.add(setEventB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.addSeparator(new Dimension(10, 24));
+        eventsToolBar.add(privateClassEventB, null);
+        eventsToolBar.addSeparator(new Dimension(10, 24));
+        eventsToolBar.add(enrollClassEventB, null);
+        eventsToolBar.addSeparator(new Dimension(10, 24));
+        eventsToolBar.add(editEnrollClassEventB, null);
+        eventsToolBar.addSeparator(new Dimension(10, 24));
         //eventsToolBar.add(removeEventB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        //eventsToolBar.addSeparator(new Dimension(8, 24));
 
 
         this.add(eventsToolBar, BorderLayout.NORTH);

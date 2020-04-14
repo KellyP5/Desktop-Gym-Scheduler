@@ -31,10 +31,8 @@ public class DbReadQueries {
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
-        if(!rs.next()){
-            return null;
-        }
         UserEntity userEntity = _getUserFromResultSet(rs);
+
         pstmt.close();
         conn.close();
         return userEntity;
@@ -44,7 +42,7 @@ public class DbReadQueries {
     returns list of all users in the USER table
      */
     public ArrayList<UserEntity> getAllUsers() throws SQLException {
-        String sql = "SELECT * FROM user";
+        String sql = "SELECT * FROM user;";
 
         Connection conn = DriverManager.getConnection(_dbUrl);
         Statement statement  = conn.createStatement();
@@ -58,6 +56,7 @@ public class DbReadQueries {
         conn.close();
         return users;
     }
+
     /*
     returns all classes a specific user is enrolled in
      */
@@ -206,6 +205,10 @@ public class DbReadQueries {
      * @throws SQLException sql  exception.
      */
     private UserEntity _getUserFromResultSet(ResultSet rs) throws SQLException {
+        if (!rs.next()) {
+            return null;
+        }
+
         String strBelt = rs.getString("Belt");
         BeltEntity belt = null;
         if (strBelt != null){

@@ -25,10 +25,15 @@ public class SqlConnection {
     This is just a helper main that can be ran to generate the real and test databases.
      */
     public static void main(String[] args) throws SQLException {
-        SqlConnection sqlConnection = SqlConnection.getInstance();
-        sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
-        sqlConnection.getDbSetupHelperTest().addSampleDataToDb(sqlConnection.getDcqTest());
-        sqlConnection.getDbSetupHelper().createNeujahrskranzTables();
+        try{
+            SqlConnection sqlConnection = SqlConnection.getInstance();
+            sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
+            sqlConnection.getDbSetupHelperTest().addSampleDataToDb(sqlConnection.getDcqTest());
+            sqlConnection.getDbSetupHelper().createNeujahrskranzTables();
+        }catch(SQLException cep){
+            cep.printStackTrace();
+        }
+
     }
 
 
@@ -55,6 +60,11 @@ public class SqlConnection {
             _instance = new SqlConnection();
         }
         return _instance;
+    }
+
+
+    public static void close(){
+        _instance = null;
     }
 
     public DbReadQueries getDrq() {

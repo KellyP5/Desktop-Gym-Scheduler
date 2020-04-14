@@ -1,8 +1,11 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.database.UserEntity;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class LoginBox extends JFrame {
 
@@ -87,7 +90,8 @@ public class LoginBox extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                App.init();
+                //App.init();
+                userVerification();
                 dispose(); // Close the login dialog box
             }
         });
@@ -98,7 +102,8 @@ public class LoginBox extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    App.init();
+                    //App.init();
+                    userVerification();
                 }
             }
         });
@@ -182,7 +187,42 @@ public class LoginBox extends JFrame {
                 }
             }
         });
-
-
     }
+
+    public void userVerification() {
+        try {
+            if (email.getText() != null) {
+
+                UserEntity user = App.conn.getDrq().getUserByEmail(email.getText());
+
+                if (user == null) {
+                    // User doesn't exist, prompt to create account
+                    accountDoesNotExist();
+                } else {
+                    if (user.getPassword().equals(pass.getText())) {
+                        App.init();
+                        dispose();
+                    } else {
+                        // Prompt for wrong password, have them try again
+                    }
+                }
+            }
+        } catch (SQLException exc) {
+            exc.printStackTrace();
+        }
+    }
+
+    public void accountDoesNotExist() {
+        Object[] options = {"Yes", "No"};
+        int x = JOptionPane.showOptionDialog(null, "An account with that username could not be found." +
+                        " Would you like to create one?", "Account Not Found", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, options, null);
+
+        if (x == JOptionPane.YES_OPTION) {
+            createAcc = new AccountCreationDialog();
+        } else {
+            new LoginBox();
+        }
+    }
+
 }

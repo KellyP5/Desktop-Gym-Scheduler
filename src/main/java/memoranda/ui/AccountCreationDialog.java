@@ -1,7 +1,7 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.util.DbReadQueries;
+import main.java.memoranda.database.RoleEntity;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -308,7 +308,7 @@ public class AccountCreationDialog extends JFrame {
      * Call to create account. Tests fields on Account Creation window for data.
      * @throws SQLException Throws exception is account does not exist.
      */
-    public void createAccount () throws SQLException {
+    public void createAccount() throws SQLException {
         if (firstName.getText().equals("First Name")) {
             throwInputError("You did not enter a first name");
         } else if (lastName.getText().equals("Last Name")) {
@@ -324,21 +324,40 @@ public class AccountCreationDialog extends JFrame {
         } else if (!Arrays.equals(pass.getPassword(), pass2.getPassword())) {
             throwInputError("Your passwords do not match");
         } else if (trainerButton.isSelected() || studentButton.isSelected()){
-            if (verifyInfo() == false) return;
-            System.out.println("Attempting to create account with E-mail: "+ email.getText() );
-            SqlConnection sql = SqlConnection.getInstance();
-            DbReadQueries dbrq = sql.getDrq();
-            try {
-                dbrq.getUserByEmail(email.getText());
-                throwInputError("An account with that E-mail already exists!");
-            } catch (SQLException ex) {
-                System.out.println("E-mail does not exist. Creating Account.");
-                //Code to create account
-                //App.init();
-                //dispose();
+            if (verifyInfo() == false) {
+                return;
+            } else {
+                System.out.println("Attempting to create account with E-mail: " + email.getText());
+                try {
+                    RoleEntity role;
+                    if (trainerButton.isSelected()) {
+                        role = new RoleEntity(RoleEntity.UserRole.trainer);
+                    } else {
+                        role = new RoleEntity(RoleEntity.UserRole.customer);
+                    }
+                    // Add new user to database
+                    App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role);
+                    dispose();
+                    createdSuccessfully();
+                } catch (SQLException ex) {
+                    throwInputError("An account already exists with that email.");
+                }
             }
         } else {
             throwInputError("Select the type of account to create");
+        }
+    }
+
+    /**
+     * Popup window that tells the user the account was created successfully
+     */
+    public void createdSuccessfully() {
+        Object[] option = {"OK"};
+        int x = JOptionPane.showOptionDialog(null, "Account was created successfully!",
+                "Account Creation", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+
+        if (x == JOptionPane.OK_OPTION) {
+            App.init();
         }
     }
 }

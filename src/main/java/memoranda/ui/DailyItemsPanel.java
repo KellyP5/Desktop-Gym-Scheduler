@@ -42,16 +42,13 @@ public class DailyItemsPanel extends JPanel {
     TaskPanel tasksPanel = new TaskPanel(this);
     EventsPanel eventsPanel = new EventsPanel(this);
 
-
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
     ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));
 
     boolean expanded = true;
 
-
     CalendarDate currentDate;
-
 
     boolean calendarIgnoreChange = false;
     boolean dateChangedByCalendar = false;
@@ -72,8 +69,6 @@ public class DailyItemsPanel extends JPanel {
     boolean addedToHistory = false;
 
     JPanel indicatorsPanel = new JPanel();
-
-    JButton alarmB = new JButton();
 
     FlowLayout flowLayout1 = new FlowLayout();
 
@@ -169,18 +164,7 @@ public class DailyItemsPanel extends JPanel {
         toggleButton.setIcon(collIcon);
         indicatorsPanel.setOpaque(false);
         indicatorsPanel.setLayout(flowLayout1);
-        alarmB.setMaximumSize(new Dimension(24, 24));
-        alarmB.setOpaque(false);
-        alarmB.setPreferredSize(new Dimension(24, 24));
-        alarmB.setToolTipText(Local.getString("Active events"));
-        alarmB.setBorderPainted(false);
-        alarmB.setMargin(new Insets(0, 0, 0, 0));
-        alarmB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                alarmB_actionPerformed(e);
-            }
-        });
-        alarmB.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/alarm.png")));
+
         flowLayout1.setAlignment(FlowLayout.RIGHT);
         flowLayout1.setVgap(0);
         taskB.setMargin(new Insets(0, 0, 0, 0));
@@ -369,8 +353,7 @@ public class DailyItemsPanel extends JPanel {
                     evlist += ev.getTimeString()+" - "+ev.getText()+"\n";
                 } */
                 main.java.memoranda.Event ev = EventsScheduler.getFirstScheduledEvent();
-                alarmB.setToolTipText(ev.getTimeString() + " - " + ev.getText());
-                indicatorsPanel.add(alarmB, null);
+
             }
         }
         indicatorsPanel.updateUI();
@@ -436,12 +419,5 @@ public class DailyItemsPanel extends JPanel {
         parentPanel.tasksB_actionPerformed(null);
     }
 
-    /**
-     * Alarm b action performed.
-     *
-     * @param e the e
-     */
-    void alarmB_actionPerformed(ActionEvent e) {
-        parentPanel.classesB_actionPerformed(null);
-    }
+
 }

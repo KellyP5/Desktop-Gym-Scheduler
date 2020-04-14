@@ -32,6 +32,9 @@ public class DbReadQueries {
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
+        if(!rs.next()){
+            return null;
+        }
         UserEntity userEntity = _getUserFromResultSet(rs);
         pstmt.close();
         conn.close();
@@ -218,8 +221,12 @@ public class DbReadQueries {
 
         return LocalDateTime.of(localDate, localTime);
     }
-    /*
-    helper method for creating and returning a UserEntity from the result set provided
+
+    /**
+     * private method used for parsing the result set.
+     * @param rs Result set to parse.
+     * @return returns null if the the rs set is empty, otherwise returns UserEntity.
+     * @throws SQLException sql  exception.
      */
     private UserEntity _getUserFromResultSet(ResultSet rs) throws SQLException {
         String strBelt = rs.getString("Belt");

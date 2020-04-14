@@ -1,6 +1,5 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.UserEntity;
 
 import javax.swing.*;
@@ -194,7 +193,7 @@ public class LoginBox extends JFrame {
         try {
             if (email.getText() != null) {
 
-                UserEntity user = App.connection.getDrq().getUserByEmail(email.getText());
+                UserEntity user = App.conn.getDrq().getUserByEmail(email.getText());
 
                 if (user == null) {
                     // User doesn't exist, prompt to create account

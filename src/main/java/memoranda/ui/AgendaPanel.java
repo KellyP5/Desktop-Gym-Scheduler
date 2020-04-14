@@ -1,41 +1,31 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.*;
+import main.java.memoranda.History;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
-import main.java.memoranda.gym.Class;
-import main.java.memoranda.gym.ManageClasses;
 import main.java.memoranda.util.Local;
-import main.java.memoranda.util.Util;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class AgendaPanel extends JPanel {
 
-	// This is the panel that is manipulated. This is instantiated through the AgendaPanel Constructor
-	DailyItemsPanel parentPanel = null;
-
-	JPanel agendaPanel = new JPanel();
-
+	boolean isActive = true;//used to determine if this panel is in use
 	BorderLayout borderLayout1 = new BorderLayout();
-	JButton historyBackB = new JButton();
+
+	JPanel panel;
+
 	JToolBar toolBar = new JToolBar();
+	JButton historyBackB = new JButton();
 	JButton historyForwardB = new JButton();
 
-	JTable classesTable = new JTable(0,5);
-    JScrollPane scrollPane = new JScrollPane();
+	JTable classesTable;
+	JScrollPane scrollPane;
 
-    Collection expandedTasks;
-    String gotoTask = null;
-    boolean isActive = true;
-
-    public AgendaPanel(DailyItemsPanel _parentPanel) {
+	public AgendaPanel(DailyItemsPanel _parentPanel) {
 		try {
-			parentPanel = _parentPanel;
 			jbInit();
 		} catch (Exception ex) {
 			new ExceptionDialog(ex);
@@ -43,11 +33,80 @@ public class AgendaPanel extends JPanel {
 		}
 	}
 
-    void jbInit() throws Exception {
-		expandedTasks = new ArrayList();
+	void jbInit() throws Exception {
+		this.setLayout(borderLayout1);
 
+		initToolBar();
+
+		initTable();
+
+		initEventListeners();
+
+
+		this.panel = new JPanel(new BorderLayout());
+		this.panel.add(scrollPane,BorderLayout.CENTER);
+
+		this.add(panel, BorderLayout.CENTER);
+
+	}
+
+	public void initTable(){
+
+		String[] columnNames = {"Date", "Duration", "Room Number", "Current Class Size","Belt Requirement"};
+
+		ArrayList<ArrayList<String>> d = new ArrayList<ArrayList<String>>();
+
+		//hardcoded dummy data these are our elements
+		for(int i = 0;i< 100;i++){
+			ArrayList<String> e = new ArrayList<>();
+			e.add("c - 0 r - "+i);
+			e.add("c - 1 r - "+i);
+			e.add("c - 2 r - "+i);
+			e.add("c - 3 r - "+i);
+			e.add("c - 4 r - "+i);
+			d.add(e);
+		}
+
+		//this code converts our 2d ArrayList into a String[][]
+		String[][] data = new String[d.size()][];
+		for(int i = 0;i<d.size();i++){
+			ArrayList<String> current = d.get(i);
+
+			String[] copy = new String[current.size()];
+			for(int j = 0;j< current.size();j++){
+				copy[j] = current.get(j);
+			}
+			data[i] = copy;
+		}
+
+
+
+		//that way we can pass this into our JTable constructor
+		classesTable = new JTable(data,columnNames);
+
+		//Forces selection to be just 1 row at a time
+		classesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+		//Set up event listener for selecting a row
+		classesTable.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
+			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(),0));
+			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(),1));
+			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(),2));
+			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(),3));
+			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(),4));
+			System.out.println();
+		});
+
+		//allows you to select but prevents being able to edit
+		classesTable.setDefaultEditor(Object.class,null);
+
+		this.scrollPane = new JScrollPane(classesTable);
+		//this.add(this.scrollPane,BorderLayout.SOUTH);
+
+	}
+
+	void initToolBar(){
 		toolBar.setFloatable(false);
-
 
 		historyBackB.setAction(History.historyBackAction);
 		historyBackB.setFocusable(false);
@@ -69,126 +128,42 @@ public class AgendaPanel extends JPanel {
 		historyForwardB.setMaximumSize(new Dimension(24, 24));
 		historyForwardB.setText("");
 
-		this.setLayout(borderLayout1);
-		scrollPane.getViewport().setBackground(Color.white);
-
-		this.add(scrollPane, BorderLayout.CENTER);
 		toolBar.add(historyBackB, null);
 		toolBar.add(historyForwardB, null);
-		toolBar.addSeparator(new Dimension(8, 24));
-
+		//toolBar.addSeparator(new Dimension(8, 24));
 		this.add(toolBar, BorderLayout.NORTH);
+	}
 
+	/**
+	 * Sets up our event listener for keeping our date current and what we are displaying to the user.
+	 */
+	void initEventListeners(){
 		CurrentDate.addDateListener(new DateListener() {
 			public void dateChange(CalendarDate d) {
 				if (isActive)
 					refresh(d);
 			}
 		});
-		CurrentProject.addProjectListener(new ProjectListener() {
 
-			public void projectChange(
-					Project prj,
-					NoteList nl,
-					TaskList tl,
-					ResourcesList rl) {
-			}
-
-			public void projectWasChanged() {
-				if (isActive)
-					refresh(CurrentDate.get());
-			}});
-		EventsScheduler.addListener(new EventNotificationListener() {
-			public void eventIsOccured(main.java.memoranda.Event ev) {
-				if (isActive)
-					refresh(CurrentDate.get());
-			}
-
-			public void eventsChanged() {
-				if (isActive)
-					refresh(CurrentDate.get());
-			}
-		});
 		refresh(CurrentDate.get());
 
+	}
+
+	/**
+	 * This should be the entry point into changing class data on selecting a calender date.
+	 * @param date
+	 */
+	public void refresh(CalendarDate date) {
+
+		//TODO update our scrollpane here, based on the date picked.
 
 	}
 
-    public void refresh(CalendarDate date) {
-
-    	//TODO update our scrollpane here, based on the date picked.
-
-
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				setAgendaPage();
-				if(gotoTask != null) {
-
-					scrollPane.setViewportView(agendaPanel);
-					Util.debug("Set view port to " + gotoTask);
-				}
-			}
-		});
-		scrollPane.setViewportView(agendaPanel);
-
-		Util.debug("Summary updated.");
-	}
-
-	public void setAgendaPage(){
-    	JPanel eventsPanel = new JPanel(new GridLayout());
-
-		agendaPanel.removeAll();
-		Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-		scrollPane.setMinimumSize(screensize);
-		
-		classesTable.getColumnModel().getColumn(0).setHeaderValue("Date");
-		classesTable.getColumnModel().getColumn(1).setHeaderValue("Duration");
-		classesTable.getColumnModel().getColumn(2).setHeaderValue("Room Number");
-		classesTable.getColumnModel().getColumn(3).setHeaderValue("Current Class Size");
-		classesTable.getColumnModel().getColumn(4).setHeaderValue("Belt Requirement");
-		classesTable.getColumnModel().getColumn(4).setHeaderValue("Belt Requirement");
-		classesTable.getColumnModel().getColumn(0).setMaxWidth(Math.round(screensize.width * 0.25f));
-
-
-
-    	agendaPanel.setLayout(new GridLayout(0,1));
-		classesTable.setRowHeight(50);
-		JScrollPane classScroller = new JScrollPane(classesTable);
-
-    	agendaPanel.add(classScroller);
-
-    	agendaPanel.add(eventsPanel);
-
-
-
-
-	}
-
-	public ArrayList<Class> getClassesForTrainer(){
-		createTestClass();
-		String currentUser = "alex.mack@mail.com";
-		ArrayList<Class> resultingClasses = null;
-	ManageClasses manage = new ManageClasses();
-	ArrayList<Class> classes = manage.getClasses();
-
-	for(int i = 0; i < classes.size(); i++){
-		if(classes.get(i).getTrainer().equals(currentUser)){
-			resultingClasses.add(classes.get(i));
-		}
-	}
-	return resultingClasses;
-	}
-
-	private void createTestClass() {
-		//ConsoleGymApp gym = new ConsoleGymApp();
-		//gym.run();
-    	/*BeltEntity belt = new BeltEntity(BeltEntity.Rank.black1);
-    	belt.rank = BeltEntity.Rank.blue;
-		GymClassEntity entity = new GymClassEntity(5, 8, LocalDateTime.MAX, LocalDateTime.MAX, "alex.mack@mail.com", 5, belt, "alex.mack@mail.com");
-		*/
-	}
-
-    public void setActive(boolean isa) {
+	/**
+	 * This method is called to set the panel as active or inactive.
+	 * @param isa is the state the panel is being put in.
+	 */
+	public void setActive(boolean isa) {
 		isActive = isa;
 	}
 

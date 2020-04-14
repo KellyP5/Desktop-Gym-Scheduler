@@ -4,7 +4,9 @@ import main.java.memoranda.database.*;
 import main.java.memoranda.database.util.DbCreateQueries;
 import main.java.memoranda.database.util.DbReadQueries;
 import main.java.memoranda.database.util.SqlConstants;
-import org.junit.*;
+import org.junit.After;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -21,6 +23,7 @@ public class databaseTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
+
         sqlConnection = SqlConnection.getInstance();
         dcq = sqlConnection.getDcqTest();
         drq = sqlConnection.getDrqTest();
@@ -28,9 +31,13 @@ public class databaseTest {
         sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
     }
 
-    @AfterClass
-    public static void tearDown() throws Exception {
-        sqlConnection.getDbSetupHelperTest().closeDatabase();
+    @After
+    public void tearDown() throws Exception {
+        //sqlConnection.getDbSetupHelperTest().closeDatabase();
+        sqlConnection.getDbSetupHelperTest().deleteTestTables();
+        sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
+        SqlConnection.close();
+
     }
 
     @Test
@@ -112,8 +119,192 @@ public class databaseTest {
         assertEquals(classes.get(0), classOriginal);
     }
 
+    @Test
+    public void testNull_emptyDb_drq_getUserByEmail() throws SQLException{
+        UserEntity ue = drq.getUserByEmail("IDONTEXISTS@yourmoma.com");
+        assertEquals(null,ue);
+    }
+
+    @Test
+    public void testNotNull_nonEmptyDb_drq_getUserByEmail() throws SQLException{
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
+
+        UserEntity ue1 = new UserEntity("kevin",
+                "kevin","kevin",
+                "kevin@kevin.com",
+                re,
+                be,
+                be);
+
+        dcq.insertUser(ue1.getEmail(),
+                ue1.getFirstName(),
+                ue1.getLastName(),
+                ue1.getPassword(),
+                ue1.getRole(),
+                ue1.getBelt(),
+                ue1.getTrainingBelt());
+
+        UserEntity expected = ue1;
+        UserEntity testEntity = drq.getUserByEmail("kevin@kevin.com");
+
+        assertEquals(expected,testEntity);
+
+
+    }
+
+    @Test
+    public void test1000Inserts_drq() throws SQLException{
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
+
+        UserEntity expected = new UserEntity("kevin",
+                "kevin","kevin",
+                "kevin@kevin.com",
+                re,
+                be,
+                be);
+
+
+        for(int i = 0;i< 1000;i++){
+            UserEntity ue1 = new UserEntity("kevin",
+                    "kevin","kevin",
+                    "kevin@kevin.com"+i,
+                    re,
+                    be,
+                    be);
+
+            dcq.insertUser(ue1.getEmail(),
+                    ue1.getFirstName(),
+                    ue1.getLastName(),
+                    ue1.getPassword(),
+                    ue1.getRole(),
+                    ue1.getBelt(),
+                    ue1.getTrainingBelt());
+        }
+
+        ArrayList<UserEntity> ues = drq.getAllUsers();
+
+        assertEquals(1000,ues.size());
+        assertEquals(expected.getEmail()+499,ues.get(499).getEmail());
+    }
+
+    @Test
+    public void test0Inserts_drq() throws SQLException{
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
+
+        ArrayList<UserEntity> ues = drq.getAllUsers();
+
+        assertEquals(0,ues.size());
+    }
+
+    @Test
+    public void testgetAllClassesByDate_classData1(){
+
+    }
+
+    /**
+     * Pupulates testdb with test classes
+     *
+     *
+     *
+     */
 
 
 
+    /*
 
+        The following are database creation methods for testing
+        the database.
+
+     */
+
+    /**
+     * Should throw an exception because there is no users in the database.
+     * @throws SQLException
+     */
+    @Test(expected = SQLException.class)
+    public void testCreatedByReference() throws SQLException {
+
+        BeltEntity minBelt = new BeltEntity(BeltEntity.Rank.white);
+        dcq.insertClass(
+                1,
+                "04/28/2020",
+                12.0,
+                13.0,
+                "kevin@kevin.com",
+                20,
+                minBelt,
+                "kevin@kevin.com");
+    }
+
+    public void addCustomerData_5Whites() throws SQLException {
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.customer);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.white);
+
+        ArrayList<UserEntity> customers = new ArrayList<UserEntity>();
+        for(int i = 0;i< 5;i++){
+            UserEntity ue = new UserEntity("white"+i,
+                    "white"+i,"white"+i,
+                    "white@white.com"+i,
+                    re,
+                    be,
+                    be);
+
+            dcq.insertUser(ue.getEmail(),
+                    ue.getFirstName(),
+                    ue.getLastName(),
+                    ue.getPassword(),
+                    ue.getRole(),
+                    ue.getBelt(),
+                    ue.getTrainingBelt());
+        }
+    }
+
+    public void addCustomerData_5GreenStripes() throws SQLException {
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.customer);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.green_stripe);
+
+        ArrayList<UserEntity> customers = new ArrayList<UserEntity>();
+        for(int i = 0;i< 5;i++){
+            UserEntity ue = new UserEntity("greenStripe"+i,
+                    "greenStripe"+i,"greenStripe"+i,
+                    "greenStripe@greenStripe.com"+i,
+                    re,
+                    be,
+                    be);
+
+            dcq.insertUser(ue.getEmail(),
+                    ue.getFirstName(),
+                    ue.getLastName(),
+                    ue.getPassword(),
+                    ue.getRole(),
+                    ue.getBelt(),
+                    ue.getTrainingBelt());
+        }
+    }
+
+    public void addCustomerData_5black3() throws SQLException {
+        RoleEntity re = new RoleEntity(RoleEntity.UserRole.customer);
+        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
+
+        ArrayList<UserEntity> customers = new ArrayList<UserEntity>();
+        for(int i = 0;i< 5;i++){
+            UserEntity ue = new UserEntity("black3"+i,
+                    "black3"+i,"black3"+i,
+                    "black3@black3.com"+i,
+                    re,
+                    be,
+                    be);
+
+            dcq.insertUser(ue.getEmail(),
+                    ue.getFirstName(),
+                    ue.getLastName(),
+                    ue.getPassword(),
+                    ue.getRole(),
+                    ue.getBelt(),
+                    ue.getTrainingBelt());
+        }
+    }
 }

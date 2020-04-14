@@ -16,21 +16,26 @@ import java.util.Collection;
 
 public class AgendaPanel extends JPanel {
 
+	// This is the panel that is manipulated. This is instantiated through the AgendaPanel Constructor
+	DailyItemsPanel parentPanel = null;
+
+	JPanel agendaPanel = new JPanel();
+
 	BorderLayout borderLayout1 = new BorderLayout();
 	JButton historyBackB = new JButton();
 	JToolBar toolBar = new JToolBar();
 	JButton historyForwardB = new JButton();
-	JPanel agendaPanel = new JPanel();
+
 	JTable classesTable = new JTable(0,5);
     JScrollPane scrollPane = new JScrollPane();
-    DailyItemsPanel parentPanel = null;
+
     Collection expandedTasks;
     String gotoTask = null;
     boolean isActive = true;
 
     public AgendaPanel(DailyItemsPanel _parentPanel) {
 		try {
-			//parentPanel = _parentPanel;
+			parentPanel = _parentPanel;
 			jbInit();
 		} catch (Exception ex) {
 			new ExceptionDialog(ex);

@@ -189,7 +189,6 @@ public class LoginBox extends JFrame {
                 }
             }
 
-
             @Override
             public void focusLost(FocusEvent focusEvent) {
                 if (_pass.getText().equals("")) {

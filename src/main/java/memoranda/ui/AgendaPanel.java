@@ -1,6 +1,7 @@
 package main.java.memoranda.ui;
 
 import main.java.memoranda.History;
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -8,6 +9,10 @@ import main.java.memoranda.util.Local;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class AgendaPanel extends JPanel {
@@ -50,22 +55,16 @@ public class AgendaPanel extends JPanel {
 
 	}
 
-	public void initTable(){
+	public void initTable() throws SQLException {
 
-		String[] columnNames = {"Date", "Duration", "Room Number", "Current Class Size","Belt Requirement"};
+		String[] columnNames = {"Date", "Duration", "Room Number", "Max Class Size","Belt Requirement"};
 
-		ArrayList<ArrayList<String>> d = new ArrayList<ArrayList<String>>();
+		ArrayList<ArrayList<String>> d = getClassDataForTrainer("jackj@gmail.com");
+		//this code class getClassDataForTrainer which returns an array list of arraylists that contain strings that are the info for each
+		//individual class.
 
-		//hardcoded dummy data these are our elements
-		for(int i = 0;i< 100;i++){
-			ArrayList<String> e = new ArrayList<>();
-			e.add("c - 0 r - "+i);
-			e.add("c - 1 r - "+i);
-			e.add("c - 2 r - "+i);
-			e.add("c - 3 r - "+i);
-			e.add("c - 4 r - "+i);
-			d.add(e);
-		}
+
+
 
 		//this code converts our 2d ArrayList into a String[][]
 		String[][] data = new String[d.size()][];
@@ -101,7 +100,34 @@ public class AgendaPanel extends JPanel {
 		classesTable.setDefaultEditor(Object.class,null);
 
 		this.scrollPane = new JScrollPane(classesTable);
-		//this.add(this.scrollPane,BorderLayout.SOUTH);
+		this.add(this.scrollPane,BorderLayout.SOUTH);
+
+	}
+
+	ArrayList<ArrayList<String>> getClassDataForTrainer(String email) throws SQLException {
+		ArrayList<GymClassEntity> gymClassEntities = App.connection.getDrqTest().getAllClassesTrainerIsTeachingByEmail(email);
+
+
+		ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
+		for(int i = 0; i < gymClassEntities.size(); i++){
+			//creates an array list of array lists that hold strings of information for each individual class for the passed trainer.
+			if(gymClassEntities.get(i).getEndDateTime().toLocalDate().isAfter(LocalDateTime.now().toLocalDate())) {
+				//the if statement will only add the information to the array if the class end time is after the current time.
+				LocalTime startTime = gymClassEntities.get(i).getStartDateTime().toLocalTime();
+				LocalTime endTime = gymClassEntities.get(i).getEndDateTime().toLocalTime();
+				long duration = (startTime.until(endTime, ChronoUnit.MINUTES)); //subtracts the end time from the start time to get a duration.
+
+				ArrayList<String> e = new ArrayList<>(); //creats an array list of one class's information.
+				e.add(gymClassEntities.get(i).getStartDateTime().toString());
+				e.add(Long.toString(duration) + " minutes");
+				e.add(Integer.toString(gymClassEntities.get(i).getRoomNumber()));
+				e.add(Integer.toString(gymClassEntities.get(i).getMaxClassSize()));
+				e.add(gymClassEntities.get(i).getMinBeltEntityRequired().rank.toString());
+				classInfo.add(e); //adds the array list of class's information to the 2D arraylist.
+			}
+
+		}
+		return classInfo; //returns the 2d array list.
 
 	}
 

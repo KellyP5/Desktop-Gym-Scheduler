@@ -24,7 +24,7 @@
   
   > Each member will conduct at least 4 unit tests per sprint. (on your code or other people's code)
   
-  > Whe committing a User Test to a task, you will commit it via 'US# Task# Unit Test: ...'
+  > Whe committing a Unit Test to a task, you will commit it via 'US# Task# Unit Test: ...'
   
   > Unit tests will be setup to produce jacoco reports
   
@@ -38,7 +38,7 @@
   
   > Each member will conduct at least 4 unit tests per sprint. (on your code or other people's code)
   
-  > Whe committing a User Test to a task, you will commit it via 'US# Task# Unit Test: ...'
+  > Whe committing a Unit Test to a task, you will commit it via 'US# Task# Unit Test: ...'
   
   > Unit tests will be setup to produce jacoco reports
   

@@ -2,6 +2,7 @@ package main.java.memoranda.ui;
 
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Configuration;
 
 import javax.swing.*;
@@ -51,6 +52,8 @@ public class App {
 
 	public static SqlConnection conn = null;
 
+    public static Gym gym = null;
+
 	private JFrame splash = null;
 	FileInputStream input;
 
@@ -97,7 +100,7 @@ public class App {
      */
     public App(boolean fullmode) throws IOException {
 		super();
-
+		
 		try {
 			this.conn = SqlConnection.getInstance();
 

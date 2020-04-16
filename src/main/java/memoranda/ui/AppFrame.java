@@ -572,7 +572,6 @@ public class AppFrame extends JFrame {
                 jMenuHelpAbout_actionPerformed(e);
             }
         });
-        jButton3.setIcon(image3);
         jButton3.setToolTipText(Local.getString("Help"));
 
          workPanel.setPreferredSize(new Dimension(1073, 300));

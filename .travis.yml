@@ -1,6 +1,8 @@
 language: java
 jdk: oraclejdk11
 dist: xenial
+env:
+ - DB=sqlite
 services:
  - xvfb
 script: xvfb-run make test

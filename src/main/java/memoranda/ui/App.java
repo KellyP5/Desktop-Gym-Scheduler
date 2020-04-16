@@ -100,7 +100,7 @@ public class App {
      */
     public App(boolean fullmode) throws IOException {
 		super();
-		
+
 		try {
 			this.conn = SqlConnection.getInstance();
 

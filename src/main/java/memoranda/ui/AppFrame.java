@@ -1,6 +1,30 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Vector;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.text.html.HTMLDocument;
+
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.History;
+import main.java.memoranda.Note;
+import main.java.memoranda.NoteList;
+import main.java.memoranda.Project;
+import main.java.memoranda.ProjectListener;
+import main.java.memoranda.ResourcesList;
+import main.java.memoranda.TaskList;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.util.*;
 import nu.xom.Builder;
@@ -29,7 +53,7 @@ public class AppFrame extends JFrame {
     /**
      * The Content pane.
      */
-    JPanel contentPane;
+    private JPanel contentPane;
     /**
      * The Menu bar.
      */
@@ -42,7 +66,6 @@ public class AppFrame extends JFrame {
      * The J menu file exit.
      */
     JMenuItem jMenuFileExit = new JMenuItem();
-
     /**
      * The Tool bar.
      */
@@ -51,38 +74,19 @@ public class AppFrame extends JFrame {
      * The J button 3.
      */
     JButton jButton3 = new JButton();
-    /**
-     * The Image 1.
-     */
-    ImageIcon image1;
-    /**
-     * The Image 2.
-     */
-    ImageIcon image2;
-    /**
-     * The Image 3.
-     */
-    ImageIcon image3;
-    /**
-     * The Status bar.
-     */
+
+    Image logoutimg = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
+
+    Image logoutButtonIcon = logoutimg.getScaledInstance(20,20, Image.SCALE_SMOOTH);
+
+    JButton logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
+
     JLabel statusBar = new JLabel();
     /**
      * The Border layout 1.
      */
+
     BorderLayout borderLayout1 = new BorderLayout();
-    /**
-     * The Split pane.
-     */
-    JSplitPane splitPane = new JSplitPane();
-    /**
-     * The Projects panel.
-     */
-    ProjectsPanel projectsPanel = new ProjectsPanel();
-    /**
-     * The Pr panel expanded.
-     */
-    boolean prPanelExpanded = false;
 
     /**
      * The J menu edit.
@@ -232,6 +236,7 @@ public class AppFrame extends JFrame {
      */
     JMenuItem jMenuGoHBack = new JMenuItem(History.historyBackAction);
     /**
+    /**
      * The J menu go fwd.
      */
     JMenuItem jMenuGoFwd = new JMenuItem(History.historyForwardAction);
@@ -288,7 +293,7 @@ public class AppFrame extends JFrame {
      * Instantiates a new App frame.
      */
 //Construct the frame
-    public AppFrame() {
+    public AppFrame() throws IOException {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         try {
             jbInit();
@@ -350,29 +355,9 @@ public class AppFrame extends JFrame {
                 jMenuHelpAbout_actionPerformed(e);
             }
         });
-        //jButton3.setIcon(image3);
         jButton3.setToolTipText(Local.getString("Help"));
-        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 
-        splitPane.setContinuousLayout(true);
-        splitPane.setDividerSize(3);
-        //splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(28);
-        //projectsPanel.setMaximumSize(new Dimension(2147483647, 200));
-        projectsPanel.setMinimumSize(new Dimension(10, 28));
-        projectsPanel.setPreferredSize(new Dimension(10, 28));
-        /*workPanel.setMinimumSize(new Dimension(734, 300));
-         workPanel.setPreferredSize(new Dimension(1073, 300));*/
-        splitPane.setDividerLocation(28);
-
-        /* jMenuFileNewPrj.setText(Local.getString("New project") + "...");
-         jMenuFileNewPrj.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {
-         ProjectDialog.newProject();
-         }
-         });
-         */
-        jMenuFileNewPrj.setAction(projectsPanel.newProjectAction);
+         workPanel.setPreferredSize(new Dimension(1073, 300));
 
         jMenuFileUnpackPrj.setText(Local.getString("Unpack project") + "...");
 
@@ -409,6 +394,8 @@ public class AppFrame extends JFrame {
         jMenuInsertSpecial.setText(Local.getString("Special"));
 
         toolBar.add(jButton3);
+
+
         jMenuFile.add(jMenuFileNewPrj);
 
         jMenuFile.addSeparator();
@@ -439,11 +426,51 @@ public class AppFrame extends JFrame {
         menuBar.add(jMenuGo);
         menuBar.add(jMenuHelp);
         this.setJMenuBar(menuBar);
+
         //contentPane.add(toolBar, BorderLayout.NORTH);
+
         contentPane.add(statusBar, BorderLayout.SOUTH);
-        contentPane.add(splitPane, BorderLayout.CENTER);
-        splitPane.add(projectsPanel, JSplitPane.TOP);
-        splitPane.add(workPanel, JSplitPane.BOTTOM);
+       // contentPane.add(splitPane, BorderLayout.CENTER);
+        /*Creates the logout button, and sets everything in menu bar that's created after
+        // "createHorizontalGlue" to the right. Creates action listener. */
+        logoutButton.setMaximumSize(new Dimension(5,30));
+        logoutButton.setOpaque(false);
+        logoutButton.setContentAreaFilled(false);
+        logoutButton.setBorderPainted(false);
+        menuBar.add(Box.createHorizontalGlue());
+        menuBar.add(logoutButton);
+
+
+        logoutButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+
+                //LOGOUT FUNCTION WILL BE CALLED HERE.
+                //System.out.println("DEBUG: Test");
+                //
+            }
+        });
+
+        //End logout button code.
+
+
+
+        //splitPane.add(projectsPanel, JSplitPane.TOP);
+        this.contentPane.add(workPanel);
+
+
+       // splitPane.add(workPanel, JSplitPane.BOTTOM);
+        jMenuEdit.add(jMenuEditUndo);
+        jMenuEdit.add(jMenuEditRedo);
+        jMenuEdit.addSeparator();
+        jMenuEdit.add(jMenuEditCut);
+        jMenuEdit.add(jMenuEditCopy);
+        jMenuEdit.add(jMenuEditPaste);
+        jMenuEdit.add(jMenuEditPasteSpec);
+        jMenuEdit.addSeparator();
+        jMenuEdit.add(jMenuEditSelectAll);
+        jMenuEdit.addSeparator();
+        jMenuEdit.add(jMenuEditFind);
 
         jMenuInsert.addSeparator();
 
@@ -455,23 +482,10 @@ public class AppFrame extends JFrame {
         jMenuGo.add(jMenuGoDayFwd);
         jMenuGo.add(jMenuGoToday);
 
-        splitPane.setBorder(null);
+       // splitPane.setBorder(null);
         workPanel.setBorder(null);
 
         setEnabledEditorMenus(false);
-
-        projectsPanel.AddExpandListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (prPanelExpanded) {
-                    prPanelExpanded = false;
-                    splitPane.setDividerLocation(28);
-                }
-                else {
-                    prPanelExpanded = true;
-                    splitPane.setDividerLocation(0.2);
-                }
-            }
-        });
 
         java.awt.event.ActionListener setMenusDisabled = new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -485,7 +499,7 @@ public class AppFrame extends JFrame {
 
         this.workPanel.tasksB.addActionListener(setMenusDisabled);
         this.workPanel.classesB.addActionListener(setMenusDisabled);
-        this.workPanel.filesB.addActionListener(setMenusDisabled);
+        this.workPanel.userMgmt.addActionListener(setMenusDisabled);
         this.workPanel.agendaB.addActionListener(setMenusDisabled);
 
         this.workPanel.notesB.addActionListener(
@@ -630,15 +644,6 @@ public class AppFrame extends JFrame {
         exitListeners.add(al);
     }
 
-    /**
-     * Gets exit listeners.
-     *
-     * @return the exit listeners
-     */
-    public static Collection getExitListeners() {
-        return exitListeners;
-    }
-
     private static void exitNotify() {
         for (int i = 0; i < exitListeners.size(); i++)
             ((ActionListener) exitListeners.get(i)).actionPerformed(null);
@@ -772,7 +777,7 @@ public class AppFrame extends JFrame {
         Context.put("LAST_SELECTED_PACK_FILE", chooser.getSelectedFile());        
         java.io.File f = chooser.getSelectedFile();
         ProjectPackager.unpack(f);
-        projectsPanel.prjTablePanel.updateUI();
+       // projectsPanel.prjTablePanel.updateUI();
     }
 
     /**

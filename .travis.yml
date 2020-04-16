@@ -2,3 +2,5 @@ language: java
 jdk: oraclejdk11
 env:
  - DB=sqlite
+before_install:
+ - "export DISPLAY=:99.0"

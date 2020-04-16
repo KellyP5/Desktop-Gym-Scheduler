@@ -107,32 +107,49 @@ public class AgendaPanel extends JPanel {
 	ArrayList<ArrayList<String>> getClassDataForTrainer(String email) throws SQLException {
 		ArrayList<GymClassEntity> gymClassEntities = App.connection.getDrqTest().getAllClassesTrainerIsTeachingByEmail(email);
 
+		if(!gymClassEntities.isEmpty()) {
+			ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
+			for (int i = 0; i < gymClassEntities.size(); i++) {
+				//creates an array list of array lists that hold strings of information for each individual class for the passed trainer.
+				if (gymClassEntities.get(i).getEndDateTime().toLocalDate().isAfter(LocalDateTime.now().toLocalDate())) {
+					//the if statement will only add the information to the array if the class end time is after the current time.
+					LocalTime startTime = gymClassEntities.get(i).getStartDateTime().toLocalTime();
+					LocalTime endTime = gymClassEntities.get(i).getEndDateTime().toLocalTime();
+					long duration = (startTime.until(endTime, ChronoUnit.MINUTES)); //subtracts the end time from the start time to get a duration.
 
-		ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
-		for(int i = 0; i < gymClassEntities.size(); i++){
-			//creates an array list of array lists that hold strings of information for each individual class for the passed trainer.
-			if(gymClassEntities.get(i).getEndDateTime().toLocalDate().isAfter(LocalDateTime.now().toLocalDate())) {
-				//the if statement will only add the information to the array if the class end time is after the current time.
-				LocalTime startTime = gymClassEntities.get(i).getStartDateTime().toLocalTime();
-				LocalTime endTime = gymClassEntities.get(i).getEndDateTime().toLocalTime();
-				long duration = (startTime.until(endTime, ChronoUnit.MINUTES)); //subtracts the end time from the start time to get a duration.
+					ArrayList<String> e = new ArrayList<>(); //creats an array list of one class's information.
+					e.add(gymClassEntities.get(i).getStartDateTime().toLocalDate().toString());
+					e.add(Long.toString(duration) + " minutes");
+					e.add(Integer.toString(gymClassEntities.get(i).getRoomNumber()));
+					e.add(Integer.toString(gymClassEntities.get(i).getMaxClassSize()));
+					e.add(gymClassEntities.get(i).getMinBeltEntityRequired().rank.toString());
+					classInfo.add(e); //adds the array list of class's information to the 2D arraylist.
+				}
 
-				ArrayList<String> e = new ArrayList<>(); //creats an array list of one class's information.
-				e.add(gymClassEntities.get(i).getStartDateTime().toString());
-				e.add(Long.toString(duration) + " minutes");
-				e.add(Integer.toString(gymClassEntities.get(i).getRoomNumber()));
-				e.add(Integer.toString(gymClassEntities.get(i).getMaxClassSize()));
-				e.add(gymClassEntities.get(i).getMinBeltEntityRequired().rank.toString());
-				classInfo.add(e); //adds the array list of class's information to the 2D arraylist.
 			}
-
+			return classInfo; //returns the 2d array list.
 		}
-		return classInfo; //returns the 2d array list.
+		else{
+			return null;
+		}
 
 	}
 
-	void initToolBar(){
+	public String getTrainerBelt(String email) throws SQLException {
+		String belt = App.connection.getDrqTest().getUserByEmail(email).getBelt().rank.toString();
+
+		return belt;
+
+
+	}
+
+	void initToolBar() throws SQLException {
 		toolBar.setFloatable(false);
+
+
+
+
+
 
 		historyBackB.setAction(History.historyBackAction);
 		historyBackB.setFocusable(false);

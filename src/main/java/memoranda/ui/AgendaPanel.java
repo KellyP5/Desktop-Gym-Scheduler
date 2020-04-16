@@ -108,7 +108,7 @@ public class AgendaPanel extends JPanel {
 	}
 
 	ArrayList<ArrayList<String>> getClassDataForTrainer(String email) throws SQLException {
-		ArrayList<GymClassEntity> gymClassEntities = App.connection.getDrqTest().getAllClassesTrainerIsTeachingByEmail(email);
+		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrqTest().getAllClassesTrainerIsTeachingByEmail(email);
 
 		if(!gymClassEntities.isEmpty()) {
 			ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
@@ -140,7 +140,7 @@ public class AgendaPanel extends JPanel {
 	}
 
 	public String getTrainerBelt(String email) throws SQLException {
-		String belt = App.connection.getDrqTest().getUserByEmail(email).getBelt().rank.toString();
+		String belt = App.conn.getDrqTest().getUserByEmail(email).getBelt().rank.toString();
 
 		return belt;
 

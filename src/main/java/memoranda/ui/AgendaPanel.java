@@ -85,6 +85,9 @@ public class AgendaPanel extends JPanel {
 
 		//Forces selection to be just 1 row at a time
 		classesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		classesTable.setFont(new Font(classesTable.getFont().getName(), classesTable.getFont().getStyle(), 15));
+		classesTable.setRowHeight(20);
+
 
 		//Set up event listener for selecting a row
 		classesTable.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
@@ -119,10 +122,11 @@ public class AgendaPanel extends JPanel {
 
 					ArrayList<String> e = new ArrayList<>(); //creats an array list of one class's information.
 					e.add(gymClassEntities.get(i).getStartDateTime().toLocalDate().toString());
-					e.add(Long.toString(duration) + " minutes");
+					e.add(Long.toString(duration) + " Minutes");
 					e.add(Integer.toString(gymClassEntities.get(i).getRoomNumber()));
 					e.add(Integer.toString(gymClassEntities.get(i).getMaxClassSize()));
-					e.add(gymClassEntities.get(i).getMinBeltEntityRequired().rank.toString());
+					e.add(gymClassEntities.get(i).getMinBeltEntityRequired().rank.toString().substring(0,1).toUpperCase() +
+							gymClassEntities.get(i).getMinBeltEntityRequired().rank.toString().substring(1));
 					classInfo.add(e); //adds the array list of class's information to the 2D arraylist.
 				}
 

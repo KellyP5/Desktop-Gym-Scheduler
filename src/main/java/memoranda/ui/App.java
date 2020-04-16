@@ -12,7 +12,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Properties;
-//import org.swingexplorer.Log;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
+
+import main.java.memoranda.EventsScheduler;
+import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.util.Configuration;
 
 /**
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -42,7 +50,7 @@ public class App {
      */
     public static final String WEBSITE_URL = "http://globogym.com";
 
-    public static SqlConnection connection = null;
+	public static SqlConnection conn = null;
 
     public static Gym gym = null;
 
@@ -90,17 +98,17 @@ public class App {
      *
      * @param fullmode the fullmode
      */
-    public App(boolean fullmode) {
+    public App(boolean fullmode) throws IOException {
 		super();
 
-        try {
-            this.connection = SqlConnection.getInstance();
-            this.gym = new Gym();//insert connection code
+		try {
+			this.conn = SqlConnection.getInstance();
+      this.gym = new Gym();//insert connection code
 
 
-        } catch (SQLException sec) {
-            sec.printStackTrace();
-        }
+		} catch (SQLException sec) {
+			sec.printStackTrace();
+		}
 
 		// Updates the version and build numbers via the build.gradle file
 		try {

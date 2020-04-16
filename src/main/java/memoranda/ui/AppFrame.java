@@ -572,31 +572,10 @@ public class AppFrame extends JFrame {
                 jMenuHelpAbout_actionPerformed(e);
             }
         });
-        //jButton3.setIcon(image3);
+        jButton3.setIcon(image3);
         jButton3.setToolTipText(Local.getString("Help"));
-/*        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-
-        splitPane.setContinuousLayout(true);
-        splitPane.setDividerSize(3);
-        //splitPane.setOneTouchExpandable(true);
-        splitPane.setDividerLocation(28);*/
-        //projectsPanel.setMaximumSize(new Dimension(2147483647, 200));
-
-
-        //projectsPanel.setMinimumSize(new Dimension(10, 28));
-        //projectsPanel.setPreferredSize(new Dimension(10, 28));
 
          workPanel.setPreferredSize(new Dimension(1073, 300));
-       // splitPane.setDividerLocation(28);
-
-        /* jMenuFileNewPrj.setText(Local.getString("New project") + "...");
-         jMenuFileNewPrj.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {
-         ProjectDialog.newProject();
-         }
-         });
-         */
-       // jMenuFileNewPrj.setAction(projectsPanel.newProjectAction);
 
         jMenuFileUnpackPrj.setText(Local.getString("Unpack project") + "...");
         jMenuFileExportNote.setText(Local.getString("Export current note")

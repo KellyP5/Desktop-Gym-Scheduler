@@ -113,6 +113,11 @@ public class BeltEntity {
         return rank == that.rank;
     }
 
+    /**
+     * Needed a way to convert a string into a rank for the account creation
+     * @param String to convert
+     * @return Rank
+     */
     public Rank getRank(String s) {
         Rank belt;
         switch(s){

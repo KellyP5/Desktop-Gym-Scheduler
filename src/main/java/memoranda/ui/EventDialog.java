@@ -85,6 +85,10 @@ public class EventDialog extends JDialog implements WindowListener {
      */
     JLabel lblTime = new JLabel();
     /**
+     * The Lbl time.
+     */
+    JLabel lblTrainer = new JLabel();
+    /**
      * The Lbl belt.
      */
     JLabel lblBelt = new JLabel();
@@ -268,6 +272,23 @@ public class EventDialog extends JDialog implements WindowListener {
 
 
 
+        lblTrainer.setText(Local.getString("Trainer"));
+        lblTrainer.setMinimumSize(new Dimension(60, 24));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 4; gbc.gridy = 0;
+        gbc.insets = new Insets(10, 0, 5, 10);
+        gbc.anchor = GridBagConstraints.WEST;
+        eventPanel.add(lblTrainer, gbc);
+        lblTrainer.setPreferredSize(new Dimension(100, 25));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 5; gbc.gridy = 0;
+        gbc.insets = new Insets(10, 0, 5, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        eventPanel.add(lblTrainer, gbc);
+
+
+
+
 
         //Belt selection menu
         lblBelt.setText(Local.getString("Min Belt"));
@@ -298,6 +319,8 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(10, 0, 5, 0);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(roomsCB, gbc);
+
+
 
         //Text typing menu
         lblText.setText(Local.getString("Text"));
@@ -362,6 +385,8 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(5, 5, 5, 40);
         gbc.anchor = GridBagConstraints.WEST;
         repeatPanel.add(lblDays, gbc);
+
+
         lblSince.setText(Local.getString("Since"));
         lblSince.setMinimumSize(new Dimension(70, 16));
         gbc = new GridBagConstraints();

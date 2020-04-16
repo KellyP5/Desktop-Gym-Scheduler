@@ -70,7 +70,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
     /**
      * The Set Availability event b.
      */
-    JButton setEventB = new JButton("Set Availability");
+    JButton setEventB = new JButton("Set My Availability");
     /**
      * The Schedule Private Class event b.
      */
@@ -82,11 +82,11 @@ public class EventsPanel<newButtonFont> extends JPanel {
     /**
      * The Enroll in Class event b.
      */
-    JButton editEnrollClassEventB = new JButton("Edit My Enrolled Class");
+    JButton editEnrollClassEventB = new JButton("Cancel My Enrollment");
     /**
      * The Remove event b.
      */
-    JButton removeEventB = new JButton();
+    JButton removeEventB = new JButton("Remove Class");
     /**
      * The Scroll pane.
      */
@@ -181,7 +181,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
                 new Font("Arial", Font.PLAIN, 12));
 
         // editEventB Edit Existing Class Button for Class Page with event handler that modifies created classes
-        editEventB.setBackground(color);
+        editEventB.setBackground(Color.GRAY);
         editEventB.setForeground(Color.WHITE);
         editEventB.setBorderPainted(false);
         editEventB.setFocusable(false);
@@ -224,7 +224,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
 
         // privateEventB Schedule private Button for Class Page with event handler that allows to created private classes
 
-        privateClassEventB.setBackground(Color.GRAY);
+        privateClassEventB.setBackground(color);
         privateClassEventB.setForeground(Color.WHITE);
         privateClassEventB.setEnabled(true);
         privateClassEventB.setMaximumSize(new Dimension(140, 24));
@@ -287,21 +287,25 @@ public class EventsPanel<newButtonFont> extends JPanel {
                 new Font("Arial", Font.PLAIN, 12));
 
 
-
-       /* removeEventB.setBorderPainted(false);
+// removeEventB Cancel Scheduled Class Button for Class Page with event handler
+// that removes scheduled class
+        removeEventB.setBackground(Color.GRAY);
+        removeEventB.setForeground(Color.WHITE);
+        removeEventB.setBorderPainted(false);
         removeEventB.setFocusable(false);
         removeEventB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 removeEventB_actionPerformed(e);
             }
         });
-        removeEventB.setPreferredSize(new Dimension(24, 24));
+        removeEventB.setPreferredSize(new Dimension(140, 24));
         removeEventB.setRequestFocusEnabled(false);
         removeEventB.setToolTipText(Local.getString("Remove event"));
-        removeEventB.setMinimumSize(new Dimension(24, 24));
-        removeEventB.setMaximumSize(new Dimension(24, 24));
-        removeEventB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_remove.png")));*/
+        removeEventB.setMinimumSize(new Dimension(140, 24));
+        removeEventB.setMaximumSize(new Dimension(140, 24));
+        removeEventB.setFont(
+                new Font("Arial", Font.PLAIN, 12));
+
 
         this.setLayout(borderLayout1);
         scrollPane.getViewport().setBackground(Color.white);
@@ -348,22 +352,23 @@ public class EventsPanel<newButtonFont> extends JPanel {
         this.add(scrollPane, BorderLayout.CENTER);
         eventsToolBar.add(historyBackB, null);
         eventsToolBar.add(historyForwardB, null);
-        eventsToolBar.addSeparator(new Dimension(10, 24));
+
         eventsToolBar.addSeparator(new Dimension(10, 24));
         eventsToolBar.add(newEventB, null);
         eventsToolBar.addSeparator(new Dimension(10, 24));
-        eventsToolBar.add(editEventB, null);
-        eventsToolBar.addSeparator(new Dimension(10, 24));
         eventsToolBar.add(privateClassEventB, null);
         eventsToolBar.addSeparator(new Dimension(10, 24));
+        eventsToolBar.add(editEventB, null);
+        eventsToolBar.addSeparator(new Dimension(10, 24));
+        eventsToolBar.add(removeEventB, null);
+        eventsToolBar.addSeparator(new Dimension(8, 24));
         eventsToolBar.add(setEventB, null);
         eventsToolBar.addSeparator(new Dimension(10, 24));
         eventsToolBar.add(enrollClassEventB, null);
         eventsToolBar.addSeparator(new Dimension(10, 24));
         eventsToolBar.add(editEnrollClassEventB, null);
-        eventsToolBar.addSeparator(new Dimension(10, 24));
-        //eventsToolBar.add(removeEventB, null);
-        //eventsToolBar.addSeparator(new Dimension(8, 24));
+
+
 
 
         this.add(eventsToolBar, BorderLayout.NORTH);

@@ -89,6 +89,10 @@ public class EventDialog extends JDialog implements WindowListener {
      */
     JLabel lblTrainer = new JLabel();
     /**
+     * The combo box fot trainer.
+     */
+     JComboBox trainerCB = new JComboBox();
+    /**
      * The Lbl belt.
      */
     JLabel lblBelt = new JLabel();
@@ -275,16 +279,16 @@ public class EventDialog extends JDialog implements WindowListener {
         lblTrainer.setText(Local.getString("Trainer"));
         lblTrainer.setMinimumSize(new Dimension(60, 24));
         gbc = new GridBagConstraints();
-        gbc.gridx = 4; gbc.gridy = 0;
+        gbc.gridx = 5; gbc.gridy = 0;
         gbc.insets = new Insets(10, 0, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(lblTrainer, gbc);
         lblTrainer.setPreferredSize(new Dimension(100, 25));
         gbc = new GridBagConstraints();
-        gbc.gridx = 5; gbc.gridy = 0;
+        gbc.gridx = 6; gbc.gridy = 0;
         gbc.insets = new Insets(10, 0, 5, 0);
         gbc.anchor = GridBagConstraints.WEST;
-        eventPanel.add(lblTrainer, gbc);
+        eventPanel.add(trainerCB, gbc);
 
 
 
@@ -321,12 +325,26 @@ public class EventDialog extends JDialog implements WindowListener {
         eventPanel.add(roomsCB, gbc);
 
 
+        lblTrainer.setText(Local.getString("Trainer"));
+        lblTrainer.setMinimumSize(new Dimension(60, 24));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0; gbc.gridy = 3;
+        gbc.insets = new Insets(10, 0, 5, 10);
+        gbc.anchor = GridBagConstraints.WEST;
+        eventPanel.add(lblTrainer, gbc);
+        lblTrainer.setPreferredSize(new Dimension(100, 25));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1; gbc.gridy = 3;
+        gbc.insets = new Insets(10, 0, 5, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        eventPanel.add(trainerCB, gbc);
+
 
         //Text typing menu
         lblText.setText(Local.getString("Text"));
         lblText.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 3;
+        gbc.gridx = 0; gbc.gridy = 4;
         gbc.gridwidth = 3;
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
@@ -334,7 +352,7 @@ public class EventDialog extends JDialog implements WindowListener {
         textField.setMinimumSize(new Dimension(375, 24));
         textField.setPreferredSize(new Dimension(375, 24));
         gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 4;
+        gbc.gridx = 0; gbc.gridy = 5;
         gbc.gridwidth = 6;
         gbc.insets = new Insets(5, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;

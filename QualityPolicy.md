@@ -54,14 +54,14 @@
   Developer Name: _______________________
   
 - [ ] My code compiles
-- [ ] My code has been developer-tested and includes unit tests that do not fail
+- [ ] My code has been developer-tested and includes unit tests that do not fail, if unit testing makes sense
 - [ ] My code is properly commented according to Coding Standards
 	  - [ ] All source code files/class files have banner comments present and filled in
 - [ ] All public methods have a method banner comment and/or javadoc comment present and filled in
 - [ ] My code is stylistically consistent
     - [ ] Indentations are consistent
     - [ ] Bracket use is consistent (All { appear at the end of a line and } on its own line)
-    - [ ] Line length is not excessive (Does not exceed 100 characters)
+    - [ ] Line length is not excessive (Does not exceed 120 characters)
     - [ ] There is no leftover commented-out code
     - [ ] There are no spelling mistakes
 - [ ] I use proper naming conventions
@@ -82,7 +82,7 @@
 Reviewer Name: ________________
 
 - [ ] The code compiles
-- [ ] Unit tests are present and correct (do not fail)
+- [ ] Unit tests are present and correct (do not fail), if unit testing makes sense
 - [ ] Comments are comprehensible and appropriate (there are no trivial comments)
 - [ ] Comments are neither too numerous nor verbose
 - [ ] Comments follow proper Coding Standards 
@@ -91,7 +91,7 @@ Reviewer Name: ________________
 - [ ] The code is stylistically consistent
      - [ ] Indentations are consistent
      - [ ] Bracket use is consistent (All { appear at the end of a line and } on its own line)
-     - [ ] Line length is not excessive (Does not exceed 100 characters)
+     - [ ] Line length is not excessive (Does not exceed 120 characters)
      - [ ] There is no leftover commented-out code
      - [ ] There are no spelling mistakes
 - [ ] Proper naming conventions are used

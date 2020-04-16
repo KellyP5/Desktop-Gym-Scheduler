@@ -99,7 +99,8 @@ public class LoginBox extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                boolean verified = userVerification();
+                App.init(); // TEMPORARY - Change before submitting deliverable2
+                //boolean verified = userVerification();
                 dispose(); // Close the login dialog box
             }
         });
@@ -113,7 +114,8 @@ public class LoginBox extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    boolean verified = userVerification();
+                    App.init(); // TEMPORARY - Change before submitting deliverable2
+                    //boolean verified = userVerification();
                 }
             }
         });

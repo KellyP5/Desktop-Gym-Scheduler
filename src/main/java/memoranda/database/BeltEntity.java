@@ -113,6 +113,88 @@ public class BeltEntity {
         return rank == that.rank;
     }
 
+    public Rank getRank(String s) {
+        Rank belt;
+        switch(s){
+            case "white":
+            {
+                belt = Rank.white;
+                break;
+            }
+            case "yellow":
+            {
+                belt = Rank.yellow;
+                break;
+            }
+            case "orange":
+            {
+                belt = Rank.orange;
+                break;
+            }
+            case "purple":
+            {
+                belt = Rank.purple;
+                break;
+            }
+            case "blue":
+            {
+                belt = Rank.blue;
+                break;
+            }
+            case "blue_stripe":
+            {
+                belt = Rank.blue_stripe;
+                break;
+            }
+            case "green":
+            {
+                belt = Rank.green;
+                break;
+            }
+            case "green_stripe":
+            {
+                belt = Rank.green_stripe;
+                break;
+            }
+            case "brown1":
+            {
+                belt = Rank.brown1;
+                break;
+            }
+            case "brown2":
+            {
+                belt = Rank.brown2;
+                break;
+            }
+            case "brown3":
+            {
+                belt = Rank.brown3;
+                break;
+            }
+            case "black1":
+            {
+                belt = Rank.black1;
+                break;
+            }
+            case "black2":
+            {
+                belt = Rank.black2;
+                break;
+            }
+            case "black3":
+            {
+                belt = Rank.black3;
+                break;
+            }
+            default:
+            {
+                belt = Rank.white;
+                break;
+            }
+        }
+        return belt;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(rank);

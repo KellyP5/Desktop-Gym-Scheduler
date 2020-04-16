@@ -7,6 +7,7 @@ RoleEntity is for sql uses related to the Role field, which appears in the USER 
 used for permissions and visibility in the GUI.
  */
 public class RoleEntity {
+    
     public enum UserRole{
         admin,
         trainer,
@@ -28,5 +29,30 @@ public class RoleEntity {
     @Override
     public int hashCode() {
         return Objects.hash(userRole);
+    }
+
+    @Override
+    public String toString() {
+        String ret = "";
+
+        switch (userRole){
+            case admin:
+            {
+                ret+= "admin";
+                break;
+            }
+            case trainer:
+            {
+                ret+= "trainer";
+                break;
+            }
+            case customer:
+            {
+                ret+= "customer";
+                break;
+            }
+
+        }
+        return ret;
     }
 }

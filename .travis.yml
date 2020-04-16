@@ -5,8 +5,10 @@ env:
  - DB=sqlite
 services:
  - xvfb
-script: xvfb-run make test
+script: 
+ - xvfb-run make test
+ - "java.awt.headless=true"
 before_script:
+ - "Xvfb :99 &"
  - "export DISPLAY=:99.0"
- - "sh -e /etc/init.d/xvfb start"
  - sleep 3

@@ -76,7 +76,11 @@ public class UserEntity {
     }
 
     public BeltEntity getBelt() {
-        return _belt;
+        if (_belt == null) {
+            return new BeltEntity(BeltEntity.Rank.white);
+        } else {
+            return _belt;
+        }
     }
 
     public void setBelt(BeltEntity belt) {

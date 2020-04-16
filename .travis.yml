@@ -1,14 +1,9 @@
 language: java
 jdk: oraclejdk11
-dist: xenial
 env:
  - DB=sqlite
-services:
- - xvfb
 script: 
- - xvfb-run make test
  - "java.awt.headless=true"
-before_script:
+before_isntall:
  - "Xvfb :99 &"
  - "export DISPLAY=:99.0"
- - sleep 3

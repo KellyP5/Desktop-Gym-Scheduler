@@ -2,8 +2,7 @@ language: java
 jdk: oraclejdk11
 env:
  - DB=sqlite
-script: 
- - "-Djava.awt.headless=true"
+ - _JAVA_OPTIONS="-Djava.awt.headless=true
 before_isntall:
  - "Xvfb :99 &"
  - "export DISPLAY=:99.0"

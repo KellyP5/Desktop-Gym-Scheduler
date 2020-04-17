@@ -30,6 +30,8 @@ public class UserManagement extends JPanel {
 
     private JTable userList;
 
+    private UserEntity _selectedUser;
+
     /**
      * Constructor for our UserManagement class
      */
@@ -121,6 +123,11 @@ public class UserManagement extends JPanel {
             this.currentlySelectedEmail = (String) userList.getModel().getValueAt(userList.getSelectedRow(),0);
             this.currentlySelectedUserRank = (String) userList.getModel().getValueAt(userList.getSelectedRow(),1);
             this.currentlySelectedRole = (String) userList.getModel().getValueAt(userList.getSelectedRow(),2);
+            try {
+                _selectedUser = App.conn.getDrq().getUserByEmail(currentlySelectedEmail);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         });
 
         //allows you to select but prevents being able to edit
@@ -143,8 +150,14 @@ public class UserManagement extends JPanel {
         });
 
         this.editUser.addActionListener(actionEvent -> {
-            System.out.println("//TODO Edit user button");
-            new UserManagementEditUser(editUser);
+            //System.out.println("//TODO Edit user button");
+            if (this.currentlySelectedEmail != null) {
+                new UserManagementEditUser(editUser, _selectedUser);
+            } else {
+                // TODO add popup that tells user to select a user first
+                userNotSelected();
+                System.out.println("Select a user first");
+            }
         });
 
         this.deleteUser.addActionListener(actionEvent -> {
@@ -152,6 +165,12 @@ public class UserManagement extends JPanel {
             //TODO
         });
 
+    }
+
+    public void userNotSelected() {
+        Object[] option = {"OK"};
+        int x = JOptionPane.showOptionDialog(null, "Please select a user to edit",
+                "Select User", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
     }
 
 }

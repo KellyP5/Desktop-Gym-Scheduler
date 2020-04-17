@@ -1,5 +1,7 @@
 plugins {
   id 'org.ajoberstar.grgit' version '4.0.1'
+  id "com.github.spotbugs" version "3.0.0"
+  id "checkstyle"
 }
 
 apply plugin: 'application'
@@ -35,6 +37,33 @@ dependencies {
   compile 'org.json:json:20190722'
   compile group:'org.xerial', name:'sqlite-jdbc', version:'3.30.1'
   compile "junit:junit:4.12"
+}
+
+apply plugin: 'checkstyle'
+checkstyle {
+  ignoreFailures = true
+  showViolations = false
+}
+
+tasks.withType(Checkstyle) {
+  reports {
+    html.enabled = true
+    xml.enabled = false
+  }
+}
+checkstyle {
+  toolVersion = "8.8"
+}
+
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+  reports {
+    xml.enabled = false
+    html.enabled = true
+  }
+}
+
+spotbugs {
+  ignoreFailures = true
 }
 
 

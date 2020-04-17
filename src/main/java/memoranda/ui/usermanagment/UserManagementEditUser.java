@@ -33,6 +33,9 @@ public class UserManagementEditUser extends JDialog {
     private String[] _trainerBeltColors;
     private JComboBox _trainerBeltList;
     private JButton _updateButton;
+    private String _roleString;
+    private String _beltString;
+    private UserEntity _selectedUser;
 
 
     /**
@@ -41,6 +44,8 @@ public class UserManagementEditUser extends JDialog {
      */
     public UserManagementEditUser(Component rel, UserEntity _user){
         super(new JFrame());
+
+        _selectedUser = _user;
 
         _mainPanel = new JPanel();
         this.setTitle("Edit User");
@@ -51,21 +56,21 @@ public class UserManagementEditUser extends JDialog {
 
         _firstNameBox = new JTextField(10);
         _firstNameBox.setBounds(120,100,120,20);
-        _firstNameBox.setText(_user.getFirstName());
+        _firstNameBox.setText(_selectedUser.getFirstName());
 
         _lastNameLabel = new JLabel("Last Name");
         _lastNameLabel.setBounds(40, 140, 75, 20);
 
         _lastNameBox = new JTextField(10);
         _lastNameBox.setBounds(120, 140, 120, 20);
-        _lastNameBox.setText(_user.getLastName());
+        _lastNameBox.setText(_selectedUser.getLastName());
 
         _emailLabel = new JLabel("Email");
         _emailLabel.setBounds(40, 180, 75, 20);
 
         _emailBox = new JTextField(20);
         _emailBox.setBounds(120, 180, 120, 20);
-        _emailBox.setText(_user.getEmail());
+        _emailBox.setText(_selectedUser.getEmail());
 
         _role = new JLabel("Role");
         _role.setBounds(40, 220, 75, 20);
@@ -85,7 +90,7 @@ public class UserManagementEditUser extends JDialog {
         _buttons.add(_adminButton);
 
         // Set role to currently selected user's role
-        String role = _user.getRole().toString();
+        String role = _selectedUser.getRole().toString();
         if (role.equalsIgnoreCase("trainer")) {
             _trainerButton.setSelected(true);
         } else if (role.equalsIgnoreCase("customer")) {
@@ -104,7 +109,7 @@ public class UserManagementEditUser extends JDialog {
         // Find index of selected user's belt color
         int index = 0;
         for (int i = 0; i < _beltColors.length; i++) {
-            if (_user.getBelt().toString().equalsIgnoreCase(_beltColors[i])) {
+            if (_selectedUser.getBelt().toString().equalsIgnoreCase(_beltColors[i])) {
                 index = i;
             }
         }
@@ -123,7 +128,6 @@ public class UserManagementEditUser extends JDialog {
         _trainerBeltList.setBounds(120, 300, 120, 20);
         _trainerBeltList.setBackground(Color.WHITE);
 
-        // Add 'UPDATE USER' button that updates the user in the database when pushed
 
         _updateButton = new JButton("Update");
         _updateButton.setBounds(140, 350, 100, 30);
@@ -131,31 +135,39 @@ public class UserManagementEditUser extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                // Email wasn't changed
-                if (_emailBox.getText().equals(_user.getEmail())) {
-                    // Update user info in database
-
-                    RoleEntity role = getRoleFromSelected();
-
-                    // Get belt rank from updated selections
-                    BeltEntity belt = getBeltFromSelected();
-
+                RoleEntity role = getRoleFromSelected();
+                BeltEntity belt = getBeltFromSelected(_beltList);
+                _roleString = role.toString();
+                _beltString = belt.toString();
+                // Email wasn't changed - Update user info in database
+                if (_emailBox.getText().equals(_selectedUser.getEmail())) {
                     try {
                         App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
-                                _user.getPassword(), role, belt);
+                                _selectedUser.getPassword(), role, belt);
+                        boolean change = confirmChanges();
+                        // Alert user that the update was successful
+                        if (change) {
+                            updateSuccessful();
+                        }
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
                 } else {
-                    // Check if new email exists in the db
+                    // Email was changed - Check if new email already exists in the db
                     try {
                         UserEntity user = App.conn.getDrq().getUserByEmail(_emailBox.getText());
                         if (user != null) {
                             // email is already in database - alert user
-
+                            emailAlreadyExists();
                         } else {
                             // Email not in database, update user info
-
+                            App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
+                                    _selectedUser.getPassword(), role, belt);
+                            boolean change = confirmChanges();
+                            // Alert the user that the update was successful
+                            if (change) {
+                                updateSuccessful();
+                            }
                         }
                     } catch (SQLException ex) {
                         ex.printStackTrace();
@@ -163,6 +175,7 @@ public class UserManagementEditUser extends JDialog {
                 }
             }
         });
+
 
         _mainPanel.add(_firstNameLabel);
         _mainPanel.add(_firstNameBox);
@@ -180,8 +193,8 @@ public class UserManagementEditUser extends JDialog {
 
         // Only show trainer belt options if the selected user is a trainer or admin
         // Students should not have this option
-        if (_user.getRole().toString().equalsIgnoreCase("trainer") ||
-        _user.getRole().toString().equalsIgnoreCase("admin")) {
+        if (_selectedUser.getRole().toString().equalsIgnoreCase("trainer") ||
+                _selectedUser.getRole().toString().equalsIgnoreCase("admin")) {
             _mainPanel.add(_trainerBelt);
             _mainPanel.add(_trainerBeltList);
         }
@@ -206,37 +219,83 @@ public class UserManagementEditUser extends JDialog {
         return role;
     }
 
-    public BeltEntity getBeltFromSelected() {
+    public BeltEntity getBeltFromSelected(JComboBox list) {
         BeltEntity belt;
-        if (_beltList.getSelectedItem().equals("White")) {
+        if (list.getSelectedItem().equals("White")) {
             belt = new BeltEntity(BeltEntity.Rank.white);
-        } else if (_beltList.getSelectedItem().equals("Yellow")) {
+        } else if (list.getSelectedItem().equals("Yellow")) {
             belt = new BeltEntity(BeltEntity.Rank.yellow);
-        } else if (_beltList.getSelectedItem().equals("Orange")) {
+        } else if (list.getSelectedItem().equals("Orange")) {
             belt = new BeltEntity(BeltEntity.Rank.orange);
-        } else if (_beltList.getSelectedItem().equals("Purple")) {
+        } else if (list.getSelectedItem().equals("Purple")) {
             belt = new BeltEntity(BeltEntity.Rank.purple);
-        } else if (_beltList.getSelectedItem().equals("Blue")) {
+        } else if (list.getSelectedItem().equals("Blue")) {
             belt = new BeltEntity(BeltEntity.Rank.blue);
-        } else if (_beltList.getSelectedItem().equals("Blue Stripe")) {
+        } else if (list.getSelectedItem().equals("Blue Stripe")) {
             belt = new BeltEntity(BeltEntity.Rank.blue_stripe);
-        } else if (_beltList.getSelectedItem().equals("Green")) {
+        } else if (list.getSelectedItem().equals("Green")) {
             belt = new BeltEntity(BeltEntity.Rank.green);
-        } else if (_beltList.getSelectedItem().equals("Green Stripe")) {
+        } else if (list.getSelectedItem().equals("Green Stripe")) {
             belt = new BeltEntity(BeltEntity.Rank.green_stripe);
-        } else if (_beltList.getSelectedItem().equals("Brown1")) {
+        } else if (list.getSelectedItem().equals("Brown1")) {
             belt = new BeltEntity(BeltEntity.Rank.brown1);
-        } else if (_beltList.getSelectedItem().equals("Brown2")) {
+        } else if (list.getSelectedItem().equals("Brown2")) {
             belt = new BeltEntity(BeltEntity.Rank.brown2);
-        } else if (_beltList.getSelectedItem().equals("Brown3")) {
+        } else if (list.getSelectedItem().equals("Brown3")) {
             belt = new BeltEntity(BeltEntity.Rank.brown3);
-        } else if (_beltList.getSelectedItem().equals("Black1")) {
+        } else if (list.getSelectedItem().equals("Black1")) {
             belt = new BeltEntity(BeltEntity.Rank.black1);
-        } else if (_beltList.getSelectedItem().equals("Black2")) {
+        } else if (list.getSelectedItem().equals("Black2")) {
             belt = new BeltEntity(BeltEntity.Rank.black2);
         } else {
             belt = new BeltEntity(BeltEntity.Rank.black3);
         }
         return belt;
+    }
+
+    public void emailAlreadyExists() {
+        Object[] option = {"OK"};
+        int x = JOptionPane.showOptionDialog(null, "The email you entered is already in use",
+                "Email In Use", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+    }
+
+    public void updateSuccessful() {
+        Object[] option = {"OK"};
+        int x = JOptionPane.showOptionDialog(null, "The user's information was updated successfully!",
+                "Update Successful", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+
+        if (x == JOptionPane.OK_OPTION) {
+            dispose();
+        }
+    }
+
+    public boolean confirmChanges() {
+        Object[] options = {"Update User", "Go Back"};
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        panel.add(new JLabel(("First Name: " + _firstNameBox.getText())));
+        panel.add(new JLabel(""));
+        panel.add(new JLabel("Last Name: " + _lastNameBox.getText()));
+        panel.add(new JLabel(""));
+        panel.add(new JLabel("Email: " + _emailBox.getText()));
+        panel.add(new JLabel(""));
+        panel.add(new JLabel("Role: " + _roleString));
+        panel.add(new JLabel(""));
+        panel.add(new JLabel("Belt: " + _beltString));
+
+        if (_selectedUser.getRole().toString().equalsIgnoreCase("trainer") ||
+                _selectedUser.getRole().toString().equalsIgnoreCase("admin")) {
+            panel.add(new JLabel(""));
+            BeltEntity belt = getBeltFromSelected(_trainerBeltList);
+            panel.add(new JLabel("Trainer Belt: " + belt.toString()));
+        }
+
+        int result = JOptionPane.showOptionDialog(null, panel, "", JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, options, null);
+        if (result == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

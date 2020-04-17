@@ -112,6 +112,10 @@ public class EventsPanel<newButtonFont> extends JPanel {
      */
     JMenuItem ppNewEvent = new JMenuItem();
     /**
+     * The Pp new private event.
+     */
+    JMenuItem ppPrivateClassEventB = new JMenuItem();
+    /**
      * The Parent panel.
      */
     DailyItemsPanel parentPanel = null;
@@ -164,11 +168,11 @@ public class EventsPanel<newButtonFont> extends JPanel {
         newEventB.setBackground(color);
         newEventB.setForeground(Color.WHITE);
         newEventB.setEnabled(true);
-        newEventB.setMaximumSize(new Dimension(120, 24));
-        newEventB.setMinimumSize(new Dimension(120, 24));
+        newEventB.setMaximumSize(new Dimension(130, 24));
+        newEventB.setMinimumSize(new Dimension(130, 24));
         newEventB.setToolTipText(Local.getString("Schedule Class"));
         newEventB.setRequestFocusEnabled(false);
-        newEventB.setPreferredSize(new Dimension(120, 24));
+        newEventB.setPreferredSize(new Dimension(130, 24));
         newEventB.setFocusable(false);
         newEventB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -177,7 +181,29 @@ public class EventsPanel<newButtonFont> extends JPanel {
         });
         newEventB.setBorderPainted(false);
         newEventB.setFont(
-                new Font("Arial", Font.PLAIN, 11));
+                new Font("Arial", Font.PLAIN, 10));
+
+
+        // privateEventB Schedule private Button for Class Page with event handler that allows to created private classes
+
+        privateClassEventB.setBackground(color);
+        privateClassEventB.setForeground(Color.WHITE);
+        privateClassEventB.setEnabled(true);
+        privateClassEventB.setMaximumSize(new Dimension(130, 24));
+        privateClassEventB.setMinimumSize(new Dimension(130, 24));
+        privateClassEventB.setToolTipText(Local.getString("Schedule Private Class"));
+        privateClassEventB.setRequestFocusEnabled(false);
+        privateClassEventB.setPreferredSize(new Dimension(130, 24));
+        privateClassEventB.setFocusable(false);
+        privateClassEventB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                privateClassEventB_actionPerformed(e);
+            }
+        });
+        privateClassEventB.setBorderPainted(false);
+        privateClassEventB.setFont(
+                new Font("Arial", Font.PLAIN, 10));
+
 
         // editEventB Edit Existing Class Button for Class Page with event handler that modifies created classes
         editEventB.setBackground(Color.GRAY);
@@ -189,56 +215,57 @@ public class EventsPanel<newButtonFont> extends JPanel {
                 editEventB_actionPerformed(e);
             }
         });
-        editEventB.setPreferredSize(new Dimension(120, 24));
+        editEventB.setPreferredSize(new Dimension(130, 24));
         editEventB.setRequestFocusEnabled(false);
         editEventB.setToolTipText(Local.getString("Edit Existing Class"));
-        editEventB.setMinimumSize(new Dimension(120, 24));
-        editEventB.setMaximumSize(new Dimension(120, 24));
+        editEventB.setMinimumSize(new Dimension(130, 24));
+        editEventB.setMaximumSize(new Dimension(130, 24));
         editEventB.setEnabled(true);
         editEventB.setFont(
-                new Font("Arial", Font.PLAIN, 11));
+                new Font("Arial", Font.PLAIN, 10));
+
+
+        // removeEventB Cancel Scheduled Class Button for Class Page with event handler
+// that removes scheduled class
+        removeEventB.setBackground(Color.GRAY);
+        removeEventB.setForeground(Color.WHITE);
+        removeEventB.setBorderPainted(false);
+        removeEventB.setFocusable(false);
+        removeEventB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                removeEventB_actionPerformed(e);
+            }
+        });
+        removeEventB.setPreferredSize(new Dimension(130, 24));
+        removeEventB.setRequestFocusEnabled(false);
+        removeEventB.setToolTipText(Local.getString("Remove event"));
+        removeEventB.setMinimumSize(new Dimension(130, 24));
+        removeEventB.setMaximumSize(new Dimension(130, 24));
+        removeEventB.setFont(
+                new Font("Arial", Font.PLAIN, 10));
 
 
         // setEventB Set Availability Button for Class Page with event handler that lets trainer or admit
         //to set their available time
+
         setEventB.setBackground(Color.GRAY);
         setEventB.setForeground(Color.WHITE);
-        setEventB.setBorderPainted(false);
+        setEventB.setEnabled(true);
+        setEventB.setMaximumSize(new Dimension(130, 24));
+        setEventB.setMinimumSize(new Dimension(130, 24));
+        setEventB.setToolTipText(Local.getString("Set Availability"));
+        setEventB.setRequestFocusEnabled(false);
+        setEventB.setPreferredSize(new Dimension(130, 24));
         setEventB.setFocusable(false);
-          setEventB.addActionListener(new java.awt.event.ActionListener() {
-               public void actionPerformed(ActionEvent e) {
+        setEventB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 setEventB_actionPerformed(e);
             }
-          });
-        setEventB.setPreferredSize(new Dimension(120, 24));
-        setEventB.setRequestFocusEnabled(false);
-        setEventB.setToolTipText(Local.getString("Set Availability"));
-        setEventB.setMinimumSize(new Dimension(120, 24));
-        setEventB.setMaximumSize(new Dimension(120, 24));
-        setEventB.setEnabled(true);
-        setEventB.setFont(
-                new Font("Arial", Font.PLAIN, 11));
-
-
-        // privateEventB Schedule private Button for Class Page with event handler that allows to created private classes
-
-        privateClassEventB.setBackground(color);
-        privateClassEventB.setForeground(Color.WHITE);
-        privateClassEventB.setEnabled(true);
-        privateClassEventB.setMaximumSize(new Dimension(120, 24));
-        privateClassEventB.setMinimumSize(new Dimension(120, 24));
-        privateClassEventB.setToolTipText(Local.getString("Schedule Private Class"));
-        privateClassEventB.setRequestFocusEnabled(false);
-        privateClassEventB.setPreferredSize(new Dimension(120, 24));
-        privateClassEventB.setFocusable(false);
-        privateClassEventB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                privateClassEventB_actionPerformed(e);
-            }
         });
-        privateClassEventB.setBorderPainted(false);
-        privateClassEventB.setFont(
-                new Font("Arial", Font.PLAIN, 11));
+        setEventB.setBorderPainted(false);
+        setEventB.setFont(
+                new Font("Arial", Font.PLAIN, 10));
+
 
 
         // enrollEventB Enroll in Class Button for Class Page with event handler that allows all users to enroll to class
@@ -253,14 +280,14 @@ public class EventsPanel<newButtonFont> extends JPanel {
                 enrollClassEventB_actionPerformed(e);
             }
         });
-        enrollClassEventB.setPreferredSize(new Dimension(120, 24));
+        enrollClassEventB.setPreferredSize(new Dimension(130, 24));
         enrollClassEventB.setRequestFocusEnabled(false);
         enrollClassEventB.setToolTipText(Local.getString("Enroll in Class"));
-        enrollClassEventB.setMinimumSize(new Dimension(120, 24));
-        enrollClassEventB.setMaximumSize(new Dimension(120, 24));
+        enrollClassEventB.setMinimumSize(new Dimension(130, 24));
+        enrollClassEventB.setMaximumSize(new Dimension(130, 24));
         enrollClassEventB.setEnabled(true);
         enrollClassEventB.setFont(
-                new Font("Arial", Font.PLAIN, 11));
+                new Font("Arial", Font.PLAIN, 10));
 
 
         // editEnrollEventB Cancel My Enrolment Button for Class Page with event handler that modifies enrolment of the user
@@ -274,34 +301,17 @@ public class EventsPanel<newButtonFont> extends JPanel {
                 editEnrollClassEventB_actionPerformed(e);
             }
         });
-        editEnrollClassEventB.setPreferredSize(new Dimension(120, 24));
+        editEnrollClassEventB.setPreferredSize(new Dimension(130, 24));
         editEnrollClassEventB.setRequestFocusEnabled(false);
         editEnrollClassEventB.setToolTipText(Local.getString("Edit My Enrolled Class"));
-        editEnrollClassEventB.setMinimumSize(new Dimension(120, 24));
-        editEnrollClassEventB.setMaximumSize(new Dimension(120, 24));
+        editEnrollClassEventB.setMinimumSize(new Dimension(130, 24));
+        editEnrollClassEventB.setMaximumSize(new Dimension(130, 24));
         editEnrollClassEventB.setEnabled(true);
         editEnrollClassEventB.setFont(
-                new Font("Arial", Font.PLAIN, 11));
+                new Font("Arial", Font.PLAIN, 10));
 
 
-// removeEventB Cancel Scheduled Class Button for Class Page with event handler
-// that removes scheduled class
-        removeEventB.setBackground(Color.GRAY);
-        removeEventB.setForeground(Color.WHITE);
-        removeEventB.setBorderPainted(false);
-        removeEventB.setFocusable(false);
-        removeEventB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                removeEventB_actionPerformed(e);
-            }
-        });
-        removeEventB.setPreferredSize(new Dimension(120, 24));
-        removeEventB.setRequestFocusEnabled(false);
-        removeEventB.setToolTipText(Local.getString("Remove event"));
-        removeEventB.setMinimumSize(new Dimension(120, 24));
-        removeEventB.setMaximumSize(new Dimension(120, 24));
-        removeEventB.setFont(
-                new Font("Arial", Font.PLAIN, 11));
+
 
 
         this.setLayout(borderLayout1);
@@ -333,6 +343,9 @@ public class EventsPanel<newButtonFont> extends JPanel {
         ppRemoveEvent.setEnabled(false);
 
 
+
+
+
         ppNewEvent.setFont(new java.awt.Font("Dialog", 1, 11));
         ppNewEvent.setText(Local.getString("New event") + "...");
         ppNewEvent.addActionListener(new java.awt.event.ActionListener() {
@@ -346,20 +359,20 @@ public class EventsPanel<newButtonFont> extends JPanel {
         this.add(scrollPane, BorderLayout.CENTER);
         eventsToolBar.add(historyBackB, null);
         eventsToolBar.add(historyForwardB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.addSeparator(new Dimension(2, 24));
+        eventsToolBar.addSeparator(new Dimension(2, 24));
         eventsToolBar.add(newEventB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.addSeparator(new Dimension(2, 24));
         eventsToolBar.add(privateClassEventB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.addSeparator(new Dimension(2, 24));
         eventsToolBar.add(editEventB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.addSeparator(new Dimension(2, 24));
         eventsToolBar.add(removeEventB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.addSeparator(new Dimension(2, 24));
         eventsToolBar.add(setEventB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.addSeparator(new Dimension(2, 24));
         eventsToolBar.add(enrollClassEventB, null);
-        eventsToolBar.addSeparator(new Dimension(8, 24));
+        eventsToolBar.addSeparator(new Dimension(2, 24));
         eventsToolBar.add(editEnrollClassEventB, null);
 
 
@@ -371,10 +384,12 @@ public class EventsPanel<newButtonFont> extends JPanel {
 
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) {
+
                 eventsTable.initTable(d);
                 boolean enbl = d.after(CalendarDate.today()) || d.equals(CalendarDate.today());
                 newEventB.setEnabled(enbl);
                 ppNewEvent.setEnabled(enbl);
+
                 editEventB.setEnabled(false);
                 ppEditEvent.setEnabled(false);
                 removeEventB.setEnabled(false);
@@ -391,14 +406,18 @@ public class EventsPanel<newButtonFont> extends JPanel {
                 ppEditEvent.setEnabled(enbl);
                 removeEventB.setEnabled(enbl);
                 ppRemoveEvent.setEnabled(enbl);
+
             }
         });
         editEventB.setEnabled(false);
         removeEventB.setEnabled(false);
+
+        privateClassEventB.setEnabled(true);
         eventPPMenu.add(ppEditEvent);
         eventPPMenu.addSeparator();
         eventPPMenu.add(ppNewEvent);
         eventPPMenu.add(ppRemoveEvent);
+
 
         // remove events using the DEL key
         eventsTable.addKeyListener(new KeyListener() {
@@ -806,66 +825,24 @@ public class EventsPanel<newButtonFont> extends JPanel {
      * @param e the e
      */
     void setEventB_actionPerformed(ActionEvent e, String tasktext, Date startDate, Date endDate) {
-        EventDialogAvalability dlg = new EventDialogAvalability(App.getFrame(), Local.getString("Edit Existing Class"));
-        main.java.memoranda.Event ev =
-                (main.java.memoranda.Event) eventsTable.getModel().getValueAt(
-                        eventsTable.getSelectedRow(),
-                        EventsTable.EVENT);
-
-        dlg.timeSpin.getModel().setValue(ev.getTime());
-        /*if (new CalendarDate(ev.getTime()).equals(CalendarDate.today()))
-            ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(new Date());
-        else
-        ((SpinnerDateModel)dlg.timeSpin.getModel()).setStart(CalendarDate.today().getDate());
-        ((SpinnerDateModel)dlg.timeSpin.getModel()).setEnd(CalendarDate.tomorrow().getDate());*/
-        dlg.textField.setText(ev.getText());
-        int rep = ev.getRepeat();
-        if (rep > 0) {
-            dlg.startDate.getModel().setValue(ev.getStartDate().getDate());
-            if (rep == EventsManager.REPEAT_DAILY) {
-                dlg.dailyRepeatRB.setSelected(true);
-                dlg.dailyRepeatRB_actionPerformed(null);
-                dlg.daySpin.setValue(new Integer(ev.getPeriod()));
-            } else if (rep == EventsManager.REPEAT_WEEKLY) {
-                dlg.weeklyRepeatRB.setSelected(true);
-                dlg.weeklyRepeatRB_actionPerformed(null);
-                int d = ev.getPeriod() - 1;
-                if (Configuration.get("FIRST_DAY_OF_WEEK").equals("mon")) {
-                    d--;
-                    if (d < 0) d = 6;
-                }
-                dlg.weekdaysCB.setSelectedIndex(d);
-            } else if (rep == EventsManager.REPEAT_MONTHLY) {
-                dlg.monthlyRepeatRB.setSelected(true);
-                dlg.monthlyRepeatRB_actionPerformed(null);
-                dlg.dayOfMonthSpin.setValue(new Integer(ev.getPeriod()));
-            } else if (rep == EventsManager.REPEAT_YEARLY) {
-                dlg.yearlyRepeatRB.setSelected(true);
-                dlg.yearlyRepeatRB_actionPerformed(null);
-                dlg.dayOfMonthSpin.setValue(new Integer(ev.getPeriod()));
-            }
-            if (ev.getEndDate() != null) {
-                dlg.endDate.getModel().setValue(ev.getEndDate().getDate());
-                dlg.enableEndDateCB.setSelected(true);
-                dlg.enableEndDateCB_actionPerformed(null);
-            }
-            if (ev.getWorkingDays()) {
-                dlg.workingDaysOnlyCB.setSelected(true);
-            }
-
-        }
-
+        EventDialogAvalability dlg1 = new EventDialogAvalability(App.getFrame(), Local.getString("Set Your Availability"));
         Dimension frmSize = App.getFrame().getSize();
         Point loc = App.getFrame().getLocation();
-        dlg.setLocation((frmSize.width - dlg.getSize().width) / 2 + loc.x, (frmSize.height - dlg.getSize().height) / 2 + loc.y);
-        dlg.setVisible(true);
-        if (dlg.CANCELLED)
-            return;
-        EventsManager.removeEvent(ev);
+        if (tasktext != null) {
+            dlg1.textField.setText(tasktext);
+        }
+        dlg1.startDate.getModel().setValue(startDate);
+        dlg1.endDate.getModel().setValue(endDate);
+        dlg1.timeSpin.getModel().setValue(startDate);
 
+        dlg1.setLocation((frmSize.width - dlg1.getSize().width) / 2 + loc.x, (frmSize.height - dlg1.getSize().height) / 2 + loc.y);
+        dlg1.setEventDate(startDate);
+        dlg1.setVisible(true);
+        if (dlg1.CANCELLED)
+            return;
         Calendar calendar = new GregorianCalendar(Local.getCurrentLocale()); //Fix deprecated methods to get hours
         //by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
-        calendar.setTime(((Date) dlg.timeSpin.getModel().getValue()));//Fix deprecated methods to get hours
+        calendar.setTime(((Date) dlg1.timeSpin.getModel().getValue()));//Fix deprecated methods to get hours
         //by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
         int hh = calendar.get(Calendar.HOUR_OF_DAY);//Fix deprecated methods to get hours
         //by (jcscoobyrs) 14-Nov-2003 at 10:24:38 AM
@@ -874,14 +851,18 @@ public class EventsPanel<newButtonFont> extends JPanel {
 
         //int hh = ((Date) dlg.timeSpin.getModel().getValue()).getHours();
         //int mm = ((Date) dlg.timeSpin.getModel().getValue()).getMinutes();
-     //   String text = dlg.textField.getText();
-     //   if (dlg.noRepeatRB.isSelected())
-     //       EventsManager.createEvent(CurrentDate.get(), hh, mm, text);
-     //   else {
-    //        updateEvents(dlg, hh, mm, text);
-    //    }
-    //    saveEvents();
+        String text = dlg1.textField.getText();
+
+        CalendarDate eventCalendarDate = new CalendarDate(dlg1.getEventDate());
+
+    //    if (dlg1.noRepeatRB.isSelected())
+      ///      EventsManager.createEvent(eventCalendarDate, hh, mm, text);
+       // else {
+       //     updateEvents(dlg1, hh, mm, text);
+      //  }
+       // saveEvents();
     }
+
     /**
      * The type Popup listener.
      */
@@ -915,7 +896,11 @@ public class EventsPanel<newButtonFont> extends JPanel {
      */
     void ppEditEvent_actionPerformed(ActionEvent e) {
         editEventB_actionPerformed(e);
-        setEventB_actionPerformed(e);
+
+    }
+    void ppPrivateClassEvent_actionPerformed(ActionEvent e) {
+        editEventB_actionPerformed(e);
+
     }
 
     /**

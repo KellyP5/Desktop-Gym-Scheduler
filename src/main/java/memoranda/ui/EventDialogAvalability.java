@@ -84,13 +84,14 @@ public class EventDialogAvalability extends JDialog implements WindowListener {
      * The Lbl time.
      */
     JLabel lblTime = new JLabel();
-    JLabel lblTimeFrom = new JLabel();
     JLabel lblTimeTill = new JLabel();
 
     /**
      * The Time spin.
      */
     public JSpinner timeSpin = new JSpinner(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
+    public JSpinner timeSpin2 = new JSpinner(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
+
     /**
      * The Lbl text.
      */
@@ -247,43 +248,39 @@ public class EventDialogAvalability extends JDialog implements WindowListener {
 
         // Build eventPanel
         //Time selection
-        lblTime.setText(Local.getString("Set Time Frame"));
+        lblTime.setText(Local.getString("From"));
         lblTime.setMinimumSize(new Dimension(60, 24));
         gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 1;
+        gbc.gridx = 0; gbc.gridy = 0;
         gbc.insets = new Insets(10, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(lblTime, gbc);
-
-
-        lblTimeFrom.setText(Local.getString("From"));
-        lblTimeFrom.setMinimumSize(new Dimension(60, 24));
+        timeSpin.setPreferredSize(new Dimension(60, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 1; gbc.gridy = 0;
-        gbc.insets = new Insets(10, 10, 5, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        eventPanel.add(lblTimeFrom, gbc);
-        lblTimeFrom.setPreferredSize(new Dimension(60, 24));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1; gbc.gridy = 1;
         gbc.insets = new Insets(10, 0, 5, 0);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(timeSpin, gbc);
+
+
+
+
+
+
 
         lblTimeTill.setText(Local.getString("Till"));
         lblTimeTill.setMinimumSize(new Dimension(60, 24));
         gbc = new GridBagConstraints();
-        gbc.gridx = 2; gbc.gridy = 0;
+        gbc.gridx = 0; gbc.gridy = 1;
         gbc.insets = new Insets(10, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(lblTimeTill, gbc);
-        lblTimeTill.setPreferredSize(new Dimension(60, 24));
+        timeSpin.setPreferredSize(new Dimension(60, 24));
         gbc = new GridBagConstraints();
-        gbc.gridx = 2; gbc.gridy = 1;
+        gbc.gridx = 1; gbc.gridy = 1;
         gbc.insets = new Insets(10, 0, 5, 0);
         gbc.anchor = GridBagConstraints.WEST;
-        eventPanel.add(timeSpin, gbc);
-
+        eventPanel.add(timeSpin2, gbc);
 
 
 
@@ -584,6 +581,7 @@ public class EventDialogAvalability extends JDialog implements WindowListener {
         });
         disableElements();
         ((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("HH:mm");
+        ((JSpinner.DateEditor) timeSpin2.getEditor()).getFormat().applyPattern("HH:mm");
         enableEndDateCB_actionPerformed(null);
 
     }

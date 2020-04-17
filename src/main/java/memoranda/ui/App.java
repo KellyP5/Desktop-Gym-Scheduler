@@ -103,8 +103,8 @@ public class App {
 
 		try {
 			this.conn = SqlConnection.getInstance();
-      this.gym = new Gym();//insert connection code
 
+      		this.gym = new Gym();//insert connection code
 
 		} catch (SQLException sec) {
 			sec.printStackTrace();

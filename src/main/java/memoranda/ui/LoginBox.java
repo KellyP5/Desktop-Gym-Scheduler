@@ -16,6 +16,7 @@ import java.sql.SQLException;
 
 public class LoginBox extends JFrame {
 
+    LoginBox login;
     private UserEntity _user;
     private JPanel _login;
     private JButton _loginButton;
@@ -217,12 +218,13 @@ public class LoginBox extends JFrame {
                     accountDoesNotExist();
                     return false;
                 } else {
-                    if (_user.getPassword().equals(_pass.getText())) {
+                    if (passwordIsCorrect(_user.getPassword())) {
                         App.init();
                         dispose();
                         return true;
                     } else {
-                        // TODO: Prompt for wrong password, have them try again
+                        String emailText = _email.getText();
+                        incorrectPassword(emailText);
                     }
                 }
             }
@@ -263,6 +265,35 @@ public class LoginBox extends JFrame {
         }
     }
 
+    /**
+     * Checks the user's password against the information stored in the database
+     * @param password The user's password from the database
+     * @return Returns true if the passwords match, false otherwise
+     */
+    public boolean passwordIsCorrect(String password) {
+        if (_pass.getText().equals(password)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Pop up dialog that alerts the user the incorrect password was entered
+     * @param email Takes in the email that was entered so the login box can be
+     *              populated with that again
+     */
+    public void incorrectPassword(String email) {
+        Object[] option = {"OK"};
+        int x = JOptionPane.showOptionDialog(null, "The password you entered was incorrect.",
+                "Incorrect Password", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+        if (x == JOptionPane.OK_OPTION) {
+            login = new LoginBox();
+            login._email.setText(email);
+            _email.setForeground(Color.BLACK);
+        }
+    }
+
+    // Get the currently logged in user
     public UserEntity getUser() {
         return _user;
     }

@@ -221,7 +221,7 @@ public class EventDialog extends JDialog implements WindowListener {
      * The Start cal frame.
      */
     CalendarFrame startCalFrame = new CalendarFrame();
-    private Date eventDate;
+    private Date _eventDate;
 
     /**
      * Instantiates a new Event dialog.
@@ -780,7 +780,7 @@ public class EventDialog extends JDialog implements WindowListener {
      * @param d the d
      */
     public void setEventDate(Date d) {
-	    eventDate = d;
+	    _eventDate = d;
 	}
 
     /**
@@ -789,7 +789,7 @@ public class EventDialog extends JDialog implements WindowListener {
      * @return the event date
      */
     public Date getEventDate() {
-		return eventDate;
+		return _eventDate;
 	}
 	
     public void windowClosed( WindowEvent e ) {}

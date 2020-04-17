@@ -80,6 +80,7 @@ public class EventsTable extends JTable {
         events = (Vector)EventsManager.getEventsForDate(d);
         LocalDate date = LocalDate.of(d.getYear(), d.getMonth(), d.getDay());
         try {
+            System.out.println("[DEBUG] Querying SQL DB from EventsTable.java");
             classes = App.conn.getDrq().getAllClassesByDate(date);
         } catch (SQLException e) {
             e.printStackTrace();

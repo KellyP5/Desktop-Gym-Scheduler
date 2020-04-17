@@ -24,8 +24,9 @@ import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.util.Configuration;
 import main.java.memoranda.util.Local;
 
+
 /**
- * The type Jn calendar.
+ * This is the Calendar panel that controls the calendar at the top right
  */
 /*$Id: JNCalendar.java,v 1.8 2004/11/05 07:38:10 pbielen Exp $*/
 public class JNCalendar extends JTable {

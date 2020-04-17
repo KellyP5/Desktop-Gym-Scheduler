@@ -16,7 +16,9 @@ import java.sql.SQLException;
 
 public class LoginBox extends JFrame {
 
+
     LoginBox login;
+
     private UserEntity _user;
     private JPanel _login;
     private JButton _loginButton;
@@ -100,8 +102,10 @@ public class LoginBox extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+
                 App.init(); // TEMPORARY - Change before submitting deliverable2
                 //boolean verified = userVerification();
+
                 dispose(); // Close the login dialog box
             }
         });
@@ -115,8 +119,10 @@ public class LoginBox extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+
                     App.init(); // TEMPORARY - Change before submitting deliverable2
                     //boolean verified = userVerification();
+
                 }
             }
         });
@@ -218,13 +224,17 @@ public class LoginBox extends JFrame {
                     accountDoesNotExist();
                     return false;
                 } else {
+
                     if (passwordIsCorrect(_user.getPassword())) {
+
                         App.init();
                         dispose();
                         return true;
                     } else {
+
                         String emailText = _email.getText();
                         incorrectPassword(emailText);
+
                     }
                 }
             }
@@ -265,6 +275,7 @@ public class LoginBox extends JFrame {
         }
     }
 
+
     /**
      * Checks the user's password against the information stored in the database
      * @param password The user's password from the database
@@ -298,24 +309,29 @@ public class LoginBox extends JFrame {
      *
      * @return Returns the user as a UserEntity
      */
+
     public UserEntity getUser() {
         return _user;
     }
+
 
     /**
      * Gets the swing component for email (used for testing)
      *
      * @return the JTextField for email
      */
+
     public JTextField getEmail() {
         return _email;
     }
+
 
     /**
      * Gets the swing component for password (used for testing)
      *
      * @return the JTextField for password
      */
+
     public JTextField getPassword() {
         return _pass;
     }

@@ -60,9 +60,11 @@ public class loginTest {
         assertTrue(!login.accountExists(user2));
     }
 
+
     @Test
     public void passwordIsCorrectTest() throws SQLException {
         UserEntity user3 = app.conn.getDrq().getUserByEmail(login.getEmail().getText());
         assertTrue(login.passwordIsCorrect(user3.getPassword()));
     }
+
 }

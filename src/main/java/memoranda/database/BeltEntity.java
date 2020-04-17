@@ -14,10 +14,12 @@ Belt Entity is the entity used for all Belt related SQL
  */
 public class BeltEntity {
 
+
     /**
      * Converts the Belt Rank to a string
      * @return The belt rank as a string
      */
+
     @Override
     public String toString() {
         String ret = "";

@@ -186,4 +186,19 @@ public class DbCreateQueries {
         pstmt.close();
         conn.close();
     }
+
+    /**
+     * Delete a user from the DB based on e-mail
+     * @param userEmail
+     * @throws SQLException
+     */
+    public void deleteUser(String userEmail) throws SQLException {
+        String sql = "DELETE FROM USER WHERE Email=?; DELETE FROM ENROLLEDUSER WHERE UserEmail=?";
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1,userEmail);
+        pstmt.executeUpdate();
+        pstmt.close();
+        conn.close();
+    }
 }

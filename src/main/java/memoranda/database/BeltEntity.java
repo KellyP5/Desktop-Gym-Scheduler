@@ -1,3 +1,10 @@
+/**
+ * Class for the belt rank of users. A user can be one of the 14 types of belts.
+ * A user is assigned as a white belt as default, and the Gym owner can change their
+ * belt when they see fit
+ *
+ * @author Kevin Wilkinson
+ */
 package main.java.memoranda.database;
 
 import java.util.Objects;
@@ -6,6 +13,13 @@ import java.util.Objects;
 Belt Entity is the entity used for all Belt related SQL
  */
 public class BeltEntity {
+
+
+    /**
+     * Converts the Belt Rank to a string
+     * @return The belt rank as a string
+     */
+
     @Override
     public String toString() {
         String ret = "";
@@ -105,6 +119,11 @@ public class BeltEntity {
         this.rank = rank;
     }
 
+    /**
+     * Checks if two belt ranks are equal
+     * @param o The belt to compare
+     * @return Returns true if equal, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -113,6 +132,10 @@ public class BeltEntity {
         return rank == that.rank;
     }
 
+    /**
+     * Generates a hash code for the belt rank
+     * @return The hashcode integer
+     */
     @Override
     public int hashCode() {
         return Objects.hash(rank);

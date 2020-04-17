@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class databaseTest {
     public static SqlConnection sqlConnection = null;
@@ -198,6 +199,24 @@ public class databaseTest {
     }
 
 
+    @Test
+    public void deleteUser() throws SQLException {
+        RoleEntity trainer = new RoleEntity(RoleEntity.UserRole.trainer);
+        BeltEntity white = new BeltEntity(BeltEntity.Rank.white);
+        UserEntity userOriginal = new UserEntity("kevin",
+                "johnson","foo","ash@gmail.com",trainer,white,white);
+        dcq.insertUser(userOriginal.getEmail(),
+                userOriginal.getFirstName(),
+                userOriginal.getLastName(),
+                userOriginal.getPassword(),
+                userOriginal.getRole(),
+                userOriginal.getBelt(),
+                userOriginal.getTrainingBelt());
+        dcq.deleteUser(userOriginal.getEmail());
+        UserEntity userFromDb = drq.getUserByEmail(userOriginal.getEmail());
+        assertNull(userFromDb);
+
+    }
 
 
 

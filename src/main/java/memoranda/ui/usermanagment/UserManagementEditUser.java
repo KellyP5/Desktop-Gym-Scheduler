@@ -1,10 +1,19 @@
+/**
+ * This class handles the button on the User Management page for editing a user.
+ * A dialog box will pop up with the currently selected user's information and allows the
+ * user to edit the information. If a user is not selected when Edit User is pushed, an error message
+ * dialog will pop up. After the user's information is edited, a confirmation dialog pops up allowing the user
+ * to review the changes that were made, and they can then choose to save those changes or go back.
+ * When the user's information is changed and approved, the database will be updated with the new information.
+ *
+ * @author Kelly Ellis, Kevin Wilkinson
+ */
 package main.java.memoranda.ui.usermanagment;
 
 import main.java.memoranda.database.BeltEntity;
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.ui.App;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -39,8 +48,11 @@ public class UserManagementEditUser extends JDialog {
 
 
     /**
-     * Constructor for our Edit User popup
+     * Constructor for our Edit User popup. Creates the GUI box that displays the user's information
+     * and allows it to be edited.
+     *
      * @param rel uses this variable to set the relative position of the popup.
+     * @param _user The currently selected user to edit from the User Management page
      */
     public UserManagementEditUser(Component rel, UserEntity _user){
         super(new JFrame());
@@ -123,11 +135,19 @@ public class UserManagementEditUser extends JDialog {
         _trainerBelt.setBounds(40, 300, 75, 20);
 
         _trainerBeltColors = _beltColors;
+
+        // Find index of selected user's training belt (if they're a trainer)
+        int trainerIndex = 0;
+        for (int i = 0; i < _trainerBeltColors.length; i++) {
+            if (_selectedUser.getTrainingBelt().toString().equalsIgnoreCase(_trainerBeltColors[i])) {
+                trainerIndex = i;
+            }
+        }
+
         _trainerBeltList = new JComboBox(_trainerBeltColors);
-        _trainerBeltList.setSelectedIndex(0); // Set to selected user's trainer belt (if trainer)
+        _trainerBeltList.setSelectedIndex(trainerIndex); // Set to selected user's trainer belt (if trainer)
         _trainerBeltList.setBounds(120, 300, 120, 20);
         _trainerBeltList.setBackground(Color.WHITE);
-
 
         _updateButton = new JButton("Update");
         _updateButton.setBounds(140, 350, 100, 30);
@@ -176,7 +196,6 @@ public class UserManagementEditUser extends JDialog {
             }
         });
 
-
         _mainPanel.add(_firstNameLabel);
         _mainPanel.add(_firstNameBox);
         _mainPanel.add(_lastNameLabel);
@@ -192,7 +211,7 @@ public class UserManagementEditUser extends JDialog {
         _mainPanel.add(_updateButton);
 
         // Only show trainer belt options if the selected user is a trainer or admin
-        // Students should not have this option
+        // Customers should not have this option
         if (_selectedUser.getRole().toString().equalsIgnoreCase("trainer") ||
                 _selectedUser.getRole().toString().equalsIgnoreCase("admin")) {
             _mainPanel.add(_trainerBelt);
@@ -206,6 +225,11 @@ public class UserManagementEditUser extends JDialog {
         this.setVisible(true);
     }
 
+    /**
+     * Gets the RoleEntity from the selected user
+     *
+     * @return The RoleEntity of the user
+     */
     public RoleEntity getRoleFromSelected() {
         String roleText = _role.getText();
         RoleEntity role;
@@ -219,6 +243,12 @@ public class UserManagementEditUser extends JDialog {
         return role;
     }
 
+    /**
+     * Gets the BeltEntity from the selected user. Works for students, trainers, and admins
+     *
+     * @param list The combobox list of belt colors/options
+     * @return The BeltEntity of the user (May be student or trainer)
+     */
     public BeltEntity getBeltFromSelected(JComboBox list) {
         BeltEntity belt;
         if (list.getSelectedItem().equals("White")) {
@@ -253,12 +283,20 @@ public class UserManagementEditUser extends JDialog {
         return belt;
     }
 
+    /**
+     * Popup dialog that alerts the user that the email they wish to update already
+     * exists in the database and cannot be used
+     */
     public void emailAlreadyExists() {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "The email you entered is already in use",
                 "Email In Use", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
     }
 
+    /**
+     * Popup dialog that alerts the user that their update was successful, and the
+     * database has been updated
+     */
     public void updateSuccessful() {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "The user's information was updated successfully!",
@@ -269,6 +307,12 @@ public class UserManagementEditUser extends JDialog {
         }
     }
 
+    /**
+     * Popup dialog that allows the user to see the changes they're about to make
+     * to the selected user's information
+     * 
+     * @return Returns true if changes are approved, false otherwise
+     */
     public boolean confirmChanges() {
         Object[] options = {"Update User", "Go Back"};
 

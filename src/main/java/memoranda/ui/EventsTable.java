@@ -171,7 +171,7 @@ public class EventsTable extends JTable {
                 else if (col == 3)
                     return null;
                 else if (col == 4)
-                     return null;
+                    return null;
                 else
                         return ev;
 

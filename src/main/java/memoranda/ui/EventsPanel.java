@@ -691,7 +691,6 @@ public class EventsPanel<newButtonFont> extends JPanel {
             rtype = EventsManager.REPEAT_MONTHLY;
             period = ((Integer) dlg.dayOfMonthSpin.getModel().getValue()).intValue();
         }
-        EventsManager.createRepeatableEvent(rtype, sd, ed, period, hh, mm, text, dlg.workingDaysOnlyCB.isSelected());
     }
 
     /**

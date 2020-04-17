@@ -112,8 +112,6 @@ public class EventsTable extends JTable {
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 Event ev = (Event)getModel().getValueAt(row, EVENT);
                 comp.setForeground(java.awt.Color.GRAY);
-                if (ev.isRepeatable())
-                    comp.setFont(comp.getFont().deriveFont(Font.ITALIC));
                 if (CurrentDate.get().after(CalendarDate.today())) {
                     comp.setForeground(java.awt.Color.black);
                 }

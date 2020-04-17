@@ -3,9 +3,13 @@ package main.java.memoranda.ui.usermanagment;
 import main.java.memoranda.database.BeltEntity;
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.ui.App;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class UserManagementEditUser extends JDialog {
 
@@ -20,7 +24,7 @@ public class UserManagementEditUser extends JDialog {
     private JLabel _role;
     private ButtonGroup _buttons;
     private JRadioButton _trainerButton;
-    private JRadioButton _studentButton;
+    private JRadioButton _customerButton;
     private JRadioButton _adminButton;
     private JLabel _belt;
     private String[] _beltColors;
@@ -28,6 +32,7 @@ public class UserManagementEditUser extends JDialog {
     private JLabel _trainerBelt;
     private String[] _trainerBeltColors;
     private JComboBox _trainerBeltList;
+    private JButton _updateButton;
 
 
     /**
@@ -39,7 +44,7 @@ public class UserManagementEditUser extends JDialog {
 
         _mainPanel = new JPanel();
         this.setTitle("Edit User");
-        _mainPanel.setPreferredSize(new Dimension(400,500));
+        _mainPanel.setPreferredSize(new Dimension(350,500));
 
         _firstNameLabel = new JLabel("First Name");
         _firstNameLabel.setBounds(40, 100, 75, 20);
@@ -53,7 +58,7 @@ public class UserManagementEditUser extends JDialog {
 
         _lastNameBox = new JTextField(10);
         _lastNameBox.setBounds(120, 140, 120, 20);
-        _lastNameBox.setText(_user.getFirstName());
+        _lastNameBox.setText(_user.getLastName());
 
         _emailLabel = new JLabel("Email");
         _emailLabel.setBounds(40, 180, 75, 20);
@@ -69,22 +74,22 @@ public class UserManagementEditUser extends JDialog {
         _trainerButton = new JRadioButton();
         _trainerButton.setText("Trainer");
         _trainerButton.setBounds(100, 220, 80,20);
-        _studentButton = new JRadioButton();
-        _studentButton.setText("Student");
-        _studentButton.setBounds(180, 220, 80, 20);
+        _customerButton = new JRadioButton();
+        _customerButton.setText("Customer");
+        _customerButton.setBounds(180, 220, 90, 20);
         _adminButton = new JRadioButton();
         _adminButton.setText("Admin");
-        _adminButton.setBounds(260, 220, 80, 20);
+        _adminButton.setBounds(270, 220, 80, 20);
         _buttons.add(_trainerButton);
-        _buttons.add(_studentButton);
+        _buttons.add(_customerButton);
         _buttons.add(_adminButton);
 
         // Set role to currently selected user's role
         String role = _user.getRole().toString();
         if (role.equalsIgnoreCase("trainer")) {
             _trainerButton.setSelected(true);
-        } else if (role.equalsIgnoreCase("student")) {
-            _studentButton.setSelected(true);
+        } else if (role.equalsIgnoreCase("customer")) {
+            _customerButton.setSelected(true);
         } else {
             _adminButton.setSelected(true);
         }
@@ -120,6 +125,44 @@ public class UserManagementEditUser extends JDialog {
 
         // Add 'UPDATE USER' button that updates the user in the database when pushed
 
+        _updateButton = new JButton("Update");
+        _updateButton.setBounds(140, 350, 100, 30);
+        _updateButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                // Email wasn't changed
+                if (_emailBox.getText().equals(_user.getEmail())) {
+                    // Update user info in database
+
+                    RoleEntity role = getRoleFromSelected();
+
+                    // Get belt rank from updated selections
+                    BeltEntity belt = getBeltFromSelected();
+
+                    try {
+                        App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
+                                _user.getPassword(), role, belt);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    // Check if new email exists in the db
+                    try {
+                        UserEntity user = App.conn.getDrq().getUserByEmail(_emailBox.getText());
+                        if (user != null) {
+                            // email is already in database - alert user
+
+                        } else {
+                            // Email not in database, update user info
+
+                        }
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
 
         _mainPanel.add(_firstNameLabel);
         _mainPanel.add(_firstNameBox);
@@ -129,10 +172,11 @@ public class UserManagementEditUser extends JDialog {
         _mainPanel.add(_emailBox);
         _mainPanel.add(_role);
         _mainPanel.add(_trainerButton);
-        _mainPanel.add(_studentButton);
+        _mainPanel.add(_customerButton);
         _mainPanel.add(_adminButton);
         _mainPanel.add(_belt);
         _mainPanel.add(_beltList);
+        _mainPanel.add(_updateButton);
 
         // Only show trainer belt options if the selected user is a trainer or admin
         // Students should not have this option
@@ -147,5 +191,52 @@ public class UserManagementEditUser extends JDialog {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    public RoleEntity getRoleFromSelected() {
+        String roleText = _role.getText();
+        RoleEntity role;
+        if (roleText.equalsIgnoreCase("admin")) {
+            role = new RoleEntity(RoleEntity.UserRole.admin);
+        } else if (roleText.equalsIgnoreCase("trainer")) {
+            role = new RoleEntity(RoleEntity.UserRole.trainer);
+        } else {
+            role = new RoleEntity(RoleEntity.UserRole.customer);
+        }
+        return role;
+    }
+
+    public BeltEntity getBeltFromSelected() {
+        BeltEntity belt;
+        if (_beltList.getSelectedItem().equals("White")) {
+            belt = new BeltEntity(BeltEntity.Rank.white);
+        } else if (_beltList.getSelectedItem().equals("Yellow")) {
+            belt = new BeltEntity(BeltEntity.Rank.yellow);
+        } else if (_beltList.getSelectedItem().equals("Orange")) {
+            belt = new BeltEntity(BeltEntity.Rank.orange);
+        } else if (_beltList.getSelectedItem().equals("Purple")) {
+            belt = new BeltEntity(BeltEntity.Rank.purple);
+        } else if (_beltList.getSelectedItem().equals("Blue")) {
+            belt = new BeltEntity(BeltEntity.Rank.blue);
+        } else if (_beltList.getSelectedItem().equals("Blue Stripe")) {
+            belt = new BeltEntity(BeltEntity.Rank.blue_stripe);
+        } else if (_beltList.getSelectedItem().equals("Green")) {
+            belt = new BeltEntity(BeltEntity.Rank.green);
+        } else if (_beltList.getSelectedItem().equals("Green Stripe")) {
+            belt = new BeltEntity(BeltEntity.Rank.green_stripe);
+        } else if (_beltList.getSelectedItem().equals("Brown1")) {
+            belt = new BeltEntity(BeltEntity.Rank.brown1);
+        } else if (_beltList.getSelectedItem().equals("Brown2")) {
+            belt = new BeltEntity(BeltEntity.Rank.brown2);
+        } else if (_beltList.getSelectedItem().equals("Brown3")) {
+            belt = new BeltEntity(BeltEntity.Rank.brown3);
+        } else if (_beltList.getSelectedItem().equals("Black1")) {
+            belt = new BeltEntity(BeltEntity.Rank.black1);
+        } else if (_beltList.getSelectedItem().equals("Black2")) {
+            belt = new BeltEntity(BeltEntity.Rank.black2);
+        } else {
+            belt = new BeltEntity(BeltEntity.Rank.black3);
+        }
+        return belt;
     }
 }

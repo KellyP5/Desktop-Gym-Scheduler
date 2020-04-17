@@ -1,9 +1,6 @@
 package main.java.memoranda.database;
 
-import main.java.memoranda.database.util.DbCreateQueries;
-import main.java.memoranda.database.util.DbReadQueries;
-import main.java.memoranda.database.util.DbSetupHelper;
-import main.java.memoranda.database.util.SqlConstants;
+import main.java.memoranda.database.util.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,6 +17,7 @@ public class SqlConnection {
     private DbCreateQueries dcqTest;
     private DbSetupHelper dbSetupHelper;
     private DbSetupHelper dbSetupHelperTest;
+    private DbUpdateQueries duq;
 
     /*
     This is just a helper main that can be ran to generate the real and test databases.
@@ -45,6 +43,8 @@ public class SqlConnection {
         dcqTest = new DbCreateQueries(SqlConstants.DEFAULTTESTDBLOC);
         dbSetupHelper = new DbSetupHelper(SqlConstants.DEFAULTDBLOC);
         dbSetupHelperTest = new DbSetupHelper(SqlConstants.DEFAULTTESTDBLOC);
+        duq = new DbUpdateQueries(SqlConstants.DEFAULTDBLOC);
+        // TODO add test for duq/Update Queries
     }
 
     /*
@@ -79,5 +79,9 @@ public class SqlConnection {
 
     public DbSetupHelper getDbSetupHelperTest() {
         return dbSetupHelperTest;
+    }
+
+    public DbUpdateQueries getDuq() {
+        return duq;
     }
 }

@@ -7,13 +7,18 @@
  */
 package main.java.memoranda;
 
+import java.sql.Array;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
+import main.java.memoranda.ui.App;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Util;
 
@@ -158,6 +163,19 @@ public class EventsManager {
 			v.addAll(r);
 		//EventsVectorSorter.sort(v);
 		Collections.sort(v);
+		LocalDate day = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+		ArrayList<GymClassEntity> arrayList = new ArrayList<>();
+		try {
+			System.out.println("[DEBUG] Querying SQL DB from EventsManager.getEventsForDate()");
+			arrayList = App.conn.getDrq().getAllClassesByDate(day);
+			for (int i=0; i<arrayList.size(); i++) {
+				GymClassEntity g = arrayList.get(i);
+				g.printGymClass();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Vector<GymClassEntity> vector = new Vector<>(arrayList);
 		return v;
 	}
 

@@ -1,3 +1,10 @@
+/**
+ * This class represents the User entity in the database, the user
+ * of the program. It contains all necessary information such as name, email,
+ * password (used for logging in), their role (trainer, admin, student), and their
+ * belt types (belt color, and trainer belt color if applicable)
+ *
+ */
 package main.java.memoranda.database;
 
 import java.util.Objects;
@@ -14,6 +21,9 @@ public class UserEntity {
     private BeltEntity _belt;
     private BeltEntity _trainingBelt;
 
+    /**
+     * Constructor for a user who is not a trainer (student)
+     */
     public UserEntity(String _firstName, String _lastName, String _password, String _email,
                       RoleEntity _role) {
         this._firstName = _firstName;
@@ -23,6 +33,9 @@ public class UserEntity {
         this._role = _role;
     }
 
+    /**
+     * Constructor for a user who IS a trainer
+     */
     public UserEntity(String _firstName, String _lastName, String _password, String _email,
                       RoleEntity _role, BeltEntity _belt, BeltEntity _trainingBelt) {
         this._firstName = _firstName;
@@ -95,6 +108,12 @@ public class UserEntity {
         this._trainingBelt = trainingBelt;
     }
 
+    /**
+     * Checks if two users are equal to each other
+     *
+     * @param o The user to compare
+     * @return Returns true if the users are the same, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,6 +128,11 @@ public class UserEntity {
                 Objects.equals(_trainingBelt, that._trainingBelt);
     }
 
+    /**
+     * Generates a hashcode for a user
+     *
+     * @return Returns the hashcode as an integer
+     */
     @Override
     public int hashCode() {
         return Objects.hash(_firstName, _lastName, _password, _email, _role, _belt, _trainingBelt);

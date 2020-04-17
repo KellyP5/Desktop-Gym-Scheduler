@@ -293,15 +293,29 @@ public class LoginBox extends JFrame {
         }
     }
 
-    // Get the currently logged in user
+    /**
+     * Gets the currently logged in user
+     *
+     * @return Returns the user as a UserEntity
+     */
     public UserEntity getUser() {
         return _user;
     }
 
+    /**
+     * Gets the swing component for email (used for testing)
+     *
+     * @return the JTextField for email
+     */
     public JTextField getEmail() {
         return _email;
     }
 
+    /**
+     * Gets the swing component for password (used for testing)
+     *
+     * @return the JTextField for password
+     */
     public JTextField getPassword() {
         return _pass;
     }

@@ -367,7 +367,7 @@ public class UserManagementAddUser extends JFrame {
                 // Add new user to database
                 App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
                 dispose();
-                this.topLevelReference.refresh();
+                this.topLevelReference.addUserToTable(email.getText(),rank,role.toString());
                 showCreatedSuccessfullyPopup();
             } catch (SQLException ex) {
                 throwInputError("An account already exists with that email.");

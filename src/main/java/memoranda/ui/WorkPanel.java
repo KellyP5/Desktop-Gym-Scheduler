@@ -104,15 +104,13 @@ public class WorkPanel extends JPanel {
 		toolBar.setFloatable(false);
 		panel.setLayout(cardLayout1);
 
-
-		initAllPanels();
-
+		initAllPanels();//master init method for all the panels
 
 		this.setPreferredSize(new Dimension(1073, 300));
 		this.add(toolBar, BorderLayout.WEST);
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
-		panel.add(userManagement, "USERMANAGMENT");
+
 		toolBar.add(agendaB, null);
 		toolBar.add(classesB, null);
 		toolBar.add(tasksB, null);
@@ -127,7 +125,7 @@ public class WorkPanel extends JPanel {
 		toolBar.setBorder(null);
 		panel.setBorder(null);
 		dailyItemsPanel.setBorder(null);
-		userManagement.setBorder(null);
+
 
 
 	}
@@ -141,6 +139,10 @@ public class WorkPanel extends JPanel {
 	}
 
 	void initUserManagment(){
+		panel.add(userManagement, "USERMANAGMENT");
+		
+		userManagement.setBorder(null);
+
 
 		userMgmt.setSelected(true);
 		userMgmt.setMargin(new Insets(0, 0, 0, 0));

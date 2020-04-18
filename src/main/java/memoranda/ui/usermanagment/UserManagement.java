@@ -5,6 +5,7 @@ import main.java.memoranda.ui.App;
 import main.java.memoranda.ui.ExceptionDialog;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -88,6 +89,7 @@ public class UserManagement extends JPanel {
      */
     private void initTable(){
 
+
         String[] columnNames = {"Email", "User Rank", "Role"};
 
         ArrayList<ArrayList<String>> d = new ArrayList<ArrayList<String>>();
@@ -111,7 +113,8 @@ public class UserManagement extends JPanel {
             data[i] = copy;
         }
 
-        userList = new JTable(data,columnNames);
+
+        userList = new JTable(new DefaultTableModel(data,columnNames));
 
         //Forces selection to be just 1 row at a time
         userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -157,8 +160,18 @@ public class UserManagement extends JPanel {
 
     }
 
-    public void refresh(){
-        initTable();
+    /**
+     * This method is called inside the UserManagementAddUser class, and adds a recently added user
+     * once it is inserted into the database.
+     * @param pEmail the email of the user
+     * @param pRank the rank of the user
+     * @param pRole the role of the user
+     */
+    public void addUserToTable(String pEmail, String pRank, String pRole){
+
+        DefaultTableModel model = (DefaultTableModel) this.userList.getModel();
+        model.addRow(new Object[]{pEmail,pRank,pRole});
+
     }
 
 }

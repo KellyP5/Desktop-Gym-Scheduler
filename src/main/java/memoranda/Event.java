@@ -86,13 +86,6 @@ public interface Event {
     int getPeriod();
 
     /**
-     * Is repeatable boolean.
-     *
-     * @return the boolean
-     */
-    boolean isRepeatable();
-
-    /**
      * Gets time.
      *
      * @return the time

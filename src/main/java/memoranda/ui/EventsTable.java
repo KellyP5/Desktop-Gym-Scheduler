@@ -10,8 +10,18 @@ package main.java.memoranda.ui;
 
 import java.awt.Component;
 import java.awt.Font;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
+
+import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.util.DbCreateQueries;
+import java.time.LocalDateTime;
 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -30,30 +40,44 @@ import main.java.memoranda.util.Local;
 /*$Id: EventsTable.java,v 1.6 2004/10/11 08:48:20 alexeya Exp $*/
 public class EventsTable extends JTable {
 
-    /**
-     * The constant EVENT.
-     */
     public static final int EVENT = 100;
-    /**
-     * The constant EVENT_ID.
-     */
     public static final int EVENT_ID = 101;
+    public static int room;
 
     /**
      * The Events.
      */
     Vector events = new Vector();
+    ArrayList<GymClassEntity> classes;
 
     /**
      * Constructor for EventsTable.
      */
-    public EventsTable() {
+    public EventsTable()  {
         super();
         setModel(new EventsTableModel());
         initTable(CurrentDate.get());
         this.setShowGrid(true);
         CurrentDate.addDateListener(new DateListener() {
-            public void dateChange(CalendarDate d) {
+            public void dateChange(CalendarDate d)  {
+                //updateUI();
+                initTable(d);
+            }
+        });
+    }
+
+    /**
+     * Constructor to tell the event panel which room to worry about
+     * @param room what room number
+     */
+    public EventsTable(int room)  {
+        super();
+        this.room = room;
+        setModel(new EventsTableModel());
+        initTable(CurrentDate.get());
+        this.setShowGrid(true);
+        CurrentDate.addDateListener(new DateListener() {
+            public void dateChange(CalendarDate d)  {
                 //updateUI();
                 initTable(d);
             }
@@ -65,46 +89,51 @@ public class EventsTable extends JTable {
      *
      * @param d the d
      */
-    public void initTable(CalendarDate d) {
+    public void initTable(CalendarDate d)  {
         events = (Vector)EventsManager.getEventsForDate(d);
-        getColumnModel().getColumn(0).setPreferredWidth(60);
-        getColumnModel().getColumn(0).setMaxWidth(60);
-	clearSelection();
+        LocalDate date = LocalDate.of(d.getYear(), d.getMonth(), d.getDay());
+        try {
+            System.out.println("[DEBUG] Querying SQL DB from EventsTable.java");
+            classes = App.conn.getDrq().getAllClassesByDate(date);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        getColumnModel().getColumn(0).setPreferredWidth(70);
+        getColumnModel().getColumn(0).setMaxWidth(70);
+        clearSelection();
         updateUI();
     }
 
     /**
      * Refresh.
      */
-    public void refresh() {
+    public void refresh()  {
         initTable(CurrentDate.get());
     }
 
-     public TableCellRenderer getCellRenderer(int row, int column) {
+    public TableCellRenderer getCellRenderer(int row, int column) {
         return new javax.swing.table.DefaultTableCellRenderer() {
 
             public Component getTableCellRendererComponent(
-                JTable table,
-                Object value,
-                boolean isSelected,
-                boolean hasFocus,
-                int row,
-                int column) {
+                    JTable table,
+                    Object value,
+                    boolean isSelected,
+                    boolean hasFocus,
+                    int row,
+                    int column) {
                 Component comp;
                 comp = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 Event ev = (Event)getModel().getValueAt(row, EVENT);
                 comp.setForeground(java.awt.Color.GRAY);
-                if (ev.isRepeatable())
-                    comp.setFont(comp.getFont().deriveFont(Font.ITALIC));
                 if (CurrentDate.get().after(CalendarDate.today())) {
-                  comp.setForeground(java.awt.Color.black);
-                }                
-                else if (CurrentDate.get().equals(CalendarDate.today())) {
-                  if (ev.getTime().after(new Date())) {
                     comp.setForeground(java.awt.Color.black);
-                    //comp.setFont(new java.awt.Font("Dialog", 1, 12));
-                    comp.setFont(comp.getFont().deriveFont(Font.BOLD));
-                  }
+                }
+                else if (CurrentDate.get().equals(CalendarDate.today())) {
+                    if (ev.getTime().after(new Date())) {
+                        comp.setForeground(java.awt.Color.black);
+                        //comp.setFont(new java.awt.Font("Dialog", 1, 12));
+                        comp.setFont(comp.getFont().deriveFont(Font.BOLD));
+                    }
                 }
                 return comp;
             }
@@ -121,15 +150,11 @@ public class EventsTable extends JTable {
          * The Column names.
          */
         String[] columnNames = {
-         //   Local.getString("Task name"),
-        //    Local.getString("Time"),
-          //      Local.getString("Text")
+                //   Local.getString("Task name"),
+                //    Local.getString("Time"),
+                //      Local.getString("Text")
                 Local.getString("Time"),
-                Local.getString("Room 1"),
-                Local.getString("Room 2"),
-                Local.getString("Room 3"),
-                Local.getString("Room 4"),
-
+                Local.getString("Room " + room),
         };
 
         /**
@@ -140,40 +165,40 @@ public class EventsTable extends JTable {
         }
 
         public int getColumnCount() {
-            return 5;
+            return 2;
         }
 
         public int getRowCount() {
-			int i;
-			try {
-				i = events.size();
-			}
-			catch(NullPointerException e) {
-				i = 1;
-			}
-			return i;
+            int i;
+            try {
+                i = events.size();
+            }
+            catch(NullPointerException e) {
+                i = 1;
+            }
+            return i;
         }
 
 
         //getValueAt class adds class info to the schedule
         public Object getValueAt(int row, int col) {
-           Event ev = (Event)events.get(row);
-           if (col == 0){
+            Event ev = (Event)events.get(row);
+            if (col == 0){
                 //return ev.getHour()+":"+ev.getMinute();
 
                 return ev.getTimeString();
-           }
+            }
 
-                else if (col == 1)
-                    return null;
-               else if (col == 2)
-                   return null;
-                else if (col == 3)
-                    return null;
-                else if (col == 4)
-                    return null;
-                else
-                        return ev;
+            else if (col == 1)
+                return null;
+            else if (col == 2)
+                return null;
+            else if (col == 3)
+                return null;
+            else if (col == 4)
+                return null;
+            else
+                return ev;
 
 
         }

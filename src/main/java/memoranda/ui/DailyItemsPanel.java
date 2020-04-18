@@ -38,9 +38,20 @@ public class DailyItemsPanel extends JPanel {
 
     JPanel editorsPanel = new JPanel();
 
-    AgendaPanel agendaPanel = new AgendaPanel(this);
+    
     TaskPanel tasksPanel = new TaskPanel(this);
-    EventsPanel eventsPanel = new EventsPanel(this);
+
+    /**
+     * The Events panel.
+     */
+    ClassesPanel classesPanel = new ClassesPanel(this);
+    /**
+     * The Agenda panel.
+     */
+    AgendaPanel agendaPanel = new AgendaPanel(this);
+    /**
+     * The Exp icon.
+     */
 
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
@@ -194,7 +205,7 @@ public class DailyItemsPanel extends JPanel {
         mainPanel.add(editorsPanel, BorderLayout.CENTER);
 
         editorsPanel.add(agendaPanel, "AGENDA");
-        editorsPanel.add(eventsPanel, "CLASSES");
+        editorsPanel.add(classesPanel, "CLASSES");
         editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(editorPanel, "NOTES");
 

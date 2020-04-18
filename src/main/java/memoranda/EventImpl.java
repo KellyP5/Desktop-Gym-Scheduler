@@ -68,12 +68,6 @@ public class EventImpl implements Event, Comparable {
         return _elem;
     }
     /**
-     * @see main.java.memoranda.Event#isRepeatable()
-     */
-    public boolean isRepeatable() {
-        return getStartDate() != null;
-    }
-    /**
      * @see main.java.memoranda.Event#getStartDate()
      */
     public CalendarDate getStartDate() {

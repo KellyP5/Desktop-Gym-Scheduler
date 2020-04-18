@@ -141,7 +141,6 @@ public class UserManagement extends JPanel {
     private void setActions(){
 
         this.addUserButton.addActionListener(actionEvent -> {
-            System.out.println("//TODO Add user button");
             new UserManagementAddUser(this,addUserButton);
         });
 

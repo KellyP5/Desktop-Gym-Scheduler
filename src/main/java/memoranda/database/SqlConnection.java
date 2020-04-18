@@ -18,6 +18,7 @@ public class SqlConnection {
     private DbSetupHelper dbSetupHelper;
     private DbSetupHelper dbSetupHelperTest;
     private DbUpdateQueries duq;
+    private DbUpdateQueries duqTest;
 
     /*
     This is just a helper main that can be ran to generate the real and test databases.
@@ -44,7 +45,7 @@ public class SqlConnection {
         dbSetupHelper = new DbSetupHelper(SqlConstants.DEFAULTDBLOC);
         dbSetupHelperTest = new DbSetupHelper(SqlConstants.DEFAULTTESTDBLOC);
         duq = new DbUpdateQueries(SqlConstants.DEFAULTDBLOC);
-        // TODO add test for duq/Update Queries
+        duqTest = new DbUpdateQueries(SqlConstants.DEFAULTTESTDBLOC);
     }
 
     /*
@@ -83,5 +84,9 @@ public class SqlConnection {
 
     public DbUpdateQueries getDuq() {
         return duq;
+    }
+
+    public DbUpdateQueries getDuqTest() {
+        return duqTest;
     }
 }

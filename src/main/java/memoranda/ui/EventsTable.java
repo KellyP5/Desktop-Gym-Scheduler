@@ -141,11 +141,7 @@ public class EventsTable extends JTable {
                 //    Local.getString("Time"),
                 //      Local.getString("Text")
                 Local.getString("Time"),
-                Local.getString("Room 1"),
-                Local.getString("Room 2"),
-                Local.getString("Room 3"),
-                Local.getString("Room 4"),
-
+                Local.getString("Room"),
         };
 
         /**
@@ -156,7 +152,7 @@ public class EventsTable extends JTable {
         }
 
         public int getColumnCount() {
-            return 5;
+            return 2;
         }
 
         public int getRowCount() {

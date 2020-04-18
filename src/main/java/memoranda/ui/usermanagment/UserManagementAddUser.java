@@ -144,7 +144,6 @@ public class UserManagementAddUser extends JFrame {
         accountCreate.setBackground(new java.awt.Color(230, 230, 230));
 
         getContentPane().add(accountCreate);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLocationRelativeTo(null);
 

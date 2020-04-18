@@ -4,9 +4,6 @@
 # Log file
 *.log
 
-#sqllite
-*.db
-
 # Intellij
 .idea/
 *.iml

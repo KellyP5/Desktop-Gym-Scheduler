@@ -66,6 +66,10 @@ public class EventsTable extends JTable {
         });
     }
 
+    /**
+     * Constructor to tell the event panel which room to worry about
+     * @param room what room number
+     */
     public EventsTable(int room)  {
         super();
         this.room = room;
@@ -94,8 +98,8 @@ public class EventsTable extends JTable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        getColumnModel().getColumn(0).setPreferredWidth(60);
-        getColumnModel().getColumn(0).setMaxWidth(60);
+        getColumnModel().getColumn(0).setPreferredWidth(70);
+        getColumnModel().getColumn(0).setMaxWidth(70);
         clearSelection();
         updateUI();
     }

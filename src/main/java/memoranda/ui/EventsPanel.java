@@ -426,6 +426,9 @@ public class EventsPanel<newButtonFont> extends JPanel {
         PopupListener ppListener = new PopupListener();
         room1ScrollPane.addMouseListener(ppListener);
         Room1.addMouseListener(ppListener);
+        Room2.addMouseListener(ppListener);
+        Room3.addMouseListener(ppListener);
+        Room4.addMouseListener(ppListener);
 
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) {

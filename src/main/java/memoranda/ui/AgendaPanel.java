@@ -10,25 +10,59 @@ import main.java.memoranda.util.Local;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
+/**
+ * The type Agenda panel.
+ */
 public class AgendaPanel extends JPanel {
 
+	private final String[] _COLUMNNAMES = {"Date", "Duration", "Room Number", "Max Class Size", "Belt Requirement"};
+
+	/**
+	 * The Is active.
+	 */
 	boolean isActive = true;//used to determine if this panel is in use
+	/**
+	 * The Border layout 1.
+	 */
 	BorderLayout borderLayout1 = new BorderLayout();
 
+	/**
+	 * The Panel.
+	 */
 	JPanel panel;
 
+	/**
+	 * The Tool bar.
+	 */
 	JToolBar toolBar = new JToolBar();
+	/**
+	 * The History back b.
+	 */
 	JButton historyBackB = new JButton();
+	/**
+	 * The History forward b.
+	 */
 	JButton historyForwardB = new JButton();
 
+	/**
+	 * The Classes table.
+	 */
 	JTable classesTable;
+	/**
+	 * The Scroll pane.
+	 */
 	JScrollPane scrollPane;
 
+	/**
+	 * Instantiates a new Agenda panel.
+	 *
+	 * @param _parentPanel the parent panel
+	 */
 	public AgendaPanel(DailyItemsPanel _parentPanel) {
 		try {
 			jbInit();
@@ -38,6 +72,11 @@ public class AgendaPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Jb init.
+	 *
+	 * @throws Exception the exception
+	 */
 	void jbInit() throws Exception {
 		this.setLayout(borderLayout1);
 
@@ -49,39 +88,35 @@ public class AgendaPanel extends JPanel {
 
 
 		this.panel = new JPanel(new BorderLayout());
-		this.panel.add(scrollPane,BorderLayout.CENTER);
+		this.panel.add(scrollPane, BorderLayout.CENTER);
 
 		this.add(panel, BorderLayout.CENTER);
 
 	}
 
+	/**
+	 * Init table.
+	 *
+	 * @throws SQLException the sql exception
+	 */
 	public void initTable() throws SQLException {
 
-		String[] columnNames = {"Date", "Duration", "Room Number", "Max Class Size","Belt Requirement"};
-
-		ArrayList<ArrayList<String>> d = getClassDataForTrainer("jackj@gmail.com");
-		//this code class getClassDataForTrainer which returns an array list of arraylists that contain strings that are the info for each
-		//individual class.
-
-
-
-
-		//this code converts our 2d ArrayList into a String[][]
-		String[][] data = new String[d.size()][];
-		for(int i = 0;i<d.size();i++){
+		ArrayList<ArrayList<String>> d = new ArrayList<>();
+		String[][] data = new String[0][];
+		for (int i = 0; i < d.size(); i++) {
 			ArrayList<String> current = d.get(i);
 
 			String[] copy = new String[current.size()];
-			for(int j = 0;j< current.size();j++){
+			for (int j = 0; j < current.size(); j++) {
 				copy[j] = current.get(j);
 			}
 			data[i] = copy;
 		}
+		classesTable = new JTable(data, _COLUMNNAMES);
+		classesTable.setDefaultEditor(Object.class, null);
 
-
-
-		//that way we can pass this into our JTable constructor
-		classesTable = new JTable(data,columnNames);
+		this.scrollPane = new JScrollPane(classesTable);
+		this.add(this.scrollPane, BorderLayout.SOUTH);
 
 		//Forces selection to be just 1 row at a time
 		classesTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -91,30 +126,33 @@ public class AgendaPanel extends JPanel {
 
 		//Set up event listener for selecting a row
 		classesTable.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(),0));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(),1));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(),2));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(),3));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(),4));
+			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 0));
+			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 1));
+			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 2));
+			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 3));
+			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 4));
 			System.out.println();
 		});
 
-		//allows you to select but prevents being able to edit
-		classesTable.setDefaultEditor(Object.class,null);
-
-		this.scrollPane = new JScrollPane(classesTable);
-		this.add(this.scrollPane,BorderLayout.SOUTH);
 
 	}
 
-	ArrayList<ArrayList<String>> getClassDataForTrainer(String email) throws SQLException {
-		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrqTest().getAllClassesTrainerIsTeachingByEmail(email);
+	/**
+	 * Gets class data for trainer.
+	 *
+	 * @param email                the email
+	 * @param selectedCalendarDate the selected calendar date
+	 * @return the class data for trainer
+	 * @throws SQLException the sql exception
+	 */
+	ArrayList<ArrayList<String>> getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
+		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrq().getAllClassesTrainerIsTeachingByEmail(email);
 
-		if(!gymClassEntities.isEmpty()) {
+		if (!gymClassEntities.isEmpty()) {
 			ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
 			for (int i = 0; i < gymClassEntities.size(); i++) {
 				//creates an array list of array lists that hold strings of information for each individual class for the passed trainer.
-				if (gymClassEntities.get(i).getEndDateTime().toLocalDate().isAfter(LocalDateTime.now().toLocalDate())) {
+				if (gymClassEntities.get(i).getEndDateTime().toLocalDate().isAfter(selectedCalendarDate)) {
 					//the if statement will only add the information to the array if the class end time is after the current time.
 					LocalTime startTime = gymClassEntities.get(i).getStartDateTime().toLocalTime();
 					LocalTime endTime = gymClassEntities.get(i).getEndDateTime().toLocalTime();
@@ -125,20 +163,26 @@ public class AgendaPanel extends JPanel {
 					e.add(Long.toString(duration) + " Minutes");
 					e.add(Integer.toString(gymClassEntities.get(i).getRoomNumber()));
 					e.add(Integer.toString(gymClassEntities.get(i).getMaxClassSize()));
-					e.add(gymClassEntities.get(i).getMinBeltEntityRequired().rank.toString().substring(0,1).toUpperCase() +
+					e.add(gymClassEntities.get(i).getMinBeltEntityRequired().rank.toString().substring(0, 1).toUpperCase() +
 							gymClassEntities.get(i).getMinBeltEntityRequired().rank.toString().substring(1));
 					classInfo.add(e); //adds the array list of class's information to the 2D arraylist.
 				}
 
 			}
 			return classInfo; //returns the 2d array list.
-		}
-		else{
+		} else {
 			return null;
 		}
 
 	}
 
+	/**
+	 * Gets trainer belt.
+	 *
+	 * @param email the email
+	 * @return the trainer belt
+	 * @throws SQLException the sql exception
+	 */
 	public String getTrainerBelt(String email) throws SQLException {
 		String belt = App.conn.getDrqTest().getUserByEmail(email).getBelt().rank.toString();
 
@@ -147,12 +191,13 @@ public class AgendaPanel extends JPanel {
 
 	}
 
+	/**
+	 * Init tool bar.
+	 *
+	 * @throws SQLException the sql exception
+	 */
 	void initToolBar() throws SQLException {
 		toolBar.setFloatable(false);
-
-
-
-
 
 
 		historyBackB.setAction(History.historyBackAction);
@@ -184,7 +229,7 @@ public class AgendaPanel extends JPanel {
 	/**
 	 * Sets up our event listener for keeping our date current and what we are displaying to the user.
 	 */
-	void initEventListeners(){
+	void initEventListeners() {
 		CurrentDate.addDateListener(new DateListener() {
 			public void dateChange(CalendarDate d) {
 				if (isActive)
@@ -198,16 +243,62 @@ public class AgendaPanel extends JPanel {
 
 	/**
 	 * This should be the entry point into changing class data on selecting a calender date.
-	 * @param date
+	 *
+	 * @param date the date
 	 */
 	public void refresh(CalendarDate date) {
+		LocalDate convertedDate = convertDateToLocalDateTime(date);
+		System.out.println("date selected: " + date);
 
-		//TODO update our scrollpane here, based on the date picked.
+		classesTable.removeAll();
+
+		ArrayList<ArrayList<String>> d = null;
+		try {
+			d = getClassDataForTrainer("jackj@gmail.com", convertedDate); //this will need to be changed to the current trainer that is logged in which has not been implemented.
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+
+		String[][] data = null;
+		//this code converts our 2d ArrayList into a String[][]
+		if (d != null) {
+
+			data = new String[d.size()][];
+			for (int i = 0; i < d.size(); i++) {
+				ArrayList<String> current = d.get(i);
+
+				String[] copy = new String[current.size()];
+				for (int j = 0; j < current.size(); j++) {
+					copy[j] = current.get(j);
+				}
+				data[i] = copy;
+			}
+		}
+
+
+		//that way we can pass this into our JTable constructor
+		if (data == null) {
+			classesTable = new JTable(null, _COLUMNNAMES);
+		} else {
+			classesTable = new JTable(data, _COLUMNNAMES);
+		}
+
+
+	}
+
+	private LocalDate convertDateToLocalDateTime(CalendarDate date) {
+		LocalDate newDate = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+
+		return newDate;
 
 	}
 
 	/**
 	 * This method is called to set the panel as active or inactive.
+	 *
 	 * @param isa is the state the panel is being put in.
 	 */
 	public void setActive(boolean isa) {

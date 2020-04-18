@@ -19,6 +19,7 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * The type Agenda panel.
@@ -97,6 +98,8 @@ public class AgendaPanel extends JPanel {
 
 		this.add(panel, BorderLayout.CENTER);
 
+		refresh(CurrentDate.get());
+
 	}
 
 	/**
@@ -153,15 +156,12 @@ public class AgendaPanel extends JPanel {
 	ArrayList<ArrayList<String>> getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
 		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrqTest(). //TEMPORARY will need to be changed to the actual once the logged user can be checked
 				getAllClassesTrainerIsTeachingByEmail(email);
-		System.out.println("DEBUG: Classes taught: " + gymClassEntities.get(0).getCreatedByEmail().toString());
 
 		if (!gymClassEntities.isEmpty()) {
 			ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
 			for (int i = 0; i < gymClassEntities.size(); i++) {
 				//creates an array list of array lists that hold strings of information for each individual class for the passed trainer.
 				if (gymClassEntities.get(i).getEndDateTime().toLocalDate().isAfter(selectedCalendarDate.minusDays(1))){
-					System.out.println("Debug: endDateTime: " +gymClassEntities.get(i).getEndDateTime().toLocalDate().toString()
-					+ "\n Selected Calendar date: " + selectedCalendarDate.toString());
 					//the if statement will only add the information to the array if the class end time is after the current time.
 					LocalTime startTime = gymClassEntities.get(i).getStartDateTime().toLocalTime();
 					LocalTime endTime = gymClassEntities.get(i).getEndDateTime().toLocalTime();
@@ -258,7 +258,7 @@ public class AgendaPanel extends JPanel {
 	public void refresh(CalendarDate date) {
 		String[][] data = null;
 		LocalDate convertedDate = convertDateToLocalDateTime(date);
-		System.out.println("date selected: " + date);
+
 
 		classesTable.removeAll();
 
@@ -268,7 +268,7 @@ public class AgendaPanel extends JPanel {
 		ArrayList<ArrayList<String>> d = null;
 		ArrayList<ArrayList<String>> temp;
 		try {
-			temp = getClassDataForTrainer("steve@gmail.com", convertedDate); // TEMPORARY this will need to be changed to the current trainer that is logged in which has not been implemented.
+			temp = getClassDataForTrainer("jackj@gmail.com", convertedDate); // TEMPORARY this will need to be changed to the current trainer that is logged in which has not been implemented.
 			if(!temp.isEmpty()){
 				d = temp;
 			}
@@ -317,7 +317,6 @@ public class AgendaPanel extends JPanel {
 
 	private LocalDate convertDateToLocalDateTime(CalendarDate date) {
 
-		System.out.println("Debug: day: " + date.getDay() + " month : " + date.getMonth() + " year " + date.getYear() );
 		LocalDate newDate = LocalDate.of(date.getYear(), date.getMonth() + 1, date.getDay());
 
 

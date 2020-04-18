@@ -1,27 +1,23 @@
 package test.java;
 
-        import main.java.memoranda.database.*;
-        import main.java.memoranda.database.util.DbCreateQueries;
-        import main.java.memoranda.database.util.DbReadQueries;
-        import main.java.memoranda.database.util.SqlConstants;
-        import org.junit.*;
-
-        import java.sql.SQLException;
-        import java.time.LocalDate;
-        import java.time.LocalDateTime;
-        import java.time.format.DateTimeFormatter;
-        import java.time.LocalTime;
-        import java.util.ArrayList;
-
-        import static org.junit.Assert.*;
+import main.java.memoranda.database.*;
+import org.junit.*;
+import java.time.LocalDateTime;
+import static org.junit.Assert.*;
 
 
+/**
+ * Tests database Objects
+ */
 public class databaseObjectTest {
     public static EnrolledUserEntity eu1;
     public static BeltEntity be1, be2, be3;
     public static GymClassEntity gce1;
     public static LocalDateTime ldt1;
 
+    /**
+     * Sets up for database object tests
+     */
     @BeforeClass
     public static void setUp() {
         eu1 = new EnrolledUserEntity(1, "kjpetron@asu.edu");
@@ -35,6 +31,9 @@ public class databaseObjectTest {
                 "admin@gym.com");
     }
 
+    /**
+     * Tests Belt Entity object
+     */
     @Test
     public void beltEntity() {
         assertEquals(be1.toString(), "white");
@@ -42,6 +41,9 @@ public class databaseObjectTest {
         assertTrue(be2.equals(be3));
     }
 
+    /**
+     * Tests Enrolled User Entity
+     */
     @Test
     public void enrolledUserEntity()  {
         int i = eu1.getClassId();
@@ -55,6 +57,9 @@ public class databaseObjectTest {
         assertEquals(eu1.getUserEmail(), "admin@gym.com");
     }
 
+    /**
+     * Tests Gym Class Entity
+     */
     @Test
     public void gymClassEntity()  {
         assertEquals(1, gce1.getId());
@@ -68,6 +73,9 @@ public class databaseObjectTest {
         assertTrue(gce1.equals(gce1));
     }
 
+    /**
+     * Tests User Entity
+     */
     @Test
     public void userEntity()  {
     }

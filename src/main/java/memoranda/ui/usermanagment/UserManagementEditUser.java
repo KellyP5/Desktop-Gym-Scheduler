@@ -23,7 +23,6 @@ import java.sql.SQLException;
 public class UserManagementEditUser extends JDialog {
 
     private JPanel _mainPanel;
-    private JButton _b1;
     private JLabel _firstNameLabel;
     private JTextField _firstNameBox;
     private JLabel _lastNameLabel;
@@ -51,52 +50,83 @@ public class UserManagementEditUser extends JDialog {
      * Constructor for our Edit User popup. Creates the GUI box that displays the user's information
      * and allows it to be edited.
      *
-     * @param rel uses this variable to set the relative position of the popup.
      * @param _user The currently selected user to edit from the User Management page
      */
-    public UserManagementEditUser(Component rel, UserEntity _user){
+    public UserManagementEditUser(UserEntity _user){
         super(new JFrame());
 
         _selectedUser = _user;
 
         _mainPanel = new JPanel();
         this.setTitle("Edit User");
-        _mainPanel.setPreferredSize(new Dimension(350,500));
+        _mainPanel.setPreferredSize(new Dimension(350,400));
 
         _firstNameLabel = new JLabel("First Name");
-        _firstNameLabel.setBounds(40, 100, 75, 20);
+        _firstNameLabel.setBounds(40, 50, 75, 20);
 
         _firstNameBox = new JTextField(10);
-        _firstNameBox.setBounds(120,100,120,20);
+        _firstNameBox.setBounds(120,50,120,20);
         _firstNameBox.setText(_selectedUser.getFirstName());
 
         _lastNameLabel = new JLabel("Last Name");
-        _lastNameLabel.setBounds(40, 140, 75, 20);
+        _lastNameLabel.setBounds(40, 90, 75, 20);
 
         _lastNameBox = new JTextField(10);
-        _lastNameBox.setBounds(120, 140, 120, 20);
+        _lastNameBox.setBounds(120, 90, 120, 20);
         _lastNameBox.setText(_selectedUser.getLastName());
 
         _emailLabel = new JLabel("Email");
-        _emailLabel.setBounds(40, 180, 75, 20);
+        _emailLabel.setBounds(40, 130, 75, 20);
 
         _emailBox = new JTextField(20);
-        _emailBox.setBounds(120, 180, 120, 20);
+        _emailBox.setBounds(120, 130, 120, 20);
         _emailBox.setText(_selectedUser.getEmail());
 
         _role = new JLabel("Role");
-        _role.setBounds(40, 220, 75, 20);
+        _role.setBounds(40, 170, 75, 20);
 
         _buttons = new ButtonGroup();
         _trainerButton = new JRadioButton();
         _trainerButton.setText("Trainer");
-        _trainerButton.setBounds(100, 220, 80,20);
+        _trainerButton.setBounds(100, 170, 80,20);
+        // If user is changed to trainer, add trainer belt option
+        _trainerButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                _mainPanel.add(_trainerBelt);
+                _mainPanel.add(_trainerBeltList);
+                _mainPanel.repaint();
+            }
+        });
+
         _customerButton = new JRadioButton();
         _customerButton.setText("Customer");
-        _customerButton.setBounds(180, 220, 90, 20);
+        _customerButton.setBounds(180, 170, 90, 20);
+        // If user is changed to customer, remove trainer belt option
+        _customerButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                _mainPanel.remove(_trainerBelt);
+                _mainPanel.remove(_trainerBeltList);
+                _mainPanel.repaint();
+            }
+        });
+
         _adminButton = new JRadioButton();
         _adminButton.setText("Admin");
-        _adminButton.setBounds(270, 220, 80, 20);
+        _adminButton.setBounds(270, 170, 80, 20);
+        // If user is changed to admin, add trainer belt option
+        _adminButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                _mainPanel.add(_trainerBelt);
+                _mainPanel.add(_trainerBeltList);
+                _mainPanel.repaint();
+            }
+        });
+
         _buttons.add(_trainerButton);
         _buttons.add(_customerButton);
         _buttons.add(_adminButton);
@@ -112,7 +142,7 @@ public class UserManagementEditUser extends JDialog {
         }
 
         _belt = new JLabel("Belt");
-        _belt.setBounds(40, 260, 75, 20);
+        _belt.setBounds(40, 210, 75, 20);
 
         _beltColors = new String[] {"White", "Yellow", "Orange", "Purple", "Blue",
         "Blue Stripe", "Green", "Green Stripe", "Brown1", "Brown2", "Brown3",
@@ -128,11 +158,11 @@ public class UserManagementEditUser extends JDialog {
 
         _beltList = new JComboBox(_beltColors);
         _beltList.setSelectedIndex(index); // Set to selected user's belt
-        _beltList.setBounds(120, 260, 120, 20);
+        _beltList.setBounds(120, 210, 120, 20);
         _beltList.setBackground(Color.WHITE);
 
         _trainerBelt = new JLabel("Trainer Belt");
-        _trainerBelt.setBounds(40, 300, 75, 20);
+        _trainerBelt.setBounds(40, 250, 75, 20);
 
         _trainerBeltColors = _beltColors;
 
@@ -146,11 +176,11 @@ public class UserManagementEditUser extends JDialog {
 
         _trainerBeltList = new JComboBox(_trainerBeltColors);
         _trainerBeltList.setSelectedIndex(trainerIndex); // Set to selected user's trainer belt (if trainer)
-        _trainerBeltList.setBounds(120, 300, 120, 20);
+        _trainerBeltList.setBounds(120, 250, 120, 20);
         _trainerBeltList.setBackground(Color.WHITE);
 
         _updateButton = new JButton("Update");
-        _updateButton.setBounds(140, 350, 100, 30);
+        _updateButton.setBounds(130, 300, 100, 30);
         _updateButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -310,7 +340,7 @@ public class UserManagementEditUser extends JDialog {
     /**
      * Popup dialog that allows the user to see the changes they're about to make
      * to the selected user's information
-     * 
+     *
      * @return Returns true if changes are approved, false otherwise
      */
     public boolean confirmChanges() {

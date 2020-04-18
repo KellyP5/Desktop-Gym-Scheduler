@@ -35,6 +35,10 @@ public class GymClassEntity {
         return _Id;
     }
 
+    public void printGymClass() {
+        System.out.println("class room: " + this._roomNumber + "\n start date: " + this._startDateTime);
+    }
+
     public void setId(int _Id) {
         this._Id = _Id;
     }

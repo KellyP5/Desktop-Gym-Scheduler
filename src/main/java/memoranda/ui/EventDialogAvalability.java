@@ -43,7 +43,7 @@ import main.java.memoranda.util.Local;
  * The type Event dialog.
  */
 /*$Id: EventDialog.java,v 1.28 2005/02/19 10:06:25 rawsushi Exp $*/
-public class EventDialog extends JDialog implements WindowListener {
+public class EventDialogAvalability extends JDialog implements WindowListener {
     /**
      * The Cancelled.
      */
@@ -84,26 +84,14 @@ public class EventDialog extends JDialog implements WindowListener {
      * The Lbl time.
      */
     JLabel lblTime = new JLabel();
-    /**
-     * The Lbl time.
-     */
-    JLabel lblTrainer = new JLabel();
-    /**
-     * The combo box fot trainer.
-     */
-     JComboBox trainerCB = new JComboBox();
-    /**
-     * The Lbl belt.
-     */
-    JLabel lblBelt = new JLabel();
-    /**
-     * The Lbl room.
-     */
-    JLabel lblRoom = new JLabel();
+    JLabel lblTimeTill = new JLabel();
+
     /**
      * The Time spin.
      */
     public JSpinner timeSpin = new JSpinner(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
+    public JSpinner timeSpin2 = new JSpinner(new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE));
+
     /**
      * The Lbl text.
      */
@@ -145,7 +133,7 @@ public class EventDialog extends JDialog implements WindowListener {
      */
     public JSpinner startDate = new JSpinner(new SpinnerDateModel());
     /**
-     * The Set start date b.
+     * The Set start date b
      */
     JButton setStartDateB = new JButton();
     /**
@@ -229,7 +217,7 @@ public class EventDialog extends JDialog implements WindowListener {
      * @param frame the frame
      * @param title the title
      */
-    public EventDialog(Frame frame, String title) {
+    public EventDialogAvalability(Frame frame, String title) {
         super(frame, title, true);
         try {
             jbInit();
@@ -247,20 +235,20 @@ public class EventDialog extends JDialog implements WindowListener {
      * @throws Exception the exception
      */
     void jbInit() throws Exception {
-    	this.setResizable(false);
+        this.setResizable(false);
         // Build headerPanel
         headerPanel.setBackground(Color.WHITE);
         headerPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
         header.setFont(new java.awt.Font("Dialog", 0, 20));
         header.setForeground(new Color(0, 0, 124));
-       // header.setText(Local.getString("Schedule Class"));
-      //  header.setIcon(new ImageIcon(main.java.memoranda.ui.EventDialog.class.getResource(
-     //       "/ui/icons/event48.png")));
+        // header.setText(Local.getString("Schedule Class"));
+        //  header.setIcon(new ImageIcon(main.java.memoranda.ui.EventDialog.class.getResource(
+        //       "/ui/icons/event48.png")));
         headerPanel.add(header);
-        
+
         // Build eventPanel
         //Time selection
-        lblTime.setText(Local.getString("Time"));
+        lblTime.setText(Local.getString("From"));
         lblTime.setMinimumSize(new Dimension(60, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 0;
@@ -280,50 +268,28 @@ public class EventDialog extends JDialog implements WindowListener {
 
 
 
-        //Belt selection menu
-        lblBelt.setText(Local.getString("Min Belt"));
-        lblBelt.setMinimumSize(new Dimension(60, 24));
+        lblTimeTill.setText(Local.getString("Till"));
+        lblTimeTill.setMinimumSize(new Dimension(60, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 1;
         gbc.insets = new Insets(10, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
-        eventPanel.add(lblBelt, gbc);
-        beltsCB.setPreferredSize(new Dimension(100, 25));
+        eventPanel.add(lblTimeTill, gbc);
+        timeSpin.setPreferredSize(new Dimension(60, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 1; gbc.gridy = 1;
         gbc.insets = new Insets(10, 0, 5, 0);
         gbc.anchor = GridBagConstraints.WEST;
-        eventPanel.add(beltsCB, gbc);
-
-        //Room selection menu
-        lblRoom.setText(Local.getString("Room"));
-        lblRoom.setMinimumSize(new Dimension(60, 24));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 2;
-        gbc.insets = new Insets(10, 10, 5, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        eventPanel.add(lblRoom, gbc);
-        beltsCB.setPreferredSize(new Dimension(100, 25));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1; gbc.gridy = 2;
-        gbc.insets = new Insets(10, 0, 5, 0);
-        gbc.anchor = GridBagConstraints.WEST;
-        eventPanel.add(roomsCB, gbc);
+        eventPanel.add(timeSpin2, gbc);
 
 
-        lblTrainer.setText(Local.getString(" Trainer"));
-        lblTrainer.setMinimumSize(new Dimension(60, 24));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 3;
-        gbc.insets = new Insets(10, 0, 5, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-        eventPanel.add(lblTrainer, gbc);
-        lblTrainer.setPreferredSize(new Dimension(100, 25));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1; gbc.gridy = 3;
-        gbc.insets = new Insets(10, 0, 5, 0);
-        gbc.anchor = GridBagConstraints.WEST;
-        eventPanel.add(trainerCB, gbc);
+
+
+
+
+
+
+
 
 
         //Text typing menu
@@ -347,7 +313,7 @@ public class EventDialog extends JDialog implements WindowListener {
 
         // Build RepeatPanel
         repeatBorder = new TitledBorder(BorderFactory.createLineBorder(
-        Color.gray, 1), Local.getString("Repeat"));
+                Color.gray, 1), Local.getString("Repeat"));
         repeatPanel.setBorder(repeatBorder);
         noRepeatRB.setMaximumSize(new Dimension(80, 35));
         noRepeatRB.setSelected(true);
@@ -407,21 +373,21 @@ public class EventDialog extends JDialog implements WindowListener {
                 Date ed = (Date) endDate.getModel().getValue();
                 // Commented out, value was resetted to endDate !!!
                 if (sd.after(ed)) {
-                  endDate.getModel().setValue(sd);
-                  ed = sd;
+                    endDate.getModel().setValue(sd);
+                    ed = sd;
                 }
                 startCalFrame.cal.set(new CalendarDate(sd));
                 ignoreStartChanged = false;
             }
         });
         startDate.setPreferredSize(new Dimension(80, 24));
-        
+
         //Added by (jcscoobyrs) on 12-Nov-2003 at 15:34:27 PM
-		//---------------------------------------------------
-		SimpleDateFormat sdf = new SimpleDateFormat();
-		sdf = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.SHORT);
-        startDate.setEditor(new JSpinner.DateEditor(startDate, 
-        	sdf.toPattern()));
+        //---------------------------------------------------
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf = (SimpleDateFormat)DateFormat.getDateInstance(DateFormat.SHORT);
+        startDate.setEditor(new JSpinner.DateEditor(startDate,
+                sdf.toPattern()));
         //---------------------------------------------------
         gbc = new GridBagConstraints();
         gbc.gridx = 5; gbc.gridy = 1;
@@ -434,7 +400,7 @@ public class EventDialog extends JDialog implements WindowListener {
             }
         });
         setStartDateB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
         setStartDateB.setText("");
         setStartDateB.setPreferredSize(new Dimension(24, 24));
 
@@ -475,10 +441,10 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.anchor = GridBagConstraints.EAST;
         repeatPanel.add(enableEndDateCB, gbc);
         endDate.setPreferredSize(new Dimension(80, 24));
-		//Added by (jcscoobyrs) on 12-Nov-2003 at 15:34:27 PM
-		//---------------------------------------------------
-		endDate.setEditor(new JSpinner.DateEditor(endDate, sdf.toPattern()));
-		//---------------------------------------------------
+        //Added by (jcscoobyrs) on 12-Nov-2003 at 15:34:27 PM
+        //---------------------------------------------------
+        endDate.setEditor(new JSpinner.DateEditor(endDate, sdf.toPattern()));
+        //---------------------------------------------------
         endDate.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 if (ignoreEndChanged)
@@ -494,16 +460,16 @@ public class EventDialog extends JDialog implements WindowListener {
                 ignoreEndChanged = false;
             }
         });
-		// working days
-		workingDaysOnlyCB.setText(Local.getString("Working days only"));
-		workingDaysOnlyCB.setHorizontalAlignment(SwingConstants.RIGHT);
-		gbc = new GridBagConstraints();
+        // working days
+        workingDaysOnlyCB.setText(Local.getString("Working days only"));
+        workingDaysOnlyCB.setHorizontalAlignment(SwingConstants.RIGHT);
+        gbc = new GridBagConstraints();
         gbc.gridx = 4; gbc.gridy = 3;
-		gbc.gridwidth = 2;
+        gbc.gridwidth = 2;
         gbc.insets = new Insets(5, 0, 5, 5);
         gbc.anchor = GridBagConstraints.EAST;
-		repeatPanel.add(workingDaysOnlyCB, gbc);
-		// -------------------------------------
+        repeatPanel.add(workingDaysOnlyCB, gbc);
+        // -------------------------------------
         gbc = new GridBagConstraints();
         gbc.gridx = 5; gbc.gridy = 2;
         gbc.insets = new Insets(5, 0, 5, 5);
@@ -513,7 +479,7 @@ public class EventDialog extends JDialog implements WindowListener {
         setEndDateB.setPreferredSize(new Dimension(24, 24));
         setEndDateB.setText("");
         setEndDateB.setIcon(
-            new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
+                new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/calendar.png")));
         setEndDateB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 setEndDateB_actionPerformed(e);
@@ -548,26 +514,26 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
         repeatPanel.add(lblDoM, gbc);
-		yearlyRepeatRB.setActionCommand("yearly");
-		yearlyRepeatRB.setText(Local.getString("Yearly"));
-		yearlyRepeatRB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				yearlyRepeatRB_actionPerformed(e);
-			}
-		});
-		gbc = new GridBagConstraints();
-		gbc.gridx = 0; gbc.gridy = 4;
-		gbc.gridwidth = 5;
-		gbc.insets = new Insets(5, 5, 5, 10);
-		gbc.anchor = GridBagConstraints.WEST;
-		repeatPanel.add(yearlyRepeatRB, gbc);
-        
+        yearlyRepeatRB.setActionCommand("yearly");
+        yearlyRepeatRB.setText(Local.getString("Yearly"));
+        yearlyRepeatRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                yearlyRepeatRB_actionPerformed(e);
+            }
+        });
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0; gbc.gridy = 4;
+        gbc.gridwidth = 5;
+        gbc.insets = new Insets(5, 5, 5, 10);
+        gbc.anchor = GridBagConstraints.WEST;
+        repeatPanel.add(yearlyRepeatRB, gbc);
+
         repeatRBGroup.add(noRepeatRB);
         repeatRBGroup.add(dailyRepeatRB);
         repeatRBGroup.add(weeklyRepeatRB);
         repeatRBGroup.add(monthlyRepeatRB);
         repeatRBGroup.add(yearlyRepeatRB);
-        
+
         // Build ButtonsPanel
         okB.setMaximumSize(new Dimension(100, 26));
         okB.setMinimumSize(new Dimension(100, 26));
@@ -590,7 +556,7 @@ public class EventDialog extends JDialog implements WindowListener {
         cancelB.setMaximumSize(new Dimension(100, 26));
         buttonsPanel.add(okB);
         buttonsPanel.add(cancelB);
-        
+
         // Finally build the Dialog
         topPanel.add(headerPanel, BorderLayout.NORTH);
         topPanel.add(eventPanel, BorderLayout.SOUTH);
@@ -598,7 +564,7 @@ public class EventDialog extends JDialog implements WindowListener {
         bottomPanel.add(buttonsPanel, BorderLayout.SOUTH);
         this.getContentPane().add(topPanel, BorderLayout.NORTH);
         this.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
-        
+
         // Do final things...
         startCalFrame.cal.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -615,8 +581,9 @@ public class EventDialog extends JDialog implements WindowListener {
         });
         disableElements();
         ((JSpinner.DateEditor) timeSpin.getEditor()).getFormat().applyPattern("HH:mm");
+        ((JSpinner.DateEditor) timeSpin2.getEditor()).getFormat().applyPattern("HH:mm");
         enableEndDateCB_actionPerformed(null);
-        
+
     }
 
     /**
@@ -632,9 +599,9 @@ public class EventDialog extends JDialog implements WindowListener {
         endDate.setEnabled(false);
         setEndDateB.setEnabled(false);
         enableEndDateCB.setEnabled(false);
-		enableEndDateCB.setSelected(false);
-		workingDaysOnlyCB.setEnabled(false);
-		workingDaysOnlyCB.setSelected(false);		
+        enableEndDateCB.setSelected(false);
+        workingDaysOnlyCB.setEnabled(false);
+        workingDaysOnlyCB.setSelected(false);
     }
 
     /**
@@ -643,14 +610,14 @@ public class EventDialog extends JDialog implements WindowListener {
      * @param e the e
      */
     public void yearlyRepeatRB_actionPerformed(ActionEvent e) {
-		disableElements();
-		startDate.setEnabled(true);
-		setStartDateB.setEnabled(true);
-		lblSince.setEnabled(true);
-		enableEndDateCB.setEnabled(true);
-		workingDaysOnlyCB.setEnabled(true);
-		startDate.getModel().setValue(
-			startCalFrame.cal.get().getCalendar().getTime());
+        disableElements();
+        startDate.setEnabled(true);
+        setStartDateB.setEnabled(true);
+        lblSince.setEnabled(true);
+        enableEndDateCB.setEnabled(true);
+        workingDaysOnlyCB.setEnabled(true);
+        startDate.getModel().setValue(
+                startCalFrame.cal.get().getCalendar().getTime());
     }
 
     /**
@@ -665,9 +632,9 @@ public class EventDialog extends JDialog implements WindowListener {
         setStartDateB.setEnabled(true);
         lblSince.setEnabled(true);
         enableEndDateCB.setEnabled(true);
-		workingDaysOnlyCB.setEnabled(true);
-		startDate.getModel().setValue(
-			startCalFrame.cal.get().getCalendar().getTime());        
+        workingDaysOnlyCB.setEnabled(true);
+        startDate.getModel().setValue(
+                startCalFrame.cal.get().getCalendar().getTime());
     }
 
     /**
@@ -682,9 +649,9 @@ public class EventDialog extends JDialog implements WindowListener {
         setStartDateB.setEnabled(true);
         lblSince.setEnabled(true);
         enableEndDateCB.setEnabled(true);
-		workingDaysOnlyCB.setEnabled(true);
-		startDate.getModel().setValue(
-			startCalFrame.cal.get().getCalendar().getTime());        
+        workingDaysOnlyCB.setEnabled(true);
+        startDate.getModel().setValue(
+                startCalFrame.cal.get().getCalendar().getTime());
     }
 
     /**
@@ -699,8 +666,8 @@ public class EventDialog extends JDialog implements WindowListener {
         setStartDateB.setEnabled(true);
         lblSince.setEnabled(true);
         enableEndDateCB.setEnabled(true);
-		startDate.getModel().setValue(
-			startCalFrame.cal.get().getCalendar().getTime());        
+        startDate.getModel().setValue(
+                startCalFrame.cal.get().getCalendar().getTime());
     }
 
     /**
@@ -764,9 +731,9 @@ public class EventDialog extends JDialog implements WindowListener {
      */
     public void enableEndDateCB_actionPerformed(ActionEvent e) {
         endDate.setEnabled(enableEndDateCB.isSelected());
-        setEndDateB.setEnabled(enableEndDateCB.isSelected());        
+        setEndDateB.setEnabled(enableEndDateCB.isSelected());
     }
-    
+
     public void windowOpened( WindowEvent e ) {}
 
     public void windowClosing( WindowEvent e ) {
@@ -780,8 +747,8 @@ public class EventDialog extends JDialog implements WindowListener {
      * @param d the d
      */
     public void setEventDate(Date d) {
-	    _eventDate = d;
-	}
+        _eventDate = d;
+    }
 
     /**
      * Gets event date.
@@ -789,17 +756,17 @@ public class EventDialog extends JDialog implements WindowListener {
      * @return the event date
      */
     public Date getEventDate() {
-		return _eventDate;
-	}
-	
+        return _eventDate;
+    }
+
     public void windowClosed( WindowEvent e ) {}
 
-	public void windowIconified( WindowEvent e ) {}
+    public void windowIconified( WindowEvent e ) {}
 
-	public void windowDeiconified( WindowEvent e ) {}
+    public void windowDeiconified( WindowEvent e ) {}
 
-	public void windowActivated( WindowEvent e ) {}
+    public void windowActivated( WindowEvent e ) {}
 
-	public void windowDeactivated( WindowEvent e ) {}
+    public void windowDeactivated( WindowEvent e ) {}
 
 }

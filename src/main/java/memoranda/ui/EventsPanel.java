@@ -400,13 +400,6 @@ public class EventsPanel<newButtonFont> extends JPanel {
         room2ScrollPane.getViewport().add(Room2, null);
         room3ScrollPane.getViewport().add(Room3, null);
         room4ScrollPane.getViewport().add(Room4, null);
-
-
-        this.add(room1ScrollPane, BorderLayout.SOUTH);
-        this.add(room2ScrollPane, BorderLayout.SOUTH);
-        this.add(room3ScrollPane, BorderLayout.SOUTH);
-        this.add(room4ScrollPane, BorderLayout.SOUTH);
-
         JPanel roomPanel = new JPanel();
         roomPanel.add(room1ScrollPane, BorderLayout.SOUTH);
         roomPanel.add(room2ScrollPane, BorderLayout.SOUTH);

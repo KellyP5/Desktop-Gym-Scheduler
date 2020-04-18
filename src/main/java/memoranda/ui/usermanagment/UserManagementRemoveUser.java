@@ -24,10 +24,15 @@ public class UserManagementRemoveUser extends JDialog {
         super(new JFrame());
 
         mainPanel = new JPanel();
-        JLabel label = new JLabel();
+        JTextArea label = new JTextArea();
         mainPanel.add(label);
         System.out.println(role);
         remove = false;
+        label.setWrapStyleWord(true);
+        label.setLineWrap(true);
+        label.setOpaque(false);
+        label.setEditable(false);
+        label.setFocusable(false);
 
         if (role.equalsIgnoreCase("admin")) {
             label.setText("Unable to delete admin users");

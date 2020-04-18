@@ -105,7 +105,7 @@ public class DailyItemsPanel extends JPanel {
     /**
      * The Events panel.
      */
-    EventsPanel eventsPanel = new EventsPanel(this);
+    ClassesPanel classesPanel = new ClassesPanel(this);
     /**
      * The Agenda panel.
      */
@@ -349,7 +349,7 @@ public class DailyItemsPanel extends JPanel {
         mainPanel.add(editorsPanel, BorderLayout.CENTER);
         
         editorsPanel.add(agendaPanel, "AGENDA");
-        editorsPanel.add(eventsPanel, "CLASSES");
+        editorsPanel.add(classesPanel, "CLASSES");
         editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(editorPanel, "NOTES");
         

@@ -32,11 +32,14 @@ import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.Util;
 
+
 /**
- * The type Events panel.
+ * Controls the Classes Panel on memoranda
+ * Inserts room scrollpanes for each room
+ * and instantiates the EventsTable
+ * @param <newButtonFont>
  */
-/*$Id: EventsPanel.java,v 1.25 2005/02/19 10:06:25 rawsushi Exp $*/
-public class EventsPanel<newButtonFont> extends JPanel {
+public class ClassesPanel<newButtonFont> extends JPanel {
     /**
      * The Border layout 1.
      */
@@ -128,7 +131,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
      *
      * @param _parentPanel the parent panel
      */
-    public EventsPanel(DailyItemsPanel _parentPanel) {
+    public ClassesPanel(DailyItemsPanel _parentPanel) {
         try {
             parentPanel = _parentPanel;
             jbInit();

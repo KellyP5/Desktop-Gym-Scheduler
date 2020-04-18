@@ -323,9 +323,15 @@ public class EventsPanel<newButtonFont> extends JPanel {
         room3ScrollPane.getViewport().setBackground(Color.lightGray);
         room4ScrollPane.getViewport().setBackground(Color.darkGray);
         int horizontalPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER;
-        int verticalPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED;
-        //room1ScrollPane.setHorizontalScrollBar(horizontalPolicy);
-
+        int verticalPolicy = JScrollPane.VERTICAL_SCROLLBAR_ALWAYS;
+        room1ScrollPane.getHorizontalScrollBar().setValue(horizontalPolicy);
+        room1ScrollPane.getVerticalScrollBar().setValue(verticalPolicy);
+        room2ScrollPane.getHorizontalScrollBar().setValue(horizontalPolicy);
+        room2ScrollPane.getVerticalScrollBar().setValue(verticalPolicy);
+        room3ScrollPane.getHorizontalScrollBar().setValue(horizontalPolicy);
+        room3ScrollPane.getVerticalScrollBar().setValue(verticalPolicy);
+        room4ScrollPane.getHorizontalScrollBar().setValue(horizontalPolicy);
+        room4ScrollPane.getVerticalScrollBar().setValue(verticalPolicy);
 
 
         //scrollPane2.getViewport().setBackground(Color.gray);

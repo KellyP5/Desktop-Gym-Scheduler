@@ -40,14 +40,9 @@ import main.java.memoranda.util.Local;
 /*$Id: EventsTable.java,v 1.6 2004/10/11 08:48:20 alexeya Exp $*/
 public class EventsTable extends JTable {
 
-    /**
-     * The constant EVENT.
-     */
     public static final int EVENT = 100;
-    /**
-     * The constant EVENT_ID.
-     */
     public static final int EVENT_ID = 101;
+    public static int room;
 
     /**
      * The Events.
@@ -60,6 +55,20 @@ public class EventsTable extends JTable {
      */
     public EventsTable()  {
         super();
+        setModel(new EventsTableModel());
+        initTable(CurrentDate.get());
+        this.setShowGrid(true);
+        CurrentDate.addDateListener(new DateListener() {
+            public void dateChange(CalendarDate d)  {
+                //updateUI();
+                initTable(d);
+            }
+        });
+    }
+
+    public EventsTable(int room)  {
+        super();
+        this.room = room;
         setModel(new EventsTableModel());
         initTable(CurrentDate.get());
         this.setShowGrid(true);
@@ -141,7 +150,7 @@ public class EventsTable extends JTable {
                 //    Local.getString("Time"),
                 //      Local.getString("Text")
                 Local.getString("Time"),
-                Local.getString("Room"),
+                Local.getString("Room " + room),
         };
 
         /**

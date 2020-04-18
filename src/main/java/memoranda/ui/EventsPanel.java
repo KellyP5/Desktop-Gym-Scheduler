@@ -94,10 +94,10 @@ public class EventsPanel<newButtonFont> extends JPanel {
     /**
      * The Events table.
      */
-    EventsTable Room1 = new EventsTable();
-    EventsTable Room2 = new EventsTable();
-    EventsTable Room3 = new EventsTable();
-    EventsTable Room4 = new EventsTable();
+    EventsTable Room1 = new EventsTable(1);
+    EventsTable Room2 = new EventsTable(2);
+    EventsTable Room3 = new EventsTable(3);
+    EventsTable Room4 = new EventsTable(4);
     /**
      * The Event pp menu.
      */

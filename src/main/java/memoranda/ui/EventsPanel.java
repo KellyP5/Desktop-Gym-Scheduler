@@ -326,15 +326,16 @@ public class EventsPanel<newButtonFont> extends JPanel {
         // KJPETRON: THIS IS THE KEY! THIS CONTROLS THE EVENTS DISPLAY
         Room1.setMaximumSize(new Dimension(200, 800));
         Room1.setRowHeight(24);
-        Room1.setPreferredScrollableViewportSize(new Dimension(200, 400));
+        Room1.setPreferredScrollableViewportSize(new Dimension(300, 600));
         Room2.setMaximumSize(new Dimension(200, 800));
         Room2.setRowHeight(24);
+        Room2.setPreferredScrollableViewportSize(new Dimension(300, 600));
         Room3.setMaximumSize(new Dimension(200, 800));
         Room3.setRowHeight(24);
-        Room3.setPreferredScrollableViewportSize(new Dimension(200, 400));
+        Room3.setPreferredScrollableViewportSize(new Dimension(300, 600));
         Room4.setMaximumSize(new Dimension(200, 800));
         Room4.setRowHeight(24);
-        Room4.setPreferredScrollableViewportSize(new Dimension(200, 400));
+        Room4.setPreferredScrollableViewportSize(new Dimension(300, 600));
 
         eventPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
         ppEditEvent.setFont(new java.awt.Font("Dialog", 1, 11));

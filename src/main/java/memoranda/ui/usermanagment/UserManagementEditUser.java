@@ -261,14 +261,13 @@ public class UserManagementEditUser extends JDialog {
      * @return The RoleEntity of the user
      */
     public RoleEntity getRoleFromSelected() {
-        String roleText = _role.getText();
         RoleEntity role;
-        if (roleText.equalsIgnoreCase("admin")) {
-            role = new RoleEntity(RoleEntity.UserRole.admin);
-        } else if (roleText.equalsIgnoreCase("trainer")) {
+        if (_trainerButton.isSelected()) {
             role = new RoleEntity(RoleEntity.UserRole.trainer);
-        } else {
+        } else if (_customerButton.isSelected()) {
             role = new RoleEntity(RoleEntity.UserRole.customer);
+        } else {
+            role = new RoleEntity(RoleEntity.UserRole.admin);
         }
         return role;
     }

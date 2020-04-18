@@ -152,7 +152,7 @@ public class UserManagement extends JPanel {
         this.editUser.addActionListener(actionEvent -> {
             //System.out.println("//TODO Edit user button");
             if (this.currentlySelectedEmail != null) {
-                new UserManagementEditUser(editUser, _selectedUser);
+                new UserManagementEditUser(_selectedUser);
             } else {
                 // TODO add popup that tells user to select a user first
                 userNotSelected();

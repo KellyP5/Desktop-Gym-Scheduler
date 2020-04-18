@@ -46,9 +46,6 @@
   
 
 **Code Review** 
-  > Your Code Review policy   
-
-  > Include a checklist/questions list which every developer will need to fill out/answe when creating a Pull Request to the Dev branch.
   #### Developer Review Checklist
   
   Developer Name: _______________________

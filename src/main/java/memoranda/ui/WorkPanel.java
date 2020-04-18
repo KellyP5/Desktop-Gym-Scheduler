@@ -104,32 +104,72 @@ public class WorkPanel extends JPanel {
 		toolBar.setFloatable(false);
 		panel.setLayout(cardLayout1);
 
-		agendaB.setBackground(Color.white);
-		agendaB.setMaximumSize(new Dimension(80, 60));
-		agendaB.setMinimumSize(new Dimension(30, 30));
 
-		agendaB.setFont(new java.awt.Font("Dialog", 1, 10));
-		agendaB.setPreferredSize(new Dimension(50, 50));
-		agendaB.setBorderPainted(false);
-		agendaB.setContentAreaFilled(false);
-		agendaB.setFocusPainted(false);
-		agendaB.setHorizontalTextPosition(SwingConstants.CENTER);
-		agendaB.setText(Local.getString("Agenda"));
-		agendaB.setVerticalAlignment(SwingConstants.TOP);
-		agendaB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		agendaB.addActionListener(new java.awt.event.ActionListener() {
+		initAllPanels();
+
+
+		this.setPreferredSize(new Dimension(1073, 300));
+		this.add(toolBar, BorderLayout.WEST);
+		this.add(panel, BorderLayout.CENTER);
+		panel.add(dailyItemsPanel, "DAILYITEMS");
+		panel.add(userManagement, "USERMANAGMENT");
+		toolBar.add(agendaB, null);
+		toolBar.add(classesB, null);
+		toolBar.add(tasksB, null);
+		toolBar.add(notesB, null);
+		toolBar.add(userMgmt, null);
+		currentB = agendaB;
+		// Default blue color
+		currentB.setBackground(new Color(215, 225, 250));
+		currentB.setOpaque(true);
+
+		toolBar.setPreferredSize(new Dimension(70,500));
+		toolBar.setBorder(null);
+		panel.setBorder(null);
+		dailyItemsPanel.setBorder(null);
+		userManagement.setBorder(null);
+
+
+	}
+
+	void initAllPanels(){
+		initUserManagment();
+		initClasses();
+		initTasks();
+		initNotes();
+		initAgenda();
+	}
+
+	void initUserManagment(){
+
+		userMgmt.setSelected(true);
+		userMgmt.setMargin(new Insets(0, 0, 0, 0));
+		userMgmt.setIcon(
+				new ImageIcon(
+						main.java.memoranda.ui.AppFrame.class.getResource(
+								"/ui/icons/files.png")));
+		userMgmt.setVerticalTextPosition(SwingConstants.BOTTOM);
+		userMgmt.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				agendaB_actionPerformed(e);
+				filesB_actionPerformed(e);
 			}
 		});
-		agendaB.setIcon(
-			new ImageIcon(
-				main.java.memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/agenda.png")));
-		agendaB.setOpaque(false);
-		agendaB.setMargin(new Insets(0, 0, 0, 0));
-		agendaB.setSelected(true);
+		userMgmt.setFont(new java.awt.Font("Dialog", 1, 10));
+		userMgmt.setVerticalAlignment(SwingConstants.TOP);
+		userMgmt.setText("<html><center>User<br />Management</center></html>");
+		userMgmt.setHorizontalTextPosition(SwingConstants.CENTER);
+		userMgmt.setFocusPainted(false);
+		userMgmt.setBorderPainted(false);
+		userMgmt.setContentAreaFilled(false);
+		userMgmt.setPreferredSize(new Dimension(50, 70));
+		userMgmt.setMinimumSize(new Dimension(30, 30));
+		userMgmt.setOpaque(false);
+		userMgmt.setMaximumSize(new Dimension(80, 70));
+		userMgmt.setBackground(Color.white);
 
+	}
+
+	void initClasses(){
 
 		classesB.setBackground(Color.white);
 		classesB.setMaximumSize(new Dimension(80, 60));
@@ -152,20 +192,22 @@ public class WorkPanel extends JPanel {
 			}
 		});
 		classesB.setIcon(
-			new ImageIcon(
-				main.java.memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/events.png")));
+				new ImageIcon(
+						main.java.memoranda.ui.AppFrame.class.getResource(
+								"/ui/icons/events.png")));
 		classesB.setOpaque(false);
 		classesB.setMargin(new Insets(0, 0, 0, 0));
-		//classesB.setSelected(true);
 
+	}
+
+	void initTasks(){
 		tasksB.setSelected(true);
 		tasksB.setFont(new java.awt.Font("Dialog", 1, 10));
 		tasksB.setMargin(new Insets(0, 0, 0, 0));
 		tasksB.setIcon(
-			new ImageIcon(
-				main.java.memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/tasks.png")));
+				new ImageIcon(
+						main.java.memoranda.ui.AppFrame.class.getResource(
+								"/ui/icons/tasks.png")));
 		tasksB.setVerticalTextPosition(SwingConstants.BOTTOM);
 		tasksB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -183,6 +225,10 @@ public class WorkPanel extends JPanel {
 		tasksB.setOpaque(false);
 		tasksB.setMaximumSize(new Dimension(80, 60));
 		tasksB.setBackground(Color.white);
+
+	}
+
+	void initNotes(){
 
 		notesB.setFont(new java.awt.Font("Dialog", 1, 10));
 		notesB.setBackground(Color.white);
@@ -204,57 +250,41 @@ public class WorkPanel extends JPanel {
 			}
 		});
 		notesB.setIcon(
-			new ImageIcon(
-				main.java.memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/notes.png")));
+				new ImageIcon(
+						main.java.memoranda.ui.AppFrame.class.getResource(
+								"/ui/icons/notes.png")));
 		notesB.setMargin(new Insets(0, 0, 0, 0));
 		notesB.setSelected(true);
-		this.setPreferredSize(new Dimension(1073, 300));
 
-		userMgmt.setSelected(true);
-		userMgmt.setMargin(new Insets(0, 0, 0, 0));
-		userMgmt.setIcon(
-			new ImageIcon(
-				main.java.memoranda.ui.AppFrame.class.getResource(
-					"/ui/icons/files.png")));
-		userMgmt.setVerticalTextPosition(SwingConstants.BOTTOM);
-		userMgmt.addActionListener(new java.awt.event.ActionListener() {
+	}
+
+	void initAgenda(){
+
+		agendaB.setBackground(Color.white);
+		agendaB.setMaximumSize(new Dimension(80, 60));
+		agendaB.setMinimumSize(new Dimension(30, 30));
+
+		agendaB.setFont(new java.awt.Font("Dialog", 1, 10));
+		agendaB.setPreferredSize(new Dimension(50, 50));
+		agendaB.setBorderPainted(false);
+		agendaB.setContentAreaFilled(false);
+		agendaB.setFocusPainted(false);
+		agendaB.setHorizontalTextPosition(SwingConstants.CENTER);
+		agendaB.setText(Local.getString("Agenda"));
+		agendaB.setVerticalAlignment(SwingConstants.TOP);
+		agendaB.setVerticalTextPosition(SwingConstants.BOTTOM);
+		agendaB.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				filesB_actionPerformed(e);
+				agendaB_actionPerformed(e);
 			}
 		});
-		userMgmt.setFont(new java.awt.Font("Dialog", 1, 10));
-		userMgmt.setVerticalAlignment(SwingConstants.TOP);
-		userMgmt.setText("<html><center>User<br />Management</center></html>");
-		userMgmt.setHorizontalTextPosition(SwingConstants.CENTER);
-		userMgmt.setFocusPainted(false);
-		userMgmt.setBorderPainted(false);
-		userMgmt.setContentAreaFilled(false);
-		userMgmt.setPreferredSize(new Dimension(50, 70));
-		userMgmt.setMinimumSize(new Dimension(30, 30));
-		userMgmt.setOpaque(false);
-		userMgmt.setMaximumSize(new Dimension(80, 70));
-		userMgmt.setBackground(Color.white);
-		this.add(toolBar, BorderLayout.WEST);
-		this.add(panel, BorderLayout.CENTER);
-		panel.add(dailyItemsPanel, "DAILYITEMS");
-		panel.add(userManagement, "USERMANAGMENT");
-		toolBar.add(agendaB, null);
-		toolBar.add(classesB, null);
-		toolBar.add(tasksB, null);
-		toolBar.add(notesB, null);
-		toolBar.add(userMgmt, null);
-		currentB = agendaB;
-		// Default blue color
-		currentB.setBackground(new Color(215, 225, 250));
-		currentB.setOpaque(true);
-
-		toolBar.setPreferredSize(new Dimension(70,500));
-		toolBar.setBorder(null);
-		panel.setBorder(null);
-		dailyItemsPanel.setBorder(null);
-		userManagement.setBorder(null);
-
+		agendaB.setIcon(
+				new ImageIcon(
+						main.java.memoranda.ui.AppFrame.class.getResource(
+								"/ui/icons/agenda.png")));
+		agendaB.setOpaque(false);
+		agendaB.setMargin(new Insets(0, 0, 0, 0));
+		agendaB.setSelected(true);
 
 	}
 
@@ -333,6 +363,8 @@ public class WorkPanel extends JPanel {
 		cardLayout1.show(panel, "USERMANAGMENT");
 		setCurrentButton(userMgmt);
 		Context.put("CURRENT_PANEL", "USERMANAGMENT");
+		System.out.println("CALLLLLLLLEEDD");
+
 	}
 
     /**

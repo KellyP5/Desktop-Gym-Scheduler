@@ -139,7 +139,7 @@ public class UserManagement extends JPanel {
 
         this.addUserButton.addActionListener(actionEvent -> {
             System.out.println("//TODO Add user button");
-            new UserManagementAddUser(addUserButton);
+            new UserManagementAddUser(this,addUserButton);
         });
 
         this.editUser.addActionListener(actionEvent -> {
@@ -155,6 +155,10 @@ public class UserManagement extends JPanel {
             }
         });
 
+    }
+
+    public void refresh(){
+        initTable();
     }
 
 }

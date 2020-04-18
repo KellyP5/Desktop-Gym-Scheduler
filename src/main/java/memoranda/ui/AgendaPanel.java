@@ -9,20 +9,18 @@ import main.java.memoranda.util.Local;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 /**
- * The type Agenda panel.
+ * Class: AgendaPanel
+ * Description: Creates the AgendaPanel and populates with traner's scheduled classes on or after
+ * the date selected on the calendar.
  */
 public class AgendaPanel extends JPanel {
 
@@ -104,6 +102,7 @@ public class AgendaPanel extends JPanel {
 
 	/**
 	 * Init table.
+	 * Creates the schedule tables and the listeners for all columns.
 	 *
 	 * @throws SQLException the sql exception
 	 */
@@ -148,24 +147,27 @@ public class AgendaPanel extends JPanel {
 	/**
 	 * Gets class data for trainer.
 	 *
-	 * @param email                the email
+	 * @param email                Trainer email
 	 * @param selectedCalendarDate the selected calendar date
 	 * @return the class data for trainer
-	 * @throws SQLException the sql exception
+	 * @throws SQLException sql exception if database connection fails
 	 */
-	ArrayList<ArrayList<String>> getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
-		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrqTest(). //TEMPORARY will need to be changed to the actual once the logged user can be checked
+	private ArrayList<ArrayList<String>> _getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
+		//TEMPORARY will need to be changed to the actual once the logged user can be checked
+		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrqTest().
 				getAllClassesTrainerIsTeachingByEmail(email);
 
 		if (!gymClassEntities.isEmpty()) {
 			ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
 			for (int i = 0; i < gymClassEntities.size(); i++) {
-				//creates an array list of array lists that hold strings of information for each individual class for the passed trainer.
-				if (gymClassEntities.get(i).getEndDateTime().toLocalDate().isAfter(selectedCalendarDate.minusDays(1))){
+				/*creates an array list of array lists that hold strings of information for each individual
+				*class for the passed trainer.*/
+				if (gymClassEntities.get(i).getEndDateTime().toLocalDate().isAfter(selectedCalendarDate.minusDays(1))) {
 					//the if statement will only add the information to the array if the class end time is after the current time.
 					LocalTime startTime = gymClassEntities.get(i).getStartDateTime().toLocalTime();
 					LocalTime endTime = gymClassEntities.get(i).getEndDateTime().toLocalTime();
-					long duration = (startTime.until(endTime, ChronoUnit.MINUTES)); //subtracts the end time from the start time to get a duration.
+					//subtracts the end time from the start time to get a duration.
+					long duration = (startTime.until(endTime, ChronoUnit.MINUTES));
 
 					ArrayList<String> e = new ArrayList<>(); //creats an array list of one class's information.
 					e.add(gymClassEntities.get(i).getStartDateTime().toLocalDate().toString());
@@ -178,7 +180,7 @@ public class AgendaPanel extends JPanel {
 				}
 
 			}
-			return classInfo; //returns the 2d array list.
+			return classInfo; //returns the 2d array list of trainer's class info.
 		} else {
 			return null;
 		}
@@ -193,7 +195,8 @@ public class AgendaPanel extends JPanel {
 	 * @throws SQLException the sql exception
 	 */
 	public String getTrainerBelt(String email) throws SQLException {
-		String belt = App.conn.getDrqTest().getUserByEmail(email).getBelt().rank.toString(); //TEMPORARY will need to be changed to the real DB once logged users can be checked.
+		//TEMPORARY will need to be changed to the real DB once logged users can be checked.
+		String belt = App.conn.getDrqTest().getUserByEmail(email).getBelt().rank.toString();
 
 		return belt;
 
@@ -205,6 +208,8 @@ public class AgendaPanel extends JPanel {
 	 *
 	 * @throws SQLException the sql exception
 	 */
+
+	//Functionality will need to be fixed in seperate user story
 	void initToolBar() throws SQLException {
 		toolBar.setFloatable(false);
 
@@ -247,17 +252,16 @@ public class AgendaPanel extends JPanel {
 		});
 
 
-
 	}
 
 	/**
-	 * This should be the entry point into changing class data on selecting a calender date.
+	 * This is the entry point into changing class data on selecting a calender date.
 	 *
 	 * @param date the date
 	 */
 	public void refresh(CalendarDate date) {
 		String[][] data = null;
-		LocalDate convertedDate = convertDateToLocalDateTime(date);
+		LocalDate convertedDate = _convertDateToLocalDateTime(date);
 
 
 		classesTable.removeAll();
@@ -268,15 +272,16 @@ public class AgendaPanel extends JPanel {
 		ArrayList<ArrayList<String>> d = null;
 		ArrayList<ArrayList<String>> temp;
 		try {
-			temp = getClassDataForTrainer("jackj@gmail.com", convertedDate); // TEMPORARY this will need to be changed to the current trainer that is logged in which has not been implemented.
-			if(!temp.isEmpty()){
+			// below is TEMPORARY this will need to be changed to the current
+			// trainer that is logged in which has not been implemented.
+			temp = _getClassDataForTrainer("jackj@gmail.com", convertedDate);
+			if (!temp.isEmpty()) {
 				d = temp;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 
 		}
-
 
 
 		//this code converts our 2d ArrayList into a String[][]
@@ -297,13 +302,14 @@ public class AgendaPanel extends JPanel {
 
 		//that way we can pass this into our JTable constructor
 		if (data == null) {
+			//columns will not display info when user is not logged in (will be functional when logged user can be checked)
 			classesTable.setModel(new DefaultTableModel(null, _COLUMNNAMES));
 		} else {
+			//loads the trainer's class data to the table
 			classesTable.setModel(new DefaultTableModel(data, _COLUMNNAMES));
 
 
 		}
-
 
 
 	}
@@ -315,7 +321,7 @@ public class AgendaPanel extends JPanel {
 	 * @return newDate returns the date selected on the calendar to a LocalDate format
 	 */
 
-	private LocalDate convertDateToLocalDateTime(CalendarDate date) {
+	private LocalDate _convertDateToLocalDateTime(CalendarDate date) {
 
 		LocalDate newDate = LocalDate.of(date.getYear(), date.getMonth() + 1, date.getDay());
 

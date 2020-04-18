@@ -1,107 +1,46 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Insets;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-
-import main.java.memoranda.CurrentNote;
-import main.java.memoranda.CurrentProject;
-import main.java.memoranda.EventNotificationListener;
-import main.java.memoranda.EventsScheduler;
-import main.java.memoranda.History;
-import main.java.memoranda.HistoryItem;
-import main.java.memoranda.HistoryListener;
-import main.java.memoranda.Note;
-import main.java.memoranda.NoteList;
-import main.java.memoranda.NoteListener;
-import main.java.memoranda.Project;
-import main.java.memoranda.ProjectListener;
-import main.java.memoranda.ResourcesList;
-import main.java.memoranda.Task;
-import main.java.memoranda.TaskList;
+import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
-import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
-import main.java.memoranda.util.Util;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * DailyItemsPanel is the panel everyone sees.
+ *
+ * This class is reused in Agenda, Classes, Tasks, Notes tabs on the left of Globogym
  */
 
-/*$Id: DailyItemsPanel.java,v 1.22 2005/02/13 03:06:10 rawsushi Exp $*/
 public class DailyItemsPanel extends JPanel {
-    /**
-     * The Border layout 1.
-     */
+
     BorderLayout borderLayout1 = new BorderLayout();
-    /**
-     * The Split pane.
-     */
-    JSplitPane splitPane = new JSplitPane();
-    /**
-     * The Control panel.
-     */
-    JPanel controlPanel = new JPanel(); /* Contains the calendar */
-    /**
-     * The Main panel.
-     */
-    JPanel mainPanel = new JPanel();
-    /**
-     * The Border layout 2.
-     */
     BorderLayout borderLayout2 = new BorderLayout();
-    /**
-     * The Status panel.
-     */
-    JPanel statusPanel = new JPanel();
-    /**
-     * The Border layout 3.
-     */
     BorderLayout borderLayout3 = new BorderLayout();
-    /**
-     * The Editors panel.
-     */
-    JPanel editorsPanel = new JPanel();
-    /**
-     * The Card layout 1.
-     */
+    BorderLayout borderLayout4 = new BorderLayout();       //Used by statusPanel
+    BorderLayout borderLayout5 = new BorderLayout();
+
     CardLayout cardLayout1 = new CardLayout();
-    /**
-     * The Editor panel.
-     */
-    public EditorPanel editorPanel = new EditorPanel(this);
-    /**
-     * The Current date label.
-     */
-    JLabel currentDateLabel = new JLabel();
-    /**
-     * The Border layout 4.
-     */
-    BorderLayout borderLayout4 = new BorderLayout();
-    /**
-     * The Tasks panel.
-     */
+
+    JSplitPane splitPane = new JSplitPane();
+
+    JPanel controlPanel = new JPanel();     //Holds the calender on the left hand side
+    JPanel mainPanel = new JPanel();
+
+    JPanel statusPanel = new JPanel();      //The top bar that displays the current day with black background
+    JLabel currentDateLabel = new JLabel(); //The label that goes into the status panel.
+
+    JPanel editorsPanel = new JPanel();
+
+    
     TaskPanel tasksPanel = new TaskPanel(this);
+
     /**
      * The Events panel.
      */
@@ -113,129 +52,57 @@ public class DailyItemsPanel extends JPanel {
     /**
      * The Exp icon.
      */
+
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
-    /**
-     * The Coll icon.
-     */
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
-    /**
-     * The Bookmark icon.
-     */
     ImageIcon bookmarkIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/star8.png"));
-    /**
-     * The Expanded.
-     */
+
     boolean expanded = true;
 
-    /**
-     * The Current note.
-     */
-    Note currentNote;
-    /**
-     * The Current date.
-     */
     CalendarDate currentDate;
 
-    /**
-     * The Calendar ignore change.
-     */
     boolean calendarIgnoreChange = false;
-    /**
-     * The Date changed by calendar.
-     */
     boolean dateChangedByCalendar = false;
-    /**
-     * The Changed by history.
-     */
     boolean changedByHistory = false;
-    /**
-     * The Cmain panel.
-     */
     JPanel cmainPanel = new JPanel();
-    /**
-     * The Calendar.
-     */
     JNCalendarPanel calendar = new JNCalendarPanel();
-    /**
-     * The Toggle tool bar.
-     */
+
     JToolBar toggleToolBar = new JToolBar();
-    /**
-     * The Border layout 5.
-     */
-    BorderLayout borderLayout5 = new BorderLayout();
-    /**
-     * The Border 1.
-     */
+
+
+
     Border border1;
-    /**
-     * The Toggle button.
-     */
+
     JButton toggleButton = new JButton();
-    /**
-     * The Parent panel.
-     */
+
     WorkPanel parentPanel = null;
 
-    /**
-     * The Added to history.
-     */
     boolean addedToHistory = false;
-    /**
-     * The Indicators panel.
-     */
+
     JPanel indicatorsPanel = new JPanel();
-    /**
-     * The Alarm b.
-     */
-    JButton alarmB = new JButton();
-    /**
-     * The Flow layout 1.
-     */
+
     FlowLayout flowLayout1 = new FlowLayout();
-    /**
-     * The Task b.
-     */
+
     JButton taskB = new JButton();
-    /**
-     * The Main tabs panel.
-     */
+
     JPanel mainTabsPanel = new JPanel();
-    /**
-     * The Notes control pane.
-     */
+
     NotesControlPanel notesControlPane = new NotesControlPanel();
-    /**
-     * The Card layout 2.
-     */
+
     CardLayout cardLayout2 = new CardLayout();
 
-    /**
-     * The Tasks tabbed pane.
-     */
-    JTabbedPane tasksTabbedPane = new JTabbedPane();
-    /**
-     * The Events tabbed pane.
-     */
-    JTabbedPane eventsTabbedPane = new JTabbedPane();
-    /**
-     * The Agenda tabbed pane.
-     */
-    JTabbedPane agendaTabbedPane = new JTabbedPane();
-    /**
-     * The Border 2.
-     */
     Border border2;
 
-    /**
-     * The Current panel.
-     */
-    String CurrentPanel;
+    String CurrentPanel;//the current panel name that is being viewed
 
-    /**
-     * The Wait cursor.
-     */
     Cursor waitCursor = new Cursor(Cursor.WAIT_CURSOR);
+
+    public EditorPanel editorPanel = new EditorPanel(this);
+
+
+
+
+    Note currentNote;
 
     /**
      * Instantiates a new Daily items panel.
@@ -308,18 +175,7 @@ public class DailyItemsPanel extends JPanel {
         toggleButton.setIcon(collIcon);
         indicatorsPanel.setOpaque(false);
         indicatorsPanel.setLayout(flowLayout1);
-        alarmB.setMaximumSize(new Dimension(24, 24));
-        alarmB.setOpaque(false);
-        alarmB.setPreferredSize(new Dimension(24, 24));
-        alarmB.setToolTipText(Local.getString("Active events"));
-        alarmB.setBorderPainted(false);
-        alarmB.setMargin(new Insets(0, 0, 0, 0));
-        alarmB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                alarmB_actionPerformed(e);
-            }
-        });
-        alarmB.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/alarm.png")));
+
         flowLayout1.setAlignment(FlowLayout.RIGHT);
         flowLayout1.setVgap(0);
         taskB.setMargin(new Insets(0, 0, 0, 0));
@@ -347,12 +203,12 @@ public class DailyItemsPanel extends JPanel {
         statusPanel.add(indicatorsPanel, BorderLayout.EAST);
 
         mainPanel.add(editorsPanel, BorderLayout.CENTER);
-        
+
         editorsPanel.add(agendaPanel, "AGENDA");
         editorsPanel.add(classesPanel, "CLASSES");
         editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(editorPanel, "NOTES");
-        
+
         splitPane.add(mainPanel, JSplitPane.RIGHT);
         splitPane.add(controlPanel, JSplitPane.LEFT);
         controlPanel.add(toggleToolBar, BorderLayout.SOUTH);
@@ -363,43 +219,15 @@ public class DailyItemsPanel extends JPanel {
 
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) {
+                System.out.println("Debug: public void dateChange(CalendarDate d), d = " +d.getFullDateString());
                 currentDateChanged(d);
             }
         });
 
-        CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
-//            	Util.debug("DailyItemsPanel Project Listener: Project is going to be changed!");				
-//            	Util.debug("current project is " + CurrentProject.get().getTitle());
 
-            	currentProjectChanged(p, nl, tl, rl);
-            }
-            public void projectWasChanged() {
-//            	Util.debug("DailyItemsPanel Project Listener: Project has been changed!");            	
-//            	Util.debug("current project is " + CurrentProject.get().getTitle());
-            	
-            	// cannot save note here, changing to new project
-            	currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
-        		CurrentNote.set(currentNote,false);
-                editorPanel.setDocument(currentNote);        
-                
-//                // DEBUG
-//                if (currentNote != null) {
-//                    Util.debug("currentNote has been set to " + currentNote.getTitle());        	
-//                }
-//                else {
-//                    Util.debug("currentNote has been set to null");
-//                }
-//                // DEBUG
-            }
-        });
 
-        CurrentNote.addNoteListener(new NoteListener() {
-            public void noteChange(Note note, boolean toSaveCurrentNote) {
-                currentNoteChanged(note, toSaveCurrentNote);
-            }
-        });
-		
+
+
         calendar.addSelectionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (calendarIgnoreChange)
@@ -410,14 +238,7 @@ public class DailyItemsPanel extends JPanel {
             }
         });
 
-        AppFrame.addExitListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (editorPanel.isDocumentChanged()) {
-                    saveNote();
-                    CurrentStorage.get().storeNoteList(CurrentProject.getNoteList(), CurrentProject.get());
-                }
-            }
-        });
+
 
         History.addHistoryListener(new HistoryListener() {
             public void historyWasRolledTo(HistoryItem hi) {
@@ -428,7 +249,7 @@ public class DailyItemsPanel extends JPanel {
         EventsScheduler.addListener(new EventNotificationListener() {
             public void eventIsOccured(main.java.memoranda.Event ev) {
                 /*DEBUG*/
-                System.out.println(ev.getTimeString() + " " + ev.getText());
+                System.out.println("Debug 00: "+"ev.getTimeString() "+ " " + ev.getText());
                 updateIndicators();
             }
 
@@ -437,16 +258,12 @@ public class DailyItemsPanel extends JPanel {
             }
         });
 
-		currentDate = CurrentDate.get();
+        currentDate = CurrentDate.get();
         currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
-		CurrentNote.set(currentNote,true);
+        CurrentNote.set(currentNote,true);
         editorPanel.setDocument(currentNote);
         History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
         cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
-        mainTabsPanel.add(eventsTabbedPane, "EVENTSTAB");
-        mainTabsPanel.add(tasksTabbedPane, "TASKSTAB");
-        mainTabsPanel.add(notesControlPane, "NOTESTAB");
-		mainTabsPanel.add(agendaTabbedPane, "AGENDATAB");
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
         mainPanel.setBorder(null);
     }
@@ -461,8 +278,8 @@ public class DailyItemsPanel extends JPanel {
         Cursor cur = App.getFrame().getCursor();
         App.getFrame().setCursor(waitCursor);
         if (!changedByHistory) {
-           History.add(new HistoryItem(newdate, CurrentProject.get()));
-		}
+            History.add(new HistoryItem(newdate, CurrentProject.get()));
+        }
         if (!dateChangedByCalendar) {
             calendarIgnoreChange = true;
             calendar.set(newdate);
@@ -471,10 +288,10 @@ public class DailyItemsPanel extends JPanel {
 
         /*if ((currentNote != null) && !changedByHistory && !addedToHistory)
                             History.add(new HistoryItem(currentNote));*/
-		currentNoteChanged(currentNote,true);
-		currentNote = CurrentProject.getNoteList().getNoteForDate(newdate);
- 		CurrentNote.set(currentNote,true);
-		currentDate = CurrentDate.get();
+
+        currentNote = CurrentProject.getNoteList().getNoteForDate(newdate);
+        CurrentNote.set(currentNote,true);
+        currentDate = CurrentDate.get();
 
         /*addedToHistory = false;
         if (!changedByHistory) {
@@ -484,95 +301,26 @@ public class DailyItemsPanel extends JPanel {
             }
         }*/
 
-		currentDateLabel.setText(newdate.getFullDateString());
+        currentDateLabel.setText(newdate.getFullDateString());
         if ((currentNote != null) && (currentNote.isMarked())) {
             currentDateLabel.setIcon(bookmarkIcon);
             currentDateLabel.setHorizontalTextPosition(SwingConstants.LEFT);
         }
         else {
             currentDateLabel.setIcon(null);
-        }		
+        }
 
         updateIndicators(newdate, CurrentProject.getTaskList());
         App.getFrame().setCursor(cur);
     }
 
-    /**
-     * Current note changed.
-     *
-     * @param note              the note
-     * @param toSaveCurrentNote the to save current note
-     */
-    void currentNoteChanged(Note note, boolean toSaveCurrentNote) {
-//		Util.debug("currentNoteChanged");
-		
-		if (editorPanel.isDocumentChanged()) {
-			if (toSaveCurrentNote) {
-	            saveNote();				
-			}
-			notesControlPane.refresh();
-        }
-		currentNote = note;
-		editorPanel.setDocument(currentNote);
-        calendar.set(CurrentDate.get());
-		editorPanel.editor.requestFocus();		
-	}
 
-    /**
-     * Current project changed.
-     *
-     * @param newprj the newprj
-     * @param nl     the nl
-     * @param tl     the tl
-     * @param rl     the rl
-     */
-    void currentProjectChanged(Project newprj, NoteList nl, TaskList tl, ResourcesList rl) {
-//		Util.debug("currentProjectChanged");
 
-        Cursor cur = App.getFrame().getCursor();
-        App.getFrame().setCursor(waitCursor);
-        if (!changedByHistory)
-            History.add(new HistoryItem(CurrentDate.get(), newprj));
-        if (editorPanel.isDocumentChanged())
-            saveNote();
-        /*if ((currentNote != null) && !changedByHistory && !addedToHistory)
-                    History.add(new HistoryItem(currentNote));*/
-        CurrentProject.save();        
-        
-        /*addedToHistory = false;
-        if (!changedByHistory) {
-            if (currentNote != null) {
-                History.add(new HistoryItem(currentNote));
-                addedToHistory = true;
-            }
-        }*/
-        
-        updateIndicators(CurrentDate.get(), tl);
-        App.getFrame().setCursor(cur);
-    }
-
-    /**
-     * History changed.
-     *
-     * @param hi the hi
-     */
     void historyChanged(HistoryItem hi) {
         changedByHistory = true;
         CurrentProject.set(hi.getProject());
         CurrentDate.set(hi.getDate());
         changedByHistory = false;
-    }
-
-    /**
-     * Save note.
-     */
-    public void saveNote() {
-        if (currentNote == null)
-            currentNote = CurrentProject.getNoteList().createNoteForDate(currentDate);
-        currentNote.setTitle(editorPanel.titleField.getText());
-		currentNote.setId(Util.generateId());
-        CurrentStorage.get().storeNote(currentNote, editorPanel.getDocument());
-        /*DEBUG* System.out.println("Save");*/
     }
 
     /**
@@ -612,12 +360,11 @@ public class DailyItemsPanel extends JPanel {
             if (EventsScheduler.isEventScheduled()) {
                 /*String evlist = "";
                 for (Iterator it = EventsScheduler.getScheduledEvents().iterator(); it.hasNext();) {
-                    net.sf.memoranda.Event ev = (net.sf.memoranda.Event)it.next();   
+                    net.sf.memoranda.Event ev = (net.sf.memoranda.Event)it.next();
                     evlist += ev.getTimeString()+" - "+ev.getText()+"\n";
                 } */
                 main.java.memoranda.Event ev = EventsScheduler.getFirstScheduledEvent();
-                alarmB.setToolTipText(ev.getTimeString() + " - " + ev.getText());
-                indicatorsPanel.add(alarmB, null);
+
             }
         }
         indicatorsPanel.updateUI();
@@ -630,35 +377,39 @@ public class DailyItemsPanel extends JPanel {
         updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
     }
 
+
     /**
-     * Select panel.
+     * This is the method that switchs the panels when they are selected on the LHS
      *
-     * @param pan the pan
+     *
+     *
+     * @param pan Can be either Agenda, Classes, Tasks, or Notes
      */
     public void selectPanel(String pan) {
+        System.out.println(pan);
         if (calendar.jnCalendar.renderer.getTask() != null) {
             calendar.jnCalendar.renderer.setTask(null);
-         //   calendar.jnCalendar.updateUI();
+            //   calendar.jnCalendar.updateUI();
         }
         if (pan.equals("TASKS") && (tasksPanel.taskTable.getSelectedRow() > -1)) {
             Task t =
-                CurrentProject.getTaskList().getTask(
-                    tasksPanel
-                        .taskTable
-                        .getModel()
-                        .getValueAt(tasksPanel.taskTable.getSelectedRow(), TaskTable.TASK_ID)
-                        .toString());
+                    CurrentProject.getTaskList().getTask(
+                            tasksPanel
+                                    .taskTable
+                                    .getModel()
+                                    .getValueAt(tasksPanel.taskTable.getSelectedRow(), TaskTable.TASK_ID)
+                                    .toString());
             calendar.jnCalendar.renderer.setTask(t);
-       //     calendar.jnCalendar.updateUI();
+            //     calendar.jnCalendar.updateUI();
         }
         boolean isAg = pan.equals("AGENDA");
         agendaPanel.setActive(isAg);
         if (isAg)
-        	agendaPanel.refresh(CurrentDate.get());
+            agendaPanel.refresh(CurrentDate.get());
         cardLayout1.show(editorsPanel, pan);
         cardLayout2.show(mainTabsPanel, pan + "TAB");
-		calendar.jnCalendar.updateUI();
-		CurrentPanel=pan;
+        calendar.jnCalendar.updateUI();
+        this.CurrentPanel=pan;
     }
 
     /**
@@ -667,8 +418,8 @@ public class DailyItemsPanel extends JPanel {
      * @return the current panel
      */
     public String getCurrentPanel() {
-		return CurrentPanel;
-	}
+        return CurrentPanel;
+    }
 
     /**
      * Task b action performed.
@@ -679,12 +430,5 @@ public class DailyItemsPanel extends JPanel {
         parentPanel.tasksB_actionPerformed(null);
     }
 
-    /**
-     * Alarm b action performed.
-     *
-     * @param e the e
-     */
-    void alarmB_actionPerformed(ActionEvent e) {
-        parentPanel.classesB_actionPerformed(null);
-    }
+
 }

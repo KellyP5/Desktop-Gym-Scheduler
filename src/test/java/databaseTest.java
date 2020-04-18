@@ -113,6 +113,91 @@ public class databaseTest {
         assertEquals(classes.get(0), classOriginal);
     }
 
+    @Test
+    public void gettingAllClassesBySpecificTrainerReturnsAllClassesExpected() throws SQLException {
+        //create some necessary entities to be able to make gym classes
+        RoleEntity trainerRole = new RoleEntity(RoleEntity.UserRole.trainer);
+        RoleEntity adminRole = new RoleEntity(RoleEntity.UserRole.admin);
+        BeltEntity white = new BeltEntity(BeltEntity.Rank.white);
+        ArrayList<UserEntity> usersToAdd = new ArrayList<>();
+        usersToAdd.add(new UserEntity("jack",
+                "johnson","foobar","jackj@gmail.com",trainerRole,white,
+                white));
+        usersToAdd.add(new UserEntity("jack",
+                "ryans","foo","jack@gmail.com",adminRole,white,
+                white));
+        for (UserEntity user: usersToAdd) {
+            dcq.insertUser(user.getEmail(),
+                    user.getFirstName(),
+                    user.getLastName(),
+                    user.getPassword(),
+                    user.getRole(),
+                    user.getBelt(),
+                    user.getTrainingBelt());
+        }
+        BeltEntity minReqBeltIsGreen = new BeltEntity(BeltEntity.Rank.green);
+        LocalTime localStartTime = LocalTime.of(12,30);
+        LocalTime localEndTime = LocalTime.of(13,30);
+
+        ArrayList<GymClassEntity> gymClassesToAdd = new ArrayList<>();
+
+        //we'll create 4 gymclasses (no reason, just chose 4), to be added to the database with jackj@gmail.com as
+        // the trainer
+        for(int i = 1; i < 5; i++){
+            LocalDate localDate = LocalDate.of(2020,5,i);
+            LocalDateTime localStartDateTime = LocalDateTime.of(localDate,localStartTime);
+            LocalDateTime localEndDateTime = LocalDateTime.of(localDate, localEndTime);
+
+            gymClassesToAdd.add(new GymClassEntity(
+                    i,
+                    i,
+                    localStartDateTime,
+                    localEndDateTime,
+                    "jackj@gmail.com",
+                    20,
+                    minReqBeltIsGreen,
+                    "jack@gmail.com")
+            );
+        }
+        //create 1 gymclass to be added to the database with jack@gmail.com as the trainer and created by
+        LocalDate localDate = LocalDate.of(2020,5,5);
+        gymClassesToAdd.add(new GymClassEntity(5,
+                1, LocalDateTime.of(localDate, localStartTime),LocalDateTime.of(localDate, localEndTime),
+                "jack@gmail.com",20, white,"jack@gmail.com"));
+
+        LocalDateTime localStartDateTime = LocalDateTime.of(localDate,localStartTime);
+        LocalDateTime localEndDateTime = LocalDateTime.of(localDate, localEndTime);
+
+        //insert all the classes trained by both jackj@gmail.com and jack@gmail.com
+        for(GymClassEntity gymClass: gymClassesToAdd){
+            double startTimeAsDouble = Double.parseDouble(localStartDateTime.toLocalTime().
+                    format(SqlConstants.DBTIMEFORMAT));
+            double endTimeAsDouble = Double.parseDouble(localEndDateTime.toLocalTime().
+                    format(SqlConstants.DBTIMEFORMAT));
+
+            dcq.insertClass(
+                    gymClass.getRoomNumber(),
+                    gymClass.getStartDateTime().format(SqlConstants.DBDATEFORMAT),
+                    startTimeAsDouble,
+                    endTimeAsDouble,
+                    gymClass.getTrainerEmail(),
+                    gymClass.getMaxClassSize(),
+                    gymClass.getMinBeltEntityRequired(),
+                    gymClass.getCreatedByEmail()
+                    );
+        }
+
+        //assert all expected values to be returned
+        ArrayList<GymClassEntity> classesByJackJ = drq.getAllClassesTrainerIsTeachingByEmail("jAcKJ@gmail.com");
+        assertEquals(classesByJackJ.size(), 4);
+        for (GymClassEntity gymClass: classesByJackJ) {
+            assertEquals(gymClass.getTrainerEmail(), "jackj@gmail.com");
+        }
+        ArrayList<GymClassEntity> classesByJack = drq.getAllClassesTrainerIsTeachingByEmail("jAcK@gmail.com");
+        assertEquals(classesByJack.size(), 1);
+        assertEquals(classesByJack.get(0).getTrainerEmail(), "jack@gmail.com");
+    }
+
 
     @Test
     public void deleteUser() throws SQLException {

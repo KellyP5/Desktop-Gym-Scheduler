@@ -328,8 +328,10 @@ public class UserManagementAddUser extends JFrame {
                     role = new RoleEntity(RoleEntity.UserRole.admin);
                 } else if (trainerButton.isSelected()){
                     role = new RoleEntity(RoleEntity.UserRole.trainer);
-                } else {
+                } else if (studentButton.isSelected()){
                     role = new RoleEntity(RoleEntity.UserRole.customer);
+                } else {
+                    System.out.println("[DEBUG] ERROR: Type of user not found");
                 }
                 BeltEntity belt = new BeltEntity(BeltEntity.Rank.black1);
                 String rank = beltsCB.getSelectedItem().toString();

@@ -2,7 +2,6 @@ package main.java.memoranda.ui.usermanagment;
 
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.util.DbCreateQueries;
-import main.java.memoranda.database.util.DbReadQueries;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +9,10 @@ import java.sql.SQLException;
 
 public class UserManagementRemoveUser extends JDialog {
 
-    private JPanel mainPanel;
-    private JButton b1;
-    private boolean remove;
-    private String email;
+    private JPanel _mainPanel;
+    private JButton _b1;
+    private boolean _remove;
+    private String _email;
 
     /**
      * Constructor for our remove User popup
@@ -23,11 +22,11 @@ public class UserManagementRemoveUser extends JDialog {
     public UserManagementRemoveUser(Component rel, String email, String role){
         super(new JFrame());
 
-        mainPanel = new JPanel();
+        _mainPanel = new JPanel();
         JTextArea label = new JTextArea();
-        mainPanel.add(label);
+        _mainPanel.add(label);
         System.out.println(role);
-        remove = false;
+        _remove = false;
         label.setWrapStyleWord(true);
         label.setLineWrap(true);
         label.setOpaque(false);
@@ -36,39 +35,39 @@ public class UserManagementRemoveUser extends JDialog {
 
         if (role.equalsIgnoreCase("admin")) {
             label.setText("Unable to delete admin users");
-            b1 = new JButton("EXIT");
+            _b1 = new JButton("EXIT");
             this.setTitle("Remove User");
-            mainPanel.setPreferredSize(new Dimension(200,100));
-            mainPanel.add(b1);
+            _mainPanel.setPreferredSize(new Dimension(200,100));
+            _mainPanel.add(_b1);
         } else {
-            remove = true;
-            this.email = email;
+            _remove = true;
+            this._email = email;
             label.setText("Are you sure you want to delete the user with " + email + "?");
-            b1 = new JButton("CONFIRM");
+            _b1 = new JButton("CONFIRM");
             this.setTitle("Remove User");
-            mainPanel.setPreferredSize(new Dimension(200,100));
-            mainPanel.add(b1);
+            _mainPanel.setPreferredSize(new Dimension(200,100));
+            _mainPanel.add(_b1);
         }
 
 
         setLocationRelativeTo(rel);
-        setActions();
-        this.add(mainPanel);
+        _setActions();
+        this.add(_mainPanel);
         this.pack();
         this.setVisible(true);
     }
     /**
      * Creates the action listensers.
      */
-    private void setActions(){
+    private void _setActions(){
 
-        this.b1.addActionListener(actionEvent -> {
-            if (remove == true) {
+        this._b1.addActionListener(actionEvent -> {
+            if (_remove == true) {
                 try {
-                    System.out.println("Deleting the user " + email);
+                    System.out.println("Deleting the user " + _email);
                     SqlConnection sql = SqlConnection.getInstance();
                     DbCreateQueries dcq = sql.getDcq();
-                    dcq.deleteUser(email);
+                    dcq.deleteUser(_email);
                     dispose();
                 } catch (SQLException e) {
                     e.printStackTrace();

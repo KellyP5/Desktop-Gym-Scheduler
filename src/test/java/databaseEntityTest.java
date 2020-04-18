@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 /**
  * Tests database Objects
  */
-public class databaseObjectTest {
+public class databaseEntityTest {
     public static EnrolledUserEntity eu1;
     public static BeltEntity be1, be2, be3;
     public static GymClassEntity gce1;
@@ -20,15 +20,7 @@ public class databaseObjectTest {
      */
     @BeforeClass
     public static void setUp() {
-        eu1 = new EnrolledUserEntity(1, "kjpetron@asu.edu");
         be1 = new BeltEntity("");
-        be2 = new BeltEntity("black3");
-        be3 = new BeltEntity("black3");
-        ldt1 = LocalDateTime.now();
-        gce1 = new GymClassEntity(1, 1, ldt1, ldt1,
-                "kjpetron@asu.edu",
-                10, be1,
-                "admin@gym.com");
     }
 
     /**
@@ -36,6 +28,8 @@ public class databaseObjectTest {
      */
     @Test
     public void beltEntity() {
+        be2 = new BeltEntity("black3");
+        be3 = new BeltEntity("black3");
         assertEquals(be1.toString(), "white");
         assertEquals(be2.toString(), "black3");
         assertTrue(be2.equals(be3));
@@ -46,6 +40,7 @@ public class databaseObjectTest {
      */
     @Test
     public void enrolledUserEntity()  {
+        eu1 = new EnrolledUserEntity(1, "kjpetron@asu.edu");
         int i = eu1.getClassId();
         assertEquals(i, 1);
         String s = eu1.getUserEmail();
@@ -62,6 +57,11 @@ public class databaseObjectTest {
      */
     @Test
     public void gymClassEntity()  {
+        ldt1 = LocalDateTime.now();
+        gce1 = new GymClassEntity(1, 1, ldt1, ldt1,
+                "kjpetron@asu.edu",
+                10, be1,
+                "admin@gym.com");
         assertEquals(1, gce1.getId());
         assertEquals(be1, gce1.getMinBeltEntityRequired());
         assertEquals("kjpetron@asu.edu", gce1.getTrainerEmail());

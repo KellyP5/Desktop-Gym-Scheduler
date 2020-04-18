@@ -1,18 +1,17 @@
 package main.java.memoranda.ui;
 
-import java.io.File;
-import java.util.Vector;
-import java.awt.*;
-
-import javax.swing.*;
-import javax.swing.border.*;
-
 import main.java.memoranda.util.Configuration;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.MimeTypesList;
 
-import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.Vector;
 
 /**
  * The type Preferences dialog.
@@ -872,9 +871,7 @@ public class PreferencesDialog extends JDialog {
 		Configuration.put("HEADER_FONT", headerFontCB.getSelectedItem());
 		Configuration.put("MONO_FONT", monoFontCB.getSelectedItem());
 		Configuration.put("BASE_FONT_SIZE", baseFontSize.getValue());
-		App.getFrame().workPanel.dailyItemsPanel.editorPanel.editor.editor.setAntiAlias(antialiasChB.isSelected());
-		App.getFrame().workPanel.dailyItemsPanel.editorPanel.initCSS();
-		App.getFrame().workPanel.dailyItemsPanel.editorPanel.editor.repaint();
+
 		
 		Configuration.saveConfig();
 		

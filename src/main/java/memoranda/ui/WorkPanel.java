@@ -255,6 +255,7 @@ public class WorkPanel extends JPanel {
 		dailyItemsPanel.setBorder(null);
 		userManagement.setBorder(null);
 
+
 	}
 
     /**

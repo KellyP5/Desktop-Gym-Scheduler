@@ -1,28 +1,5 @@
 package main.java.memoranda.ui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import main.java.memoranda.CurrentNote;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Note;
@@ -30,6 +7,13 @@ import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.util.Configuration;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.*;
 
 /**
  * The type Notes control panel.
@@ -434,7 +418,7 @@ public class NotesControlPanel extends JPanel {
 	ppSetEnabled();
         notesList.updateUI();
 	notesList.clearSelection();
-	((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.editorPanel.editor.requestFocus();	
+
     }
 
     /**

@@ -174,6 +174,7 @@ I would also advise you to already fill out the Contributions section (End of sp
     - https://github.com/amehlhase316/Neujahrskranz/pull/97
     - https://github.com/amehlhase316/Neujahrskranz/pull/81
     - https://github.com/amehlhase316/Neujahrskranz/pull/106
+    - https://github.com/amehlhase316/Neujahrskranz/pull/107
 
    **GitHub links to your Unit Tests (up to 3 links):
 

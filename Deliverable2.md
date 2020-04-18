@@ -166,3 +166,38 @@ I would also advise you to already fill out the Contributions section (End of sp
   - [ ] All User Stories have acceptance tests
   - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
   - [ ] You know how to proceed
+  
+  
+#### Team member: Kelly Petrone:
+  **Links to GitHub commits with main code contribution (up to 5 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/pull/97
+    - https://github.com/amehlhase316/Neujahrskranz/pull/81
+    - https://github.com/amehlhase316/Neujahrskranz/pull/106
+
+   **GitHub links to your Unit Tests (up to 3 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/pull/100
+    - link2
+
+  **GitHub links to your Code Reviews (up to 3 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/pull/105
+    - https://github.com/amehlhase316/Neujahrskranz/pull/90
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+
+    - Served as the Scrum Master this sprint. Helped negotiate the terms with the team of what should be focused on in our Unit Tests. Also discussed with team members on several occassions on updating these standards as our requirements changed. Also filled out the portions required for different types of unit testing.
+ 
+- [ ] Filled out the complete form from above, all fields are filled and written in full sentences
+- [ ] Read the kickoff again to make sure you have all the details
+- [ ] User Stories that were not completed, were left in the Sprint and a copy created
+- [ ] Your Quality Policies are accurate and up to date
+- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
+  - [ ] Team member 1
+  - [ ] Team member 2
+- [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
+  - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
+  - [ ] All User Stories have acceptance tests
+  - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
+  - [ ] You know how to proceed

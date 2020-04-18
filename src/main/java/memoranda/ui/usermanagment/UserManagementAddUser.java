@@ -125,9 +125,6 @@ public class UserManagementAddUser extends JFrame {
 
         createButton.setBounds(100, 445, 80, 20);
 
-        //alreadyHaveAccount.setBounds(10, 440, 180, 20);
-
-
         accountCreate.add(createButton);
         accountCreate.add(logo);
         accountCreate.add(firstName);
@@ -328,11 +325,11 @@ public class UserManagementAddUser extends JFrame {
             try {
                 RoleEntity role;
                 if (adminButton.isSelected()) {
-                    role = new RoleEntity(RoleEntity.UserRole.trainer);
+                    role = new RoleEntity(RoleEntity.UserRole.admin);
                 } else if (trainerButton.isSelected()){
                     role = new RoleEntity(RoleEntity.UserRole.trainer);
                 } else {
-                    role = new RoleEntity(RoleEntity.UserRole.admin);
+                    role = new RoleEntity(RoleEntity.UserRole.customer);
                 }
                 BeltEntity belt = new BeltEntity(BeltEntity.Rank.black1);
                 String rank = beltsCB.getSelectedItem().toString();
@@ -341,7 +338,7 @@ public class UserManagementAddUser extends JFrame {
                 // Add new user to database
                 App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
                 dispose();
-                createdSuccessfully();
+                showCreatedSuccessfullyPopup();
             } catch (SQLException ex) {
                 throwInputError("An account already exists with that email.");
             }
@@ -352,7 +349,7 @@ public class UserManagementAddUser extends JFrame {
     /**
      * Popup window that tells the user the account was created successfully
      */
-    public void createdSuccessfully() {
+    public void showCreatedSuccessfullyPopup() {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "Account was created successfully!",
                 "Account Creation", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);

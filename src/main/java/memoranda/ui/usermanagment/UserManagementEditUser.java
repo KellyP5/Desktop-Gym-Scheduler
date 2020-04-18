@@ -45,7 +45,6 @@ public class UserManagementEditUser extends JDialog {
     private String _beltString;
     private UserEntity _selectedUser;
 
-
     /**
      * Constructor for our Edit User popup. Creates the GUI box that displays the user's information
      * and allows it to be edited.

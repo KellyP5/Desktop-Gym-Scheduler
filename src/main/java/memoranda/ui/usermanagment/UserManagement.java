@@ -1,3 +1,10 @@
+/**
+ * The display/functionality for the User Management page of GloboGym.
+ * It displays a list of all users in the database, and allows adding, deleting, and editing
+ * users.
+ *
+ * @author Kevin Wilkinson, Kelly Ellis
+ */
 package main.java.memoranda.ui.usermanagment;
 
 import main.java.memoranda.database.UserEntity;
@@ -150,13 +157,10 @@ public class UserManagement extends JPanel {
         });
 
         this.editUser.addActionListener(actionEvent -> {
-            //System.out.println("//TODO Edit user button");
             if (this.currentlySelectedEmail != null) {
                 new UserManagementEditUser(_selectedUser);
             } else {
-                // TODO add popup that tells user to select a user first
                 userNotSelected();
-                System.out.println("Select a user first");
             }
         });
 
@@ -167,10 +171,12 @@ public class UserManagement extends JPanel {
 
     }
 
+    /**
+     * Popup that alerts the user that no user was selected to edit
+     */
     public void userNotSelected() {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "Please select a user to edit",
                 "Select User", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
     }
-
 }

@@ -148,8 +148,11 @@ public class UserManagement extends JPanel {
         });
 
         this.deleteUser.addActionListener(actionEvent -> {
-            System.out.println("//TODO Delete user button");
-            //TODO
+            if (this.currentlySelectedEmail == null) {
+                System.out.println("ERROR: No user was selected!");
+            } else {
+                new UserManagementRemoveUser(deleteUser, currentlySelectedEmail, currentlySelectedRole);
+            }
         });
 
     }

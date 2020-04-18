@@ -7,8 +7,7 @@ RoleEntity is for sql uses related to the Role field, which appears in the USER 
 used for permissions and visibility in the GUI.
  */
 public class RoleEntity {
-
-
+    
     public enum UserRole{
         admin,
         trainer,

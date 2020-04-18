@@ -2,6 +2,7 @@ package main.java.memoranda.ui;
 
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Configuration;
 
 import javax.swing.*;
@@ -11,7 +12,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Properties;
-//import org.swingexplorer.Log;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
+
+import main.java.memoranda.EventsScheduler;
+import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.util.Configuration;
 
 /**
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
@@ -41,8 +50,9 @@ public class App {
      */
     public static final String WEBSITE_URL = "http://globogym.com";
 
+	public static SqlConnection conn = null;
 
-    public static SqlConnection conn = null;
+    public static Gym gym = null;
 
 	private JFrame splash = null;
 	FileInputStream input;
@@ -91,11 +101,13 @@ public class App {
     public App(boolean fullmode) throws IOException {
 		super();
 
+		try {
+			this.conn = SqlConnection.getInstance();
 
-		try{
-			conn = SqlConnection.getInstance();
-		}catch(SQLException ecp){
-			ecp.printStackTrace();
+      		this.gym = new Gym();//insert connection code
+
+		} catch (SQLException sec) {
+			sec.printStackTrace();
 		}
 
 		// Updates the version and build numbers via the build.gradle file

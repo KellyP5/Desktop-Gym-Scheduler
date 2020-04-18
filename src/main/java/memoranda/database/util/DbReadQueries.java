@@ -31,10 +31,13 @@ public class DbReadQueries {
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
-        if(!rs.next()){
+        //////////////////////////////////
+        if (!rs.next()) {
             return null;
         }
+        //////////////////////////////////
         UserEntity userEntity = _getUserFromResultSet(rs);
+
         pstmt.close();
         conn.close();
         return userEntity;
@@ -206,6 +209,13 @@ public class DbReadQueries {
      * @throws SQLException sql  exception.
      */
     private UserEntity _getUserFromResultSet(ResultSet rs) throws SQLException {
+        /*
+        if (!rs.next()) {
+            return null;
+        }
+        
+         */
+
         String strBelt = rs.getString("Belt");
         BeltEntity belt = null;
         if (strBelt != null){

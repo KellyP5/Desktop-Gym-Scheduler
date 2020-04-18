@@ -260,6 +260,11 @@ public class AgendaPanel extends JPanel {
 	 * @param date the date
 	 */
 	public void refresh(CalendarDate date) {
+		try {
+			updateTrainerBeltDisplay();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		String[][] data = null;
 		LocalDate convertedDate = _convertDateToLocalDateTime(date);
 
@@ -328,6 +333,33 @@ public class AgendaPanel extends JPanel {
 
 		return newDate;
 
+	}
+
+	/**
+	 * This method updates to Agenda page tool bar to display the trainer's belt color.
+	 *It will need to be updated when we can check to see who the currently logged user is
+	 *
+	 * @throws SQLException the sql exception
+	 */
+
+	private void updateTrainerBeltDisplay() throws SQLException {
+
+		//A check will need to be added here to check to see if the currently logged
+		//user is a trainer or not.
+
+		JLabel instructorBelt = new JLabel();
+		Font labelFont = instructorBelt.getFont(); //creats Font to change font size
+		instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
+		//TEMPORARY: will need to be changed to get the user that is currently logged in email
+		String beltText = getTrainerBelt("jackj@gmail.com");
+		instructorBelt.setText("Trainer Belt: " + beltText.substring(0,1).toUpperCase() + beltText.substring(1));
+		//add right padding to belt display
+		instructorBelt.setBorder(BorderFactory.createEmptyBorder(0,0,0,25));
+
+		toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
+		initToolBar(); // reinitiates tool bar
+		toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
+		toolBar.add(instructorBelt); //adds the instructor belt jlabel to toolbar
 	}
 
 	/**

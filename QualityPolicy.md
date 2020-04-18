@@ -56,19 +56,19 @@
 - [ ] My code compiles
 - [ ] My code has been developer-tested and includes unit tests that do not fail, if unit testing makes sense
 - [ ] My code is properly commented according to Coding Standards
-	  - [ ] All source code files/class files have banner comments present and filled in
+     - [ ] All source code files/class files have banner comments present and filled in
 - [ ] All public methods have a method banner comment and/or javadoc comment present and filled in
 - [ ] My code is stylistically consistent
-    - [ ] Indentations are consistent
-    - [ ] Bracket use is consistent (All { appear at the end of a line and } on its own line)
-    - [ ] Line length is not excessive (Does not exceed 120 characters)
-    - [ ] There is no leftover commented-out code
-    - [ ] There are no spelling mistakes
+     - [ ] Indentations are consistent
+     - [ ] Bracket use is consistent (All { appear at the end of a line and } on its own line)
+     - [ ] Line length is not excessive (Does not exceed 120 characters)
+     - [ ] There is no leftover commented-out code
+     - [ ] There are no spelling mistakes
 - [ ] I use proper naming conventions
-	  - [ ] Constants and Enums are in all CAPS
-	  - [ ] Class names are in upper CamelCase
-	  - [ ] Variable, Parameter, and Method names are in lower camelCase
-	  - [ ] Non-public methods, variables, and constants are prefixed by an underscore _
+     - [ ] Constants and Enums are in all CAPS
+     - [ ] Class names are in upper CamelCase
+     - [ ] Variable, Parameter, and Method names are in lower camelCase
+     - [ ] Non-public methods, variables, and constants are prefixed by an underscore _
 - [ ] I use exceptions properly where necessary
 - [ ] I have eliminated unused imports
 - [ ] All class member variables are private
@@ -86,7 +86,7 @@ Reviewer Name: ________________
 - [ ] Comments are comprehensible and appropriate (there are no trivial comments)
 - [ ] Comments are neither too numerous nor verbose
 - [ ] Comments follow proper Coding Standards 
-	   - [ ] All source code files/class files have banner comments present and filled in
+     - [ ] All source code files/class files have banner comments present and filled in
      - [ ] All public methods have a method banner comment and/or javadoc comment present and filled in
 - [ ] The code is stylistically consistent
      - [ ] Indentations are consistent
@@ -95,10 +95,10 @@ Reviewer Name: ________________
      - [ ] There is no leftover commented-out code
      - [ ] There are no spelling mistakes
 - [ ] Proper naming conventions are used
-	  - [ ] Constants and Enums are in all CAPS
-	  - [ ] Class names are in upper CamelCase
-	  - [ ] Variable, Parameter, and Method names are in lower camelCase
-	  - [ ] Non-public methods, variables, and constants are prefixed by an underscore _
+     - [ ] Constants and Enums are in all CAPS
+     - [ ] Class names are in upper CamelCase
+     - [ ] Variable, Parameter, and Method names are in lower camelCase
+     - [ ] Non-public methods, variables, and constants are prefixed by an underscore _
 - [ ] Variables, methods, and classes are named appropriately and are self-explanatory
 - [ ] Parameterized types have been used appropriately
 - [ ] Exceptions have been used appropriately

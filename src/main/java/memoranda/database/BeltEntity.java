@@ -118,6 +118,7 @@ public class BeltEntity {
     public BeltEntity(Rank rank){
         this.rank = rank;
     }
+    public BeltEntity(String rank) {this.rank = getRank(rank);}
 
     /**
      * Checks if two belt ranks are equal

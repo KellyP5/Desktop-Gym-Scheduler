@@ -143,7 +143,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
      * @throws Exception the exception
      */
     void jbInit() throws Exception {
-        this.setLayout(new GridLayout(1, 0, 8, 0));
+        this.setLayout(borderLayout1);
         eventsToolBar.setFloatable(false);
 
         historyBackB.setAction(History.historyBackAction);
@@ -322,6 +322,12 @@ public class EventsPanel<newButtonFont> extends JPanel {
         room2ScrollPane.getViewport().setBackground(Color.gray);
         room3ScrollPane.getViewport().setBackground(Color.lightGray);
         room4ScrollPane.getViewport().setBackground(Color.darkGray);
+        int horizontalPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER;
+        int verticalPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED;
+        //room1ScrollPane.setHorizontalScrollBar(horizontalPolicy);
+
+
+
         //scrollPane2.getViewport().setBackground(Color.gray);
         // KJPETRON: THIS IS THE KEY! THIS CONTROLS THE EVENTS DISPLAY
         Room1.setMaximumSize(new Dimension(200, 800));
@@ -396,7 +402,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
 
 
 
-
+        this.add(eventsToolBar, BorderLayout.NORTH);
         room1ScrollPane.getViewport().add(Room1, null);
         room2ScrollPane.getViewport().add(Room2, null);
         room3ScrollPane.getViewport().add(Room3, null);
@@ -408,7 +414,7 @@ public class EventsPanel<newButtonFont> extends JPanel {
         roomPanel.add(room4ScrollPane, BorderLayout.SOUTH);
         this.add(roomPanel, BorderLayout.SOUTH);
 
-        this.add(eventsToolBar, BorderLayout.NORTH);
+
         eventsToolBar.addSeparator(new Dimension(150, 0));
 
         PopupListener ppListener = new PopupListener();

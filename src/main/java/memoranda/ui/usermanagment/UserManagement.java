@@ -204,6 +204,10 @@ public class UserManagement extends JPanel {
         model.addRow(new Object[]{pEmail,pRank,pRole});
     }
 
+    /**
+     * Called inside the UserManagementEditUser and UserManagementRemoveUser classes. Removes
+     * the selected user from the table, after they've been removed/updated in the database
+     */
     public void removeUserFromTable() {
         DefaultTableModel model = (DefaultTableModel) this.userList.getModel();
         model.removeRow(selectedRow);

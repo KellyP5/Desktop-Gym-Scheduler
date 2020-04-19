@@ -313,13 +313,20 @@ public class UserManagementEditUser extends JDialog {
                 "Email In Use", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
     }
 
+    /**
+     * Updates the user's information in the database, after the user confirms the changes are correct.
+     * Also updates the table on the GUI by removing the 'old' user and adding the 'new' user, effectively
+     * updating the table.
+     * @param role The role of the user
+     * @param belt The belt of the user
+     * @throws SQLException
+     */
     public void updateUser(RoleEntity role, BeltEntity belt) throws SQLException {
-        App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
-                _selectedUser.getPassword(), role, belt);
-
         boolean change = confirmChanges();
         // Alert user that the update was successful
         if (change) {
+            App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
+                    _selectedUser.getPassword(), role, belt);
             updateSuccessful();
             // Update the table with the new information
             this.topLevelReference.removeUserFromTable();

@@ -1,5 +1,6 @@
 package test.java;
 
+/*
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.UserEntity;
@@ -68,3 +69,4 @@ public class loginTest {
     }
 
 }
+*/

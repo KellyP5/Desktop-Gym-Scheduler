@@ -260,7 +260,6 @@ public class UserManagementEditUser extends JDialog {
         } else {
             role = new RoleEntity(RoleEntity.UserRole.admin);
         }
-
         return role;
     }
 
@@ -317,11 +316,14 @@ public class UserManagementEditUser extends JDialog {
     public void updateUser(RoleEntity role, BeltEntity belt) throws SQLException {
         App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
                 _selectedUser.getPassword(), role, belt);
-        this.topLevelReference.addUserToTable(_emailBox.getText(), _beltString, _roleString);
+
         boolean change = confirmChanges();
         // Alert user that the update was successful
         if (change) {
             updateSuccessful();
+            // Update the table with the new information
+            this.topLevelReference.removeUserFromTable();
+            this.topLevelReference.addUserToTable(_emailBox.getText(), _beltString, _roleString);
         }
     }
 

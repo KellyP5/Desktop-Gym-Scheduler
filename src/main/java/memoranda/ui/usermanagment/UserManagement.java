@@ -169,7 +169,6 @@ public class UserManagement extends JPanel {
         this.editUser.addActionListener(actionEvent -> {
             if (this.currentlySelectedEmail != null) {
                 new UserManagementEditUser(this, _selectedUser);
-                removeUserFromTable();
             } else {
                 userNotSelected();
             }

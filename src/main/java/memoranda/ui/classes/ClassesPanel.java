@@ -7,46 +7,49 @@ import main.java.memoranda.util.Local;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class ClassesPanel extends JPanel {
 
+    private DailyItemsPanel parentPanelReference = null;
 
-    DailyItemsPanel parentPanelReference = null;
+    private JToolBar topToolBar = new JToolBar();
 
-    JToolBar topToolBar = new JToolBar();
+    private JButton schedNewClassBut;//all the buttons for the top bar
+    private JButton editClassBut;
+    private JButton setAvailabilityBut;
+    private JButton schedPriClassBut;
+    private JButton enrollClassButt;
+    private JButton cancelEnrollmentBut;
+    private JButton removeClassBut;
 
-    JButton schedNewClassBut = new JButton("Schedule New Class");
-    JButton editClassBut = new JButton("Edit Existing Class");
-    JButton setAvailabilityBut = new JButton("Set My Availability");
-    JButton schedPriClassBut = new JButton("Schedule Private Class");
-    JButton enrollClassButt = new JButton("Enroll in Class");
-    JButton cancelEnrollmentBut = new JButton("Cancel My Enrollment");
-    JButton removeClassBut = new JButton("Remove Class");
+    private JPanel classesPanelTop;//contains scroll panes 1,2
+    private JPanel classesPanelBot;//contains scroll panes 3,4
 
-    JPanel classesPanel;//contains all the scroll panes
+    private JScrollPane room1ScrollPane;//these scroll panes contain the roooms
+    private JScrollPane room2ScrollPane;
 
-    JScrollPane room1ScrollPane;//these scroll panes contain the roooms
-    JScrollPane room2ScrollPane;
-    JScrollPane room3ScrollPane;
-    JScrollPane room4ScrollPane;
+    private JScrollPane room3ScrollPane;
+    private JScrollPane room4ScrollPane;
 
-    ClassTable room1;
-    ClassTable room2;
-    ClassTable room3;
-    ClassTable room4;
+    private ClassTable room1;
+    private ClassTable room2;
 
+    private ClassTable room3;
+    private ClassTable room4;
 
     public ClassesPanel(DailyItemsPanel _parentPanel) {
         try {
             parentPanelReference = _parentPanel;
 
-            jbInit();
+            init();
         } catch (Exception ex) {
             new ExceptionDialog(ex);
         }
     }
 
-    void jbInit() throws Exception {
+    /**
+     * Main init method for the ClassesPanel
+     */
+    private void init() {
         this.setLayout(new BorderLayout());
         topToolBar.setFloatable(false);
 
@@ -54,13 +57,22 @@ public class ClassesPanel extends JPanel {
 
         initActionListenersTopToolBar();//initialize the action events to our buttons
 
-        initRooms();
-
-        initRoomsActionListeners();
+        initRooms();//each room handles its own action listener
 
     }
 
-    void initTopToolBar(){
+    /**
+     * All code associated with initializing the toolbar.
+     */
+    private void initTopToolBar(){
+
+        schedNewClassBut = new JButton("Schedule New Class");
+        editClassBut = new JButton("Edit Existing Class");
+        setAvailabilityBut = new JButton("Set My Availability");
+        schedPriClassBut = new JButton("Schedule Private Class");
+        enrollClassButt = new JButton("Enroll in Class");
+        cancelEnrollmentBut = new JButton("Cancel My Enrollment");
+        removeClassBut = new JButton("Remove Class");
 
         Color color = Color.decode("#16034f");
         schedNewClassBut.setBackground(color);
@@ -135,7 +147,6 @@ public class ClassesPanel extends JPanel {
         enrollClassButt.setEnabled(true);
         enrollClassButt.setFont(new Font("Arial", Font.PLAIN, 10));
 
-
         cancelEnrollmentBut.setBackground(color1);
         cancelEnrollmentBut.setForeground(Color.WHITE);
         cancelEnrollmentBut.setBorderPainted(false);
@@ -165,7 +176,12 @@ public class ClassesPanel extends JPanel {
         this.add(topToolBar, BorderLayout.NORTH);
     }
 
-    void initActionListenersTopToolBar(){
+    /**
+     * TODO This is where the event handlers will call our popups for modifying the classes.
+     *
+     * TODO NOT IMPLEMENTED!
+     */
+    private void initActionListenersTopToolBar(){
 
         schedNewClassBut.addActionListener((e)->{
             System.out.println("Debug: schedNewClassBut TODO");
@@ -197,7 +213,10 @@ public class ClassesPanel extends JPanel {
         });
     }
 
-    void initRooms(){
+    /**
+     * All code associated with initializing the class tables.
+     */
+    private void initRooms(){
 
         room1 = new ClassTable(this.parentPanelReference,1);
         room2 = new ClassTable(this.parentPanelReference,2);
@@ -209,20 +228,17 @@ public class ClassesPanel extends JPanel {
         this.room3ScrollPane = new JScrollPane(room3.classTable);
         this.room4ScrollPane = new JScrollPane(room4.classTable);
 
-        this.classesPanel = new JPanel(new FlowLayout());
-        this.classesPanel.add(this.room1ScrollPane);
-        this.classesPanel.add(this.room2ScrollPane);
-        this.classesPanel.add(this.room3ScrollPane);
-        this.classesPanel.add(this.room4ScrollPane);
+        this.classesPanelTop = new JPanel(new FlowLayout());
+        this.classesPanelBot= new JPanel(new FlowLayout());
 
-        this.add(classesPanel, BorderLayout.CENTER);
+        this.classesPanelTop.add(this.room1ScrollPane);
+        this.classesPanelTop.add(this.room2ScrollPane);
+        this.classesPanelBot.add(this.room3ScrollPane);
+        this.classesPanelBot.add(this.room4ScrollPane);
 
+        this.add(classesPanelTop, BorderLayout.CENTER);
+        this.add(classesPanelBot, BorderLayout.SOUTH);
 
     }
-
-    void initRoomsActionListeners(){
-        //TODO
-    }
-
 
 }

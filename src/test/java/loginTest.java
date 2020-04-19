@@ -1,6 +1,7 @@
 package test.java;
 
 import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.database.util.EnforcedConnection;
 import main.java.memoranda.database.util.SqlConstants;
@@ -16,12 +17,17 @@ public class loginTest {
 
     static LoginBox login;
     static App app;
+    public static SqlConnection sqlConnection;
 
     @BeforeClass
     public static void setUp() throws SQLException, IOException {
+        sqlConnection = SqlConnection.getInstance();
+        sqlConnection.getDbSetupHelperTest().deleteTestTables();
+        sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
+
 
         app = new App(true);
-        app.conn.getDcqTest().insertUser("Test@Test.com", "TestFirst", "TestLast",
+        sqlConnection.getDcqTest().insertUser("Test@Test.com", "TestFirst", "TestLast",
                 "TestPass", new RoleEntity(RoleEntity.UserRole.trainer));
 
         login = new LoginBox();
@@ -32,14 +38,7 @@ public class loginTest {
 
     @AfterClass
     public static void tearDown() throws SQLException {
-        // Remove the test user that was added to the db
-        String sql = "DELETE FROM user WHERE Email='Test@Test.com'";
-        Connection conn = EnforcedConnection.getEnforcedCon(SqlConstants.DEFAULTTESTDBLOC);
-        Statement stmt = conn.createStatement();
-        stmt.execute(sql);
-        stmt.close();
-        conn.close();
-
+        sqlConnection.getDbSetupHelperTest().closeDatabase();
         // Close the login GUI
         login.dispose();
     }

@@ -2,6 +2,8 @@ package test.java;
 
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.util.EnforcedConnection;
+import main.java.memoranda.database.util.SqlConstants;
 import main.java.memoranda.ui.App;
 import org.junit.*;
 import java.io.IOException;
@@ -19,7 +21,7 @@ public class loginTest {
     public static void setUp() throws SQLException, IOException {
 
         app = new App(true);
-        app.conn.getDcq().insertUser("Test@Test.com", "TestFirst", "TestLast",
+        app.conn.getDcqTest().insertUser("Test@Test.com", "TestFirst", "TestLast",
                 "TestPass", new RoleEntity(RoleEntity.UserRole.trainer));
 
         login = new LoginBox();
@@ -32,7 +34,7 @@ public class loginTest {
     public static void tearDown() throws SQLException {
         // Remove the test user that was added to the db
         String sql = "DELETE FROM user WHERE Email='Test@Test.com'";
-        Connection conn = DriverManager.getConnection("jdbc:sqlite:real.db");
+        Connection conn = EnforcedConnection.getEnforcedCon(SqlConstants.DEFAULTTESTDBLOC);
         Statement stmt = conn.createStatement();
         stmt.execute(sql);
         stmt.close();
@@ -49,21 +51,21 @@ public class loginTest {
 
     @Test
     public void accountExistsTest() throws SQLException {
-        UserEntity user = app.conn.getDrq().getUserByEmail(login.getEmail().getText());
+        UserEntity user = app.conn.getDrqTest().getUserByEmail(login.getEmail().getText());
         assertTrue(login.accountExists(user));
 
     }
 
     @Test
     public void accountDoesNotExistTest() throws SQLException {
-        UserEntity user2 = app.conn.getDrq().getUserByEmail("User@User.com");
+        UserEntity user2 = app.conn.getDrqTest().getUserByEmail("User@User.com");
         assertTrue(!login.accountExists(user2));
     }
 
 
     @Test
     public void passwordIsCorrectTest() throws SQLException {
-        UserEntity user3 = app.conn.getDrq().getUserByEmail(login.getEmail().getText());
+        UserEntity user3 = app.conn.getDrqTest().getUserByEmail(login.getEmail().getText());
         assertTrue(login.passwordIsCorrect(user3.getPassword()));
     }
 

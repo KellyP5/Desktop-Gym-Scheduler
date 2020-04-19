@@ -64,7 +64,8 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 		JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		String currentPanel = ((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.getCurrentPanel();
 
-		System.out.println(currentPanel);
+
+		//System.out.println("JNCalendarCellRenderer.java: " + currentPanel);
 
 		if (d == null) {
             label.setEnabled(false);

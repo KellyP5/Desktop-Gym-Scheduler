@@ -4,6 +4,7 @@ import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
+import main.java.memoranda.ui.classes.ClassesPanel;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;
@@ -39,19 +40,9 @@ public class DailyItemsPanel extends JPanel {
     JPanel editorsPanel = new JPanel();
 
     
-    TaskPanel tasksPanel = new TaskPanel(this);
-
-    /**
-     * The Events panel.
-     */
-    ClassesPanel classesPanel = new ClassesPanel(this);
-    /**
-     * The Agenda panel.
-     */
-    AgendaPanel agendaPanel = new AgendaPanel(this);
-    /**
-     * The Exp icon.
-     */
+    TaskPanel tasksPanel = null;
+    ClassesPanel classesPanel = null;
+    AgendaPanel agendaPanel = null;
 
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
@@ -59,7 +50,7 @@ public class DailyItemsPanel extends JPanel {
 
     boolean expanded = true;
 
-    CalendarDate currentDate;
+    public CalendarDate currentDate;
 
     boolean calendarIgnoreChange = false;
     boolean dateChangedByCalendar = false;
@@ -111,7 +102,13 @@ public class DailyItemsPanel extends JPanel {
      */
     public DailyItemsPanel(WorkPanel _parentPanel) {
         try {
+
             parentPanel = _parentPanel;
+            currentDate = CurrentDate.get();
+            tasksPanel = new TaskPanel(this);
+            classesPanel = new ClassesPanel(this);
+            agendaPanel = new AgendaPanel(this);
+
             jbInit();
         }
         catch (Exception ex) {
@@ -258,7 +255,7 @@ public class DailyItemsPanel extends JPanel {
             }
         });
 
-        currentDate = CurrentDate.get();
+
         currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
         CurrentNote.set(currentNote,true);
         editorPanel.setDocument(currentNote);
@@ -386,28 +383,34 @@ public class DailyItemsPanel extends JPanel {
      * @param pan Can be either Agenda, Classes, Tasks, or Notes
      */
     public void selectPanel(String pan) {
-        System.out.println(pan);
-        if (calendar.jnCalendar.renderer.getTask() != null) {
-            calendar.jnCalendar.renderer.setTask(null);
-            //   calendar.jnCalendar.updateUI();
+        System.out.println("public void selectPanel(String pan): " +pan);
+
+        switch(pan){
+            case "TASKS":
+            {
+
+                break;
+            }
+            case "AGENDA":
+            {
+                agendaPanel.setActive(true);
+                break;
+            }
+            case "NOTES":
+            {
+                break;
+            }
+            case "CLASSES":
+            {
+                break;
+            }
         }
-        if (pan.equals("TASKS") && (tasksPanel.taskTable.getSelectedRow() > -1)) {
-            Task t =
-                    CurrentProject.getTaskList().getTask(
-                            tasksPanel
-                                    .taskTable
-                                    .getModel()
-                                    .getValueAt(tasksPanel.taskTable.getSelectedRow(), TaskTable.TASK_ID)
-                                    .toString());
-            calendar.jnCalendar.renderer.setTask(t);
-            //     calendar.jnCalendar.updateUI();
-        }
-        boolean isAg = pan.equals("AGENDA");
-        agendaPanel.setActive(isAg);
-        if (isAg)
-            agendaPanel.refresh(CurrentDate.get());
+
         cardLayout1.show(editorsPanel, pan);
-        cardLayout2.show(mainTabsPanel, pan + "TAB");
+
+        //Kevin Wilkinson - I don't know if this is needed, don't want to completely remove it just yet
+        //cardLayout2.show(mainTabsPanel, pan + "TAB");
+
         calendar.jnCalendar.updateUI();
         this.CurrentPanel=pan;
     }

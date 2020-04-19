@@ -69,6 +69,7 @@ public class WorkPanel extends JPanel {
      */
     Border border1;
 
+
     /**
      * Instantiates a new Work panel.
      */
@@ -365,7 +366,7 @@ public class WorkPanel extends JPanel {
 		cardLayout1.show(panel, "USERMANAGMENT");
 		setCurrentButton(userMgmt);
 		Context.put("CURRENT_PANEL", "USERMANAGMENT");
-		System.out.println("CALLLLLLLLEEDD");
+
 
 	}
 

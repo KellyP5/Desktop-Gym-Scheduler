@@ -4,6 +4,7 @@ import main.java.memoranda.*;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
+import main.java.memoranda.ui.classes.ClassesPanel;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;

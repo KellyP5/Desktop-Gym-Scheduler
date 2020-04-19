@@ -1,5 +1,7 @@
-package main.java.memoranda.ui;
+package main.java.memoranda.ui.classes;
 
+import main.java.memoranda.ui.DailyItemsPanel;
+import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;

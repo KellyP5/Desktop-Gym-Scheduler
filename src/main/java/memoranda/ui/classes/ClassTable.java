@@ -1,4 +1,4 @@
-package main.java.memoranda.ui;
+package main.java.memoranda.ui.classes;
 
 import main.java.memoranda.Event;
 import main.java.memoranda.EventsManager;
@@ -6,6 +6,7 @@ import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
+import main.java.memoranda.ui.App;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;

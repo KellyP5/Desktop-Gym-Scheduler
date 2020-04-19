@@ -18,7 +18,7 @@ public class loginTest {
     @BeforeClass
     public static void setUp() throws SQLException, IOException {
 
-        app = new App(true);
+        app = new App(true, login.conn);
         app.conn.getDcq().insertUser("Test@Test.com", "TestFirst", "TestLast",
                 "TestPass", new RoleEntity(RoleEntity.UserRole.trainer));
 

@@ -8,16 +8,21 @@
  */
 package main.java.memoranda.ui;
 
+import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.UserEntity;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginBox extends JFrame {
 
 
     LoginBox login;
+    private JFrame splash;
+    public static SqlConnection conn = null;
+    private App app;
 
     private UserEntity _user;
     private JPanel _login;
@@ -33,7 +38,11 @@ public class LoginBox extends JFrame {
     private JButton _createAccount;
     private AccountCreationDialog _createAcc;
 
-    public LoginBox() {
+    public LoginBox() throws SQLException {
+
+        showSplash();
+
+        this.conn = SqlConnection.getInstance();
 
         _login = new JPanel();
         _loginButton = new JButton("Login");
@@ -216,13 +225,14 @@ public class LoginBox extends JFrame {
     public boolean userVerification() {
         try {
             if (_email.getText() != null) {
-                _user = App.conn.getDrq().getUserByEmail(_email.getText());
+                _user = this.conn.getDrq().getUserByEmail(_email.getText());
                 if (!accountExists(_user)) {
                     accountDoesNotExist();
                     return false;
                 } else {
                     if (passwordIsCorrect(_user.getPassword())) {
-                        App.init();
+                        //App.init();
+                        app = new App(true, this.conn);
                         dispose();
                         return true;
                     } else {
@@ -231,7 +241,7 @@ public class LoginBox extends JFrame {
                     }
                 }
             }
-        } catch (SQLException exc) {
+        } catch (SQLException | IOException exc) {
             exc.printStackTrace();
         }
         return false;
@@ -255,7 +265,7 @@ public class LoginBox extends JFrame {
      * account. If they choose to create a new account, a new AccountCreationDialog
      * box will open, otherwise they are returned to the Login screen.
      */
-    public void accountDoesNotExist() {
+    public void accountDoesNotExist() throws SQLException {
         Object[] options = {"Yes", "No"};
         int x = JOptionPane.showOptionDialog(null, "An account with that username could not be found." +
                         " Would you like to create one?", "Account Not Found", JOptionPane.YES_NO_OPTION,
@@ -286,7 +296,7 @@ public class LoginBox extends JFrame {
      * @param email Takes in the email that was entered so the login box can be
      *              populated with that again
      */
-    public void incorrectPassword(String email) {
+    public void incorrectPassword(String email) throws SQLException {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "The password you entered was incorrect.",
                 "Incorrect Password", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
@@ -324,8 +334,30 @@ public class LoginBox extends JFrame {
      *
      * @return the JTextField for password
      */
-
     public JTextField getPassword() {
         return _pass;
+    }
+
+    private void showSplash() {
+        splash = new JFrame();
+        ImageIcon spl;
+        spl = new ImageIcon(App.class.getResource("/ui/splash.png")); //name is included on the logo
+        JLabel l = new JLabel();
+        l.setSize(400, 300);
+        l.setIcon(spl);
+        splash.getContentPane().add(l);
+        splash.setSize(400, 300);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        splash.setLocation(
+                (screenSize.width - 400) / 2,
+                (screenSize.height - 300) / 2);
+        splash.setUndecorated(true);
+        splash.setVisible(true);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        splash.dispose();
     }
 }

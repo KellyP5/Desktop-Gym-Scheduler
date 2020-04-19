@@ -22,6 +22,7 @@ import java.sql.SQLException;
 
 public class UserManagementEditUser extends JDialog {
 
+    UserManagement topLevelReference;
     private JPanel _mainPanel;
     private JLabel _firstNameLabel;
     private JTextField _firstNameBox;
@@ -51,8 +52,10 @@ public class UserManagementEditUser extends JDialog {
      *
      * @param _user The currently selected user to edit from the User Management page
      */
-    public UserManagementEditUser(UserEntity _user){
+    public UserManagementEditUser(UserManagement ref, UserEntity _user){
+
         super(new JFrame());
+        this.topLevelReference = ref;
 
         _selectedUser = _user;
 
@@ -180,6 +183,7 @@ public class UserManagementEditUser extends JDialog {
 
         _updateButton = new JButton("Update");
         _updateButton.setBounds(130, 300, 100, 30);
+
         _updateButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -191,13 +195,7 @@ public class UserManagementEditUser extends JDialog {
                 // Email wasn't changed - Update user info in database
                 if (_emailBox.getText().equals(_selectedUser.getEmail())) {
                     try {
-                        App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
-                                _selectedUser.getPassword(), role, belt);
-                        boolean change = confirmChanges();
-                        // Alert user that the update was successful
-                        if (change) {
-                            updateSuccessful();
-                        }
+                        updateUser(role, belt);
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
@@ -210,13 +208,7 @@ public class UserManagementEditUser extends JDialog {
                             emailAlreadyExists();
                         } else {
                             // Email not in database, update user info
-                            App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
-                                    _selectedUser.getPassword(), role, belt);
-                            boolean change = confirmChanges();
-                            // Alert the user that the update was successful
-                            if (change) {
-                                updateSuccessful();
-                            }
+                            updateUser(role, belt);
                         }
                     } catch (SQLException ex) {
                         ex.printStackTrace();
@@ -268,6 +260,7 @@ public class UserManagementEditUser extends JDialog {
         } else {
             role = new RoleEntity(RoleEntity.UserRole.admin);
         }
+
         return role;
     }
 
@@ -319,6 +312,17 @@ public class UserManagementEditUser extends JDialog {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "The email you entered is already in use",
                 "Email In Use", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+    }
+
+    public void updateUser(RoleEntity role, BeltEntity belt) throws SQLException {
+        App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
+                _selectedUser.getPassword(), role, belt);
+        this.topLevelReference.addUserToTable(_emailBox.getText(), _beltString, _roleString);
+        boolean change = confirmChanges();
+        // Alert user that the update was successful
+        if (change) {
+            updateSuccessful();
+        }
     }
 
     /**

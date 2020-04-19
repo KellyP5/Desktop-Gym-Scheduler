@@ -14,6 +14,7 @@ import main.java.memoranda.ui.EventsTable;
 import main.java.memoranda.ui.ExceptionDialog;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
@@ -27,6 +28,7 @@ public class UserManagement extends JPanel {
     private String currentlySelectedEmail;      //these variables are updated when a row is selected on the JTable
     private String currentlySelectedUserRank;   //these variables are updated when a row is selected on the JTable
     private String currentlySelectedRole;       //these variables are updated when a row is selected on the JTable
+    private int selectedRow;
 
     private ArrayList<UserEntity> userEntities;
 
@@ -48,6 +50,7 @@ public class UserManagement extends JPanel {
     public UserManagement() {
         try {
             init();
+
         } catch(SQLException cep){
             cep.printStackTrace();
         } catch (Exception ex) {
@@ -81,7 +84,7 @@ public class UserManagement extends JPanel {
         editUser = new JButton("Edit User");
         deleteUser  = new JButton("Delete User");
 
-        Dimension dem = new Dimension(100,100);
+        Dimension dem = new Dimension(120,100);
         addUserButton.setPreferredSize(dem);
         editUser.setPreferredSize(dem);
         deleteUser.setPreferredSize(dem);
@@ -127,11 +130,18 @@ public class UserManagement extends JPanel {
         //Forces selection to be just 1 row at a time
         userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+
         //Set up event listener for selecting a row
         userList.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
-            this.currentlySelectedEmail = (String) userList.getModel().getValueAt(userList.getSelectedRow(),0);
-            this.currentlySelectedUserRank = (String) userList.getModel().getValueAt(userList.getSelectedRow(),1);
-            this.currentlySelectedRole = (String) userList.getModel().getValueAt(userList.getSelectedRow(),2);
+            if (userList.getSelectedRow() >= 0) {
+                this.selectedRow = userList.getSelectedRow();
+                this.currentlySelectedEmail = (String) userList.getModel().getValueAt(userList.getSelectedRow(), 0);
+                this.currentlySelectedUserRank = (String) userList.getModel().getValueAt(userList.getSelectedRow(), 1);
+                this.currentlySelectedRole = (String) userList.getModel().getValueAt(userList.getSelectedRow(), 2);
+            } else {
+                return;
+            }
+
             try {
                 _selectedUser = App.conn.getDrq().getUserByEmail(currentlySelectedEmail);
             } catch (SQLException e) {
@@ -158,7 +168,8 @@ public class UserManagement extends JPanel {
 
         this.editUser.addActionListener(actionEvent -> {
             if (this.currentlySelectedEmail != null) {
-                new UserManagementEditUser(_selectedUser);
+                new UserManagementEditUser(this, _selectedUser);
+                removeUserFromTable();
             } else {
                 userNotSelected();
             }
@@ -166,12 +177,11 @@ public class UserManagement extends JPanel {
 
         this.deleteUser.addActionListener(actionEvent -> {
             if (this.currentlySelectedEmail == null) {
-                System.out.println("ERROR: No user was selected!");
+                userNotSelected();
             } else {
-                new UserManagementRemoveUser(deleteUser, currentlySelectedEmail, currentlySelectedRole);
+                new UserManagementRemoveUser(this, deleteUser, currentlySelectedEmail, currentlySelectedRole);
             }
         });
-
     }
 
     /**
@@ -179,7 +189,7 @@ public class UserManagement extends JPanel {
      */
     public void userNotSelected() {
         Object[] option = {"OK"};
-        int x = JOptionPane.showOptionDialog(null, "Please select a user to edit",
+        int x = JOptionPane.showOptionDialog(null, "Please select a user first",
                 "Select User", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
     }
 
@@ -193,5 +203,10 @@ public class UserManagement extends JPanel {
     public void addUserToTable(String pEmail, String pRank, String pRole){
         DefaultTableModel model = (DefaultTableModel) this.userList.getModel();
         model.addRow(new Object[]{pEmail,pRank,pRole});
+    }
+
+    public void removeUserFromTable() {
+        DefaultTableModel model = (DefaultTableModel) this.userList.getModel();
+        model.removeRow(selectedRow);
     }
 }

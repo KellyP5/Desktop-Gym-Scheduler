@@ -40,19 +40,9 @@ public class DailyItemsPanel extends JPanel {
     JPanel editorsPanel = new JPanel();
 
     
-    TaskPanel tasksPanel = new TaskPanel(this);
-
-    /**
-     * The Events panel.
-     */
-    ClassesPanel classesPanel = new ClassesPanel(this);
-    /**
-     * The Agenda panel.
-     */
-    AgendaPanel agendaPanel = new AgendaPanel(this);
-    /**
-     * The Exp icon.
-     */
+    TaskPanel tasksPanel = null;
+    ClassesPanel classesPanel = null;
+    AgendaPanel agendaPanel = null;
 
     ImageIcon expIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_right.png"));
     ImageIcon collIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/exp_left.png"));
@@ -60,7 +50,7 @@ public class DailyItemsPanel extends JPanel {
 
     boolean expanded = true;
 
-    CalendarDate currentDate;
+    public CalendarDate currentDate;
 
     boolean calendarIgnoreChange = false;
     boolean dateChangedByCalendar = false;
@@ -112,7 +102,13 @@ public class DailyItemsPanel extends JPanel {
      */
     public DailyItemsPanel(WorkPanel _parentPanel) {
         try {
+
             parentPanel = _parentPanel;
+            currentDate = CurrentDate.get();
+            tasksPanel = new TaskPanel(this);
+            classesPanel = new ClassesPanel(this);
+            agendaPanel = new AgendaPanel(this);
+
             jbInit();
         }
         catch (Exception ex) {
@@ -259,7 +255,7 @@ public class DailyItemsPanel extends JPanel {
             }
         });
 
-        currentDate = CurrentDate.get();
+
         currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
         CurrentNote.set(currentNote,true);
         editorPanel.setDocument(currentNote);

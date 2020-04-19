@@ -23,19 +23,23 @@ public class ClassesPanel extends JPanel {
     JButton cancelEnrollmentBut = new JButton("Cancel My Enrollment");
     JButton removeClassBut = new JButton("Remove Class");
 
-    JScrollPane room1ScrollPane = new JScrollPane();
-    JScrollPane room2ScrollPane = new JScrollPane();
-    JScrollPane room3ScrollPane = new JScrollPane();
-    JScrollPane room4ScrollPane = new JScrollPane();
-    ClassTable room1 = new ClassTable(1);
-    ClassTable room2 = new ClassTable(2);
-    ClassTable room3 = new ClassTable(3);
-    ClassTable room4 = new ClassTable(4);
+    JPanel classesPanel;//contains all the scroll panes
+
+    JScrollPane room1ScrollPane;//these scroll panes contain the roooms
+    JScrollPane room2ScrollPane;
+    JScrollPane room3ScrollPane;
+    JScrollPane room4ScrollPane;
+
+    ClassTable room1;
+    ClassTable room2;
+    ClassTable room3;
+    ClassTable room4;
 
 
     public ClassesPanel(DailyItemsPanel _parentPanel) {
         try {
             parentPanelReference = _parentPanel;
+
             jbInit();
         } catch (Exception ex) {
             new ExceptionDialog(ex);
@@ -195,44 +199,24 @@ public class ClassesPanel extends JPanel {
 
     void initRooms(){
 
-        int horizontalPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_NEVER;
-        int verticalPolicy = JScrollPane.VERTICAL_SCROLLBAR_ALWAYS;
+        room1 = new ClassTable(this.parentPanelReference,1);
+        room2 = new ClassTable(this.parentPanelReference,2);
+        room3 = new ClassTable(this.parentPanelReference,3);
+        room4 = new ClassTable(this.parentPanelReference,4);
 
-        room1ScrollPane.getViewport().setBackground(Color.white);
-        room1ScrollPane.getHorizontalScrollBar().setValue(horizontalPolicy);
-        room1ScrollPane.getVerticalScrollBar().setValue(verticalPolicy);
-        room1.setMaximumSize(new Dimension(200, 800));
-        room1.setRowHeight(24);
-        room1.setPreferredScrollableViewportSize(new Dimension(300, 600));
+        this.room1ScrollPane = new JScrollPane(room1.classTable);
+        this.room2ScrollPane = new JScrollPane(room2.classTable);
+        this.room3ScrollPane = new JScrollPane(room3.classTable);
+        this.room4ScrollPane = new JScrollPane(room4.classTable);
 
-        room2ScrollPane.getViewport().setBackground(Color.gray);
-        room2ScrollPane.getHorizontalScrollBar().setValue(horizontalPolicy);
-        room2ScrollPane.getVerticalScrollBar().setValue(verticalPolicy);
-        room2.setMaximumSize(new Dimension(200, 800));
-        room2.setRowHeight(24);
-        room2.setPreferredScrollableViewportSize(new Dimension(300, 600));
+        this.classesPanel = new JPanel(new FlowLayout());
+        this.classesPanel.add(this.room1ScrollPane);
+        this.classesPanel.add(this.room2ScrollPane);
+        this.classesPanel.add(this.room3ScrollPane);
+        this.classesPanel.add(this.room4ScrollPane);
 
-        room3ScrollPane.getViewport().setBackground(Color.lightGray);
-        room3ScrollPane.getHorizontalScrollBar().setValue(horizontalPolicy);
-        room3ScrollPane.getVerticalScrollBar().setValue(verticalPolicy);
-        room3.setMaximumSize(new Dimension(200, 800));
-        room3.setRowHeight(24);
-        room3.setPreferredScrollableViewportSize(new Dimension(300, 600));
+        this.add(classesPanel, BorderLayout.CENTER);
 
-        room4ScrollPane.getViewport().setBackground(Color.darkGray);
-        room4ScrollPane.getHorizontalScrollBar().setValue(horizontalPolicy);
-        room4ScrollPane.getVerticalScrollBar().setValue(verticalPolicy);
-        room4.setMaximumSize(new Dimension(200, 800));
-        room4.setRowHeight(24);
-        room4.setPreferredScrollableViewportSize(new Dimension(300, 600));
-
-        JPanel roomPanel = new JPanel(new FlowLayout());
-        roomPanel.add(room1ScrollPane);
-        roomPanel.add(room2ScrollPane);
-        roomPanel.add(room3ScrollPane);
-        roomPanel.add(room4ScrollPane);
-
-        this.add(roomPanel, BorderLayout.CENTER);
 
     }
 

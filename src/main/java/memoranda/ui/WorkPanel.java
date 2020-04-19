@@ -69,6 +69,7 @@ public class WorkPanel extends JPanel {
      */
     Border border1;
 
+
     /**
      * Instantiates a new Work panel.
      */

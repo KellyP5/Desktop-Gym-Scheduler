@@ -70,13 +70,13 @@ public class LoginBox extends JFrame {
         _getStarted.setBounds(95, 210, 200, 50);
         _getStarted.setFont(new Font("Bell MT", Font.PLAIN, 12));
 
-        //_email.setText("Email");
-        _email.setText("admin@gym.com"); // TEMPORARY - Will change before submitting
+        _email.setText("Email");
+        //_email.setText("admin@gym.com"); // TEMPORARY - Will change before submitting
         _email.setForeground(Color.LIGHT_GRAY);
         _pass.setForeground(Color.LIGHT_GRAY);
         _pass.setEchoChar((char)0); // Show characters at first
-        //_pass.setText("Password"); // Grayed out in box
-        _pass.setText("1234"); // TEMPORARY - Will change before submitting
+        _pass.setText("Password"); // Grayed out in box
+        //_pass.setText("1234"); // TEMPORARY - Will change before submitting
 
         _login.setLayout(null);
 
@@ -126,7 +126,6 @@ public class LoginBox extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    //App.init(); // TEMPORARY - Change before submitting deliverable2
                     boolean verified = userVerification();
                 }
             }

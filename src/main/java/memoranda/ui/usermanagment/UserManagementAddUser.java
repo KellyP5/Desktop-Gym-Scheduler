@@ -15,6 +15,8 @@ import java.util.Arrays;
 
 public class UserManagementAddUser extends JFrame {
 
+    UserManagement topLevelReference;
+
     JPanel accountCreate;
     ImageIcon globoLogo;
     JLabel logo;
@@ -38,8 +40,28 @@ public class UserManagementAddUser extends JFrame {
     JComboBox levelsCB;
     JLabel lblLevels;
 
-    public UserManagementAddUser(Component rel) {
+    /** Main constructor
+     *
+     * @param ref This parent reference is passed in so we can call refresh on it once the  UI is updated.
+     * @param rel Used to set the position of the add user popup.
+     */
+    public UserManagementAddUser(UserManagement ref, Component rel) {
+        this.topLevelReference = ref;//we store this to use in our action listener.
 
+        initGuiComponents();
+
+        initActionEvents();
+
+        getContentPane().add(accountCreate);
+        setVisible(true);
+        setLocationRelativeTo(null);
+
+    }
+
+    /**
+     * Initializes GUI components in one call.
+     */
+    public void initGuiComponents(){
         accountCreate = new JPanel();
         globoLogo = new ImageIcon("src/main/resources/ui/globo.jpg");
         logo = new JLabel();
@@ -143,10 +165,12 @@ public class UserManagementAddUser extends JFrame {
         accountCreate.add(lblBelt);
         accountCreate.setBackground(new java.awt.Color(230, 230, 230));
 
-        getContentPane().add(accountCreate);
-        setVisible(true);
-        setLocationRelativeTo(null);
+    }
 
+    /**
+     * Initializes our action events in one call.
+     */
+    public void initActionEvents(){
 
         /**
          * Manages first name entry box.
@@ -233,15 +257,18 @@ public class UserManagementAddUser extends JFrame {
             }
         });
 
-
         /**
          * Manages create button entry box
          */
+
+
         createButton.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
                     createAccount();
+
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }
@@ -340,6 +367,7 @@ public class UserManagementAddUser extends JFrame {
                 // Add new user to database
                 App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
                 dispose();
+                this.topLevelReference.addUserToTable(email.getText(),rank,role.toString());
                 showCreatedSuccessfullyPopup();
             } catch (SQLException ex) {
                 throwInputError("An account already exists with that email.");
@@ -347,7 +375,9 @@ public class UserManagementAddUser extends JFrame {
         } else {
             throwInputError("Select the type of account to create");
         }
+
     }
+
     /**
      * Popup window that tells the user the account was created successfully
      */

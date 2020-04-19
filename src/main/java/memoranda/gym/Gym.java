@@ -4,6 +4,7 @@ import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.util.DbReadQueries;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -110,9 +111,14 @@ public class Gym {
         return false;
     }
 
-    public static ArrayList<GymClassEntity> getClassesByEmailAndDate(String email, LocalDate selectedCalendarDate){
-        //todo
-        return null;
+    public static ArrayList<GymClassEntity> getEnrolledClassesByEmailAndDate(String email, LocalDate selectedCalendarDate){
+        DbReadQueries dbrq = new DbReadQueries();
+        try {
+            return dbrq.getEnrolledClassByEmailAndDate(email, selectedCalendarDate);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 

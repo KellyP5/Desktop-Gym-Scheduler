@@ -67,12 +67,14 @@ public class ClassTable {
 
         ArrayList<ArrayList<String>> al = new ArrayList<ArrayList<String>>();
         for(int i = 0;i< this.classes.size();i++){
-            ArrayList<String> e = new ArrayList<>();
-            e.add(this.classes.get(i).getStartDateTime().toString());//time
-            e.add(this.classes.get(i).getTrainerEmail());//trainer
-            e.add(this.classes.get(i).getMinBeltEntityRequired().toString());//MinBelt
-            e.add(Integer.toString(this.classes.get(i).getMaxClassSize()));//MaxSize
-            al.add(e);
+            if(this.classes.get(i).getRoomNumber()==this.room) {
+                ArrayList<String> e = new ArrayList<>();
+                e.add(this.classes.get(i).getStartDateTime().toString());//time
+                e.add(this.classes.get(i).getTrainerEmail());//trainer
+                e.add(this.classes.get(i).getMinBeltEntityRequired().toString());//MinBelt
+                e.add(Integer.toString(this.classes.get(i).getMaxClassSize()));//MaxSize
+                al.add(e);
+            }
         }
 
         String[][] data = new String[al.size()][];
@@ -115,7 +117,6 @@ public class ClassTable {
         }catch(SQLException ecp){
 
             ecp.printStackTrace();
-
         }
 
         //remove all rows

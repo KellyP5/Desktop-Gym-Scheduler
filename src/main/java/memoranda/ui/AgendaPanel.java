@@ -282,7 +282,8 @@ public class AgendaPanel extends JPanel {
 		try {
 			// below is TEMPORARY this will need to be changed to the current
 			// trainer that is logged in which has not been implemented.
-			temp = _getClassDataForTrainer("admin@gym.com", convertedDate);
+			UserEntity user = LoginBox.getUser();
+			temp = _getClassDataForTrainer(user.getEmail(), convertedDate);
 			if (temp != null && !temp.isEmpty()) {
 				d = temp;
 			}
@@ -354,7 +355,8 @@ public class AgendaPanel extends JPanel {
 		Font labelFont = instructorBelt.getFont(); //creats Font to change font size
 		instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
 		//TEMPORARY: will need to be changed to get the user that is currently logged in email
-		String beltText = getTrainerBelt("admin@gym.com");
+		UserEntity user = LoginBox.getUser();
+		String beltText = user.getTrainingBelt().toString();
 		instructorBelt.setText("Trainer Belt: " + beltText.substring(0,1).toUpperCase() + beltText.substring(1));
 		//add right padding to belt display
 		instructorBelt.setBorder(BorderFactory.createEmptyBorder(0,0,0,25));

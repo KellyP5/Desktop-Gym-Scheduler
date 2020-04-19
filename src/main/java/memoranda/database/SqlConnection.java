@@ -35,8 +35,8 @@ public class SqlConnection {
     private static SqlConnection _instance = null;
 
     private SqlConnection() throws SQLException {
-        Connection realDbConn = DriverManager.getConnection(SqlConstants.DEFAULTDBLOC);
-        Connection testDbConn = DriverManager.getConnection(SqlConstants.DEFAULTTESTDBLOC);
+        Connection realDbConn = EnforcedConnection.getEnforcedCon(SqlConstants.DEFAULTDBLOC);
+        Connection testDbConn = EnforcedConnection.getEnforcedCon(SqlConstants.DEFAULTTESTDBLOC);
 
 
         drq = new DbReadQueries(SqlConstants.DEFAULTDBLOC);

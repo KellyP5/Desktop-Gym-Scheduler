@@ -2,6 +2,7 @@ package main.java.memoranda.ui;
 
 import main.java.memoranda.History;
 import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -154,7 +155,7 @@ public class AgendaPanel extends JPanel {
 	 */
 	private ArrayList<ArrayList<String>> _getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
 		//TEMPORARY will need to be changed to the actual once the logged user can be checked
-		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrqTest().
+		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrq().
 				getAllClassesTrainerIsTeachingByEmail(email);
 
 		if (!gymClassEntities.isEmpty()) {
@@ -196,10 +197,12 @@ public class AgendaPanel extends JPanel {
 	 */
 	public String getTrainerBelt(String email) throws SQLException {
 		//TEMPORARY will need to be changed to the real DB once logged users can be checked.
-		String belt = App.conn.getDrqTest().getUserByEmail(email).getBelt().rank.toString();
-
+		UserEntity user = App.conn.getDrq().getUserByEmail(email);
+		if (user == null){
+			throw new SQLException("User " + email + " does not exist in the database!");
+		}
+		String belt = App.conn.getDrq().getUserByEmail(email).getBelt().rank.toString();
 		return belt;
-
 
 	}
 
@@ -279,8 +282,8 @@ public class AgendaPanel extends JPanel {
 		try {
 			// below is TEMPORARY this will need to be changed to the current
 			// trainer that is logged in which has not been implemented.
-			temp = _getClassDataForTrainer("jackj@gmail.com", convertedDate);
-			if (!temp.isEmpty()) {
+			temp = _getClassDataForTrainer("admin@gym.com", convertedDate);
+			if (temp != null && !temp.isEmpty()) {
 				d = temp;
 			}
 		} catch (SQLException e) {
@@ -351,7 +354,7 @@ public class AgendaPanel extends JPanel {
 		Font labelFont = instructorBelt.getFont(); //creats Font to change font size
 		instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
 		//TEMPORARY: will need to be changed to get the user that is currently logged in email
-		String beltText = getTrainerBelt("jackj@gmail.com");
+		String beltText = getTrainerBelt("admin@gym.com");
 		instructorBelt.setText("Trainer Belt: " + beltText.substring(0,1).toUpperCase() + beltText.substring(1));
 		//add right padding to belt display
 		instructorBelt.setBorder(BorderFactory.createEmptyBorder(0,0,0,25));

@@ -6,9 +6,11 @@ import main.java.memoranda.database.util.DbReadQueries;
 import main.java.memoranda.database.util.DbUpdateQueries;
 import main.java.memoranda.database.util.SqlConstants;
 import org.junit.*;
+import org.sqlite.SQLiteException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -254,5 +256,21 @@ public class databaseTest {
         UserEntity newUser1 = drq.getUserByEmail("Trainer@gmail.com");
 
         assertTrue(newUser1.getLastName().equals("Last"));
+    }
+
+    @Test(expected = SQLException.class)
+    public void addGymClassReferringToNonExistantTrainerFails() throws SQLException {
+        BeltEntity minReqBeltIsGreen = new BeltEntity(BeltEntity.Rank.green);
+        //now we attempt to add a class that references a trainer and admin that do not exist, which should throw
+        //an exception
+        dcq.insertClass(1,
+                1,
+                "04/18/2020",
+                11.32,
+                12.59,
+                "sdflksjdfl@yahoo.com",
+                20,
+                minReqBeltIsGreen,
+                "1234234234@gmail.com");
     }
 }

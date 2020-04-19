@@ -167,8 +167,8 @@ public class DbSetupHelper {
 
         ArrayList<GymClassEntity> gymClassesForKevin =
                 drq.getClassesUserEnrolledInByEmail("kevin@gmail.com");
-        System.out.println(gymClassesForKevin.get(0).getStartDateTime());
-        System.out.println(gymClassesForKevin.get(1).getStartDateTime());
+        System.out.println("Debug: _testAndPrintDataFromDb " + gymClassesForKevin.get(0).getStartDateTime());
+        System.out.println("Debug: _testAndPrintDataFromDb " + gymClassesForKevin.get(1).getStartDateTime());
         ArrayList<TrainerAvailabilityEntity> sarahsAvailabilities =
                 drq.getTrainerDateTimeAvailabilityByEmail("sarah@gmail.com");
         System.out.println("size of trainer sarah Availabilities is "

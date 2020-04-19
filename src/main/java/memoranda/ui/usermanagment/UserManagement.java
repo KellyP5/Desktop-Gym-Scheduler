@@ -9,11 +9,12 @@ package main.java.memoranda.ui.usermanagment;
 
 import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.ui.App;
-import main.java.memoranda.ui.EventsPanel;
+//import main.java.memoranda.ui.EventsPanel;
 import main.java.memoranda.ui.EventsTable;
 import main.java.memoranda.ui.ExceptionDialog;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -68,7 +69,6 @@ public class UserManagement extends JPanel {
         initButtons();//initializes all the buttons
         initTable();
         setActions();//sets up our event listeners
-
     }
 
     /**
@@ -90,14 +90,13 @@ public class UserManagement extends JPanel {
         buttonPanel.add(this.deleteUser);
 
         this.add(buttonPanel,BorderLayout.NORTH);
-
-
     }
 
     /**
      * Initializes the table
      */
     private void initTable(){
+
 
         String[] columnNames = {"Email", "User Rank", "Role"};
 
@@ -122,7 +121,8 @@ public class UserManagement extends JPanel {
             data[i] = copy;
         }
 
-        userList = new JTable(data,columnNames);
+
+        userList = new JTable(new DefaultTableModel(data,columnNames));
 
         //Forces selection to be just 1 row at a time
         userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -145,7 +145,6 @@ public class UserManagement extends JPanel {
         userList.setBounds(0,0,200,300);
         scrollPane = new JScrollPane(this.userList);
         this.add(this.scrollPane, BorderLayout.CENTER);
-
     }
 
     /**
@@ -154,8 +153,7 @@ public class UserManagement extends JPanel {
     private void setActions(){
 
         this.addUserButton.addActionListener(actionEvent -> {
-            System.out.println("//TODO Add user button");
-            new UserManagementAddUser(addUserButton);
+            new UserManagementAddUser(this,addUserButton);
         });
 
         this.editUser.addActionListener(actionEvent -> {
@@ -167,8 +165,11 @@ public class UserManagement extends JPanel {
         });
 
         this.deleteUser.addActionListener(actionEvent -> {
-            System.out.println("//TODO Delete user button");
-            //TODO
+            if (this.currentlySelectedEmail == null) {
+                System.out.println("ERROR: No user was selected!");
+            } else {
+                new UserManagementRemoveUser(deleteUser, currentlySelectedEmail, currentlySelectedRole);
+            }
         });
 
     }
@@ -180,5 +181,17 @@ public class UserManagement extends JPanel {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "Please select a user to edit",
                 "Select User", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+    }
+
+    /**
+     * This method is called inside the UserManagementAddUser class, and adds a recently added user
+     * once it is inserted into the database.
+     * @param pEmail the email of the user
+     * @param pRank the rank of the user
+     * @param pRole the role of the user
+     */
+    public void addUserToTable(String pEmail, String pRank, String pRole){
+        DefaultTableModel model = (DefaultTableModel) this.userList.getModel();
+        model.addRow(new Object[]{pEmail,pRank,pRole});
     }
 }

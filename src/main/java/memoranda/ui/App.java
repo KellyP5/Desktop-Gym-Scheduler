@@ -165,6 +165,7 @@ public class App {
 		}
 		if (!Configuration.get("SHOW_SPLASH").equals("no"))
 			splash.dispose();
+
 	}
 
 

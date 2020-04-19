@@ -7,13 +7,18 @@
  */
 package main.java.memoranda;
 
+import java.sql.Array;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
+import main.java.memoranda.ui.App;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Util;
 
@@ -153,11 +158,25 @@ public class EventsManager {
 			for (int i = 0; i < els.size(); i++)
 				v.add(new EventImpl(els.get(i)));
 		}
-		Collection r = getRepeatableEventsForDate(date);
-		if (r.size() > 0)
-			v.addAll(r);
-		//EventsVectorSorter.sort(v);
 		Collections.sort(v);
+
+		//START: Code that will query the SQL DB and return an arraylist of GymClassEntities
+		//Kelly Petrone
+		LocalDate day = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
+		ArrayList<GymClassEntity> arrayList = new ArrayList<>();
+		try {
+			System.out.println("[DEBUG] Querying SQL DB from EventsManager.getEventsForDate()");
+			arrayList = App.conn.getDrq().getAllClassesByDate(day);
+			for (int i=0; i<arrayList.size(); i++) {
+				GymClassEntity g = arrayList.get(i);
+				g.printGymClass();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		Vector<GymClassEntity> vector = new Vector<>(arrayList);
+		//END: Also converts ArrayList to Vector (How Memoranda stores events)
+
 		return v;
 	}
 
@@ -185,121 +204,6 @@ public class EventsManager {
 			d = createDay(date);
 		d.getElement().appendChild(el);
 		return new EventImpl(el);
-	}
-
-    /**
-     * Create repeatable event event.
-     *
-     * @param type      the type
-     * @param startDate the start date
-     * @param endDate   the end date
-     * @param period    the period
-     * @param hh        the hh
-     * @param mm        the mm
-     * @param text      the text
-     * @param workDays  the work days
-     * @return the event
-     */
-    public static Event createRepeatableEvent(
-		int type,
-		CalendarDate startDate,
-		CalendarDate endDate,
-		int period,
-		int hh,
-		int mm,
-		String text,
-		boolean workDays) {
-		Element el = new Element("event");
-		Element rep = _root.getFirstChildElement("repeatable");
-		if (rep == null) {
-			rep = new Element("repeatable");
-			_root.appendChild(rep);
-		}
-		el.addAttribute(new Attribute("repeat-type", String.valueOf(type)));
-		el.addAttribute(new Attribute("id", Util.generateId()));
-		el.addAttribute(new Attribute("hour", String.valueOf(hh)));
-		el.addAttribute(new Attribute("min", String.valueOf(mm)));
-		el.addAttribute(new Attribute("startDate", startDate.toString()));
-		if (endDate != null)
-			el.addAttribute(new Attribute("endDate", endDate.toString()));
-		el.addAttribute(new Attribute("period", String.valueOf(period)));
-		// new attribute for wrkin days - ivanrise
-		el.addAttribute(new Attribute("workingDays",String.valueOf(workDays)));
-		el.appendChild(text);
-		rep.appendChild(el);
-		return new EventImpl(el);
-	}
-
-    /**
-     * Gets repeatable events.
-     *
-     * @return the repeatable events
-     */
-    public static Collection getRepeatableEvents() {
-		Vector v = new Vector();
-		Element rep = _root.getFirstChildElement("repeatable");
-		if (rep == null)
-			return v;
-		Elements els = rep.getChildElements("event");
-		for (int i = 0; i < els.size(); i++)
-			v.add(new EventImpl(els.get(i)));
-		return v;
-	}
-
-    /**
-     * Gets repeatable events for date.
-     *
-     * @param date the date
-     * @return the repeatable events for date
-     */
-    public static Collection getRepeatableEventsForDate(CalendarDate date) {
-		Vector reps = (Vector) getRepeatableEvents();
-		Vector v = new Vector();
-		for (int i = 0; i < reps.size(); i++) {
-			Event ev = (Event) reps.get(i);
-			
-			// --- ivanrise
-			// ignore this event if it's a 'only working days' event and today is weekend.
-			if(ev.getWorkingDays() && (date.getCalendar().get(Calendar.DAY_OF_WEEK) == 1 ||
-				date.getCalendar().get(Calendar.DAY_OF_WEEK) == 7)) continue;
-			// ---
-			/*
-			 * /if ( ((date.after(ev.getStartDate())) &&
-			 * (date.before(ev.getEndDate()))) ||
-			 * (date.equals(ev.getStartDate()))
-			 */
-			//System.out.println(date.inPeriod(ev.getStartDate(),
-			// ev.getEndDate()));
-			if (date.inPeriod(ev.getStartDate(), ev.getEndDate())) {
-				if (ev.getRepeat() == REPEAT_DAILY) {
-					int n = date.getCalendar().get(Calendar.DAY_OF_YEAR);
-					int ns =
-						ev.getStartDate().getCalendar().get(
-							Calendar.DAY_OF_YEAR);
-					//System.out.println((n - ns) % ev.getPeriod());
-					if ((n - ns) % ev.getPeriod() == 0)
-						v.add(ev);
-				} else if (ev.getRepeat() == REPEAT_WEEKLY) {
-					if (date.getCalendar().get(Calendar.DAY_OF_WEEK)
-						== ev.getPeriod())
-						v.add(ev);
-				} else if (ev.getRepeat() == REPEAT_MONTHLY) {
-					if (date.getCalendar().get(Calendar.DAY_OF_MONTH)
-						== ev.getPeriod())
-						v.add(ev);
-				} else if (ev.getRepeat() == REPEAT_YEARLY) {
-					int period = ev.getPeriod();
-					//System.out.println(date.getCalendar().get(Calendar.DAY_OF_YEAR));
-					if ((date.getYear() % 4) == 0
-						&& date.getCalendar().get(Calendar.DAY_OF_YEAR) > 60)
-						period++;
-
-					if (date.getCalendar().get(Calendar.DAY_OF_YEAR) == period)
-						v.add(ev);
-				}
-			}
-		}
-		return v;
 	}
 
     /**
@@ -605,54 +509,4 @@ public class EventsManager {
 			return dEl;
 		}
 	}
-/*
-	static class EventsVectorSorter {
-
-		private static Vector keys = null;
-
-		private static int toMinutes(Object obj) {
-			Event ev = (Event) obj;
-			return ev.getHour() * 60 + ev.getMinute();
-		}
-
-		private static void doSort(int L, int R) { // Hoar's QuickSort
-			int i = L;
-			int j = R;
-			int x = toMinutes(keys.get((L + R) / 2));
-			Object w = null;
-			do {
-				while (toMinutes(keys.get(i)) < x) {
-					i++;
-				}
-				while (x < toMinutes(keys.get(j))) {
-					j--;
-				}
-				if (i <= j) {
-					w = keys.get(i);
-					keys.set(i, keys.get(j));
-					keys.set(j, w);
-					i++;
-					j--;
-				}
-			}
-			while (i <= j);
-			if (L < j) {
-				doSort(L, j);
-			}
-			if (i < R) {
-				doSort(i, R);
-			}
-		}
-
-		public static void sort(Vector theKeys) {
-			if (theKeys == null)
-				return;
-			if (theKeys.size() <= 0)
-				return;
-			keys = theKeys;
-			doSort(0, keys.size() - 1);
-		}
-
-	}
-*/
 }

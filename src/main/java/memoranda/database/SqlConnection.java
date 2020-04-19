@@ -5,6 +5,7 @@ import main.java.memoranda.database.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /*
 SqlConnection is a singleton pattern that ensures only one connection is made to each database (real and test)

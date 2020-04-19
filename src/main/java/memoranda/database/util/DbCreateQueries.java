@@ -1,9 +1,11 @@
 package main.java.memoranda.database.util;
 
 import main.java.memoranda.database.BeltEntity;
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.database.RoleEntity;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /*
 helpful utility class for various create (insert) queries
@@ -201,4 +203,6 @@ public class DbCreateQueries {
         pstmt.close();
         conn.close();
     }
+
+
 }

@@ -8,37 +8,29 @@
  */
 package main.java.memoranda.ui;
 
-import java.awt.Component;
-import java.awt.Font;
+import main.java.memoranda.Event;
+import main.java.memoranda.EventsManager;
+import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.date.CalendarDate;
+import main.java.memoranda.date.CurrentDate;
+import main.java.memoranda.date.DateListener;
+import main.java.memoranda.util.Local;
+
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
-import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.RoleEntity;
-import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.UserEntity;
-import main.java.memoranda.database.util.DbCreateQueries;
-import java.time.LocalDateTime;
-
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-
-import main.java.memoranda.Event;
-import main.java.memoranda.EventsManager;
-import main.java.memoranda.date.CalendarDate;
-import main.java.memoranda.date.CurrentDate;
-import main.java.memoranda.date.DateListener;
-import main.java.memoranda.util.Local;
-
 /**
  * The type Events table.
  */
 /*$Id: EventsTable.java,v 1.6 2004/10/11 08:48:20 alexeya Exp $*/
-public class EventsTable extends JTable {
+public class ClassTable extends JTable {
 
     public static final int EVENT = 100;
     public static final int EVENT_ID = 101;
@@ -53,7 +45,7 @@ public class EventsTable extends JTable {
     /**
      * Constructor for EventsTable.
      */
-    public EventsTable()  {
+    public ClassTable()  {
         super();
         setModel(new EventsTableModel());
         initTable(CurrentDate.get());
@@ -70,7 +62,7 @@ public class EventsTable extends JTable {
      * Constructor to tell the event panel which room to worry about
      * @param room what room number
      */
-    public EventsTable(int room)  {
+    public ClassTable(int room)  {
         super();
         this.room = room;
         setModel(new EventsTableModel());

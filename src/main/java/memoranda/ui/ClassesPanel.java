@@ -1,26 +1,5 @@
 package main.java.memoranda.ui;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
 import main.java.memoranda.EventsManager;
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.History;
@@ -31,6 +10,15 @@ import main.java.memoranda.util.Configuration;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.Util;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -97,10 +85,10 @@ public class ClassesPanel<newButtonFont> extends JPanel {
     /**
      * The Events table.
      */
-    EventsTable Room1 = new EventsTable(1);
-    EventsTable Room2 = new EventsTable(2);
-    EventsTable Room3 = new EventsTable(3);
-    EventsTable Room4 = new EventsTable(4);
+    ClassTable Room1 = new ClassTable(1);
+    ClassTable Room2 = new ClassTable(2);
+    ClassTable Room3 = new ClassTable(3);
+    ClassTable Room4 = new ClassTable(4);
     /**
      * The Event pp menu.
      */
@@ -496,7 +484,7 @@ public class ClassesPanel<newButtonFont> extends JPanel {
         main.java.memoranda.Event ev =
                 (main.java.memoranda.Event) Room1.getModel().getValueAt(
                         Room1.getSelectedRow(),
-                        EventsTable.EVENT);
+                        ClassTable.EVENT);
 
         dlg.timeSpin.getModel().setValue(ev.getTime());
         /*if (new CalendarDate(ev.getTime()).equals(CalendarDate.today())) 
@@ -762,7 +750,7 @@ public class ClassesPanel<newButtonFont> extends JPanel {
             else {
                 ev = (main.java.memoranda.Event) Room1.getModel().getValueAt(
                         Room1.getSelectedRow(),
-                        EventsTable.EVENT);
+                        ClassTable.EVENT);
                 msg = Local.getString("Cancel enrolment") + "\n"
                         + ev.getText() + "\n" + Local.getString("Are you sure you want to"
                         + " to cancel your enrolment to this class?");
@@ -778,7 +766,7 @@ public class ClassesPanel<newButtonFont> extends JPanel {
 
             for (int i = 0; i < Room1.getSelectedRows().length; i++) {
                 ev = (main.java.memoranda.Event) Room1.getModel().getValueAt(
-                        Room1.getSelectedRows()[i], EventsTable.EVENT);
+                        Room1.getSelectedRows()[i], ClassTable.EVENT);
                 EventsManager.removeEvent(ev);
             }
             Room1.getSelectionModel().clearSelection();
@@ -801,7 +789,7 @@ public class ClassesPanel<newButtonFont> extends JPanel {
         else {
             ev = (main.java.memoranda.Event) Room1.getModel().getValueAt(
                     Room1.getSelectedRow(),
-                    EventsTable.EVENT);
+                    ClassTable.EVENT);
             msg = Local.getString("Class Enrolment") + "\n"
                     + ev.getText() + "\n" + Local.getString("Are you sure you want to enroll to this class?");
         }
@@ -816,7 +804,7 @@ public class ClassesPanel<newButtonFont> extends JPanel {
 
             for(int i = 0; i< Room1.getSelectedRows().length; i++) {
                 ev = (main.java.memoranda.Event) Room1.getModel().getValueAt(
-                        Room1.getSelectedRows()[i], EventsTable.EVENT);
+                        Room1.getSelectedRows()[i], ClassTable.EVENT);
                 EventsManager.removeEvent(ev);
             }
      // eventsTable.getSelectionModel().clearSelection();
@@ -842,7 +830,7 @@ public class ClassesPanel<newButtonFont> extends JPanel {
 		else {
 			ev = (main.java.memoranda.Event) Room1.getModel().getValueAt(
                 Room1.getSelectedRow(),
-                EventsTable.EVENT);
+                ClassTable.EVENT);
 			msg = Local.getString("Delete Class") + "\n"
 				+ ev.getText() + "\n" + Local.getString("Are you sure you want to delete this class?");
 		}
@@ -857,7 +845,7 @@ public class ClassesPanel<newButtonFont> extends JPanel {
 
         for(int i = 0; i< Room1.getSelectedRows().length; i++) {
 			ev = (main.java.memoranda.Event) Room1.getModel().getValueAt(
-                  Room1.getSelectedRows()[i], EventsTable.EVENT);
+                  Room1.getSelectedRows()[i], ClassTable.EVENT);
         EventsManager.removeEvent(ev);
 		}
         Room1.getSelectionModel().clearSelection();

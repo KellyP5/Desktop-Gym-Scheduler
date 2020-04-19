@@ -1,10 +1,20 @@
+/**
+ * The display/functionality for the User Management page of GloboGym.
+ * It displays a list of all users in the database, and allows adding, deleting, and editing
+ * users.
+ *
+ * @author Kevin Wilkinson, Kelly Ellis
+ */
 package main.java.memoranda.ui.usermanagment;
 
 import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.ui.App;
+//import main.java.memoranda.ui.EventsPanel;
+import main.java.memoranda.ui.EventsTable;
 import main.java.memoranda.ui.ExceptionDialog;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
@@ -18,6 +28,7 @@ public class UserManagement extends JPanel {
     private String currentlySelectedEmail;      //these variables are updated when a row is selected on the JTable
     private String currentlySelectedUserRank;   //these variables are updated when a row is selected on the JTable
     private String currentlySelectedRole;       //these variables are updated when a row is selected on the JTable
+    private int selectedRow;
 
     private ArrayList<UserEntity> userEntities;
 
@@ -31,12 +42,15 @@ public class UserManagement extends JPanel {
 
     private JTable userList;
 
+    private UserEntity _selectedUser;
+
     /**
      * Constructor for our UserManagement class
      */
     public UserManagement() {
         try {
             init();
+
         } catch(SQLException cep){
             cep.printStackTrace();
         } catch (Exception ex) {
@@ -58,7 +72,6 @@ public class UserManagement extends JPanel {
         initButtons();//initializes all the buttons
         initTable();
         setActions();//sets up our event listeners
-
     }
 
     /**
@@ -71,7 +84,7 @@ public class UserManagement extends JPanel {
         editUser = new JButton("Edit User");
         deleteUser  = new JButton("Delete User");
 
-        Dimension dem = new Dimension(100,100);
+        Dimension dem = new Dimension(120,100);
         addUserButton.setPreferredSize(dem);
         editUser.setPreferredSize(dem);
         deleteUser.setPreferredSize(dem);
@@ -80,8 +93,6 @@ public class UserManagement extends JPanel {
         buttonPanel.add(this.deleteUser);
 
         this.add(buttonPanel,BorderLayout.NORTH);
-
-
     }
 
     /**
@@ -119,11 +130,23 @@ public class UserManagement extends JPanel {
         //Forces selection to be just 1 row at a time
         userList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+
         //Set up event listener for selecting a row
         userList.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
-            this.currentlySelectedEmail = (String) userList.getModel().getValueAt(userList.getSelectedRow(),0);
-            this.currentlySelectedUserRank = (String) userList.getModel().getValueAt(userList.getSelectedRow(),1);
-            this.currentlySelectedRole = (String) userList.getModel().getValueAt(userList.getSelectedRow(),2);
+            if (userList.getSelectedRow() >= 0) {
+                this.selectedRow = userList.getSelectedRow();
+                this.currentlySelectedEmail = (String) userList.getModel().getValueAt(userList.getSelectedRow(), 0);
+                this.currentlySelectedUserRank = (String) userList.getModel().getValueAt(userList.getSelectedRow(), 1);
+                this.currentlySelectedRole = (String) userList.getModel().getValueAt(userList.getSelectedRow(), 2);
+            } else {
+                return;
+            }
+
+            try {
+                _selectedUser = App.conn.getDrq().getUserByEmail(currentlySelectedEmail);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         });
 
         //allows you to select but prevents being able to edit
@@ -132,7 +155,6 @@ public class UserManagement extends JPanel {
         userList.setBounds(0,0,200,300);
         scrollPane = new JScrollPane(this.userList);
         this.add(this.scrollPane, BorderLayout.CENTER);
-
     }
 
     /**
@@ -145,18 +167,29 @@ public class UserManagement extends JPanel {
         });
 
         this.editUser.addActionListener(actionEvent -> {
-            System.out.println("//TODO Edit user button");
-            new UserManagementEditUser(editUser);
+            if (this.currentlySelectedEmail != null) {
+                new UserManagementEditUser(this, _selectedUser);
+            } else {
+                userNotSelected();
+            }
         });
 
         this.deleteUser.addActionListener(actionEvent -> {
             if (this.currentlySelectedEmail == null) {
-                System.out.println("ERROR: No user was selected!");
+                userNotSelected();
             } else {
-                new UserManagementRemoveUser(deleteUser, currentlySelectedEmail, currentlySelectedRole);
+                new UserManagementRemoveUser(this, deleteUser, currentlySelectedEmail, currentlySelectedRole);
             }
         });
+    }
 
+    /**
+     * Popup that alerts the user that no user was selected to edit
+     */
+    public void userNotSelected() {
+        Object[] option = {"OK"};
+        int x = JOptionPane.showOptionDialog(null, "Please select a user first",
+                "Select User", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
     }
 
     /**
@@ -167,10 +200,16 @@ public class UserManagement extends JPanel {
      * @param pRole the role of the user
      */
     public void addUserToTable(String pEmail, String pRank, String pRole){
-
         DefaultTableModel model = (DefaultTableModel) this.userList.getModel();
         model.addRow(new Object[]{pEmail,pRank,pRole});
-
     }
 
+    /**
+     * Called inside the UserManagementEditUser and UserManagementRemoveUser classes. Removes
+     * the selected user from the table, after they've been removed/updated in the database
+     */
+    public void removeUserFromTable() {
+        DefaultTableModel model = (DefaultTableModel) this.userList.getModel();
+        model.removeRow(selectedRow);
+    }
 }

@@ -11,6 +11,7 @@ package main.java.memoranda;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 
 import main.java.memoranda.ui.*;
 import main.java.memoranda.util.Configuration;
@@ -26,6 +27,8 @@ public class Start {
      * The App.
      */
     static App app = null;
+
+    static LoginBox login;
 
     /**
      * The Default port.
@@ -59,7 +62,7 @@ public class Start {
      *
      * @param args the input arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         if (checkIfAlreadyStartet) {
             try {
                 // Try to open a socket. If socket opened successfully (app is already started), take no action and exit.
@@ -76,11 +79,11 @@ public class Start {
         
         //System.out.println(EventsScheduler.isEventScheduled());
         if ((args.length == 0) || (!args[0].equals("-m"))) {
-           // login = new LoginBox();
-            app = new App(true);
+            login = new LoginBox();
+            //app = new App(true);
         }
         else
-            app = new App(false);
+            app = new App(false, login.conn);
     }
 }
 

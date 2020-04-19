@@ -27,15 +27,11 @@ import main.java.memoranda.util.Configuration;
  */
 /*$Id: App.java,v 1.28 2007/03/20 06:21:46 alexeya Exp $*/
 public class App {
-	// boolean packFrame = false;
-
 
     /**
      * The Frame.
      */
     static AppFrame frame = null;
-
-    static LoginBox login;
 
     /**
      * The constant GUIDE_URL.
@@ -54,7 +50,6 @@ public class App {
 
     public static Gym gym = null;
 
-	private JFrame splash = null;
 	FileInputStream input;
 
 	/*========================================================================*/ 
@@ -98,17 +93,12 @@ public class App {
      *
      * @param fullmode the fullmode
      */
-    public App(boolean fullmode) throws IOException {
+    public App(boolean fullmode, SqlConnection connection) throws IOException {
 		super();
 
-		try {
-			this.conn = SqlConnection.getInstance();
+		this.conn = connection;
 
-      		this.gym = new Gym();//insert connection code
-
-		} catch (SQLException sec) {
-			sec.printStackTrace();
-		}
+		this.gym = new Gym();//insert connection code
 
 		// Updates the version and build numbers via the build.gradle file
 		try {
@@ -126,8 +116,6 @@ public class App {
 		/* DEBUG */
 		if (!fullmode)
 			System.out.println("Minimized mode");
-		if (!Configuration.get("SHOW_SPLASH").equals("no"))
-			showSplash();
 		System.out.println(VERSION_INFO);
 		System.out.println(Configuration.get("LOOK_AND_FEEL"));
 		try {
@@ -160,21 +148,15 @@ public class App {
 		EventsScheduler.init();
 		frame = new AppFrame();
 		if (fullmode) {
-			login = new LoginBox();
-			//init();
+			init();
 		}
-		if (!Configuration.get("SHOW_SPLASH").equals("no"))
-			splash.dispose();
 
 	}
-
 
     /**
      * Init.
      */
     static void init() {
-
-
 
 		/*
 		 * if (packFrame) { frame.pack(); } else { frame.validate(); }
@@ -221,25 +203,5 @@ public class App {
 		if (frame == null)
 			return;
 		frame.dispose();
-	}
-
-	/**
-	 * Method showSplash.
-	 */
-	private void showSplash() {
-		splash = new JFrame();
-		ImageIcon spl;
-		spl = new ImageIcon(App.class.getResource("/ui/splash.png")); //name is included on the logo
-		JLabel l = new JLabel();
-		l.setSize(400, 300);
-		l.setIcon(spl);
-		splash.getContentPane().add(l);
-		splash.setSize(400, 300);
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		splash.setLocation(
-			(screenSize.width - 400) / 2,
-			(screenSize.height - 300) / 2);
-		splash.setUndecorated(true);
-		splash.setVisible(true);
 	}
 }

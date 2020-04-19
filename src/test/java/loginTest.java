@@ -44,10 +44,10 @@ public class loginTest {
         login.dispose();
     }
 
-    @Test
-    public void userVerificationTest() throws SQLException {
-        assertTrue(login.userVerification());
-    }
+//    @Test
+//    public void userVerificationTest() throws SQLException {
+//        assertTrue(login.userVerification());
+//    }
 
     @Test
     public void accountExistsTest() throws SQLException {

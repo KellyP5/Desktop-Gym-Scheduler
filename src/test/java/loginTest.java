@@ -25,7 +25,7 @@ public class loginTest {
         sqlConnection.getDbSetupHelperTest().deleteTestTables();
         sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
 
-        app = new App(true);
+        app = new App(true, login.conn);
         sqlConnection.getDcqTest().insertUser("Test@Test.com", "TestFirst", "TestLast",
                 "TestPass", new RoleEntity(RoleEntity.UserRole.trainer));
 

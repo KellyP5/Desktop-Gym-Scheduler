@@ -31,7 +31,7 @@ public class DbCreateQueries {
         String sql = "INSERT INTO USER" +
                 "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
@@ -62,7 +62,7 @@ public class DbCreateQueries {
         String sql = "INSERT INTO USER" +
                 "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
@@ -96,7 +96,7 @@ public class DbCreateQueries {
         "(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
         "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, roomNumber);
         pstmt.setString(2, startDate);
@@ -132,7 +132,7 @@ public class DbCreateQueries {
                 "(Id, RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
                 "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, id);
         pstmt.setInt(2, roomNumber);
@@ -161,7 +161,7 @@ public class DbCreateQueries {
         String sql = "INSERT INTO TRAINERAVAILABILITY" +
                 "(TrainerEmail,StartDate,StartTime,EndTime) VALUES(?,?,?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, trainerEmail);
         pstmt.setString(2, startDate);
@@ -179,7 +179,7 @@ public class DbCreateQueries {
     public void insertEnrolledUser(int classId, String userEmail) throws SQLException {
         String sql = "INSERT INTO ENROLLEDUSER(ClassId,UserEmail) VALUES(?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, classId);
         pstmt.setString(2, userEmail);
@@ -196,7 +196,7 @@ public class DbCreateQueries {
      */
     public void deleteUser(String userEmail) throws SQLException {
         String sql = "DELETE FROM USER WHERE Email=?; DELETE FROM ENROLLEDUSER WHERE UserEmail=?";
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1,userEmail);
         pstmt.executeUpdate();

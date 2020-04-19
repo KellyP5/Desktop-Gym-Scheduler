@@ -1,9 +1,6 @@
 package main.java.memoranda.database;
 
-import main.java.memoranda.database.util.DbCreateQueries;
-import main.java.memoranda.database.util.DbReadQueries;
-import main.java.memoranda.database.util.DbSetupHelper;
-import main.java.memoranda.database.util.SqlConstants;
+import main.java.memoranda.database.util.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -36,8 +33,8 @@ public class SqlConnection {
     private static SqlConnection _instance = null;
 
     private SqlConnection() throws SQLException {
-        Connection realDbConn = DriverManager.getConnection(SqlConstants.DEFAULTDBLOC);
-        Connection testDbConn = DriverManager.getConnection(SqlConstants.DEFAULTTESTDBLOC);
+        Connection realDbConn = EnforcedConnection.getEnforcedCon(SqlConstants.DEFAULTDBLOC);
+        Connection testDbConn = EnforcedConnection.getEnforcedCon(SqlConstants.DEFAULTTESTDBLOC);
 
 
         drq = new DbReadQueries(SqlConstants.DEFAULTDBLOC);

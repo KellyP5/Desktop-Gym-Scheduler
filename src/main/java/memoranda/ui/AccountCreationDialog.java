@@ -254,7 +254,11 @@ public class AccountCreationDialog extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                loginBox = new LoginBox();
+                try {
+                    loginBox = new LoginBox();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
                 dispose();
             }
         });
@@ -267,7 +271,11 @@ public class AccountCreationDialog extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    loginBox = new LoginBox();
+                    try {
+                        loginBox = new LoginBox();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
                     dispose();
                 }
             }

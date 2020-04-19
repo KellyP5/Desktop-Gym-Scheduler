@@ -8,16 +8,21 @@
  */
 package main.java.memoranda.ui;
 
+import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.UserEntity;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class LoginBox extends JFrame {
 
 
     LoginBox login;
+    private JFrame splash;
+    public static SqlConnection conn = null;
+    private App app;
 
     private UserEntity _user;
     private JPanel _login;
@@ -33,7 +38,11 @@ public class LoginBox extends JFrame {
     private JButton _createAccount;
     private AccountCreationDialog _createAcc;
 
-    public LoginBox() {
+    public LoginBox() throws SQLException {
+
+        showSplash();
+
+        this.conn = SqlConnection.getInstance();
 
         _login = new JPanel();
         _loginButton = new JButton("Login");
@@ -62,11 +71,13 @@ public class LoginBox extends JFrame {
         _getStarted.setBounds(95, 210, 200, 50);
         _getStarted.setFont(new Font("Bell MT", Font.PLAIN, 12));
 
-        _email.setText("Email");
+        //_email.setText("Email");
+        _email.setText("admin@gym.com"); // TEMPORARY - Will change before submitting
         _email.setForeground(Color.LIGHT_GRAY);
         _pass.setForeground(Color.LIGHT_GRAY);
         _pass.setEchoChar((char)0); // Show characters at first
-        _pass.setText("Password"); // Grayed out in box
+        //_pass.setText("Password"); // Grayed out in box
+        _pass.setText("1234"); // TEMPORARY - Will change before submitting
 
         _login.setLayout(null);
 
@@ -102,10 +113,7 @@ public class LoginBox extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-
-                App.init(); // TEMPORARY - Change before submitting deliverable2
-                //boolean verified = userVerification();
-
+                boolean verified = userVerification();
                 dispose(); // Close the login dialog box
             }
         });
@@ -119,10 +127,8 @@ public class LoginBox extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-
-                    App.init(); // TEMPORARY - Change before submitting deliverable2
-                    //boolean verified = userVerification();
-
+                    //App.init(); // TEMPORARY - Change before submitting deliverable2
+                    boolean verified = userVerification();
                 }
             }
         });
@@ -219,26 +225,23 @@ public class LoginBox extends JFrame {
     public boolean userVerification() {
         try {
             if (_email.getText() != null) {
-                _user = App.conn.getDrq().getUserByEmail(_email.getText());
+                _user = this.conn.getDrq().getUserByEmail(_email.getText());
                 if (!accountExists(_user)) {
                     accountDoesNotExist();
                     return false;
                 } else {
-
                     if (passwordIsCorrect(_user.getPassword())) {
-
-                        App.init();
+                        //App.init();
+                        app = new App(true, this.conn);
                         dispose();
                         return true;
                     } else {
-
                         String emailText = _email.getText();
                         incorrectPassword(emailText);
-
                     }
                 }
             }
-        } catch (SQLException exc) {
+        } catch (SQLException | IOException exc) {
             exc.printStackTrace();
         }
         return false;
@@ -262,7 +265,7 @@ public class LoginBox extends JFrame {
      * account. If they choose to create a new account, a new AccountCreationDialog
      * box will open, otherwise they are returned to the Login screen.
      */
-    public void accountDoesNotExist() {
+    public void accountDoesNotExist() throws SQLException {
         Object[] options = {"Yes", "No"};
         int x = JOptionPane.showOptionDialog(null, "An account with that username could not be found." +
                         " Would you like to create one?", "Account Not Found", JOptionPane.YES_NO_OPTION,
@@ -293,7 +296,7 @@ public class LoginBox extends JFrame {
      * @param email Takes in the email that was entered so the login box can be
      *              populated with that again
      */
-    public void incorrectPassword(String email) {
+    public void incorrectPassword(String email) throws SQLException {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "The password you entered was incorrect.",
                 "Incorrect Password", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
@@ -331,8 +334,35 @@ public class LoginBox extends JFrame {
      *
      * @return the JTextField for password
      */
-
     public JTextField getPassword() {
         return _pass;
+    }
+
+    /**
+     * Displays the splash screen before the Login screen opens.
+     * Refactored and moved into this class so that the App class wasn't being
+     * instantiated before a user logged in
+     */
+    private void showSplash() {
+        splash = new JFrame();
+        ImageIcon spl;
+        spl = new ImageIcon(App.class.getResource("/ui/splash.png")); //name is included on the logo
+        JLabel l = new JLabel();
+        l.setSize(400, 300);
+        l.setIcon(spl);
+        splash.getContentPane().add(l);
+        splash.setSize(400, 300);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        splash.setLocation(
+                (screenSize.width - 400) / 2,
+                (screenSize.height - 300) / 2);
+        splash.setUndecorated(true);
+        splash.setVisible(true);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        splash.dispose();
     }
 }

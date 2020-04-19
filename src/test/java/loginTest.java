@@ -3,10 +3,13 @@ package test.java;
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.UserEntity;
-import org.junit.*;
-import java.io.IOException;
-import java.sql.SQLException;
 import main.java.memoranda.ui.LoginBox;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.sql.SQLException;
+
 import static org.junit.Assert.assertTrue;
 
 public class loginTest {

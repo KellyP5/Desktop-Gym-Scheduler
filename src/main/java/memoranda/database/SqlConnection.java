@@ -59,6 +59,11 @@ public class SqlConnection {
         return _instance;
     }
 
+
+    public static void close(){
+        _instance = null;
+    }
+
     public DbReadQueries getDrq() {
         return drq;
     }

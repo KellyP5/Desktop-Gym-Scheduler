@@ -213,7 +213,7 @@ public class AgendaPanel extends JPanel {
 	 */
 
 	//Functionality will need to be fixed in seperate user story
-	void initToolBar() throws SQLException {
+	void initToolBar() {
 		toolBar.setFloatable(false);
 
 
@@ -263,11 +263,7 @@ public class AgendaPanel extends JPanel {
 	 * @param date the date
 	 */
 	public void refresh(CalendarDate date) {
-		try {
-			updateTrainerBeltDisplay();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		updateTrainerBeltDisplay();
 		String[][] data = null;
 		LocalDate convertedDate = _convertDateToLocalDateTime(date);
 
@@ -346,7 +342,7 @@ public class AgendaPanel extends JPanel {
 	 * @throws SQLException the sql exception
 	 */
 
-	private void updateTrainerBeltDisplay() throws SQLException {
+	private void updateTrainerBeltDisplay(){
 
 		//A check will need to be added here to check to see if the currently logged
 		//user is a trainer or not.
@@ -362,7 +358,7 @@ public class AgendaPanel extends JPanel {
 		instructorBelt.setBorder(BorderFactory.createEmptyBorder(0,0,0,25));
 
 		toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
-		initToolBar(); // reinitiates tool bar
+		//initToolBar(); // reinitiates tool bar
 		toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
 		toolBar.add(instructorBelt); //adds the instructor belt jlabel to toolbar
 	}

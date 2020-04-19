@@ -9,16 +9,14 @@ package main.java.memoranda.ui.usermanagment;
 
 import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.ui.App;
-//import main.java.memoranda.ui.EventsPanel;
-import main.java.memoranda.ui.EventsTable;
 import main.java.memoranda.ui.ExceptionDialog;
-
 import javax.swing.*;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+//import main.java.memoranda.ui.EventsPanel;
 
 /**
  * This controls the UserManagemnent panel on the LHS of our application.

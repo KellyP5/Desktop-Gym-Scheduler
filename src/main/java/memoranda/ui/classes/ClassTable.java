@@ -58,7 +58,7 @@ public class ClassTable {
         //this.classes = App.conn.getDrqTest().getAllClassesByDate(parentRef.currentDate);
         //LocalDate date = LocalDate.of(2020, 4,11);
         try{
-            this.classes = App.conn.getDrqTest().getAllClassesByDate(pDate);
+            this.classes = App.conn.getDrq().getAllClassesByDate(pDate);
         }catch(SQLException c){
             c.printStackTrace();
         }
@@ -110,7 +110,7 @@ public class ClassTable {
     private void refresh(){
 
         try{
-            this.classes = App.conn.getDrqTest().getAllClassesByDate(date);
+            this.classes = App.conn.getDrq().getAllClassesByDate(date);
 
         }catch(SQLException ecp){
 

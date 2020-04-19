@@ -8,6 +8,9 @@ import java.awt.*;
 
 public class ClassesPanel extends JPanel {
 
+
+    DailyItemsPanel parentPanelReference = null;
+
     JToolBar topToolBar = new JToolBar();
 
     JButton schedNewClassBut = new JButton("Schedule New Class");
@@ -27,11 +30,10 @@ public class ClassesPanel extends JPanel {
     ClassTable room3 = new ClassTable(3);
     ClassTable room4 = new ClassTable(4);
 
-    DailyItemsPanel parentPanel = null;
 
     public ClassesPanel(DailyItemsPanel _parentPanel) {
         try {
-            parentPanel = _parentPanel;
+            parentPanelReference = _parentPanel;
             jbInit();
         } catch (Exception ex) {
             new ExceptionDialog(ex);
@@ -41,7 +43,6 @@ public class ClassesPanel extends JPanel {
     void jbInit() throws Exception {
         this.setLayout(new BorderLayout());
         topToolBar.setFloatable(false);
-
 
         initTopToolBar();//initialize our buttons
 
@@ -229,7 +230,6 @@ public class ClassesPanel extends JPanel {
         roomPanel.add(room3ScrollPane);
         roomPanel.add(room4ScrollPane);
 
-
         this.add(roomPanel, BorderLayout.CENTER);
 
     }
@@ -237,5 +237,6 @@ public class ClassesPanel extends JPanel {
     void initRoomsActionListeners(){
         //TODO
     }
+
 
 }

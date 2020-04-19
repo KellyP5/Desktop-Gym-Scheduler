@@ -386,28 +386,34 @@ public class DailyItemsPanel extends JPanel {
      * @param pan Can be either Agenda, Classes, Tasks, or Notes
      */
     public void selectPanel(String pan) {
-        System.out.println(pan);
-        if (calendar.jnCalendar.renderer.getTask() != null) {
-            calendar.jnCalendar.renderer.setTask(null);
-            //   calendar.jnCalendar.updateUI();
+        System.out.println("public void selectPanel(String pan): " +pan);
+
+        switch(pan){
+            case "TASKS":
+            {
+
+                break;
+            }
+            case "AGENDA":
+            {
+                agendaPanel.setActive(true);
+                break;
+            }
+            case "NOTES":
+            {
+                break;
+            }
+            case "CLASSES":
+            {
+                break;
+            }
         }
-        if (pan.equals("TASKS") && (tasksPanel.taskTable.getSelectedRow() > -1)) {
-            Task t =
-                    CurrentProject.getTaskList().getTask(
-                            tasksPanel
-                                    .taskTable
-                                    .getModel()
-                                    .getValueAt(tasksPanel.taskTable.getSelectedRow(), TaskTable.TASK_ID)
-                                    .toString());
-            calendar.jnCalendar.renderer.setTask(t);
-            //     calendar.jnCalendar.updateUI();
-        }
-        boolean isAg = pan.equals("AGENDA");
-        agendaPanel.setActive(isAg);
-        if (isAg)
-            agendaPanel.refresh(CurrentDate.get());
+
         cardLayout1.show(editorsPanel, pan);
-        cardLayout2.show(mainTabsPanel, pan + "TAB");
+
+        //Kevin Wilkinson - I don't know if this is needed, don't want to completely remove it just yet
+        //cardLayout2.show(mainTabsPanel, pan + "TAB");
+
         calendar.jnCalendar.updateUI();
         this.CurrentPanel=pan;
     }

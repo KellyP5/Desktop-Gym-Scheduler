@@ -1,11 +1,3 @@
-/**
- * EventsTable.java
- * Created on 09.03.2003, 9:52:02 Alex
- * Package: net.sf.memoranda.ui
- *
- * @author Alex V. Alishevskikh, alex@openmechanics.net
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
- */
 package main.java.memoranda.ui;
 
 import main.java.memoranda.Event;
@@ -26,10 +18,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
-/**
- * The type Events table.
- */
-/*$Id: EventsTable.java,v 1.6 2004/10/11 08:48:20 alexeya Exp $*/
 public class ClassTable extends JTable {
 
     public static final int EVENT = 100;
@@ -42,9 +30,7 @@ public class ClassTable extends JTable {
     Vector events = new Vector();
     ArrayList<GymClassEntity> classes;
 
-    /**
-     * Constructor for EventsTable.
-     */
+
     public ClassTable()  {
         super();
         setModel(new EventsTableModel());

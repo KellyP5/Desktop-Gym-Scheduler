@@ -9,6 +9,7 @@ import javax.management.relation.Role;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
 
@@ -17,6 +18,8 @@ import java.util.Arrays;
  * Account Creation Dialog box creation window.
  */
 public class AccountCreationDialog extends JFrame {
+
+    App app;
 
     JPanel accountCreate;
     ImageIcon globoLogo;
@@ -348,10 +351,10 @@ public class AccountCreationDialog extends JFrame {
                         role = new RoleEntity(RoleEntity.UserRole.customer);
                     }
                     // Add new user to database
-                    App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role);
+                    LoginBox.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role);
                     dispose();
                     createdSuccessfully();
-                } catch (SQLException ex) {
+                } catch (SQLException | IOException ex) {
                     throwInputError("An account already exists with that email.");
                 }
             }
@@ -363,13 +366,13 @@ public class AccountCreationDialog extends JFrame {
     /**
      * Popup window that tells the user the account was created successfully
      */
-    public void createdSuccessfully() {
+    public void createdSuccessfully() throws IOException {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "Account was created successfully!",
                 "Account Creation", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
 
         if (x == JOptionPane.OK_OPTION) {
-            App.init();
+            app = new App(true, LoginBox.conn);
         }
     }
 }

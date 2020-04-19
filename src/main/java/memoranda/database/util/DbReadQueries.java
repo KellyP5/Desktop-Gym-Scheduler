@@ -28,7 +28,7 @@ public class DbReadQueries {
     public UserEntity getUserByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM user WHERE Email=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
@@ -50,7 +50,7 @@ public class DbReadQueries {
     public ArrayList<UserEntity> getAllUsers() throws SQLException {
         String sql = "SELECT * FROM user;";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         Statement statement  = conn.createStatement();
         ResultSet rs = statement.executeQuery(sql);
 
@@ -71,7 +71,7 @@ public class DbReadQueries {
                      "INNER JOIN ENROLLEDUSER on ENROLLEDUSER.ClassId = GYMCLASS.Id " +
                      "WHERE ENROLLEDUSER.UserEmail=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
@@ -91,7 +91,7 @@ public class DbReadQueries {
             throws SQLException {
         String sql = "SELECT * FROM TRAINERAVAILABILITY WHERE TRAINERAVAILABILITY.TrainerEmail=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
@@ -119,7 +119,7 @@ public class DbReadQueries {
 
         String sql = "SELECT * FROM GYMCLASS WHERE StartDate=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,strDate);
         ResultSet rs  = pstmt.executeQuery();
@@ -139,7 +139,7 @@ public class DbReadQueries {
     public ArrayList<UserEntity> getAllUsersOfCertainRole(RoleEntity role) throws SQLException {
         String sql = "SELECT * FROM USER WHERE Role=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,role.userRole.name().toLowerCase());
         ResultSet rs  = pstmt.executeQuery();
@@ -160,7 +160,7 @@ public class DbReadQueries {
     public ArrayList<GymClassEntity> getAllClassesTrainerIsTeachingByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM GYMCLASS WHERE GYMCLASS.TrainerEmail=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();

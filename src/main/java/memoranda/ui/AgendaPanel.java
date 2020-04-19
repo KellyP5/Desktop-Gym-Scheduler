@@ -2,6 +2,7 @@ package main.java.memoranda.ui;
 
 import main.java.memoranda.History;
 import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -196,10 +197,12 @@ public class AgendaPanel extends JPanel {
 	 */
 	public String getTrainerBelt(String email) throws SQLException {
 		//TEMPORARY will need to be changed to the real DB once logged users can be checked.
+		UserEntity user = App.conn.getDrqTest().getUserByEmail(email);
+		if (user == null){
+			throw new SQLException("User " + email + " does not exist in the database!");
+		}
 		String belt = App.conn.getDrqTest().getUserByEmail(email).getBelt().rank.toString();
-
 		return belt;
-
 
 	}
 
@@ -280,7 +283,7 @@ public class AgendaPanel extends JPanel {
 			// below is TEMPORARY this will need to be changed to the current
 			// trainer that is logged in which has not been implemented.
 			temp = _getClassDataForTrainer("jackj@gmail.com", convertedDate);
-			if (!temp.isEmpty()) {
+			if (temp != null && !temp.isEmpty()) {
 				d = temp;
 			}
 		} catch (SQLException e) {

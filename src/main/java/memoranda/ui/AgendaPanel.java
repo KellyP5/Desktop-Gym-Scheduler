@@ -98,7 +98,6 @@ public class AgendaPanel extends JPanel {
 		this.add(panel, BorderLayout.CENTER);
 
 		refresh(CurrentDate.get());
-
 	}
 
 	/**
@@ -141,8 +140,6 @@ public class AgendaPanel extends JPanel {
 			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 4));
 			System.out.println();
 		});
-
-
 	}
 
 	/**
@@ -185,7 +182,6 @@ public class AgendaPanel extends JPanel {
 		} else {
 			return null;
 		}
-
 	}
 
 	/**
@@ -253,8 +249,6 @@ public class AgendaPanel extends JPanel {
 					refresh(d);
 			}
 		});
-
-
 	}
 
 	/**
@@ -276,8 +270,6 @@ public class AgendaPanel extends JPanel {
 		ArrayList<ArrayList<String>> d = null;
 		ArrayList<ArrayList<String>> temp;
 		try {
-			// below is TEMPORARY this will need to be changed to the current
-			// trainer that is logged in which has not been implemented.
 			UserEntity user = LoginBox.getUser();
 			temp = _getClassDataForTrainer(user.getEmail(), convertedDate);
 			if (temp != null && !temp.isEmpty()) {
@@ -285,13 +277,10 @@ public class AgendaPanel extends JPanel {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-
 		}
-
 
 		//this code converts our 2d ArrayList into a String[][]
 		if (d != null) {
-
 			data = new String[d.size()][];
 			for (int i = 0; i < d.size(); i++) {
 				ArrayList<String> current = d.get(i);
@@ -304,7 +293,6 @@ public class AgendaPanel extends JPanel {
 			}
 		}
 
-
 		//that way we can pass this into our JTable constructor
 		if (data == null) {
 			//columns will not display info when user is not logged in (will be functional when logged user can be checked)
@@ -312,11 +300,7 @@ public class AgendaPanel extends JPanel {
 		} else {
 			//loads the trainer's class data to the table
 			classesTable.setModel(new DefaultTableModel(data, _COLUMNNAMES));
-
-
 		}
-
-
 	}
 
 	/**
@@ -329,10 +313,7 @@ public class AgendaPanel extends JPanel {
 	private LocalDate _convertDateToLocalDateTime(CalendarDate date) {
 
 		LocalDate newDate = LocalDate.of(date.getYear(), date.getMonth() + 1, date.getDay());
-
-
 		return newDate;
-
 	}
 
 	/**
@@ -350,10 +331,10 @@ public class AgendaPanel extends JPanel {
 		JLabel instructorBelt = new JLabel();
 		Font labelFont = instructorBelt.getFont(); //creats Font to change font size
 		instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
-		//TEMPORARY: will need to be changed to get the user that is currently logged in email
 		UserEntity user = LoginBox.getUser();
 		String beltText = user.getTrainingBelt().toString();
-		instructorBelt.setText("Trainer Belt: " + beltText.substring(0,1).toUpperCase() + beltText.substring(1));
+		instructorBelt.setText("User: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
+				beltText.substring(0,1).toUpperCase() + beltText.substring(1));
 		//add right padding to belt display
 		instructorBelt.setBorder(BorderFactory.createEmptyBorder(0,0,0,25));
 

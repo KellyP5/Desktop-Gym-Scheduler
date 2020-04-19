@@ -153,22 +153,36 @@ I would also advise you to already fill out the Contributions section (End of sp
  **What was your main contribution to the Quality Policy documentation?:
 
     - info
-  
-## 4: Checklist for you to see if you are done
-- [ ] Filled out the complete form from above, all fields are filled and written in full sentences
-- [ ] Read the kickoff again to make sure you have all the details
-- [ ] User Stories that were not completed, were left in the Sprint and a copy created
-- [ ] Your Quality Policies are accurate and up to date
-- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Team member 1
-  - [ ] Team member 2
-- [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
-  - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
-  - [ ] All User Stories have acceptance tests
-  - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
-  - [ ] You know how to proceed
-  
-  
+    
+#### Team member: Kelly Ellis
+  **Links to GitHub commits with main code contribution (up to 5 links):
+
+    - TODO
+    - TODO
+
+   **GitHub links to your Unit Tests (up to 3 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/commit/1562e876cdd08c04a97ea3170c799775ed9b0fd8
+    - https://github.com/amehlhase316/Neujahrskranz/commit/5165f5a87201354a0710a835afd18e528bf508ec
+    - https://github.com/amehlhase316/Neujahrskranz/commit/b12f67066af923062726e5dd017124c29050f654
+
+  **GitHub links to your Code Reviews (up to 3 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/pull/69
+    - https://github.com/amehlhase316/Neujahrskranz/pull/66
+
+  **How did you contribute to Static Analysis:
+
+    - https://github.com/amehlhase316/Neujahrskranz/commit/7e6d507f1fedc3e141e86ef2d381a8e5785eaf4e
+    - https://github.com/amehlhase316/Neujahrskranz/commit/20875a2f3d7877920bc2d75d2f011802730f9882
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+
+    - I created the Code Review checklists for the Reviewer and the Developer. I also was in
+    the meeting we had during sprint planning when we discussed how we would handle unit testing
+    and static analysis.
+    
+ 
 #### Team member: Kelly Petrone:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
@@ -190,7 +204,8 @@ I would also advise you to already fill out the Contributions section (End of sp
  **What was your main contribution to the Quality Policy documentation?:
 
     - Served as the Scrum Master this sprint. Helped negotiate the terms with the team of what should be focused on in our Unit Tests. Also discussed with team members on several occassions on updating these standards as our requirements changed. Also filled out the portions required for different types of unit testing.
- 
+    
+## 4: Checklist for you to see if you are done
 - [ ] Filled out the complete form from above, all fields are filled and written in full sentences
 - [ ] Read the kickoff again to make sure you have all the details
 - [ ] User Stories that were not completed, were left in the Sprint and a copy created
@@ -203,3 +218,4 @@ I would also advise you to already fill out the Contributions section (End of sp
   - [ ] All User Stories have acceptance tests
   - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
   - [ ] You know how to proceed
+ 

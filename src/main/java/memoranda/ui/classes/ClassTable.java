@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ClassTable {
 
@@ -50,6 +52,10 @@ public class ClassTable {
 
     }
 
+    private String convertStartDateTime(String dateTime) {
+        return dateTime.substring(dateTime.length() - 5);
+    }
+
     /**
      * Initializes the table
      * @param pDate the date the table will use.
@@ -65,11 +71,14 @@ public class ClassTable {
 
         String[] columnNames = {"Time", "Trainer", "MinBelt","MaxSize"};
 
+        Collections.sort(this.classes);
+
         ArrayList<ArrayList<String>> al = new ArrayList<ArrayList<String>>();
         for(int i = 0;i< this.classes.size();i++){
             if(this.classes.get(i).getRoomNumber()==this.room) {
                 ArrayList<String> e = new ArrayList<>();
-                e.add(this.classes.get(i).getStartDateTime().toString());//time
+                e.add(convertStartDateTime(this.classes.get(i).getStartDateTime().toString())); //time
+                //e.add(this.classes.get(i).getStartDateTime().toString());//time
                 e.add(this.classes.get(i).getTrainerEmail());//trainer
                 e.add(this.classes.get(i).getMinBeltEntityRequired().toString());//MinBelt
                 e.add(Integer.toString(this.classes.get(i).getMaxClassSize()));//MaxSize

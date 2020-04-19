@@ -205,6 +205,35 @@ I would also advise you to already fill out the Contributions section (End of sp
 
     - Served as the Scrum Master this sprint. Helped negotiate the terms with the team of what should be focused on in our Unit Tests. Also discussed with team members on several occassions on updating these standards as our requirements changed. Also filled out the portions required for different types of unit testing.
     
+    
+#### Team member Kevin Wilkinson:
+  **Links to GitHub commits with main code contribution (up to 5 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/pull/120/commits/f55bca829e186a624836e94868599d94c7f00ab4
+    - https://github.com/amehlhase316/Neujahrskranz/commit/5d8440ef68314b1c21d8f4d33ad9f9f13764ea09
+    - https://github.com/amehlhase316/Neujahrskranz/commit/a02fbb47dd21b8da0ec31b7ed15aaaf0f8f3b2ce
+    - https://github.com/amehlhase316/Neujahrskranz/commit/0ef32968303853d5a8fa18585d503aa4e3a6dc2b
+    - https://github.com/amehlhase316/Neujahrskranz/commit/9c16a4958158315ca342ecc5018ac7c6b4c6ef73
+
+   **GitHub links to your Unit Tests (up to 3 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/commit/0172394add79ca717b9969b8ab716b918eb08a24
+    - https://github.com/amehlhase316/Neujahrskranz/commit/31852298aa756d39b15a57411a5ebd69c28d6bbd
+    - https://github.com/amehlhase316/Neujahrskranz/commit/941a3d18ceaf1f49031a5dfefce75abee861daf8
+    - https://github.com/amehlhase316/Neujahrskranz/commit/ef70a92ae95125f4998f3f71687ba18414b9a5e2
+
+  **GitHub links to your Code Reviews (up to 3 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/pull/99
+    - https://github.com/amehlhase316/Neujahrskranz/pull/93
+    - https://github.com/amehlhase316/Neujahrskranz/pull/101
+    - https://github.com/amehlhase316/Neujahrskranz/pull/109
+    - https://github.com/amehlhase316/Neujahrskranz/pull/113
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+
+    - https://github.com/amehlhase316/Neujahrskranz/commit/753f074dadab93fed95488a76cf6ec77532f3135
+    
 ## 4: Checklist for you to see if you are done
 - [ ] Filled out the complete form from above, all fields are filled and written in full sentences
 - [ ] Read the kickoff again to make sure you have all the details

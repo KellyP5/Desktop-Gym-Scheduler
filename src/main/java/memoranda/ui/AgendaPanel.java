@@ -6,6 +6,7 @@ import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;
@@ -152,10 +153,11 @@ public class AgendaPanel extends JPanel {
 	 */
 	private ArrayList<ArrayList<String>> _getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
 		//TEMPORARY will need to be changed to the actual once the logged user can be checked
-		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrq().
-				getAllClassesTrainerIsTeachingByEmail(email);
+/*		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrq().
+				getAllClassesTrainerIsTeachingByEmail(email);*/
+		ArrayList<GymClassEntity> gymClassEntities = Gym.getClassesByEmailAndDate(email,selectedCalendarDate);
 
-		if (!gymClassEntities.isEmpty()) {
+		if (gymClassEntities!=null) {
 			ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
 			for (int i = 0; i < gymClassEntities.size(); i++) {
 				/*creates an array list of array lists that hold strings of information for each individual

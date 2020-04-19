@@ -85,6 +85,14 @@ public class EventDialog extends JDialog implements WindowListener {
      */
     JLabel lblTime = new JLabel();
     /**
+     * The Lbl time.
+     */
+    JLabel lblTrainer = new JLabel();
+    /**
+     * The combo box fot trainer.
+     */
+     JComboBox trainerCB = new JComboBox();
+    /**
      * The Lbl belt.
      */
     JLabel lblBelt = new JLabel();
@@ -213,7 +221,7 @@ public class EventDialog extends JDialog implements WindowListener {
      * The Start cal frame.
      */
     CalendarFrame startCalFrame = new CalendarFrame();
-    private Date eventDate;
+    private Date _eventDate;
 
     /**
      * Instantiates a new Event dialog.
@@ -245,9 +253,9 @@ public class EventDialog extends JDialog implements WindowListener {
         headerPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
         header.setFont(new java.awt.Font("Dialog", 0, 20));
         header.setForeground(new Color(0, 0, 124));
-        header.setText(Local.getString("Create Class"));
-        header.setIcon(new ImageIcon(main.java.memoranda.ui.EventDialog.class.getResource(
-            "/ui/icons/event48.png")));
+       // header.setText(Local.getString("Schedule Class"));
+      //  header.setIcon(new ImageIcon(main.java.memoranda.ui.EventDialog.class.getResource(
+     //       "/ui/icons/event48.png")));
         headerPanel.add(header);
         
         // Build eventPanel
@@ -266,8 +274,14 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(timeSpin, gbc);
 
+
+
+
+
+
+
         //Belt selection menu
-        lblBelt.setText(Local.getString("Belt"));
+        lblBelt.setText(Local.getString("Min Belt"));
         lblBelt.setMinimumSize(new Dimension(60, 24));
         gbc = new GridBagConstraints();
         gbc.gridx = 0; gbc.gridy = 1;
@@ -296,11 +310,27 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.anchor = GridBagConstraints.WEST;
         eventPanel.add(roomsCB, gbc);
 
+
+        lblTrainer.setText(Local.getString(" Trainer"));
+        lblTrainer.setMinimumSize(new Dimension(60, 24));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0; gbc.gridy = 3;
+        gbc.insets = new Insets(10, 0, 5, 10);
+        gbc.anchor = GridBagConstraints.WEST;
+        eventPanel.add(lblTrainer, gbc);
+        lblTrainer.setPreferredSize(new Dimension(100, 25));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1; gbc.gridy = 3;
+        gbc.insets = new Insets(10, 0, 5, 0);
+        gbc.anchor = GridBagConstraints.WEST;
+        eventPanel.add(trainerCB, gbc);
+
+
         //Text typing menu
         lblText.setText(Local.getString("Text"));
         lblText.setMinimumSize(new Dimension(120, 24));
         gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 3;
+        gbc.gridx = 0; gbc.gridy = 4;
         gbc.gridwidth = 3;
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.anchor = GridBagConstraints.WEST;
@@ -308,7 +338,7 @@ public class EventDialog extends JDialog implements WindowListener {
         textField.setMinimumSize(new Dimension(375, 24));
         textField.setPreferredSize(new Dimension(375, 24));
         gbc = new GridBagConstraints();
-        gbc.gridx = 0; gbc.gridy = 4;
+        gbc.gridx = 0; gbc.gridy = 5;
         gbc.gridwidth = 6;
         gbc.insets = new Insets(5, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
@@ -359,6 +389,8 @@ public class EventDialog extends JDialog implements WindowListener {
         gbc.insets = new Insets(5, 5, 5, 40);
         gbc.anchor = GridBagConstraints.WEST;
         repeatPanel.add(lblDays, gbc);
+
+
         lblSince.setText(Local.getString("Since"));
         lblSince.setMinimumSize(new Dimension(70, 16));
         gbc = new GridBagConstraints();
@@ -748,7 +780,7 @@ public class EventDialog extends JDialog implements WindowListener {
      * @param d the d
      */
     public void setEventDate(Date d) {
-	    eventDate = d;
+	    _eventDate = d;
 	}
 
     /**
@@ -757,7 +789,7 @@ public class EventDialog extends JDialog implements WindowListener {
      * @return the event date
      */
     public Date getEventDate() {
-		return eventDate;
+		return _eventDate;
 	}
 	
     public void windowClosed( WindowEvent e ) {}

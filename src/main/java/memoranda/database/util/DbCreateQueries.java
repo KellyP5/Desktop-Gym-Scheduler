@@ -1,9 +1,11 @@
 package main.java.memoranda.database.util;
 
 import main.java.memoranda.database.BeltEntity;
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.database.RoleEntity;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /*
 helpful utility class for various create (insert) queries
@@ -29,7 +31,7 @@ public class DbCreateQueries {
         String sql = "INSERT INTO USER" +
                 "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
@@ -60,7 +62,7 @@ public class DbCreateQueries {
         String sql = "INSERT INTO USER" +
                 "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
@@ -94,7 +96,7 @@ public class DbCreateQueries {
         "(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
         "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, roomNumber);
         pstmt.setString(2, startDate);
@@ -130,7 +132,7 @@ public class DbCreateQueries {
                 "(Id, RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
                 "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, id);
         pstmt.setInt(2, roomNumber);
@@ -159,7 +161,7 @@ public class DbCreateQueries {
         String sql = "INSERT INTO TRAINERAVAILABILITY" +
                 "(TrainerEmail,StartDate,StartTime,EndTime) VALUES(?,?,?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, trainerEmail);
         pstmt.setString(2, startDate);
@@ -177,7 +179,7 @@ public class DbCreateQueries {
     public void insertEnrolledUser(int classId, String userEmail) throws SQLException {
         String sql = "INSERT INTO ENROLLEDUSER(ClassId,UserEmail) VALUES(?,?)";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, classId);
         pstmt.setString(2, userEmail);
@@ -186,4 +188,21 @@ public class DbCreateQueries {
         pstmt.close();
         conn.close();
     }
+
+    /**
+     * Delete a user from the DB based on e-mail
+     * @param userEmail
+     * @throws SQLException
+     */
+    public void deleteUser(String userEmail) throws SQLException {
+        String sql = "DELETE FROM USER WHERE Email=?; DELETE FROM ENROLLEDUSER WHERE UserEmail=?";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1,userEmail);
+        pstmt.executeUpdate();
+        pstmt.close();
+        conn.close();
+    }
+
+
 }

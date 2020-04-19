@@ -1,6 +1,7 @@
 package main.java.memoranda.database.util;
 
 import main.java.memoranda.database.*;
+import main.java.memoranda.gym.Gym;
 
 
 import java.sql.*;
@@ -27,14 +28,17 @@ public class DbReadQueries {
     public UserEntity getUserByEmail(String email) throws SQLException {
         String sql = "SELECT * FROM user WHERE Email=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
-        if(!rs.next()){
+        //////////////////////////////////
+        if (!rs.next()) {
             return null;
         }
+        //////////////////////////////////
         UserEntity userEntity = _getUserFromResultSet(rs);
+
         pstmt.close();
         conn.close();
         return userEntity;
@@ -44,9 +48,9 @@ public class DbReadQueries {
     returns list of all users in the USER table
      */
     public ArrayList<UserEntity> getAllUsers() throws SQLException {
-        String sql = "SELECT * FROM user";
+        String sql = "SELECT * FROM user;";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         Statement statement  = conn.createStatement();
         ResultSet rs = statement.executeQuery(sql);
 
@@ -68,7 +72,7 @@ public class DbReadQueries {
                      "INNER JOIN ENROLLEDUSER on ENROLLEDUSER.ClassId = GYMCLASS.Id " +
                      "WHERE ENROLLEDUSER.UserEmail=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
@@ -88,7 +92,7 @@ public class DbReadQueries {
             throws SQLException {
         String sql = "SELECT * FROM TRAINERAVAILABILITY WHERE TRAINERAVAILABILITY.TrainerEmail=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,email);
         ResultSet rs  = pstmt.executeQuery();
@@ -116,7 +120,7 @@ public class DbReadQueries {
 
         String sql = "SELECT * FROM GYMCLASS WHERE StartDate=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,strDate);
         ResultSet rs  = pstmt.executeQuery();
@@ -136,7 +140,7 @@ public class DbReadQueries {
     public ArrayList<UserEntity> getAllUsersOfCertainRole(RoleEntity role) throws SQLException {
         String sql = "SELECT * FROM USER WHERE Role=?";
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt  = conn.prepareStatement(sql);
         pstmt.setString(1,role.userRole.name().toLowerCase());
         ResultSet rs  = pstmt.executeQuery();
@@ -150,6 +154,28 @@ public class DbReadQueries {
         conn.close();
         return users;
     }
+
+    /*
+    returns all classes that a trainer is leading, queried by email
+     */
+    public ArrayList<GymClassEntity> getAllClassesTrainerIsTeachingByEmail(String email) throws SQLException {
+        String sql = "SELECT * FROM GYMCLASS WHERE GYMCLASS.TrainerEmail=?";
+
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
+        pstmt.setString(1,email);
+        ResultSet rs  = pstmt.executeQuery();
+
+        ArrayList<GymClassEntity> classesTrainerIsTeaching = new ArrayList<>();
+        while(rs.next()){
+            classesTrainerIsTeaching.add(_getGymClassFromResultSet(rs));
+        }
+
+        pstmt.close();
+        conn.close();
+        return classesTrainerIsTeaching;
+    }
+
     /*
     helper method for creating and returning a GymClassEntity from a result set
      */
@@ -207,6 +233,13 @@ public class DbReadQueries {
      * @throws SQLException sql  exception.
      */
     private UserEntity _getUserFromResultSet(ResultSet rs) throws SQLException {
+        /*
+        if (!rs.next()) {
+            return null;
+        }
+        
+         */
+
         String strBelt = rs.getString("Belt");
         BeltEntity belt = null;
         if (strBelt != null){

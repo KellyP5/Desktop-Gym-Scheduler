@@ -21,7 +21,7 @@ public class DbSetupHelper {
      */
     public void closeDatabase(){
         try {
-            Connection conn = DriverManager.getConnection(_dbUrl);
+            Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
             conn.close();
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -33,7 +33,7 @@ public class DbSetupHelper {
     a nice print out of what the method is doing.
      */
     public void createTable(String sql, String tableName) throws SQLException {
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         Statement stmt = conn.createStatement();
         stmt.execute(sql);
         System.out.println("Table: " + tableName + " was created.");
@@ -137,12 +137,12 @@ public class DbSetupHelper {
      */
     public void deleteTestTables() throws SQLException {
         ArrayList<String> sqlDropStatements = new ArrayList<>();
-        sqlDropStatements.add("DROP TABLE IF EXISTS USER");
-        sqlDropStatements.add("DROP TABLE IF EXISTS GYMCLASS");
         sqlDropStatements.add("DROP TABLE IF EXISTS TRAINERAVAILABILITY");
         sqlDropStatements.add("DROP TABLE IF EXISTS ENROLLEDUSER");
+        sqlDropStatements.add("DROP TABLE IF EXISTS USER");
+        sqlDropStatements.add("DROP TABLE IF EXISTS GYMCLASS");
 
-        Connection conn = DriverManager.getConnection(_dbUrl);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         Statement statement  = conn.createStatement();
 
         for(String dropStatement : sqlDropStatements){
@@ -167,8 +167,8 @@ public class DbSetupHelper {
 
         ArrayList<GymClassEntity> gymClassesForKevin =
                 drq.getClassesUserEnrolledInByEmail("kevin@gmail.com");
-        System.out.println(gymClassesForKevin.get(0).getStartDateTime());
-        System.out.println(gymClassesForKevin.get(1).getStartDateTime());
+        System.out.println("Debug: _testAndPrintDataFromDb " + gymClassesForKevin.get(0).getStartDateTime());
+        System.out.println("Debug: _testAndPrintDataFromDb " + gymClassesForKevin.get(1).getStartDateTime());
         ArrayList<TrainerAvailabilityEntity> sarahsAvailabilities =
                 drq.getTrainerDateTimeAvailabilityByEmail("sarah@gmail.com");
         System.out.println("size of trainer sarah Availabilities is "

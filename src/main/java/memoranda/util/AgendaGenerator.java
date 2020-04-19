@@ -326,7 +326,7 @@ public class AgendaGenerator {
      * @return the string
      */
     static String generateAllProjectsInfo(CalendarDate date, Collection expandedTasks) {
-		String s =
+		/*String s =
 				"<td width=\"66%\" valign=\"top\">"
 						+ "<h1>"
 						+ Local.getString("Projects and tasks")
@@ -339,7 +339,8 @@ public class AgendaGenerator {
 			if (!p.getID().equals(CurrentProject.get().getID()))
 				s += generateProjectInfo(p, date, expandedTasks);
 		}
-		return s + "</td>";
+		return s + "</td>";*/
+		return "";
 	}
 
     /**

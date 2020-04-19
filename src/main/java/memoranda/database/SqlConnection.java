@@ -1,13 +1,11 @@
 package main.java.memoranda.database;
 
-import main.java.memoranda.database.util.DbCreateQueries;
-import main.java.memoranda.database.util.DbReadQueries;
-import main.java.memoranda.database.util.DbSetupHelper;
-import main.java.memoranda.database.util.SqlConstants;
+import main.java.memoranda.database.util.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /*
 SqlConnection is a singleton pattern that ensures only one connection is made to each database (real and test)
@@ -20,6 +18,8 @@ public class SqlConnection {
     private DbCreateQueries dcqTest;
     private DbSetupHelper dbSetupHelper;
     private DbSetupHelper dbSetupHelperTest;
+    private DbUpdateQueries duq;
+    private DbUpdateQueries duqTest;
 
     /*
     This is just a helper main that can be ran to generate the real and test databases.
@@ -35,8 +35,8 @@ public class SqlConnection {
     private static SqlConnection _instance = null;
 
     private SqlConnection() throws SQLException {
-        Connection realDbConn = DriverManager.getConnection(SqlConstants.DEFAULTDBLOC);
-        Connection testDbConn = DriverManager.getConnection(SqlConstants.DEFAULTTESTDBLOC);
+        Connection realDbConn = EnforcedConnection.getEnforcedCon(SqlConstants.DEFAULTDBLOC);
+        Connection testDbConn = EnforcedConnection.getEnforcedCon(SqlConstants.DEFAULTTESTDBLOC);
 
 
         drq = new DbReadQueries(SqlConstants.DEFAULTDBLOC);
@@ -45,6 +45,8 @@ public class SqlConnection {
         dcqTest = new DbCreateQueries(SqlConstants.DEFAULTTESTDBLOC);
         dbSetupHelper = new DbSetupHelper(SqlConstants.DEFAULTDBLOC);
         dbSetupHelperTest = new DbSetupHelper(SqlConstants.DEFAULTTESTDBLOC);
+        duq = new DbUpdateQueries(SqlConstants.DEFAULTDBLOC);
+        duqTest = new DbUpdateQueries(SqlConstants.DEFAULTTESTDBLOC);
     }
 
     /*
@@ -84,5 +86,13 @@ public class SqlConnection {
 
     public DbSetupHelper getDbSetupHelperTest() {
         return dbSetupHelperTest;
+    }
+
+    public DbUpdateQueries getDuq() {
+        return duq;
+    }
+
+    public DbUpdateQueries getDuqTest() {
+        return duqTest;
     }
 }

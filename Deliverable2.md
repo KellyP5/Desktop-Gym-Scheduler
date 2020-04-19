@@ -247,4 +247,38 @@ I would also advise you to already fill out the Contributions section (End of sp
   - [ ] All User Stories have acceptance tests
   - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
   - [ ] You know how to proceed
+  
+  #### Alexander Mack:
+  **Links to GitHub commits with main code contribution (up to 5 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/commit/31016241b074985025976dcff79e3f2ebf9cf6c8
+    - https://github.com/amehlhase316/Neujahrskranz/commit/92ba43f7d310792d0faf7beff18b27df56008338
+    - https://github.com/amehlhase316/Neujahrskranz/commit/6da4f60742f493435856a5c5f02d872a96767be1
+
+ 
+
+  **GitHub links to your Code Reviews (up to 3 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/pull/117
+    - https://github.com/amehlhase316/Neujahrskranz/pull/106
+
+  
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+
+    - After realizing that most GUI code could not be tested, and seeing that our previous versions of QP were unrealistic worked with team to come up with a more realistic approach to testing which is our current QP. 
+    
+    ## 4: Checklist for you to see if you are done
+- [x] Filled out the complete form from above, all fields are filled and written in full sentences
+- [x] Read the kickoff again to make sure you have all the details
+- [x] User Stories that were not completed, were left in the Sprint and a copy created
+- [x] Your Quality Policies are accurate and up to date
+- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
+  - [ ] Team member 1
+  - [ ] Team member 2
+- [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
+  - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
+  - [ ] All User Stories have acceptance tests
+  - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
+  - [ ] You know how to proceed
  

@@ -1,10 +1,13 @@
 package main.java.memoranda.gym;
 
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.UserEntity;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Gym {
 
@@ -105,6 +108,11 @@ public class Gym {
             return true;
         }
         return false;
+    }
+
+    public static ArrayList<GymClassEntity> getClassesByEmailAndDate(String email, LocalDate selectedCalendarDate){
+        //todo
+        return null;
     }
 
 

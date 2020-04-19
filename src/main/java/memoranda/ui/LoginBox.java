@@ -18,13 +18,12 @@ import java.sql.SQLException;
 
 public class LoginBox extends JFrame {
 
-
     LoginBox login;
     private JFrame splash;
     public static SqlConnection conn = null;
     private App app;
 
-    private UserEntity _user;
+    private static UserEntity _user;
     private JPanel _login;
     private JButton _loginButton;
     private JTextField _email;
@@ -313,7 +312,7 @@ public class LoginBox extends JFrame {
      * @return Returns the user as a UserEntity
      */
 
-    public UserEntity getUser() {
+    public static UserEntity getUser() {
         return _user;
     }
 

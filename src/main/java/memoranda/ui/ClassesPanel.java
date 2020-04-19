@@ -343,11 +343,7 @@ public class ClassesPanel<newButtonFont> extends JPanel {
         eventPPMenu.setFont(new java.awt.Font("Dialog", 1, 10));
         ppEditEvent.setFont(new java.awt.Font("Dialog", 1, 11));
         ppEditEvent.setText(Local.getString("Edit event") + "...");
-        ppEditEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ppEditEvent_actionPerformed(e);
-            }
-        });
+
         ppEditEvent.setEnabled(false);
         ppEditEvent.setIcon(
                 new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_edit.png")));
@@ -355,11 +351,7 @@ public class ClassesPanel<newButtonFont> extends JPanel {
 
         ppRemoveEvent.setFont(new java.awt.Font("Dialog", 1, 11));
         ppRemoveEvent.setText(Local.getString("Remove event"));
-        ppRemoveEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ppRemoveEvent_actionPerformed(e);
-            }
-        });
+
         ppRemoveEvent.setIcon(
                 new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_remove.png")));
         ppRemoveEvent.setEnabled(false);
@@ -370,11 +362,7 @@ public class ClassesPanel<newButtonFont> extends JPanel {
 
         ppNewEvent.setFont(new java.awt.Font("Dialog", 1, 11));
         ppNewEvent.setText(Local.getString("New event") + "...");
-        ppNewEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ppNewEvent_actionPerformed(e);
-            }
-        });
+
         ppNewEvent.setIcon(
                 new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/event_new.png")));
 
@@ -458,20 +446,6 @@ public class ClassesPanel<newButtonFont> extends JPanel {
         eventPPMenu.add(ppRemoveEvent);
 
 
-        // remove events using the DEL key
-        Room1.addKeyListener(new KeyListener() {
-            public void keyPressed(KeyEvent e) {
-                if (Room1.getSelectedRows().length > 0
-                        && e.getKeyCode() == KeyEvent.VK_DELETE)
-                    ppRemoveEvent_actionPerformed(null);
-            }
-
-            public void keyReleased(KeyEvent e) {
-            }
-
-            public void keyTyped(KeyEvent e) {
-            }
-        });
     }
 
     /**
@@ -927,38 +901,5 @@ public class ClassesPanel<newButtonFont> extends JPanel {
 
     }
 
-    /**
-     * Pp edit event action performed.
-     *
-     * @param e the e
-     */
-    void ppEditEvent_actionPerformed(ActionEvent e) {
-        editEventB_actionPerformed(e);
 
-    }
-    void ppPrivateClassEvent_actionPerformed(ActionEvent e) {
-        editEventB_actionPerformed(e);
-
-    }
-
-    /**
-     * Pp remove event action performed.
-     *
-     * @param e the e
-     */
-    void ppRemoveEvent_actionPerformed(ActionEvent e) {
-        removeEventB_actionPerformed(e);
-
-
-    }
-
-    /**
-     * Pp new event action performed.
-     *
-     * @param e the e
-     */
-    void ppNewEvent_actionPerformed(ActionEvent e) {
-        newEventB_actionPerformed(e);
-
-    }
 }

@@ -45,6 +45,34 @@ public class DbReadQueries {
     }
 
     /*
+    gets all of a USER's information based on the email provided
+    */
+    public ArrayList<GymClassEntity> getEnrolledClassByEmailAndDate(String email, LocalDate date) throws SQLException {
+        String sql = "SELECT * FROM GYMCLASS " +
+                "INNER JOIN ENROLLEDUSER on ENROLLEDUSER.ClassId = GYMCLASS.Id " +
+                "WHERE ENROLLEDUSER.UserEmail=?" +
+                "AND GYMCLASS.StartDate=?";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
+        pstmt.setString(1,email);
+        String strDate = date.format(SqlConstants.DBDATEFORMAT);
+        pstmt.setString(2, strDate);
+        ResultSet rs  = pstmt.executeQuery();
+
+        ArrayList<GymClassEntity> gymClasses = new ArrayList<>();
+        while(rs.next()){
+            gymClasses.add(_getGymClassFromResultSet(rs));
+        }
+        pstmt.close();
+        conn.close();
+        if (gymClasses.size() == 0) {
+            return null;
+        } else {
+            return gymClasses;
+        }
+    }
+
+    /*
     returns list of all users in the USER table
      */
     public ArrayList<UserEntity> getAllUsers() throws SQLException {

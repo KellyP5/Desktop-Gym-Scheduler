@@ -338,6 +338,11 @@ public class LoginBox extends JFrame {
         return _pass;
     }
 
+    /**
+     * Displays the splash screen before the Login screen opens.
+     * Refactored and moved into this class so that the App class wasn't being
+     * instantiated before a user logged in
+     */
     private void showSplash() {
         splash = new JFrame();
         ImageIcon spl;

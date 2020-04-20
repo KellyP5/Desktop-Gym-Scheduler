@@ -275,7 +275,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Kevin W
   - [ ] Kevin S
-  - [ ] Kelly P
+  - [x] Kelly P
   - [ ] Kelly E
   - [ ] Rita B
   - [ ] Alex M

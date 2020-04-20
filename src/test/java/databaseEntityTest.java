@@ -2,7 +2,12 @@ package test.java;
 
 import main.java.memoranda.database.*;
 import org.junit.*;
+
+import javax.management.relation.Role;
 import java.time.LocalDateTime;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAmount;
+
 import static org.junit.Assert.*;
 
 
@@ -14,6 +19,9 @@ public class databaseEntityTest {
     public static BeltEntity be1, be2, be3;
     public static GymClassEntity gce1;
     public static LocalDateTime ldt1;
+    public static UserEntity udt1;
+    public static RoleEntity ur1;
+
 
     /**
      * Sets up for database object tests
@@ -21,6 +29,8 @@ public class databaseEntityTest {
     @BeforeClass
     public static void setUp() {
         be1 = new BeltEntity("");
+        ur1 = new RoleEntity(RoleEntity.UserRole.trainer);
+
     }
 
     /**
@@ -78,7 +88,18 @@ public class databaseEntityTest {
      */
     @Test
     public void userEntity()  {
+        udt1 = new UserEntity("fname", "lname", "password", "mail@mail.com",
+                new RoleEntity(RoleEntity.UserRole.trainer));
+        assertEquals("fname", udt1.getFirstName());
+        assertEquals("lname", udt1.getLastName());
+        assertEquals("password", udt1.getPassword());
+        assertEquals("mail@mail.com", udt1.getEmail());
+        assertEquals(ur1, udt1.getRole());
+
     }
+
+
+
 
 
 }

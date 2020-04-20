@@ -6,6 +6,7 @@ plugins {
 
 apply plugin: 'application'
 apply plugin: 'java'
+apply plugin: 'jacoco'
 
 mainClassName = 'main/java/memoranda/Start'
 

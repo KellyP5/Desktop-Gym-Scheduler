@@ -19,9 +19,9 @@ public class databaseEntityTest {
     public static BeltEntity be1, be2, be3;
     public static GymClassEntity gce1;
     public static LocalDateTime ldt1;
+    public static TrainerAvailabilityEntity tae1;
     public static UserEntity udt1;
     public static RoleEntity ur1;
-
 
     /**
      * Sets up for database object tests
@@ -99,7 +99,20 @@ public class databaseEntityTest {
     }
 
 
+    /**
+     * Tests trainer availbility Entity
+     */
+    @Test
+    public void trainerAvilibilitySetters(){
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = start.plusHours(1);
+        tae1 = new TrainerAvailabilityEntity(LocalDateTime.now(), LocalDateTime.now());
+        tae1.setStartDateTime(start);
+        tae1.setEndDateTime(end);
+
+        assertEquals(start, tae1.getStartDateTime());
+        assertEquals(end, tae1.getEndDateTime());
 
 
-
+    }
 }

@@ -19,6 +19,7 @@ public class databaseEntityTest {
     public static BeltEntity be1, be2, be3;
     public static GymClassEntity gce1;
     public static LocalDateTime ldt1;
+    public static RoleEntity re1, re2, re3;
     public static TrainerAvailabilityEntity tae1;
     public static UserEntity udt1;
     public static RoleEntity ur1;
@@ -97,6 +98,22 @@ public class databaseEntityTest {
         assertEquals(ur1, udt1.getRole());
 
     }
+
+    /**
+     * Tests Role Entity
+     */
+    @Test
+    public void roleEntity()  {
+        re1 = new RoleEntity(RoleEntity.UserRole.trainer);
+        re2 = new RoleEntity(RoleEntity.UserRole.admin);
+        re3 = new RoleEntity(RoleEntity.UserRole.customer);
+        assertEquals("trainer", re1.toString());
+        assertEquals("admin", re2.toString());
+        assertEquals("customer", re3.toString());
+
+    }
+
+
 
 
     /**

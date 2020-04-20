@@ -237,20 +237,7 @@ I would also advise you to already fill out the Contributions section (End of sp
  **What was your main contribution to the Quality Policy documentation?:
 
     - https://github.com/amehlhase316/Neujahrskranz/commit/753f074dadab93fed95488a76cf6ec77532f3135
-    
-## 4: Checklist for you to see if you are done
-- [ ] Filled out the complete form from above, all fields are filled and written in full sentences
-- [ ] Read the kickoff again to make sure you have all the details
-- [ ] User Stories that were not completed, were left in the Sprint and a copy created
-- [ ] Your Quality Policies are accurate and up to date
-- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Team member 1
-  - [ ] Team member 2
-- [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
-  - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
-  - [ ] All User Stories have acceptance tests
-  - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
-  - [ ] You know how to proceed
+
   
   #### Alexander Mack:
   **Links to GitHub commits with main code contribution (up to 5 links):
@@ -272,14 +259,18 @@ I would also advise you to already fill out the Contributions section (End of sp
 
     - After realizing that most GUI code could not be tested, and seeing that our previous versions of QP were unrealistic worked with team to come up with a more realistic approach to testing which is our current QP. 
     
-    ## 4: Checklist for you to see if you are done
+## 4: Checklist for you to see if you are done
 - [x] Filled out the complete form from above, all fields are filled and written in full sentences
 - [x] Read the kickoff again to make sure you have all the details
 - [x] User Stories that were not completed, were left in the Sprint and a copy created
 - [x] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Team member 1
-  - [ ] Team member 2
+  - [ ] Kevin W
+  - [ ] Kevin S
+  - [ ] Kelly P
+  - [ ] Kelly E
+  - [ ] Rita B
+  - [ ] Alex M
 - [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
   - [ ] All User Stories have acceptance tests

@@ -81,6 +81,9 @@ public class databaseEntityTest {
     public void userEntity()  {
     }
 
+    /**
+     * Tests Role Entity
+     */
     @Test
     public void roleEntity()  {
         re1 = new RoleEntity(RoleEntity.UserRole.trainer);

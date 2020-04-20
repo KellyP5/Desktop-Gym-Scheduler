@@ -17,21 +17,94 @@
 >Branches will not be deleted after they are completed.
 
 
-**Unit Tests Blackbox** (due start Sprint 2)
-  > Your Blackbox testing policy 
+**Unit Tests Blackbox** 
+  > Unit Tests will be conducted on a task while the task is in the "ready for test" phase on Taiga (Waiting to be merged into develop)
+  
+  > All unit tests will be placed in the src.test.java folder.
+  
+  > Each member will conduct at least 4 unit tests per sprint. (on your code or other people's code)
+  
+  > Whe committing a Unit Test to a task, you will commit it via 'US# Task# Unit Test: ...'
+  
+  > Unit tests will be setup to produce jacoco reports
+  
+  > Unit tests will be focused on areas that are no related to UI elements.
 
- **Unit Tests Whitebox** (due Feb 25th)
-  > Your Whitebox testing policy 
 
-**Code Review** (due Feb 25th)
-  > Your Code Review policy   
+ **Unit Tests Whitebox**
+  > Unit Tests will be conducted on a task while the task is in the "ready for test" phase on Taiga (Waiting to be merged into develop)
+  
+  > All unit tests will be placed in the src.test.java folder.
+  
+  > Each member will conduct at least 4 unit tests per sprint. (on your code or other people's code)
+  
+  > Whe committing a Unit Test to a task, you will commit it via 'US# Task# Unit Test: ...'
+  
+  > Unit tests will be setup to produce jacoco reports
+  
+  > Unit tests will be focused on areas that are no related to UI elements.
+  
 
-  > Include a checklist/questions list which every developer will need to fill out/answe when creating a Pull Request to the Dev branch. 
+**Code Review** 
+  #### Developer Review Checklist
+  
+  Developer Name: _______________________
+  
+- [ ] My code compiles
+- [ ] My code has been developer-tested and includes unit tests that do not fail, if unit testing makes sense
+- [ ] My code is properly commented according to Coding Standards
+     - [ ] All source code files/class files have banner comments present and filled in
+- [ ] All public methods have a method banner comment and/or javadoc comment present and filled in
+- [ ] My code is stylistically consistent
+     - [ ] Indentations are consistent
+     - [ ] Bracket use is consistent (All { appear at the end of a line and } on its own line)
+     - [ ] Line length is not excessive (Does not exceed 120 characters)
+     - [ ] There is no leftover commented-out code
+     - [ ] There are no spelling mistakes
+- [ ] I use proper naming conventions
+     - [ ] Constants and Enums are in all CAPS
+     - [ ] Class names are in upper CamelCase
+     - [ ] Variable, Parameter, and Method names are in lower camelCase
+     - [ ] Non-public methods, variables, and constants are prefixed by an underscore _
+- [ ] I use exceptions properly where necessary
+- [ ] I have eliminated unused imports
+- [ ] All class member variables are private
+- [ ] I have no duplicate or repetitive code
+- [ ] All literal values, except loop indices, are declared as constants (no hard coding)
 
   > Include a checklist/question list which every reviewer will need to fill out/anser when conducting a review, this checklist (and the answers of course) need to be put into the Pull Request review.
+  
+#### Reviewer Checklist
+
+Reviewer Name: ________________
+
+- [ ] The code compiles
+- [ ] Unit tests are present and correct (do not fail), if unit testing makes sense
+- [ ] Comments are comprehensible and appropriate (there are no trivial comments)
+- [ ] Comments are neither too numerous nor verbose
+- [ ] Comments follow proper Coding Standards 
+     - [ ] All source code files/class files have banner comments present and filled in
+     - [ ] All public methods have a method banner comment and/or javadoc comment present and filled in
+- [ ] The code is stylistically consistent
+     - [ ] Indentations are consistent
+     - [ ] Bracket use is consistent (All { appear at the end of a line and } on its own line)
+     - [ ] Line length is not excessive (Does not exceed 120 characters)
+     - [ ] There is no leftover commented-out code
+     - [ ] There are no spelling mistakes
+- [ ] Proper naming conventions are used
+     - [ ] Constants and Enums are in all CAPS
+     - [ ] Class names are in upper CamelCase
+     - [ ] Variable, Parameter, and Method names are in lower camelCase
+     - [ ] Non-public methods, variables, and constants are prefixed by an underscore _
+- [ ] Variables, methods, and classes are named appropriately and are self-explanatory
+- [ ] Parameterized types have been used appropriately
+- [ ] Exceptions have been used appropriately
+- [ ] There is no duplicate or repetitive code
+- [ ] Frameworks have been used appropriately – methods have all been defined appropriately
+
 
 **Static Analysis**  (due start Sprint 3)
-  > Your Static Analysis policy   
-
+  > Team members will contribute to the massive backlog of StaticAnaylsis bugs by submitting at least 20 SA fixes caught by checkstyle and 20 SA fixes to spotbugs. If there aren't any bugs, then team members will obviously not need to contribute to fixing any more. The dedicated SA fixes will be created on a seperate branch with SA-Task#, where the task number is created with a storyless task on the taiga board. This will be done so that we can accruately show off our progression as we tackle these bugs.
+  
 **Continuous Integration**  (due start Sprint 3)
   > Your Continuous Integration policy

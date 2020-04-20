@@ -7,19 +7,14 @@
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 package main.java.memoranda.ui;
-import java.awt.Color;
-import java.awt.Component;
-import java.util.Calendar;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.EventsManager;
 import main.java.memoranda.Task;
 import main.java.memoranda.date.CalendarDate;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Calendar;
 
 /**
  * The type Jn calendar cell renderer.
@@ -68,6 +63,9 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
         
 		JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		String currentPanel = ((AppFrame)App.getFrame()).workPanel.dailyItemsPanel.getCurrentPanel();
+
+
+		//System.out.println("JNCalendarCellRenderer.java: " + currentPanel);
 
 		if (d == null) {
             label.setEnabled(false);

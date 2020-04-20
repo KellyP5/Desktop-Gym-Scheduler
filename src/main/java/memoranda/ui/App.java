@@ -1,10 +1,15 @@
 package main.java.memoranda.ui;
 
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Toolkit;
+import main.java.memoranda.EventsScheduler;
+import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.gym.Gym;
+import main.java.memoranda.util.Configuration;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Properties;
 
@@ -14,23 +19,19 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 import main.java.memoranda.EventsScheduler;
+import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.util.Configuration;
-//import org.swingexplorer.Log;
 
 /**
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 /*$Id: App.java,v 1.28 2007/03/20 06:21:46 alexeya Exp $*/
 public class App {
-	// boolean packFrame = false;
-
 
     /**
      * The Frame.
      */
     static AppFrame frame = null;
-
-    static LoginBox login;
 
     /**
      * The constant GUIDE_URL.
@@ -45,9 +46,10 @@ public class App {
      */
     public static final String WEBSITE_URL = "http://globogym.com";
 
+	public static SqlConnection conn = null;
 
+    public static Gym gym = null;
 
-	private JFrame splash = null;
 	FileInputStream input;
 
 	/*========================================================================*/ 
@@ -91,8 +93,12 @@ public class App {
      *
      * @param fullmode the fullmode
      */
-    public App(boolean fullmode) {
+    public App(boolean fullmode, SqlConnection connection) throws IOException {
 		super();
+
+		this.conn = connection;
+
+		this.gym = new Gym();//insert connection code
 
 		// Updates the version and build numbers via the build.gradle file
 		try {
@@ -110,8 +116,6 @@ public class App {
 		/* DEBUG */
 		if (!fullmode)
 			System.out.println("Minimized mode");
-		if (!Configuration.get("SHOW_SPLASH").equals("no"))
-			showSplash();
 		System.out.println(VERSION_INFO);
 		System.out.println(Configuration.get("LOOK_AND_FEEL"));
 		try {
@@ -144,20 +148,15 @@ public class App {
 		EventsScheduler.init();
 		frame = new AppFrame();
 		if (fullmode) {
-			login = new LoginBox();
-			//init();
+			init();
 		}
-		if (!Configuration.get("SHOW_SPLASH").equals("no"))
-			splash.dispose();
-	}
 
+	}
 
     /**
      * Init.
      */
     static void init() {
-
-
 
 		/*
 		 * if (packFrame) { frame.pack(); } else { frame.validate(); }
@@ -204,25 +203,5 @@ public class App {
 		if (frame == null)
 			return;
 		frame.dispose();
-	}
-
-	/**
-	 * Method showSplash.
-	 */
-	private void showSplash() {
-		splash = new JFrame();
-		ImageIcon spl;
-		spl = new ImageIcon(App.class.getResource("/ui/splash.png")); //name is included on the logo
-		JLabel l = new JLabel();
-		l.setSize(400, 300);
-		l.setIcon(spl);
-		splash.getContentPane().add(l);
-		splash.setSize(400, 300);
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		splash.setLocation(
-			(screenSize.width - 400) / 2,
-			(screenSize.height - 300) / 2);
-		splash.setUndecorated(true);
-		splash.setVisible(true);
 	}
 }

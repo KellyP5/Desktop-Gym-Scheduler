@@ -267,6 +267,21 @@ I would also advise you to already fill out the Contributions section (End of sp
 
     - After realizing that most GUI code could not be tested, and seeing that our previous versions of QP were unrealistic worked with team to come up with a more realistic approach to testing which is our current QP. 
     
+     
+  #### Team member: Margaryta Barrilleaux:
+  **Links to GitHub commits with main code contribution (up to 5 links):
+    - https://github.com/amehlhase316/Neujahrskranz/pull/105
+    - https://github.com/amehlhase316/Neujahrskranz/pull/102
+ 
+   **GitHub links to your Unit Tests (up to 3 links):
+    - worked on gui, no unit testing for that 
+  **GitHub links to your Code Reviews (up to 3 links):
+    - https://github.com/amehlhase316/Neujahrskranz/pull/110
+    - https://github.com/amehlhase316/Neujahrskranz/pull/112
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+    - Participated in every meeting and discussion about quality policy, offered changes to them so we could do task merges into develop before the user story is complete if that task is important for other user story in order to make our progress faster and more efficient. 
+    
 ## 4: Checklist for you to see if you are done
 - [x] Filled out the complete form from above, all fields are filled and written in full sentences
 - [x] Read the kickoff again to make sure you have all the details

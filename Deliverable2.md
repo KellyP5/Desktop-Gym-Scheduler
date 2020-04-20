@@ -278,7 +278,7 @@ I would also advise you to already fill out the Contributions section (End of sp
   - [x] Kelly P
   - [ ] Kelly E
   - [ ] Rita B
-  - [ ] Alex M
+  - [x] Alex M
 - [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
   - [ ] All User Stories have acceptance tests

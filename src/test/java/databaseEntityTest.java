@@ -82,7 +82,9 @@ public class databaseEntityTest {
     }
 
 
-
+    /**
+     * Tests trainer availbility Entity
+     */
     @Test
     public void trainerAvilibilitySetters(){
         LocalDateTime start = LocalDateTime.now();

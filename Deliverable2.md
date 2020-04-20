@@ -280,7 +280,30 @@ I would also advise you to already fill out the Contributions section (End of sp
     - https://github.com/amehlhase316/Neujahrskranz/pull/112
  
  **What was your main contribution to the Quality Policy documentation?:
-    - Participated in every meeting and discussion about quality policy, offered changes to them so we could do task merges into develop before the user story is complete if that task is important for other user story in order to make our progress faster and more efficient. 
+    - Participated in every meeting and discussion about quality policy, offered changes to them so we could do task merges into develop before the user story is complete if that task is important for other user story in order to make our progress faster and more efficient.
+    
+#### Team member Kevin Somers:
+  **Links to GitHub commits with main code contribution (up to 5 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/commit/a9c1f8bc88889a723049595c0181881d047f22b9
+    - https://github.com/amehlhase316/Neujahrskranz/commit/be810f7da7638f6c55869a6956a9d3e4f3c5ea67
+    - https://github.com/amehlhase316/Neujahrskranz/commit/90e44abd7787825d9d4e8dbc80c24e954ea75183
+
+   **GitHub links to your Unit Tests (up to 3 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/commit/f8a61428fed5378104fc6024c6c94210f9126346
+    - (two tests on this one) https://github.com/amehlhase316/Neujahrskranz/commit/e7a922e2a1532929ce8b2cf0bfea90fa2aab0848
+    - https://github.com/amehlhase316/Neujahrskranz/commit/5e4684d7f63814a8c088074e00e88bdd30b7034b
+
+  **GitHub links to your Code Reviews (up to 3 links):
+
+    - https://github.com/amehlhase316/Neujahrskranz/pull/97
+    - https://github.com/amehlhase316/Neujahrskranz/pull/98
+    - https://github.com/amehlhase316/Neujahrskranz/pull/100
+ 
+ **What was your main contribution to the Quality Policy documentation?:
+
+    - Asked professor for permission to change some of the developer review checklist.  Now our checklist checks for 120 characters intead of 100.  We discussed changing the sentence about unit testing to check for testing where it makes sense, because some branches/commits are GUI related and dont make sense to require a test for review.  
     
 ## 4: Checklist for you to see if you are done
 - [x] Filled out the complete form from above, all fields are filled and written in full sentences

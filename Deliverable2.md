@@ -155,10 +155,14 @@ I would also advise you to already fill out the Contributions section (End of sp
     - info
     
 #### Team member: Kelly Ellis
+
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - TODO
-    - TODO
+    - https://github.com/amehlhase316/Neujahrskranz/commit/60f0ddded6219f5f7aa723da7a4a019aded9fda2
+    - https://github.com/amehlhase316/Neujahrskranz/tree/US-43
+    - https://github.com/amehlhase316/Neujahrskranz/commit/62d9ab9affe1d8eb2e4a6edf01b4197449332f0f
+    - https://github.com/amehlhase316/Neujahrskranz/commit/a4bbc827d238e125c96390b0c6cff1ce1b81d2df
+    - https://github.com/amehlhase316/Neujahrskranz/commit/f83c3fdc31d5478e50f915f246a5d472f37a239f
 
    **GitHub links to your Unit Tests (up to 3 links):
 

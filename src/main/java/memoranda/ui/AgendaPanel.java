@@ -6,6 +6,7 @@ import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;
@@ -98,7 +99,6 @@ public class AgendaPanel extends JPanel {
 		this.add(panel, BorderLayout.CENTER);
 
 		refresh(CurrentDate.get());
-
 	}
 
 	/**
@@ -141,8 +141,6 @@ public class AgendaPanel extends JPanel {
 			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 4));
 			System.out.println();
 		});
-
-
 	}
 
 	/**
@@ -155,10 +153,11 @@ public class AgendaPanel extends JPanel {
 	 */
 	private ArrayList<ArrayList<String>> _getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
 		//TEMPORARY will need to be changed to the actual once the logged user can be checked
-		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrq().
-				getAllClassesTrainerIsTeachingByEmail(email);
+/*		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrq().
+				getAllClassesTrainerIsTeachingByEmail(email);*/
+		ArrayList<GymClassEntity> gymClassEntities = Gym.getEnrolledClassesByEmailAndDate(email,selectedCalendarDate);
 
-		if (!gymClassEntities.isEmpty()) {
+		if (gymClassEntities!=null) {
 			ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
 			for (int i = 0; i < gymClassEntities.size(); i++) {
 				/*creates an array list of array lists that hold strings of information for each individual
@@ -185,7 +184,6 @@ public class AgendaPanel extends JPanel {
 		} else {
 			return null;
 		}
-
 	}
 
 	/**
@@ -213,7 +211,7 @@ public class AgendaPanel extends JPanel {
 	 */
 
 	//Functionality will need to be fixed in seperate user story
-	void initToolBar() throws SQLException {
+	void initToolBar() {
 		toolBar.setFloatable(false);
 
 
@@ -253,8 +251,6 @@ public class AgendaPanel extends JPanel {
 					refresh(d);
 			}
 		});
-
-
 	}
 
 	/**
@@ -263,11 +259,7 @@ public class AgendaPanel extends JPanel {
 	 * @param date the date
 	 */
 	public void refresh(CalendarDate date) {
-		try {
-			updateTrainerBeltDisplay();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		updateTrainerBeltDisplay();
 		String[][] data = null;
 		LocalDate convertedDate = _convertDateToLocalDateTime(date);
 
@@ -280,21 +272,17 @@ public class AgendaPanel extends JPanel {
 		ArrayList<ArrayList<String>> d = null;
 		ArrayList<ArrayList<String>> temp;
 		try {
-			// below is TEMPORARY this will need to be changed to the current
-			// trainer that is logged in which has not been implemented.
-			temp = _getClassDataForTrainer("admin@gym.com", convertedDate);
+			UserEntity user = LoginBox.getUser();
+			temp = _getClassDataForTrainer(user.getEmail(), convertedDate);
 			if (temp != null && !temp.isEmpty()) {
 				d = temp;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-
 		}
-
 
 		//this code converts our 2d ArrayList into a String[][]
 		if (d != null) {
-
 			data = new String[d.size()][];
 			for (int i = 0; i < d.size(); i++) {
 				ArrayList<String> current = d.get(i);
@@ -307,7 +295,6 @@ public class AgendaPanel extends JPanel {
 			}
 		}
 
-
 		//that way we can pass this into our JTable constructor
 		if (data == null) {
 			//columns will not display info when user is not logged in (will be functional when logged user can be checked)
@@ -315,11 +302,7 @@ public class AgendaPanel extends JPanel {
 		} else {
 			//loads the trainer's class data to the table
 			classesTable.setModel(new DefaultTableModel(data, _COLUMNNAMES));
-
-
 		}
-
-
 	}
 
 	/**
@@ -332,10 +315,7 @@ public class AgendaPanel extends JPanel {
 	private LocalDate _convertDateToLocalDateTime(CalendarDate date) {
 
 		LocalDate newDate = LocalDate.of(date.getYear(), date.getMonth() + 1, date.getDay());
-
-
 		return newDate;
-
 	}
 
 	/**
@@ -345,7 +325,7 @@ public class AgendaPanel extends JPanel {
 	 * @throws SQLException the sql exception
 	 */
 
-	private void updateTrainerBeltDisplay() throws SQLException {
+	private void updateTrainerBeltDisplay(){
 
 		//A check will need to be added here to check to see if the currently logged
 		//user is a trainer or not.
@@ -353,14 +333,15 @@ public class AgendaPanel extends JPanel {
 		JLabel instructorBelt = new JLabel();
 		Font labelFont = instructorBelt.getFont(); //creats Font to change font size
 		instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
-		//TEMPORARY: will need to be changed to get the user that is currently logged in email
-		String beltText = getTrainerBelt("admin@gym.com");
-		instructorBelt.setText("Trainer Belt: " + beltText.substring(0,1).toUpperCase() + beltText.substring(1));
+		UserEntity user = LoginBox.getUser();
+		String beltText = user.getTrainingBelt().toString();
+		instructorBelt.setText("User: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
+				beltText.substring(0,1).toUpperCase() + beltText.substring(1));
 		//add right padding to belt display
 		instructorBelt.setBorder(BorderFactory.createEmptyBorder(0,0,0,25));
 
 		toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
-		initToolBar(); // reinitiates tool bar
+		//initToolBar(); // reinitiates tool bar
 		toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
 		toolBar.add(instructorBelt); //adds the instructor belt jlabel to toolbar
 	}

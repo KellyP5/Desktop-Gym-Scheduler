@@ -7,7 +7,7 @@ import java.util.Objects;
 GymClassEntity is what is returned by any SQL related queries related to the GymClass table.
 This class is also used for inserts.
  */
-public class GymClassEntity {
+public class GymClassEntity implements Comparable<GymClassEntity> {
     private int _Id;
     private int _roomNumber;
     private LocalDateTime _startDateTime;
@@ -117,5 +117,10 @@ public class GymClassEntity {
 
     public void setCreatedByEmail(String _createdByEmail) {
         this._createdByEmail = _createdByEmail;
+    }
+
+    @Override
+    public int compareTo(GymClassEntity gymClassEntity) {
+        return getStartDateTime().compareTo(gymClassEntity.getStartDateTime());
     }
 }

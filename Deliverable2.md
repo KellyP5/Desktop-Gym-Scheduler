@@ -77,7 +77,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 ### Sprint Review
 
-**Screen Cast link**: Your link
+**Screen Cast link**: https://youtu.be/OASRYUmUpb4
 
 > Answer the following questions as a team. 
 
@@ -319,7 +319,7 @@ I would also advise you to already fill out the Contributions section (End of sp
   - [x] Alex M
 - [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
-  - [ ] All User Stories have acceptance tests
+  - [x] All User Stories have acceptance tests
   - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
   - [ ] You know how to proceed
  

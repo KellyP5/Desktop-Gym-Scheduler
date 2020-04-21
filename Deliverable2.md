@@ -20,8 +20,6 @@ Document your Sprint Planning here. Also check the kickoff document for more det
 
 **How many User Stories did you add to this Sprint:** 7
 
-> Answer the questions below about your Sprint Planning?
-
 **Why did you add exactly these US?**
 
 > We decided to create User Stories that worked toward our Sprint2 goal, which focused mainly on completing the front end GUI elements
@@ -79,80 +77,53 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 **Screen Cast link**: https://youtu.be/OASRYUmUpb4
 
-> Answer the following questions as a team. 
-
 **What do you think is the value you created this Sprint?**
 
-> Your Answer
+> Accomplishing the initial schedule system in the UI was a big step forward towards meeting the requirements. The Login GUI also authenticates users. The team implemented a database and the program communicates with it to save and retreive data.
 
 **Do you think you worked enough and that you did what was expected of you?**
 
-> Your Answer
+> I think our team has gone far above the requirements or what was expected of us this sprint. Not that we accomplished tasks outside of the User Stories, but went further into the User Stories that we did initially develop. We also met most of the Tasks on our sprint log. We left a lot of room going into sprint 3 to focus on the smaller things and to implement different levels of accounts based on the requirements.
 
 **Would you say you met the customers’ expectations? Why, why not?**
 
-> Your Answer
+> For the stories that we delivered on and completed we met all of the acceptance criteria, therefore meeting the customers expectations and requirements. There was one User Story that we did not finish, thus not meeting 100% of the established requirements this sprint.
 
 ### Sprint Retrospective
 
-
 **Did you meet your sprint goal?**
 
-> Your Answer
+> We met about 95% of our sprint goal. The only part of our sprint goal that we did not finish is the implementation of buttons on the Classes UI page. This was due to the time it took us to implement the classes page. Otherwise, we met all the elements of our sprint goal.
+
+- Sprint Goal
+   - Focus on separating out the three types of user accounts, implementing the UI's/backend for each of those according to design documents, and eliminating any unused GUI elements from the previous Memoranda  
 
 **Did you complete all stories on your Spring Backlog?**
 
-> Your Answer
+> We completely all but on story in the Sprint Backlog.
 
 **If not, what went wrong?**
 
-> Your Answer
+> One of the stories that we had in our sprint backlog, relied heavily on implementing the largest task of the sprint. If we had known this before hand, we likely would have saved this User Story for Sprint 3. There was a large learning curve going into Sprint 2 on how we were going to manipulate memoranda to meet our requirements which also played a role.
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
-> Your Answer
+> In general we followed the linear path expected for closing stories, as shown on our taiga board. We did slow down towards the end of the sprint as we started to narrow down the tasks remaining.
 
 **Did you deliver business value?**
 
-> Your Answer
+> We delivered on features that largely impact the customers ability to see classes and to manage user accounts in the system. They can view classes in a database but aren't yet able to join them. 
 
 **Are there things the team thinks it can do better in the next Sprint?**
 
-> Your Answer
+> Part way through the sprint we realized that we weren't pulling tasks into develop nearly enough. This caused issues with knowing how much progress people made on certain tasks. Also, initially we were waiting until a User Story was completely done to merge it in. This led to issues of overlap between different user stories. Also, we should narrow down the User Stories and have less tasks per User Story. 
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
-> Your Answer
+> We feel confident going into the final sprint to meet all of the User Requirements. We accomplished a large percentage of the requirements this sprint so we can produce a more polished product. 
 
 ### Contributions:
 
-> In this section I want you to point me to your main contributions (each of you individually). Some of the topcs are not needed for the first deliverables (you should know which things you should have done in this Sprint, if you don't then you have probably missed something):
-
-#### Team member A:
-  **Links to GitHub commits with main code contribution (up to 5 links):
-
-    - link1
-    - link2
-
-   **GitHub links to your Unit Tests (up to 3 links):
-
-    - link1
-    - link2
-
-  **GitHub links to your Code Reviews (up to 3 links):
-
-    - link1
-    - link2
-
-  **How did you contribute to Static Analysis:
-
-    - link1
-    - link2
- 
- **What was your main contribution to the Quality Policy documentation?:
-
-    - info
-    
 #### Team member: Kelly Ellis
 
   **Links to GitHub commits with main code contribution (up to 5 links):
@@ -310,15 +281,15 @@ I would also advise you to already fill out the Contributions section (End of sp
 - [x] User Stories that were not completed, were left in the Sprint and a copy created
 - [x] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Kevin W
+  - [x] Kevin W
   - [ ] Kevin S
   - [x] Kelly P
-  - [ ] Kelly E
-  - [ ] Rita B
+  - [x] Kelly E
+  - [x] Rita B
   - [x] Alex M
-- [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
+- [x] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
   - [x] All User Stories have acceptance tests
   - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
-  - [ ] You know how to proceed
+  - [x] You know how to proceed
  

@@ -95,7 +95,6 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 ### Sprint Retrospective
 
-> Include your Sprint retrospective here and answer the following questions in an evidence based manner as a team (I do not want each of your individuals opinion here but the team perspective). By evidence-based manner it means I want a Yes or No on each of these questions, and for you to provide evidence for your answer. That is, don’t just say "Yes we did work at a consistent rate because we tried hard"; say "we worked at a consistent rate because here are the following tasks we completed per team member and the rate of commits in our Git logs."
 
 **Did you meet your sprint goal?**
 

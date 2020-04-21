@@ -282,7 +282,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 - [x] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [x] Kevin W
-  - [ ] Kevin S
+  - [x] Kevin S
   - [x] Kelly P
   - [x] Kelly E
   - [x] Rita B

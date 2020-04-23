@@ -64,7 +64,7 @@ Haven’t started yet. I’ll probably work on refining some of the GUI aspects 
    * Kelly Petrone :
          No blockers, haven’t picked a task yet.
    * Rita Barrilleaux : 
-   
+         Have note started yet, so no blockers  :grimacing:
    * Alex Mack :
    
   * Kevin Wilkinson :

@@ -44,30 +44,31 @@ individual responsibilities as far as testing, static analysis, and continuous i
 I would also advise you to already fill out the Contributions section (End of sprint) as you go, to create less work at the end.
 
 ### Meeting minutes of your Daily Scrums (3 per week, should not take longer than 10 minutes):
-> Add as many rows as needed and fill out the table. (Burndown starts with Sprint 2 and Travis CI starts with Sprint 3, not needed before that)
 
 | Date  | Attendees  |Minutes   | Burndown Info | TravisCI info | Additional Info  |
 |---|---|---|---|--|--|
-|   |   |   |   |  |  |
+|4/23/2020   | 5  |0%   |  0% completed | Passing: develop, master | 
 |   |   |   |   |  |  |
 |   |   |   |   |  |  |
 
 ### Meeting Summary:
 
-> Add rows as needed and add the number how many meetings they attended:
 
+#### Meeting 1
+> 
+This meeting was conducted asychronously
    Kelly Ellis : 
-
+Haven’t started yet. I’ll probably work on refining some of the GUI aspects today. No blockers
    Kevin Somers :
-   
+      what did I work on yesterday: helped with creating/editing/deleting user stories, participated in sprint planning. Today: looked at some user stories and started considering which ones I'm interested in. Impediments: None
    Kelly Petrone :
-   
+         No blockers, haven’t picked a task yet.
    Rita Barrilleaux : 
    
    Alex Mack :
    
    Kevin Wilkinson :
-
+I have not started yet, I plan on doing the task where I cut out a lot of stuff we aren't using. I have no blockers.
 
 ## 3: After the Sprint
 

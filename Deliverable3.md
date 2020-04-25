@@ -47,8 +47,8 @@ I would also advise you to already fill out the Contributions section (End of sp
 
 | Date  | Attendees  |Minutes   | Burndown Info | TravisCI info | Additional Info  |
 |---|---|---|---|--|--|
-|4/23/2020   | 5  |0%   |  0% completed | Passing: develop, master | 
-|   |   |   |   |  |  |
+|4/23/2020   | 6  | See below   |  0% completed | Passing: develop, master | 
+|  4/25/2020 | 6  | See Below  | 0% completed  | Passing: develop, master |  |
 |   |   |   |   |  |  |
 
 ### Meeting Summary:
@@ -66,9 +66,25 @@ Haven’t started yet. I’ll probably work on refining some of the GUI aspects 
    * Rita Barrilleaux : 
          Have note started yet, so no blockers  :grimacing:
    * Alex Mack :
-   
+         Also have not started yet. No blockers.
   * Kevin Wilkinson :
 I have not started yet, I plan on doing the task where I cut out a lot of stuff we aren't using. I have no blockers.
+
+#### Meeting 2 
+>
+   * Kelly Ellis :
+   Sorted the classes on the classes page in chronological order. Created a color key for the different class colors. Will work on updating the About Me screen and assigning colors to classes based on if they have spots open.
+   * Kevin Somers :
+   Has looked into enrolling in class task. No blockers
+   * Kelly Petrone :
+   Hasn’t started yet. Will work on implementing buttons tasks and take on more as needed. No blockers.
+   * Rita Barrilleaux :
+   Hasn't started yet. Will work on setting availability for trainers. No blockers.
+   * Alex Mack :
+   Hasn't started yet. Will work on the Agenda page and making it switch between views depending on user. Will also add ability
+   to get details for classes.
+   * Kevin Wilkinson :
+   Working on removing old code/functionality, and will be no life'n this sprint soon, and I have no blockers.
 
 ## 3: After the Sprint
 

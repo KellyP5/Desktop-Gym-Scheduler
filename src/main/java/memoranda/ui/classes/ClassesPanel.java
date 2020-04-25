@@ -21,6 +21,8 @@ public class ClassesPanel extends JPanel {
     private JButton cancelEnrollmentBut;
     private JButton removeClassBut;
 
+    private JPanel colorKey;
+
     private JPanel classesPanelTop;//contains scroll panes 1,2
     private JPanel classesPanelBot;//contains scroll panes 3,4
 
@@ -159,6 +161,28 @@ public class ClassesPanel extends JPanel {
         cancelEnrollmentBut.setEnabled(true);
         cancelEnrollmentBut.setFont( new Font("Arial", Font.PLAIN, 10));
 
+        // Add the key for the color of the classes
+        // Green = Open, Red = Full
+        this.colorKey = new JPanel();
+        JLabel open = new JLabel("Open");
+
+        JPanel greenOpen = new JPanel();
+        greenOpen.setPreferredSize(new Dimension(10,10));
+        greenOpen.setBackground(Color.GREEN);
+
+        JLabel full = new JLabel("Full");
+
+        JPanel redClosed = new JPanel();
+        redClosed.setPreferredSize(new Dimension(10,10));
+        redClosed.setBackground(Color.RED);
+
+        JLabel key = new JLabel("Key: ");
+        colorKey.add(key);
+        colorKey.add(open);
+        colorKey.add(greenOpen);
+        colorKey.add(full);
+        colorKey.add(redClosed);
+
         //place all the buttons
         topToolBar.add(schedNewClassBut, null);
         topToolBar.addSeparator(new Dimension(2, 24));
@@ -173,7 +197,11 @@ public class ClassesPanel extends JPanel {
         topToolBar.add(enrollClassButt, null);
         topToolBar.addSeparator(new Dimension(2, 24));
         topToolBar.add(cancelEnrollmentBut, null);
+        topToolBar.addSeparator(new Dimension(100, 24));
+        topToolBar.add(colorKey, null);
         this.add(topToolBar, BorderLayout.NORTH);
+
+        this.setVisible(true);
     }
 
     /**
@@ -238,7 +266,5 @@ public class ClassesPanel extends JPanel {
 
         this.add(classesPanelTop, BorderLayout.CENTER);
         this.add(classesPanelBot, BorderLayout.SOUTH);
-
     }
-
 }

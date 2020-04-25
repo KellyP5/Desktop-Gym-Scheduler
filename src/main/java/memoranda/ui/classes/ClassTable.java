@@ -8,20 +8,26 @@ import main.java.memoranda.ui.App;
 import main.java.memoranda.ui.DailyItemsPanel;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
-public class ClassTable {
+public class ClassTable extends DefaultTableModel {
 
     private LocalDate date;
     public JTable classTable; // This is public so we can assign the parent the JTable
     private DailyItemsPanel parentRef;
     private int room;
     private ArrayList<GymClassEntity> classes;
+    DefaultTableModel dm;
 
     /**
      * Constructor
@@ -32,9 +38,7 @@ public class ClassTable {
 
         this.parentRef = ref;
         this.room = room;
-
         init();
-
 
     }
 
@@ -47,6 +51,22 @@ public class ClassTable {
                 parentRef.currentDate.getMonth()+1,
                 parentRef.currentDate.getDay());
         initTable(date);
+
+        // Sets all rows to green. Green = still open spots in class
+        classTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean
+                                                           isSelected, boolean hasFocus, int row, int col) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+
+                classTable.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
+
+                });
+
+                setBackground(Color.green);
+                return this;
+            }
+        });
 
         initActionListeners();
 
@@ -63,6 +83,7 @@ public class ClassTable {
     private void initTable(LocalDate pDate)  {
         //this.classes = App.conn.getDrqTest().getAllClassesByDate(parentRef.currentDate);
         //LocalDate date = LocalDate.of(2020, 4,11);
+
         try{
             this.classes = App.conn.getDrq().getAllClassesByDate(pDate);
         }catch(SQLException c){
@@ -81,6 +102,7 @@ public class ClassTable {
                 e.add(this.classes.get(i).getTrainerEmail());//trainer
                 e.add(this.classes.get(i).getMinBeltEntityRequired().toString());//MinBelt
                 e.add(Integer.toString(this.classes.get(i).getMaxClassSize()));//MaxSize
+
                 al.add(e);
             }
         }
@@ -96,7 +118,19 @@ public class ClassTable {
             data[i] = copy;
         }
 
-        this.classTable = new JTable( new DefaultTableModel(data,columnNames));
+        // Makes it so the user can't edit the table
+        DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        this.classTable = new JTable();
+        this.classTable.setRowSelectionAllowed(true);
+        this.classTable.setSelectionForeground(Color.BLUE);
+        this.classTable.setModel(tableModel);
+
     }
 
     /**
@@ -128,7 +162,7 @@ public class ClassTable {
         }
 
         //remove all rows
-        DefaultTableModel dm = (DefaultTableModel) this.classTable.getModel();
+        dm = (DefaultTableModel) this.classTable.getModel();
         int rowCount = dm.getRowCount();
         //Remove rows one by one from the end of the table
         for (int i = rowCount - 1; i >= 0; i--) {
@@ -141,13 +175,13 @@ public class ClassTable {
         for(int i = 0;i< this.classes.size();i++){
             //test if this classtable is the table to display the class
             if(this.classes.get(i).getRoomNumber()==this.room){
+
                 dm.addRow(new Object[]{convertStartDateTime(this.classes.get(i).getStartDateTime().toString()),
                         this.classes.get(i).getTrainerEmail(),
                         this.classes.get(i).getMinBeltEntityRequired(),
                         Integer.toString(this.classes.get(i).getMaxClassSize())});
+
             }
         }
-
     }
-
 }

@@ -41,7 +41,7 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     String[] finalBody = {
               "We'd also like to thank our helpful",
               "UGTA's and instructor for answering questions",
-              "and guiding us on this project.",
+              "<html><center>and guiding us on this project.</center></html>",
     };
     JLayeredPane layeredPane;
     ImageIcon image;
@@ -65,40 +65,43 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
   //Component initialization
   private void jbInit() throws Exception  {    
     String text = "<html>";
-    text += "<br><br><br><br><br><br><br><br><br>";
+    text += "<br><br><br><br><br><br><br><br><br><center>";
     text += copyright + "<br>" + url + "<br><br>";
     text += "<b>" + developersHead + "</b><br>";    
     for (int i = 0; i < developers.length; i++)
         text += developers[i]+"<br>";    
     text += "<br><b>" + finalHead + "</b><br>";
     for (int i = 0; i < finalBody.length; i++)
-        text += finalBody[i]+"<br>";
+        text += finalBody[i]+"<br></center>";
     
     text += "</html>";
     
-    image = new ImageIcon(AppFrame_AboutBox.class.getResource("/ui/newsplash.png"));
+    image = new ImageIcon(AppFrame_AboutBox.class.getResource("/ui/globopeople.jpg"));
     this.setTitle(Local.getString("About Globo Gym"));
     setResizable(false);
     // Initialize Objects
     lblText.setFont(new java.awt.Font("Dialog", 0, 11));
     lblText.setText(text);
-    lblText.setBounds(10, 55, 300, 400);
+    lblText.setBounds(70, 110, 300, 400);
 
     
-    button1.setText(Local.getString("Ok"));
+    //button1.setText(Local.getString("Ok"));
     button1.setBounds(150, 515, 95, 30);
     button1.addActionListener(this);
     button1.setPreferredSize(new Dimension(95, 30));
-    button1.setBackground(new Color(144, 142, 150, 173));
+    button1.setBackground(new Color(101, 46, 111));
     button1.setForeground(Color.white);
+    button1.setText("Ok");
+    button1.setFocusable(false);
     layeredPane = getLayeredPane();
     //layeredPane.setPreferredSize(new Dimension(300, 300));
     imgLabel = new JLabel(image);
     imgLabel.setBounds(width/2-(image.getIconWidth()/2), 0, image.getIconWidth(), image.getIconHeight());
     layeredPane.add(imgLabel, new Integer(1));
-    layeredPane.add(lblText, new Integer(2));    
+    //layeredPane.add(lblText, new Integer(2));
+    layeredPane.add(lblText);
     layeredPane.add(button1, new Integer(2));
-    this.getContentPane().setBackground(new Color(182, 47, 242));
+    //this.getContentPane().setBackground(new Color(182, 47, 242));
   }
   //Overridden so we can exit when window is closed
   protected void processWindowEvent(WindowEvent e) {

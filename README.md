@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.com/amehlhase316/Neujahrskranz.svg?token=DEpki1Lns9D95cqpWXRP&branch=develop)](https://travis-ci.com/amehlhase316/Neujahrskranz)
+Develop: [![Build Status](https://travis-ci.com/amehlhase316/Neujahrskranz.svg?token=DEpki1Lns9D95cqpWXRP&branch=develop)](https://travis-ci.com/amehlhase316/Neujahrskranz)
+
+Master: [![Build Status](https://travis-ci.com/amehlhase316/Neujahrskranz.svg?token=DEpki1Lns9D95cqpWXRP&branch=master)](https://travis-ci.com/amehlhase316/Neujahrskranz)
 
 Project SER316
 

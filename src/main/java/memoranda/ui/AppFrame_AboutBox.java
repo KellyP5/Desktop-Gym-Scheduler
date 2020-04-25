@@ -1,18 +1,13 @@
 package main.java.memoranda.ui;
 
-import java.awt.AWTEvent;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.awt.*;
+import java.awt.event.*;
+import java.net.URL;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
+import javax.swing.*;
+import javax.swing.border.Border;
 
 import main.java.memoranda.util.Local;
 
@@ -76,7 +71,7 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     
     text += "</html>";
     
-    image = new ImageIcon(AppFrame_AboutBox.class.getResource("/ui/globopeople.jpg"));
+    image = new ImageIcon(AppFrame_AboutBox.class.getResource("/ui/globopeople1.png"));
     this.setTitle(Local.getString("About Globo Gym"));
     setResizable(false);
     // Initialize Objects
@@ -84,8 +79,6 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     lblText.setText(text);
     lblText.setBounds(70, 110, 300, 400);
 
-    
-    //button1.setText(Local.getString("Ok"));
     button1.setBounds(150, 515, 95, 30);
     button1.addActionListener(this);
     button1.setPreferredSize(new Dimension(95, 30));
@@ -94,15 +87,31 @@ public class AppFrame_AboutBox extends JDialog implements ActionListener {
     button1.setText("Ok");
     button1.setFocusable(false);
     layeredPane = getLayeredPane();
-    //layeredPane.setPreferredSize(new Dimension(300, 300));
-    imgLabel = new JLabel(image);
-    imgLabel.setBounds(width/2-(image.getIconWidth()/2), 0, image.getIconWidth(), image.getIconHeight());
-    layeredPane.add(imgLabel, new Integer(1));
-    //layeredPane.add(lblText, new Integer(2));
+    JButton imageButton = new JButton(image);
+    imageButton.setBounds(width/2-(image.getIconWidth()/2), 0, image.getIconWidth(), image.getIconHeight());
+    // Hide the button
+    Border emptyBorder = BorderFactory.createEmptyBorder();
+    imageButton.setBorder(emptyBorder);
+    imageButton.setOpaque(false);
+    imageButton.setContentAreaFilled(false);
+    layeredPane.add(imageButton, new Integer(1));
+
+    // Add Globo Gym sound clip that plays when the picture is clicked
+    URL url = getClass().getResource("/ui/betterthanyou.wav");
+    AudioClip clip = Applet.newAudioClip(url);
+
+    imageButton.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            super.mouseClicked(e);
+            clip.play();
+        }
+    });
+
     layeredPane.add(lblText);
     layeredPane.add(button1, new Integer(2));
-    //this.getContentPane().setBackground(new Color(182, 47, 242));
   }
+
   //Overridden so we can exit when window is closed
   protected void processWindowEvent(WindowEvent e) {
     if (e.getID() == WindowEvent.WINDOW_CLOSING) {

@@ -1,5 +1,7 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.*;
+import main.java.memoranda.database.GymClassEntity;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -67,6 +69,7 @@ public class DailyItemsPanel extends JPanel {
     boolean expanded = true;
 
     public CalendarDate currentDate;
+    private GymClassEntity selectedClass;
 
     boolean calendarIgnoreChange = false;
     boolean dateChangedByCalendar = false;
@@ -380,5 +383,35 @@ public class DailyItemsPanel extends JPanel {
         return CurrentPanel;
     }
 
+    /**
+     * Task b action performed.
+     *
+     * @param e the e
+     */
+    void taskB_actionPerformed(ActionEvent e) {
+        parentPanel.tasksB_actionPerformed(null);
+    }
 
+    /**
+     * used to set the selected class when one is clicked. Only one stored at a time.
+     * @param gce Gym Class Entity
+     */
+    public void setSelectedClass(GymClassEntity gce) {
+        this.selectedClass = gce;
+    }
+
+    /**
+     * Getter for the class currently selected.
+     * @return GymClassEntity of selected class
+     */
+    public GymClassEntity getSelectedClass(){
+        return this.selectedClass;
+    }
+
+    /**
+     * Can be called to refresh all rooms on classes panel.
+     */
+    public void refreshClassesPanel() {
+        classesPanel.refresh();
+    }
 }

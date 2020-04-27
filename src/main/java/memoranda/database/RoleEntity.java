@@ -18,6 +18,37 @@ public class RoleEntity {
         this.userRole = userRole;
     }
 
+    /**
+     * Initializes role entities based on a string input.
+     * Used for converting things from the DB or from GUI
+     * Elements.
+     * @param s
+     */
+    public RoleEntity(String s) {
+        switch (s) {
+            case "admin":
+            {
+                this.userRole = UserRole.admin;
+                break;
+            }
+            case "trainer":
+            {
+                this.userRole = UserRole.trainer;
+                break;
+            }
+            case "customer":
+            {
+                this.userRole = UserRole.customer;
+                break;
+            }
+            default:
+            {
+                this.userRole = UserRole.customer;
+                break;
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

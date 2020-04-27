@@ -1,12 +1,14 @@
 package main.java.memoranda.util;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Locale;
+import java.time.LocalDate;
+import java.util.*;
 
+import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.date.CalendarDate;
+import main.java.memoranda.ui.App;
 
 import java.io.*;
 
@@ -129,7 +131,10 @@ public class Local {
      * The Beltnames.
      */
     static String beltnames[] =
-            { "white", "yellow", "orange", "purple", "blue", "blue stripe", "green", "green stripe", "brown1", "brown2", "brown3", "black1", "black2", "black3"};
+            { "white", "yellow", "orange", "purple", "blue", "blue_stripe", "green", "green_stripe", "brown1", "brown2", "brown3", "black1", "black2", "black3"};
+
+    static String classSize[] =
+            {"3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
 
     /**
      * Gets string.
@@ -173,12 +178,70 @@ public class Local {
     }
 
     /**
+     * Used to create combo box with max class sizes.
+     * @return String[] of max class sizes
+     */
+    public static String[] getMaxClassSize() {
+        return classSize;
+    }
+
+    /**
+     * Used to create a combo box when editing a class.
+     * Needed to include '2' so a user can edit private/public classes.
+     * @return
+     */
+    public static String[] getMaxClassSizeEdit() {
+        String[] classSize = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+        return classSize;
+    }
+
+    /**
+     * Queries for the trainer names and their belt levels.
+     * This is used to display the trainers in a create class
+     * or edit class function.
+     * @return
+     */
+    public static String[] getTrainerNames() {
+        RoleEntity role = new RoleEntity("trainer");
+        try {
+            ArrayList<UserEntity> al = App.conn.getDrq().getAllUsersOfCertainRole(role);
+            String[] trainers = new String[al.size()];
+            for (int i=0; i < al.size(); i++) {
+                trainers[i] = al.get(i).getEmail() + " Belt: " + al.get(i).getBelt().toString();
+            }
+            return trainers;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * Get room names string [ ].
      *
      * @return the string [ ]
      */
     public static String[] getRoomNames() {
         return roomnames;
+    }
+
+    public static String[] getTimes() {
+        String[] times = new String[]{"0500", "0600", "0700", "0800", "0900",
+        "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800"
+        , "1900", "2000", "2100"};
+        return times;
+    }
+
+    /**
+     * The DB requires times in multiple formats. This converts the String
+     * Times that are used in GUI elements to doubles for queries.
+     * @param s String of the time to convert.
+     * @return Double of the converted Time
+     */
+    public static double getDoubleTime(String s) {
+        String substr = s.substring(0, 2);
+        double d = Double.valueOf(substr);
+        return d;
     }
 
     /**
@@ -276,6 +339,29 @@ public class Local {
      */
     public static String getDateString(CalendarDate date, int f) {
         return getDateString(date.getDate(), f);
+    }
+
+    /**
+     * Converts the Local date to String for GUI elements.
+     * @param s String to convert
+     * @return LocalDate conversion
+     */
+    public static LocalDate convertToLocalDate(String s) {
+        s = s.substring(0, 10);
+        LocalDate localDate = LocalDate.parse(s);
+        return localDate;
+    }
+
+    /**
+     * Converts times that are in MM-DD-YYYYTHHMM Format.
+     * @param s Takes in the String of the time/day
+     * @return double of the time needed for a query
+     */
+    public static double convertToDoubleTime(String s) {
+        double d = 0.0;
+        s = s.substring(11, 13);
+        d = Double.parseDouble(s);
+        return d;
     }
 
     /**

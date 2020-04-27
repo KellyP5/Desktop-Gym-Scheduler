@@ -6,6 +6,7 @@ import main.java.memoranda.database.util.DbReadQueries;
 import main.java.memoranda.database.util.DbUpdateQueries;
 import main.java.memoranda.database.util.SqlConstants;
 
+import main.java.memoranda.util.Local;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;

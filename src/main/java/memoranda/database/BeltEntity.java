@@ -8,12 +8,14 @@
 package main.java.memoranda.database;
 
 import java.util.Objects;
+import main.java.memoranda.util.Local;
 
 /*
 Belt Entity is the entity used for all Belt related SQL
  */
 public class BeltEntity {
 
+    private static String[] beltNames = { "white", "yellow", "orange", "purple", "blue", "blue_stripe", "green", "green_stripe", "brown1", "brown2", "brown3", "black1", "black2", "black3"};
 
     /**
      * Converts the Belt Rank to a string
@@ -121,6 +123,14 @@ public class BeltEntity {
     public BeltEntity(String rank) {this.rank = getRank(rank);}
 
     /**
+     * Returns Belt names
+     * @return String[] of belt names
+     */
+    public String[] getBeltNames() {
+        return beltNames;
+    }
+
+    /**
      * Checks if two belt ranks are equal
      * @param o The belt to compare
      * @return Returns true if equal, false otherwise
@@ -131,6 +141,27 @@ public class BeltEntity {
         if (o == null || getClass() != o.getClass()) return false;
         BeltEntity that = (BeltEntity) o;
         return rank == that.rank;
+    }
+
+    /**
+     * Takes in a belt of a trainer and another belt, and returns
+     * whether that trainer is qualified to teach a class at that level.
+     * @param trainer String belt of the trainer
+     * @param c String belt of the comparison belt
+     * @return True if trainer can and false if he can't
+     */
+    public boolean checkBeltRank(String trainer, String c) {
+        int train=0, clas=0;
+        String[] ranks = getBeltNames();
+        for (int i=0; i<ranks.length; i++) {
+            if (ranks[i].equalsIgnoreCase(trainer)) train = i;
+            if (ranks[i].equalsIgnoreCase(c)) clas = i;
+        }
+        if (train >= clas) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

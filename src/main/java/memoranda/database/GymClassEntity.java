@@ -137,6 +137,10 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
         return getStartDateTime().compareTo(gymClassEntity.getStartDateTime());
     }
 
+    /**
+     * Prints out a class. Used for debugging Gym Class Entities and related
+     * queries.
+     */
     public void printClass() {
         System.out.println("ID: " + this._Id
         + "\nroomNumber: " + this._roomNumber

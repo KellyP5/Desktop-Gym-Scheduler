@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -52,7 +53,7 @@ public class ClassTable extends DefaultTableModel {
                 parentRef.currentDate.getDay());
         initTable(date);
 
-        // Sets all rows to green. Green = still open spots in class
+        // Sets all open classes to WHITE. Sets closed classes to RED
         classTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean
@@ -62,24 +63,17 @@ public class ClassTable extends DefaultTableModel {
                 classTable.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
 
                 });
-
                 int colFour = Integer.parseInt((String) classTable.getValueAt(row, 4));
                 int colThree = Integer.parseInt((String) classTable.getValueAt(row, 3));
                 if (colFour >= colThree) {
-                    setBackground(Color.RED);
+                    setBackground(Color.RED); // Full class
                 } else {
-                    setBackground(Color.WHITE);
+                    setBackground(Color.WHITE); // Open class
                 }
                 return this;
             }
         });
-
         initActionListeners();
-
-    }
-
-    private String convertStartDateTime(String dateTime) {
-        return dateTime.substring(dateTime.length() - 5);
     }
 
     /**
@@ -104,7 +98,7 @@ public class ClassTable extends DefaultTableModel {
         for(int i = 0;i< this.classes.size();i++){
             if(this.classes.get(i).getRoomNumber()==this.room) {
                 ArrayList<String> e = new ArrayList<>();
-                e.add(convertStartDateTime(this.classes.get(i).getStartDateTime().toString())); //time
+                e.add(this.classes.get(i).getStartDateTime().toString()); //time
                 e.add(this.classes.get(i).getTrainerEmail());//trainer
                 e.add(this.classes.get(i).getMinBeltEntityRequired().toString());//MinBelt
                 e.add(Integer.toString(this.classes.get(i).getMaxClassSize()));//MaxSize
@@ -137,6 +131,12 @@ public class ClassTable extends DefaultTableModel {
         this.classTable.setSelectionForeground(Color.BLUE);
         this.classTable.setModel(tableModel);
 
+        // Format columns so text fits
+        TableColumnModel tcm = classTable.getColumnModel();
+        tcm.getColumn(0).setPreferredWidth(100);
+        tcm.getColumn(1).setPreferredWidth(100);
+        tcm.getColumn(3).setPreferredWidth(50);
+        tcm.getColumn(4).setPreferredWidth(70);
     }
 
     /**
@@ -181,7 +181,7 @@ public class ClassTable extends DefaultTableModel {
         for(int i = 0;i< this.classes.size();i++){
             //test if this classtable is the table to display the class
             if(this.classes.get(i).getRoomNumber()==this.room){
-                dm.addRow(new Object[]{convertStartDateTime(this.classes.get(i).getStartDateTime().toString()),
+                dm.addRow(new Object[]{this.classes.get(i).getStartDateTime().toString(),
                         this.classes.get(i).getTrainerEmail(),
                         this.classes.get(i).getMinBeltEntityRequired(),
                         Integer.toString(this.classes.get(i).getMaxClassSize()),

@@ -17,6 +17,30 @@ public class RoleEntity {
     public RoleEntity(UserRole userRole){
         this.userRole = userRole;
     }
+    public RoleEntity(String s) {
+        switch (s) {
+            case "admin":
+            {
+                this.userRole = UserRole.admin;
+                break;
+            }
+            case "trainer":
+            {
+                this.userRole = UserRole.trainer;
+                break;
+            }
+            case "customer":
+            {
+                this.userRole = UserRole.customer;
+                break;
+            }
+            default:
+            {
+                this.userRole = UserRole.customer;
+                break;
+            }
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

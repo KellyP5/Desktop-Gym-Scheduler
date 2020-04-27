@@ -1,12 +1,13 @@
 package main.java.memoranda.util;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Locale;
+import java.util.*;
 
+import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.date.CalendarDate;
+import main.java.memoranda.ui.App;
 
 import java.io.*;
 
@@ -170,6 +171,21 @@ public class Local {
      */
     public static String[] getBeltNames() {
         return beltnames;
+    }
+
+    public static String[] getTrainerNames() {
+        RoleEntity role = new RoleEntity("trainer");
+        try {
+            ArrayList<UserEntity> al = App.conn.getDrq().getAllUsersOfCertainRole(role);
+            String[] trainers = new String[al.size()];
+            for (int i=0; i < al.size(); i++) {
+                trainers[i] = al.get(i).getEmail();
+            }
+            return trainers;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**

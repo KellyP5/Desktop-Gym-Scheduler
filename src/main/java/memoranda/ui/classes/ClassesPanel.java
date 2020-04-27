@@ -184,8 +184,7 @@ public class ClassesPanel extends JPanel {
     private void initActionListenersTopToolBar(){
 
         schedNewClassBut.addActionListener((e)->{
-            System.out.println("Debug: schedNewClassBut TODO");
-            //TODO
+            new ClassesSchedNewClass(this, schedNewClassBut);
         });
         schedPriClassBut.addActionListener((e)->{
             System.out.println("Debug: schedPriClassBut TODO");

@@ -11,37 +11,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Arrays;
 
 public class ClassesSchedNewClass extends JFrame {
 
     ClassesPanel topLevelReference;
 
+    LocalDate date;
+
     JPanel classCreate;
     JButton createButton;
     JComboBox times;
     JLabel lblTimes;
     JComboBox beltsCB;
-    JComboBox levelsCB;
+    JLabel lblBelt;
     JComboBox trainersCB;
     JLabel lblTrainers;
     JComboBox classSizeCB;
     JLabel lblClassSize;
+    JLabel currentDate;
+    JComboBox roomCB;
+    JLabel lblRooms;
 
-
-
-    JTextField firstName;
-    JTextField lastName;
-    JTextField email;
-    JPasswordField pass;
-    JPasswordField pass2;
-    JLabel accountSelection;
-    ButtonGroup buttons;
-    JRadioButton trainerButton;
-    JRadioButton studentButton;
-    JRadioButton adminButton;
     JLabel fillOutForm;
-    JLabel lblBelt;
+
     JLabel lblLevels;
 
     /** Main constructor
@@ -49,9 +43,9 @@ public class ClassesSchedNewClass extends JFrame {
      * @param ref This parent reference is passed in so we can call refresh on it once the  UI is updated.
      * @param rel Used to set the position of the add user popup.
      */
-    public ClassesSchedNewClass(ClassesPanel ref, Component rel) {
+    public ClassesSchedNewClass(ClassesPanel ref, Component rel, LocalDate currentDate) {
         this.topLevelReference = ref;//we store this to use in our action listener.
-
+        date = currentDate;
         initGuiComponents();
 
         initActionEvents();
@@ -67,7 +61,17 @@ public class ClassesSchedNewClass extends JFrame {
      */
     public void initGuiComponents(){
         classCreate = new JPanel();
-        createButton = new JButton("Create");
+        //Label
+        setTitle("Schedule New Class");
+        setSize(300, 500);
+        //Top Label
+        fillOutForm = new JLabel("Please fill out the form with class information");
+        fillOutForm.setBounds(15, -10, 275, 50);
+        fillOutForm.setFont(new Font("Bell MT", Font.PLAIN, 12));
+        //Current Date Label
+        currentDate = new JLabel(date.toString());
+        currentDate.setBounds(100, 10, 200, 50);
+        currentDate.setFont(new Font("Bell MT", Font.ITALIC, 12));
         //Trainers CB and Label
         trainersCB = new JComboBox(Local.getTrainerNames());
         lblTrainers = new JLabel("Select Trainer:");
@@ -88,67 +92,31 @@ public class ClassesSchedNewClass extends JFrame {
         lblClassSize = new JLabel("Select Max Class Size:");
         classSizeCB.setBounds(155, 125, 50, 20);
         lblClassSize.setBounds(15, 125, 135, 20);
+        //Select Room
+        roomCB = new JComboBox(Local.getRoomNames());
+        lblRooms = new JLabel("Select Room Number:");
+        roomCB.setBounds(155, 150, 100, 20);
+        lblRooms.setBounds(15, 150, 135, 20);
+        //Create Button
+        createButton = new JButton("Create");
+        createButton.setBounds(100, 190, 80, 20);
 
-        trainerButton = new JRadioButton();
-        studentButton = new JRadioButton();
-        adminButton = new JRadioButton();
-        fillOutForm = new JLabel("Please fill out the form with class information");
-        accountSelection = new JLabel("Which type of account would you like to create?");
-        buttons = new ButtonGroup(); // Ensures that only 1 option can be chosen
-        buttons.add(trainerButton);
-        buttons.add(studentButton);
-        buttons.add(adminButton);
-
-        levelsCB = new JComboBox(Local.getBeltNames());
-        lblLevels = new JLabel();
-
-        setTitle("Schedule New Class");
-        setSize(300, 500);
-
-
-        fillOutForm.setBounds(15, 5, 275, 50);
-        fillOutForm.setFont(new Font("Bell MT", Font.PLAIN, 12));
 
         classCreate.setLayout(null);
-
-        levelsCB.setPreferredSize(new Dimension(100, 25));
-        levelsCB.setBounds(150, 400, 100, 20);
-        lblLevels.setBounds(100, 400, 100, 20);
-        lblLevels.setText(Local.getString("Level:"));
-        lblLevels.setMinimumSize(new Dimension(60, 24));
-
-
-        accountSelection.setBounds(0, 330, 300, 50);
-
-        trainerButton.setText("Trainer");
-        trainerButton.setBounds(10, 370, 100, 20);
-        trainerButton.setBackground(new Color(230,230,230));
-        studentButton.setText("Student");
-        studentButton.setBounds(110, 370, 100, 20);
-        studentButton.setBackground(new Color(230,230,230));
-        adminButton.setText("Admin");
-        adminButton.setBounds(210, 370, 100, 20);
-        adminButton.setBackground(new Color(230,230,230));
-
-        createButton.setBounds(100, 445, 80, 20);
-
         classCreate.add(createButton);
         classCreate.add(lblTrainers);
         classCreate.add(lblBelt);
         classCreate.add(classSizeCB);
         classCreate.add(lblClassSize);
-
-        classCreate.add(accountSelection);
-        classCreate.add(trainerButton);
-        classCreate.add(studentButton);
-        classCreate.add(adminButton);
+        classCreate.add(currentDate);
+        classCreate.add(roomCB);
+        classCreate.add(lblRooms);
         classCreate.add(fillOutForm);
         classCreate.add(beltsCB);
         classCreate.add(trainersCB);
         classCreate.add(times);
         classCreate.add(lblTimes);
         classCreate.setBackground(new Color(230, 230, 230));
-
     }
 
     /**
@@ -203,52 +171,21 @@ public class ClassesSchedNewClass extends JFrame {
      * @throws SQLException Throws exception is account does not exist.
      */
     public void createAccount () throws SQLException {
-        if (firstName.getText().equals("First Name")) {
-            throwInputError("You did not enter a first name");
-        } else if (lastName.getText().equals("Last Name")) {
-            throwInputError("You did not enter a Last name");
-        } else if (email.getText().equals("E-mail")) {
-            throwInputError("You did not enter an E-mail");
-        } else if (!email.getText().contains("@") || !email.getText().contains(".")) {
-            throwInputError("Invalid E-mail");
-        } else if (pass.getPassword().length == 0) {
-            throwInputError("You did not enter a password");
-        } else if (pass2.getPassword().length == 0) {
-            throwInputError("You did not verify your password");
-        } else if (!Arrays.equals(pass.getPassword(), pass2.getPassword())) {
-            throwInputError("Your passwords do not match");
-        } else if (trainerButton.isSelected() || studentButton.isSelected() || adminButton.isSelected()){
-            System.out.println("Attempting to create account with E-mail: "+ email.getText() );
+            //System.out.println("Attempting to create account with E-mail: "+ email.getText() );
             SqlConnection sql = SqlConnection.getInstance();
             DbReadQueries dbrq = sql.getDrq();
-            try {
-                RoleEntity role;
-                if (adminButton.isSelected()) {
-                    role = new RoleEntity(RoleEntity.UserRole.admin);
-                } else if (trainerButton.isSelected()){
-                    role = new RoleEntity(RoleEntity.UserRole.trainer);
-                } else if (studentButton.isSelected()){
-                    role = new RoleEntity(RoleEntity.UserRole.customer);
-                } else {
-                    System.out.println("[DEBUG] ERROR: Type of user not found");
-                    return;
-                }
-                BeltEntity belt = new BeltEntity(BeltEntity.Rank.black1);
-                String rank = beltsCB.getSelectedItem().toString();
-                BeltEntity.Rank r = belt.getRank(rank);
-                belt = new BeltEntity(r);
-                // Add new user to database
-                App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
-                dispose();
-                //this.topLevelReference.addUserToTable(email.getText(),rank,role.toString());
-                showCreatedSuccessfullyPopup();
-            } catch (SQLException ex) {
-                throwInputError("An account already exists with that email.");
-            }
-        } else {
+            RoleEntity role;
+            BeltEntity belt = new BeltEntity(BeltEntity.Rank.black1);
+            String rank = beltsCB.getSelectedItem().toString();
+            BeltEntity.Rank r = belt.getRank(rank);
+            belt = new BeltEntity(r);
+            // Add new user to database
+            //App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
+            dispose();
+            //this.topLevelReference.addUserToTable(email.getText(),rank,role.toString());
+            showCreatedSuccessfullyPopup();
+            throwInputError("An account already exists with that email.");
             throwInputError("Select the type of account to create");
-        }
-
     }
 
     /**

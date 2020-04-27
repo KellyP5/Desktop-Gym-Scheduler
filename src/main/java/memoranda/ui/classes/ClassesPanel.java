@@ -6,12 +6,15 @@ import main.java.memoranda.util.Local;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 
 public class ClassesPanel extends JPanel {
 
     private DailyItemsPanel parentPanelReference = null;
 
     private JToolBar topToolBar = new JToolBar();
+
+    private LocalDate date;
 
     private JButton schedNewClassBut;//all the buttons for the top bar
     private JButton editClassBut;
@@ -38,8 +41,10 @@ public class ClassesPanel extends JPanel {
 
     public ClassesPanel(DailyItemsPanel _parentPanel) {
         try {
+            date = LocalDate.of(_parentPanel.currentDate.getYear(),
+                    _parentPanel.currentDate.getMonth()+1,
+                    _parentPanel.currentDate.getDay());
             parentPanelReference = _parentPanel;
-
             init();
         } catch (Exception ex) {
             new ExceptionDialog(ex);
@@ -50,6 +55,9 @@ public class ClassesPanel extends JPanel {
      * Main init method for the ClassesPanel
      */
     private void init() {
+        date = LocalDate.of(parentPanelReference.currentDate.getYear(),
+                parentPanelReference.currentDate.getMonth()+1,
+                parentPanelReference.currentDate.getDay());
         this.setLayout(new BorderLayout());
         topToolBar.setFloatable(false);
 
@@ -184,7 +192,9 @@ public class ClassesPanel extends JPanel {
     private void initActionListenersTopToolBar(){
 
         schedNewClassBut.addActionListener((e)->{
-            new ClassesSchedNewClass(this, schedNewClassBut);
+            new ClassesSchedNewClass(this, schedNewClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                    parentPanelReference.currentDate.getMonth()+1,
+                    parentPanelReference.currentDate.getDay()));
         });
         schedPriClassBut.addActionListener((e)->{
             System.out.println("Debug: schedPriClassBut TODO");

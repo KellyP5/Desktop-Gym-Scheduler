@@ -59,7 +59,7 @@ public class ClassesEditExistingClass extends JFrame {
     public void initGuiComponents(){
         classCreate = new JPanel();
         //Label
-        setTitle("Schedule New Class");
+        setTitle("Edit Existing Class");
         setSize(300, 250);
         //Top Label
         fillOutForm = new JLabel("Please edit the existing class info below");
@@ -88,7 +88,7 @@ public class ClassesEditExistingClass extends JFrame {
         beltsCB.setBounds(150, 100, 115, 20);
         lblBelt.setBounds(15, 100, 125, 20);
         //Set Max Class Size
-        classSizeCB = new JComboBox(Local.getMaxClassSize());
+        classSizeCB = new JComboBox(Local.getMaxClassSizeEdit());
         classSizeCB.setSelectedItem(String.valueOf(selectedClass.getMaxClassSize()));
         lblClassSize = new JLabel("Select Max Class Size:");
         classSizeCB.setBounds(155, 125, 50, 20);
@@ -100,8 +100,8 @@ public class ClassesEditExistingClass extends JFrame {
         roomCB.setBounds(155, 150, 100, 20);
         lblRooms.setBounds(15, 150, 135, 20);
         //Create Button
-        createButton = new JButton("Edit Class");
-        createButton.setBounds(100, 190, 90, 20);
+        createButton = new JButton("Update Class");
+        createButton.setBounds(90, 190, 120, 20);
 
 
         classCreate.setLayout(null);
@@ -181,20 +181,25 @@ public class ClassesEditExistingClass extends JFrame {
             return;
         }
         double startTime = Local.getDoubleTime(times.getSelectedItem().toString());
+        double oldTime = Local.getDoubleTime(selectedClass.getStartTimeAsString());
         int room = extractRoom();
         int maxSize = Integer.parseInt(classSizeCB.getSelectedItem().toString());
         BeltEntity belt = new BeltEntity(beltsCB.getSelectedItem().toString());
         ArrayList<GymClassEntity> gce = App.conn.getDrq().getAllClassesByDateTime(date, Local.getDoubleTime(times.getSelectedItem().toString())
             , room);
         if (gce.size() != 0) {
-            throwInputError("There is already a class in this room, at this time, on this date");
-            return;
+            //throwInputError("There is already a class in this room, at this time, on this date");
+            //return;
         }
         System.out.println(date.toString());
         try {
-            App.conn.getDcq().insertClass(room, date, startTime, startTime+1, extractTrainerEmail()
-                , maxSize, belt, extractTrainerEmail());
-            showCreatedSuccessfullyPopup();
+            boolean ret = App.conn.getDuq().updateClass(room, date, startTime, startTime+1, extractTrainerEmail()
+                , maxSize, belt, extractTrainerEmail(), selectedClass.getRoomNumber(), oldTime);
+            if (ret == false) {
+                throwInputError("There is already a class in that room at that time.");
+            } else {
+                showCreatedSuccessfullyPopup();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return;
@@ -207,7 +212,7 @@ public class ClassesEditExistingClass extends JFrame {
      */
     public void showCreatedSuccessfullyPopup() {
         Object[] option = {"OK"};
-        int x = JOptionPane.showOptionDialog(null, "Class was created successfully!",
+        int x = JOptionPane.showOptionDialog(null, "Class was updated successfully!",
             "Class Creation", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
     }
 

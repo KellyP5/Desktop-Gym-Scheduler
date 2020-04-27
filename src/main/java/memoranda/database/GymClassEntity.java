@@ -119,6 +119,10 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
         this._createdByEmail = _createdByEmail;
     }
 
+    /**
+     * Converts gym start time to string.
+     * @return String of converted time
+     */
     public String getStartTimeAsString() {
         String s = _startDateTime.toString();
         String hour = s.substring(11, 13);

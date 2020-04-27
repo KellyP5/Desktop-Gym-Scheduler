@@ -71,6 +71,22 @@ public class DbUpdateQueries {
         conn.close();
     }
 
+    /**
+     * Updates a class in the DB. Does a check if a class into the moving room
+     * and time already exists. If it does, returns false.
+     * @param roomNumber
+     * @param startDate
+     * @param startTime
+     * @param endTime
+     * @param trainerEmail
+     * @param maxClassSize
+     * @param minBeltRequired
+     * @param createdByEmail
+     * @param oldRoom
+     * @param oldStart
+     * @return boolean of whether the update happened or not.
+     * @throws SQLException
+     */
     public boolean updateClass(int roomNumber,
                             LocalDate startDate,
                             double startTime,

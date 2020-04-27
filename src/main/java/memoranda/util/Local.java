@@ -177,15 +177,30 @@ public class Local {
         return beltnames;
     }
 
+    /**
+     * Used to create combo box with max class sizes.
+     * @return String[] of max class sizes
+     */
     public static String[] getMaxClassSize() {
         return classSize;
     }
 
+    /**
+     * Used to create a combo box when editing a class.
+     * Needed to include '2' so a user can edit private/public classes.
+     * @return
+     */
     public static String[] getMaxClassSizeEdit() {
         String[] classSize = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
         return classSize;
     }
 
+    /**
+     * Queries for the trainer names and their belt levels.
+     * This is used to display the trainers in a create class
+     * or edit class function.
+     * @return
+     */
     public static String[] getTrainerNames() {
         RoleEntity role = new RoleEntity("trainer");
         try {
@@ -217,6 +232,12 @@ public class Local {
         return times;
     }
 
+    /**
+     * The DB requires times in multiple formats. This converts the String
+     * Times that are used in GUI elements to doubles for queries.
+     * @param s String of the time to convert.
+     * @return Double of the converted Time
+     */
     public static double getDoubleTime(String s) {
         String substr = s.substring(0, 2);
         double d = Double.valueOf(substr);
@@ -320,12 +341,22 @@ public class Local {
         return getDateString(date.getDate(), f);
     }
 
+    /**
+     * Converts the Local date to String for GUI elements.
+     * @param s String to convert
+     * @return LocalDate conversion
+     */
     public static LocalDate convertToLocalDate(String s) {
         s = s.substring(0, 10);
         LocalDate localDate = LocalDate.parse(s);
         return localDate;
     }
 
+    /**
+     * Converts times that are in MM-DD-YYYYTHHMM Format.
+     * @param s Takes in the String of the time/day
+     * @return double of the time needed for a query
+     */
     public static double convertToDoubleTime(String s) {
         double d = 0.0;
         s = s.substring(11, 13);

@@ -164,6 +164,11 @@ public class ClassTable {
         }
     }
 
+    /**
+     * Called to set the currently selected class. Only allows one class to be
+     * selected at a time and that class is stored in the parent Daily Items Panel
+     * For access in other classes.
+     */
     private void classSelected() {
         if (classTable.getSelectedRow() > -1) {
             LocalDate date = Local.convertToLocalDate(classTable.getValueAt(classTable.getSelectedRow(), 0).toString());

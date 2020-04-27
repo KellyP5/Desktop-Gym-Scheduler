@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Class to create pop up window to create a new class.
+ * Class to create pop up window to edit an existing class.
  */
 public class ClassesEditExistingClass extends JFrame {
 
@@ -41,8 +41,14 @@ public class ClassesEditExistingClass extends JFrame {
      * @param rel Used to set the position of the add user popup.
      */
     public ClassesEditExistingClass(ClassesPanel ref, Component rel, LocalDate currentDate, GymClassEntity gce) {
+        if (gce == null) {
+            throwInputError("You have not selected a class from the Classes Pane");
+            return;
+        }
+
         this.topLevelReference = ref;//we store this to use in our action listener.
         date = currentDate;
+
         selectedClass = gce;
         initGuiComponents();
 
@@ -50,7 +56,6 @@ public class ClassesEditExistingClass extends JFrame {
         getContentPane().add(classCreate);
         setVisible(true);
         setLocationRelativeTo(null);
-
     }
 
     /**

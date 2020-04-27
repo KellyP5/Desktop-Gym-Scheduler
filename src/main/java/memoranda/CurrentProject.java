@@ -8,12 +8,8 @@
  *
  */
 package main.java.memoranda;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.Vector;
-
-import main.java.memoranda.ui.AppFrame;
 import main.java.memoranda.util.Context;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Storage;
@@ -53,11 +49,11 @@ public class CurrentProject {
         _tasklist = CurrentStorage.get().openTaskList(_project);
         _notelist = CurrentStorage.get().openNoteList(_project);
         _resources = CurrentStorage.get().openResourcesList(_project);
-        AppFrame.addExitListener(new ActionListener() {
+/*        AppFrame.addExitListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 save();                                               
             }
-        });
+        });*/
     }
 
 

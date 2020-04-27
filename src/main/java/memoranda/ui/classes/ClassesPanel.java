@@ -5,6 +5,7 @@ import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class ClassesPanel extends JPanel {
@@ -260,10 +261,19 @@ public class ClassesPanel extends JPanel {
         this.classesPanelBot= new JPanel(new FlowLayout());
 
         this.classesPanelTop.add(this.room1ScrollPane);
+        // Add titles to rooms
+        this.room1ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 1", TitledBorder.CENTER, TitledBorder.TOP));
         this.classesPanelTop.add(this.room2ScrollPane);
+        this.room2ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 2", TitledBorder.CENTER, TitledBorder.TOP));
         this.classesPanelBot.add(this.room3ScrollPane);
+        this.room3ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 3", TitledBorder.CENTER, TitledBorder.TOP));
         this.classesPanelBot.add(this.room4ScrollPane);
-
+        this.room4ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 4", TitledBorder.CENTER, TitledBorder.TOP));
+        
         this.add(classesPanelTop, BorderLayout.CENTER);
         this.add(classesPanelBot, BorderLayout.SOUTH);
     }

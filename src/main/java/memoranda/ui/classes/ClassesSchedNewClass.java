@@ -1,6 +1,7 @@
 package main.java.memoranda.ui.classes;
 
 import main.java.memoranda.database.BeltEntity;
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.util.DbReadQueries;
@@ -12,14 +13,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ClassesSchedNewClass extends JFrame {
 
     ClassesPanel topLevelReference;
-
     LocalDate date;
-
     JPanel classCreate;
     JButton createButton;
     JComboBox times;
@@ -33,10 +33,7 @@ public class ClassesSchedNewClass extends JFrame {
     JLabel currentDate;
     JComboBox roomCB;
     JLabel lblRooms;
-
     JLabel fillOutForm;
-
-    JLabel lblLevels;
 
     /** Main constructor
      *
@@ -178,22 +175,26 @@ public class ClassesSchedNewClass extends JFrame {
             throwInputError("This trainer is not a high enough belt level to host this class");
             return;
         }
-        //System.out.println("Attempting to create account with E-mail: "+ email.getText() );
-        /**SqlConnection sql = SqlConnection.getInstance();
-        DbReadQueries dbrq = sql.getDrq();
-        RoleEntity role;
-        BeltEntity belt = new BeltEntity(BeltEntity.Rank.black1);
-        String rank = beltsCB.getSelectedItem().toString();
-        BeltEntity.Rank r = belt.getRank(rank);
-        belt = new BeltEntity(r);
-        // Add new user to database
-        //App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
-        dispose();
-        //this.topLevelReference.addUserToTable(email.getText(),rank,role.toString());
-        showCreatedSuccessfullyPopup();
-        throwInputError("An account already exists with that email.");
-        throwInputError("Select the type of account to create");
-         **/
+        double startTime = Local.getDoubleTime(times.getSelectedItem().toString());
+        int room = extractRoom();
+        int maxSize = Integer.parseInt(classSizeCB.getSelectedItem().toString());
+        BeltEntity belt = new BeltEntity(beltsCB.getSelectedItem().toString());
+        ArrayList<GymClassEntity> gce = App.conn.getDrq().getAllClassesByDateTime(date, Local.getDoubleTime(times.getSelectedItem().toString())
+        , room);
+        if (gce.size() != 0) {
+            throwInputError("There is already a class in this room, at this time, on this date");
+            return;
+        }
+        System.out.println(date.toString());
+        try {
+            App.conn.getDcq().insertClass(room, date, startTime, startTime+1, extractTrainerEmail()
+                    , maxSize, belt, extractTrainerEmail());
+            showCreatedSuccessfullyPopup();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+
     }
 
     /**
@@ -201,8 +202,8 @@ public class ClassesSchedNewClass extends JFrame {
      */
     public void showCreatedSuccessfullyPopup() {
         Object[] option = {"OK"};
-        int x = JOptionPane.showOptionDialog(null, "Account was created successfully!",
-                "Account Creation", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+        int x = JOptionPane.showOptionDialog(null, "Class was created successfully!",
+                "Class Creation", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
     }
 
     /**
@@ -220,6 +221,28 @@ public class ClassesSchedNewClass extends JFrame {
         }
         System.out.println(belt);
         return belt;
+    }
+
+    public String extractTrainerEmail() {
+        String trainer = trainersCB.getSelectedItem().toString();
+        String email = "";
+        int j;
+        for (int i = 0; i < trainer.length(); i++) {
+            if (trainer.charAt(i) == ' ') {
+                email = trainer.substring(0, i);
+                i = trainer.length();
+            }
+        }
+        System.out.println(email);
+        return email;
+    }
+
+    public int extractRoom() {
+        String room = roomCB.getSelectedItem().toString();
+        String substr = room.substring(5, 6);
+        int i = Integer.parseInt(substr);
+        System.out.println("[DEBUG] extracted room number: " + i);
+        return i;
     }
 }
 

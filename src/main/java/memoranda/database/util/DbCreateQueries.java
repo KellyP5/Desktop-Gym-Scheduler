@@ -5,6 +5,7 @@ import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.database.RoleEntity;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /*
@@ -111,6 +112,49 @@ public class DbCreateQueries {
         pstmt.close();
         conn.close();
     }
+
+    /**
+     * Inserts class but accounts for LocalDate format.
+     * @param roomNumber
+     * @param startDate
+     * @param startTime
+     * @param endTime
+     * @param trainerEmail
+     * @param maxClassSize
+     * @param minBeltRequired
+     * @param createdByEmail
+     * @throws SQLException
+     */
+    public void insertClass(int roomNumber,
+                            LocalDate startDate,
+                            double startTime,
+                            double endTime,
+                            String trainerEmail,
+                            int maxClassSize,
+                            BeltEntity minBeltRequired,
+                            String createdByEmail) throws SQLException {
+        String strDate = startDate.format(SqlConstants.DBDATEFORMAT);
+        String sql = "INSERT INTO GYMCLASS" +
+                "(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
+                "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
+
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, roomNumber);
+        pstmt.setString(2, strDate);
+        pstmt.setDouble(3, startTime);
+        pstmt.setDouble(4, endTime);
+        pstmt.setString(5, trainerEmail);
+        pstmt.setInt(6, maxClassSize);
+        pstmt.setString(7, minBeltRequired.rank.name());
+        pstmt.setString(8, createdByEmail);
+        pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
+    }
+
+
     /*
     add a new class to the GYMCLASS table, example usage:
     BeltEntity minBeltRequired = new BeltEntity(BeltEntity.Rank.white);

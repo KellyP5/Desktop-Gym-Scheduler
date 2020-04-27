@@ -211,6 +211,12 @@ public class Local {
         return times;
     }
 
+    public static double getDoubleTime(String s) {
+        String substr = s.substring(0, 2);
+        double d = Double.valueOf(substr);
+        return d;
+    }
+
     /**
      * The Roomnames.
      */

@@ -333,15 +333,7 @@ public class TaskPanel extends JPanel {
                 newTaskB.setEnabled(d.inPeriod(CurrentProject.get().getStartDate(), CurrentProject.get().getEndDate()));
             }
         });
-        CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
-                newTaskB.setEnabled(
-                    CurrentDate.get().inPeriod(p.getStartDate(), p.getEndDate()));
-            }
-            public void projectWasChanged() {
-            	//taskTable.setCurrentRootTask(null); //XXX
-            }
-        });
+
         taskTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 boolean enbl = (taskTable.getRowCount() > 0)&&(taskTable.getSelectedRow() > -1);

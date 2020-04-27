@@ -11,7 +11,6 @@ package main.java.memoranda.util;
 import main.java.memoranda.Note;
 import main.java.memoranda.NoteList;
 import main.java.memoranda.Project;
-import main.java.memoranda.ResourcesList;
 import main.java.memoranda.TaskList;
 
 /**
@@ -127,21 +126,6 @@ public interface Storage {
      */
     void removeProjectStorage(Project prj);
 
-    /**
-     * Open resources list resources list.
-     *
-     * @param prj the prj
-     * @return the resources list
-     */
-    ResourcesList openResourcesList(Project prj);
-
-    /**
-     * Store resources list.
-     *
-     * @param rl  the rl
-     * @param prj the prj
-     */
-    void storeResourcesList(ResourcesList rl, Project prj);
 
     /**
      * Restore context.

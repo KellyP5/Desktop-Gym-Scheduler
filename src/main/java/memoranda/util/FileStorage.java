@@ -15,25 +15,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
-
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-
 import main.java.memoranda.EventsManager;
 import main.java.memoranda.Note;
 import main.java.memoranda.NoteList;
 import main.java.memoranda.NoteListImpl;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectManager;
-import main.java.memoranda.ResourcesList;
-import main.java.memoranda.ResourcesListImpl;
 import main.java.memoranda.TaskList;
 import main.java.memoranda.TaskListImpl;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.ui.htmleditor.AltHTMLWriter;
 import nu.xom.Builder;
-import nu.xom.DocType;
 import nu.xom.Document;
 
 
@@ -445,37 +440,8 @@ public class FileStorage implements Storage {
             "[DEBUG] Save mimetypes list: " + JN_DOCPATH + ".mimetypes");
         saveDocument(MimeTypesList._doc, JN_DOCPATH + ".mimetypes");
     }
-    /**
-     * @see main.java.memoranda.util.Storage#openResourcesList(main.java.memoranda.Project)
-     */
-    public ResourcesList openResourcesList(Project prj) {
-        String fn = JN_DOCPATH + prj.getID() + File.separator + ".resources";
-        if (documentExists(fn)) {
-            /*DEBUG*/
-            System.out.println("[DEBUG] Open resources list: " + fn);
-            return new ResourcesListImpl(openDocument(fn), prj);
-        }
-        else {
-            /*DEBUG*/
-            System.out.println("[DEBUG] New note list created");
-            return new ResourcesListImpl(prj);
-        }
-    }
-    /**
-     * @see main.java.memoranda.util.Storage#storeResourcesList(main.java.memoranda.ResourcesList, main.java.memoranda.Project)
-     */
-    public void storeResourcesList(ResourcesList rl, Project prj) {
-        /*DEBUG*/
-        System.out.println(
-            "[DEBUG] Save resources list: "
-                + JN_DOCPATH
-                + prj.getID()
-                + File.separator
-                + ".resources");
-        saveDocument(
-            rl.getXMLContent(),
-            JN_DOCPATH + prj.getID() + File.separator + ".resources");
-    }
+
+
     /**
      * @see main.java.memoranda.util.Storage#restoreContext()
      */

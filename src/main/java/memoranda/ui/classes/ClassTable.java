@@ -63,7 +63,13 @@ public class ClassTable extends DefaultTableModel {
 
                 });
 
-                setBackground(Color.green);
+                int colFour = Integer.parseInt((String) classTable.getValueAt(row, 4));
+                int colThree = Integer.parseInt((String) classTable.getValueAt(row, 3));
+                if (colFour >= colThree) {
+                    setBackground(Color.RED);
+                } else {
+                    setBackground(Color.WHITE);
+                }
                 return this;
             }
         });
@@ -90,7 +96,7 @@ public class ClassTable extends DefaultTableModel {
             c.printStackTrace();
         }
 
-        String[] columnNames = {"Time", "Trainer", "MinBelt","MaxSize"};
+        String[] columnNames = {"Time", "Trainer", "MinBelt","MaxSize","NumStudents"};
 
         Collections.sort(this.classes);
 
@@ -102,7 +108,7 @@ public class ClassTable extends DefaultTableModel {
                 e.add(this.classes.get(i).getTrainerEmail());//trainer
                 e.add(this.classes.get(i).getMinBeltEntityRequired().toString());//MinBelt
                 e.add(Integer.toString(this.classes.get(i).getMaxClassSize()));//MaxSize
-
+                e.add(Integer.toString(this.classes.get(i).getNumStudents()));
                 al.add(e);
             }
         }
@@ -175,12 +181,11 @@ public class ClassTable extends DefaultTableModel {
         for(int i = 0;i< this.classes.size();i++){
             //test if this classtable is the table to display the class
             if(this.classes.get(i).getRoomNumber()==this.room){
-
                 dm.addRow(new Object[]{convertStartDateTime(this.classes.get(i).getStartDateTime().toString()),
                         this.classes.get(i).getTrainerEmail(),
                         this.classes.get(i).getMinBeltEntityRequired(),
-                        Integer.toString(this.classes.get(i).getMaxClassSize())});
-
+                        Integer.toString(this.classes.get(i).getMaxClassSize()),
+                        Integer.toString(this.classes.get(i).getNumStudents())});
             }
         }
     }

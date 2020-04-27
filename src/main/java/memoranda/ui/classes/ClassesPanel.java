@@ -167,9 +167,9 @@ public class ClassesPanel extends JPanel {
         this.colorKey = new JPanel();
         JLabel open = new JLabel("Open");
 
-        JPanel greenOpen = new JPanel();
-        greenOpen.setPreferredSize(new Dimension(10,10));
-        greenOpen.setBackground(Color.GREEN);
+        JPanel whiteOpen = new JPanel();
+        whiteOpen.setPreferredSize(new Dimension(10,10));
+        whiteOpen.setBackground(Color.WHITE);
 
         JLabel full = new JLabel("Full");
 
@@ -180,7 +180,7 @@ public class ClassesPanel extends JPanel {
         JLabel key = new JLabel("Key: ");
         colorKey.add(key);
         colorKey.add(open);
-        colorKey.add(greenOpen);
+        colorKey.add(whiteOpen);
         colorKey.add(full);
         colorKey.add(redClosed);
 

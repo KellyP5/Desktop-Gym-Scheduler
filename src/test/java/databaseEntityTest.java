@@ -4,6 +4,7 @@ import main.java.memoranda.database.*;
 import org.junit.*;
 
 import javax.management.relation.Role;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
@@ -67,7 +68,7 @@ public class databaseEntityTest {
      * Tests Gym Class Entity
      */
     @Test
-    public void gymClassEntity()  {
+    public void gymClassEntity() throws SQLException {
         ldt1 = LocalDateTime.now();
         gce1 = new GymClassEntity(1, 1, ldt1, ldt1,
                 "kjpetron@asu.edu",

@@ -1,6 +1,9 @@
 package main.java.memoranda.ui.classes;
 
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -14,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import main.java.memoranda.util.Local;
 
 public class ClassTable {
 
@@ -22,6 +26,7 @@ public class ClassTable {
     private DailyItemsPanel parentRef;
     private int room;
     private ArrayList<GymClassEntity> classes;
+    public GymClassEntity selectedClass;
 
     /**
      * Constructor
@@ -112,6 +117,13 @@ public class ClassTable {
                 refresh();
             }
         });
+
+        classTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                classSelected();
+            }
+        });
     }
 
     /**
@@ -147,7 +159,21 @@ public class ClassTable {
                         Integer.toString(this.classes.get(i).getMaxClassSize())});
             }
         }
+    }
 
+    private void classSelected() {
+        if (classTable.getSelectedRow() > -1) {
+            LocalDate date = Local.convertToLocalDate(classTable.getValueAt(classTable.getSelectedRow(), 0).toString());
+            double time = Local.convertToDoubleTime(classTable.getValueAt(classTable.getSelectedRow(), 0).toString());
+            String email = classTable.getValueAt(classTable.getSelectedRow(), 2).toString();
+            try {
+                selectedClass = App.conn.getDrq().getAllClassesByDateTime(date, time, room).get(0);
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+            System.out.println("You have selected the following class:");
+            selectedClass.printClass();
+        }
     }
 
 }

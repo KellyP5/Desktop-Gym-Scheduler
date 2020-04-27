@@ -2,6 +2,7 @@ package main.java.memoranda.util;
 
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 import main.java.memoranda.database.RoleEntity;
@@ -312,6 +313,19 @@ public class Local {
      */
     public static String getDateString(CalendarDate date, int f) {
         return getDateString(date.getDate(), f);
+    }
+
+    public static LocalDate convertToLocalDate(String s) {
+        s = s.substring(0, 10);
+        LocalDate localDate = LocalDate.parse(s);
+        return localDate;
+    }
+
+    public static double convertToDoubleTime(String s) {
+        double d = 0.0;
+        s = s.substring(11, 13);
+        d = Double.parseDouble(s);
+        return d;
     }
 
     /**

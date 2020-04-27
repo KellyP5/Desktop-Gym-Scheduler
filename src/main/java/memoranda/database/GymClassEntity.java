@@ -123,4 +123,15 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
     public int compareTo(GymClassEntity gymClassEntity) {
         return getStartDateTime().compareTo(gymClassEntity.getStartDateTime());
     }
+
+    public void printClass() {
+        System.out.println("ID: " + this._Id
+        + "\nroomNumber: " + this._roomNumber
+            + "\nmaxClassSize " + this._maxClassSize
+            + "\nstartDateTime " + this._startDateTime.toString()
+            + "\nendDateTime " + this._endDateTime.toString()
+            + "\ntrainer email " + this._trainerEmail
+            + "\nmin belt required " + this._minBeltEntityRequired.toString()
+            + "\ncreated by e-mail " + this._createdByEmail);
+    }
 }

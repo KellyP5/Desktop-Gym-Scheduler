@@ -63,6 +63,7 @@ public class ClassTable {
     private void initTable(LocalDate pDate)  {
         //this.classes = App.conn.getDrqTest().getAllClassesByDate(parentRef.currentDate);
         //LocalDate date = LocalDate.of(2020, 4,11);
+        this.date = pDate;
         try{
             this.classes = App.conn.getDrq().getAllClassesByDate(pDate);
         }catch(SQLException c){

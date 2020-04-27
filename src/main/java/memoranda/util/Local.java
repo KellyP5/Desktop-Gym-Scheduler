@@ -1,12 +1,13 @@
 package main.java.memoranda.util;
 
+import java.sql.SQLException;
 import java.text.DateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Hashtable;
-import java.util.Locale;
+import java.util.*;
 
+import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.date.CalendarDate;
+import main.java.memoranda.ui.App;
 
 import java.io.*;
 
@@ -129,7 +130,10 @@ public class Local {
      * The Beltnames.
      */
     static String beltnames[] =
-            { "white", "yellow", "orange", "purple", "blue", "blue stripe", "green", "green stripe", "brown1", "brown2", "brown3", "black1", "black2", "black3"};
+            { "white", "yellow", "orange", "purple", "blue", "blue_stripe", "green", "green_stripe", "brown1", "brown2", "brown3", "black1", "black2", "black3"};
+
+    static String classSize[] =
+            {"2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
 
     /**
      * Gets string.
@@ -172,6 +176,25 @@ public class Local {
         return beltnames;
     }
 
+    public static String[] getMaxClassSize() {
+        return classSize;
+    }
+
+    public static String[] getTrainerNames() {
+        RoleEntity role = new RoleEntity("trainer");
+        try {
+            ArrayList<UserEntity> al = App.conn.getDrq().getAllUsersOfCertainRole(role);
+            String[] trainers = new String[al.size()];
+            for (int i=0; i < al.size(); i++) {
+                trainers[i] = al.get(i).getEmail() + " Belt: " + al.get(i).getBelt().toString();
+            }
+            return trainers;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * Get room names string [ ].
      *
@@ -179,6 +202,19 @@ public class Local {
      */
     public static String[] getRoomNames() {
         return roomnames;
+    }
+
+    public static String[] getTimes() {
+        String[] times = new String[]{"0500", "0600", "0700", "0800", "0900",
+        "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800"
+        , "1900", "2000", "2100"};
+        return times;
+    }
+
+    public static double getDoubleTime(String s) {
+        String substr = s.substring(0, 2);
+        double d = Double.valueOf(substr);
+        return d;
     }
 
     /**

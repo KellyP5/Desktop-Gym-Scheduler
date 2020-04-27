@@ -133,6 +133,22 @@ public class BeltEntity {
         return rank == that.rank;
     }
 
+    public boolean checkBeltRank(String trainer, String c) {
+        int train=0, clas=0;
+        String[] ranks = new String[] {"white", "yellow", "orange", "purple", "blue",
+                "blue_stripe", "green", "green_stripe", "brown1", "brown2", "brown3", "black1",
+                "black2", "black3"};
+        for (int i=0; i<ranks.length; i++) {
+            if (ranks[i].equalsIgnoreCase(trainer)) train = i;
+            if (ranks[i].equalsIgnoreCase(c)) clas = i;
+        }
+        if (train >= clas) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Needed a way to convert a string into a rank for the account creation
      * @param String to convert

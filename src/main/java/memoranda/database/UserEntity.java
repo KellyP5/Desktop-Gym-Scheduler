@@ -20,6 +20,7 @@ public class UserEntity {
     private RoleEntity _role;
     private BeltEntity _belt;
     private BeltEntity _trainingBelt;
+    private String _imageUrl;
 
     /**
      * Constructor for a user who is not a trainer (student)
@@ -31,6 +32,7 @@ public class UserEntity {
         this._password = _password;
         this._email = _email;
         this._role = _role;
+        this._imageUrl = "src/main/resources/ui/Placeholder.png";
     }
 
     /**
@@ -45,6 +47,7 @@ public class UserEntity {
         this._role = _role;
         this._belt = _belt;
         this._trainingBelt = _trainingBelt;
+        this._imageUrl = "src/main/resources/ui/Placeholder.png";
     }
 
     /**
@@ -54,6 +57,22 @@ public class UserEntity {
      */
     public String getEmail() {
         return _email;
+    }
+
+    /**
+     * Sets the url for the image of the user's photo
+     * @param url The url to use
+     */
+    public void setImageUrl(String url) {
+        this._imageUrl = url;
+    }
+
+    /**
+     * Gets the url for the image of the user's photo
+     * @return The string of the URL
+     */
+    public String getImageUrl() {
+        return this._imageUrl;
     }
 
     /**

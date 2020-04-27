@@ -82,7 +82,7 @@ public class UserManagement extends JPanel {
         editUser = new JButton("Edit User");
         deleteUser  = new JButton("Delete User");
 
-        Dimension dem = new Dimension(120,100);
+        Dimension dem = new Dimension(120,30);
         addUserButton.setPreferredSize(dem);
         editUser.setPreferredSize(dem);
         deleteUser.setPreferredSize(dem);
@@ -153,6 +153,7 @@ public class UserManagement extends JPanel {
         userList.setBounds(0,0,200,300);
         scrollPane = new JScrollPane(this.userList);
         this.add(this.scrollPane, BorderLayout.CENTER);
+
     }
 
     /**
@@ -166,7 +167,11 @@ public class UserManagement extends JPanel {
 
         this.editUser.addActionListener(actionEvent -> {
             if (this.currentlySelectedEmail != null) {
-                new UserManagementEditUser(this, _selectedUser);
+                try {
+                    new UserManagementEditUser(this, _selectedUser);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
                 userNotSelected();
             }

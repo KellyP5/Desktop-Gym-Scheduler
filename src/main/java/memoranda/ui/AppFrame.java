@@ -1,6 +1,11 @@
 package main.java.memoranda.ui;
 
-import java.awt.*;
+import java.awt.AWTEvent;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -8,32 +13,36 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Vector;
-
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
-
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.Box;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.History;
-import main.java.memoranda.Note;
 import main.java.memoranda.NoteList;
 import main.java.memoranda.Project;
 import main.java.memoranda.ProjectListener;
 import main.java.memoranda.ResourcesList;
 import main.java.memoranda.TaskList;
-import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.ui.htmleditor.HTMLEditor;
 import main.java.memoranda.util.Configuration;
 import main.java.memoranda.util.Context;
-import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 import main.java.memoranda.util.ProjectExporter;
 import main.java.memoranda.util.ProjectPackager;
-import main.java.memoranda.util.Util;
 
 
 
@@ -82,6 +91,10 @@ public class AppFrame extends JFrame {
 
     BorderLayout borderLayout1 = new BorderLayout();
 
+
+
+
+
     /**
      * The J menu edit.
      */
@@ -94,6 +107,11 @@ public class AppFrame extends JFrame {
      * The J menu insert.
      */
     JMenu jMenuInsert = new JMenu();
+
+
+
+
+
 
     /**
      * The Work panel.
@@ -177,6 +195,13 @@ public class AppFrame extends JFrame {
                 }
             };
 
+
+
+
+
+
+
+
     /**
      * The J menu file new prj.
      */
@@ -215,42 +240,11 @@ public class AppFrame extends JFrame {
      */
     JMenuItem jMenuFileMin = new JMenuItem(minimizeAction);
 
-    /**
-     * The J menu item 1.
-     */
-    JMenuItem jMenuItem1 = new JMenuItem();
-    /**
-     * The J menu edit undo.
-     */
-    JMenuItem jMenuEditUndo = new JMenuItem(editor.undoAction);
-    /**
-     * The J menu edit redo.
-     */
-    JMenuItem jMenuEditRedo = new JMenuItem(editor.redoAction);
-    /**
-     * The J menu edit cut.
-     */
-    JMenuItem jMenuEditCut = new JMenuItem(editor.cutAction);
-    /**
-     * The J menu edit copy.
-     */
-    JMenuItem jMenuEditCopy = new JMenuItem(editor.copyAction);
-    /**
-     * The J menu edit paste.
-     */
-    JMenuItem jMenuEditPaste = new JMenuItem(editor.pasteAction);
-    /**
-     * The J menu edit paste spec.
-     */
-    JMenuItem jMenuEditPasteSpec = new JMenuItem(editor.stylePasteAction);
-    /**
-     * The J menu edit select all.
-     */
-    JMenuItem jMenuEditSelectAll = new JMenuItem(editor.selectAllAction);
-    /**
-     * The J menu edit find.
-     */
-    JMenuItem jMenuEditFind = new JMenuItem(editor.findAction);
+
+
+
+
+
 
     /**
      * The J menu go.
@@ -307,6 +301,10 @@ public class AppFrame extends JFrame {
      */
     JMenuItem jMenuInsertFile = new JMenuItem(
             workPanel.dailyItemsPanel.editorPanel.importAction);
+
+
+
+
 
     /**
      * The J menu format p style.
@@ -455,21 +453,11 @@ public class AppFrame extends JFrame {
      */
     JMenuItem jMenuGoFwd = new JMenuItem(History.historyForwardAction);
 
-    /**
-     * The J menu go day back.
-     */
-    JMenuItem jMenuGoDayBack = new JMenuItem(
-            workPanel.dailyItemsPanel.calendar.dayBackAction);
-    /**
-     * The J menu go day fwd.
-     */
-    JMenuItem jMenuGoDayFwd = new JMenuItem(
-            workPanel.dailyItemsPanel.calendar.dayForwardAction);
-    /**
-     * The J menu go today.
-     */
-    JMenuItem jMenuGoToday = new JMenuItem(
-            workPanel.dailyItemsPanel.calendar.todayAction);
+
+
+
+
+
 
     /**
      * The J menu edit pref.
@@ -481,32 +469,12 @@ public class AppFrame extends JFrame {
      */
     JMenu jMenuInsertSpecial = new JMenu();
 
-    /**
-     * The J menu help.
-     */
-    JMenu jMenuHelp = new JMenu();
 
-    /**
-     * The J menu help guide.
-     */
-    JMenuItem jMenuHelpGuide = new JMenuItem();
-    /**
-     * The J menu help web.
-     */
-    JMenuItem jMenuHelpWeb = new JMenuItem();
-    /**
-     * The J menu help bug.
-     */
-    JMenuItem jMenuHelpBug = new JMenuItem();
-    /**
-     * The J menu help about.
-     */
+    JMenu jMenuHelp = new JMenu();
     JMenuItem jMenuHelpAbout = new JMenuItem();
 
-    /**
-     * Instantiates a new App frame.
-     */
-//Construct the frame
+
+
     public AppFrame() throws IOException {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         try {
@@ -516,16 +484,20 @@ public class AppFrame extends JFrame {
             new ExceptionDialog(e);
         }
     }
-    //Component initialization
+
+
     private void jbInit() throws Exception {
+
         this.setIconImage(new ImageIcon(AppFrame.class.getResource(
                 "/ui/icons/jnotes16.png"))
                 .getImage());
+
         contentPane = (JPanel) this.getContentPane();
         contentPane.setLayout(borderLayout1);
-        //this.setSize(new Dimension(800, 500));
+
         this.setTitle("Memoranda - " + CurrentProject.get().getTitle());
-        //Added a space to App.VERSION_INFO to make it look some nicer
+
+
         statusBar.setText(" Version:" + App.VERSION_INFO + " (Build "
                 + App.BUILD_INFO + " )");
 
@@ -538,30 +510,6 @@ public class AppFrame extends JFrame {
         });
         jMenuHelp.setText(Local.getString("Help"));
 
-        jMenuHelpGuide.setText(Local.getString("Online user's guide"));
-        jMenuHelpGuide.setIcon(new ImageIcon(AppFrame.class.getResource(
-                "/ui/icons/help.png")));
-        jMenuHelpGuide.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpGuide_actionPerformed(e);
-            }
-        });
-
-        jMenuHelpWeb.setText(Local.getString("Memoranda web site"));
-        jMenuHelpWeb.setIcon(new ImageIcon(AppFrame.class.getResource(
-                "/ui/icons/web.png")));
-        jMenuHelpWeb.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpWeb_actionPerformed(e);
-            }
-        });
-
-        jMenuHelpBug.setText(Local.getString("Report a bug"));
-        jMenuHelpBug.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                jMenuHelpBug_actionPerformed(e);
-            }
-        });
 
         jMenuHelpAbout.setText(Local.getString("About Globo Gym"));
         jMenuHelpAbout.addActionListener(new ActionListener() {
@@ -584,22 +532,6 @@ public class AppFrame extends JFrame {
                 InputEvent.ALT_MASK));
 
         jMenuEdit.setText(Local.getString("Edit"));
-
-        jMenuEditUndo.setText(Local.getString("Undo"));
-        jMenuEditUndo.setToolTipText(Local.getString("Undo"));
-        jMenuEditRedo.setText(Local.getString("Redo"));
-        jMenuEditRedo.setToolTipText(Local.getString("Redo"));
-        jMenuEditCut.setText(Local.getString("Cut"));
-        jMenuEditCut.setToolTipText(Local.getString("Cut"));
-        jMenuEditCopy.setText((String) Local.getString("Copy"));
-        jMenuEditCopy.setToolTipText(Local.getString("Copy"));
-        jMenuEditPaste.setText(Local.getString("Paste"));
-        jMenuEditPaste.setToolTipText(Local.getString("Paste"));
-        jMenuEditPasteSpec.setText(Local.getString("Paste special"));
-        jMenuEditPasteSpec.setToolTipText(Local.getString("Paste special"));
-        jMenuEditSelectAll.setText(Local.getString("Select all"));
-
-        jMenuEditFind.setText(Local.getString("Find & replace") + "...");
 
         jMenuEditPref.setText(Local.getString("Preferences") + "...");
 
@@ -676,9 +608,6 @@ public class AppFrame extends JFrame {
         jMenuGoHBack.setToolTipText(Local.getString("History back"));
         jMenuGoFwd.setText(Local.getString("History forward"));
         jMenuGoFwd.setToolTipText(Local.getString("History forward"));
-        jMenuGoDayBack.setText(Local.getString("One day back"));
-        jMenuGoDayFwd.setText(Local.getString("One day forward"));
-        jMenuGoToday.setText(Local.getString("To today"));
 
         jMenuInsertSpecial.setText(Local.getString("Special"));
         jMenuInsertBR.setText(Local.getString("Line break"));
@@ -689,35 +618,13 @@ public class AppFrame extends JFrame {
         toolBar.add(jButton3);
 
 
-        jMenuFile.add(jMenuFileNewPrj);
-        jMenuFile.add(jMenuFileNewNote);
-        jMenuFile.addSeparator();
-        jMenuFile.add(jMenuFilePackPrj);
-        jMenuFile.add(jMenuFileUnpackPrj);
-        jMenuFile.addSeparator();
-        jMenuFile.add(jMenuFileExportPrj);
-        jMenuFile.add(jMenuFileExportNote);
-        jMenuFile.add(jMenuFileImportNote);
-        jMenuFile.add(jMenuFileImportPrj);
-        jMenuFile.addSeparator();
         jMenuFile.add(jMenuEditPref);
-        jMenuFile.addSeparator();
-        jMenuFile.add(jMenuFileMin);
-        jMenuFile.addSeparator();
         jMenuFile.add(jMenuFileExit);
-
-        jMenuHelp.add(jMenuHelpGuide);
-        jMenuHelp.add(jMenuHelpWeb);
-        jMenuHelp.add(jMenuHelpBug);
-        jMenuHelp.addSeparator();
         jMenuHelp.add(jMenuHelpAbout);
 
         menuBar.add(jMenuFile);
-        menuBar.add(jMenuEdit);
-        menuBar.add(jMenuInsert);
-        menuBar.add(jMenuFormat);
-        menuBar.add(jMenuGo);
         menuBar.add(jMenuHelp);
+
         this.setJMenuBar(menuBar);
 
         //contentPane.add(toolBar, BorderLayout.NORTH);
@@ -752,18 +659,7 @@ public class AppFrame extends JFrame {
         this.contentPane.add(workPanel);
 
 
-        // splitPane.add(workPanel, JSplitPane.BOTTOM);
-        jMenuEdit.add(jMenuEditUndo);
-        jMenuEdit.add(jMenuEditRedo);
-        jMenuEdit.addSeparator();
-        jMenuEdit.add(jMenuEditCut);
-        jMenuEdit.add(jMenuEditCopy);
-        jMenuEdit.add(jMenuEditPaste);
-        jMenuEdit.add(jMenuEditPasteSpec);
-        jMenuEdit.addSeparator();
-        jMenuEdit.add(jMenuEditSelectAll);
-        jMenuEdit.addSeparator();
-        jMenuEdit.add(jMenuEditFind);
+
 
         jMenuInsert.add(jMenuInsertImage);
         jMenuInsert.add(jMenuInsertTable);
@@ -823,9 +719,6 @@ public class AppFrame extends JFrame {
         jMenuGo.add(jMenuGoHBack);
         jMenuGo.add(jMenuGoFwd);
         jMenuGo.addSeparator();
-        jMenuGo.add(jMenuGoDayBack);
-        jMenuGo.add(jMenuGoDayFwd);
-        jMenuGo.add(jMenuGoToday);
 
         // splitPane.setBorder(null);
         workPanel.setBorder(null);
@@ -891,32 +784,7 @@ public class AppFrame extends JFrame {
 
     }
 
-    /**
-     * J menu help bug action performed.
-     *
-     * @param e the e
-     */
-    protected void jMenuHelpBug_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.BUGS_TRACKER_URL);
-    }
 
-    /**
-     * J menu help web action performed.
-     *
-     * @param e the e
-     */
-    protected void jMenuHelpWeb_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.WEBSITE_URL);
-    }
-
-    /**
-     * J menu help guide action performed.
-     *
-     * @param e the e
-     */
-    protected void jMenuHelpGuide_actionPerformed(ActionEvent e) {
-        Util.runBrowser(App.GUIDE_URL);
-    }
 
     /**
      * Do exit.

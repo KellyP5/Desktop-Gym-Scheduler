@@ -1,31 +1,19 @@
 package main.java.memoranda.ui;
 
+import java.awt.Frame;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Properties;
+import javax.swing.UIManager;
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Configuration;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Properties;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.UIManager;
-
-import main.java.memoranda.EventsScheduler;
-import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.util.Configuration;
-
 /**
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
-/*$Id: App.java,v 1.28 2007/03/20 06:21:46 alexeya Exp $*/
 public class App {
 
     /**

@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -20,14 +19,8 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.CaretEvent;
 import javax.swing.text.Document;
-
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.Note;
-import main.java.memoranda.NoteList;
-import main.java.memoranda.Project;
-import main.java.memoranda.ProjectListener;
-import main.java.memoranda.ResourcesList;
-import main.java.memoranda.TaskList;
 import main.java.memoranda.util.CurrentStorage;
 import main.java.memoranda.util.Local;
 
@@ -182,12 +175,7 @@ public class SearchPanel extends JPanel {
         jPanel4.add(wholeWCB, BorderLayout.NORTH);
         jPanel4.add(regexpCB, BorderLayout.CENTER);
         jPanel3.add(searchB, BorderLayout.SOUTH);
-        CurrentProject.addProjectListener(new ProjectListener() {
-            public void projectChange(Project p, NoteList nl, TaskList tl, ResourcesList rl) {
-                notesList.update(new Vector());
-            }
-            public void projectWasChanged() {}
-        });
+
         //notesList.update(new Vector());
 
     }

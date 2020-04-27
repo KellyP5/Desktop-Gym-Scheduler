@@ -2,9 +2,6 @@ package main.java.memoranda.ui.classes;
 
 import main.java.memoranda.database.BeltEntity;
 import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.RoleEntity;
-import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.util.DbReadQueries;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.util.Local;
 
@@ -14,8 +11,10 @@ import java.awt.event.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * Class to create pop up window to create a new class.
+ */
 public class ClassesSchedNewClass extends JFrame {
 
     ClassesPanel topLevelReference;
@@ -223,6 +222,10 @@ public class ClassesSchedNewClass extends JFrame {
         return belt;
     }
 
+    /**
+     * Extracts trainer email from combo box.
+     * @return String of email
+     */
     public String extractTrainerEmail() {
         String trainer = trainersCB.getSelectedItem().toString();
         String email = "";
@@ -237,6 +240,10 @@ public class ClassesSchedNewClass extends JFrame {
         return email;
     }
 
+    /**
+     * Extracts room number as int for query.
+     * @return int of room
+     */
     public int extractRoom() {
         String room = roomCB.getSelectedItem().toString();
         String substr = room.substring(5, 6);

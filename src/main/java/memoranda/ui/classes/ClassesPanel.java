@@ -1,5 +1,6 @@
 package main.java.memoranda.ui.classes;
 
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.ui.DailyItemsPanel;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Local;
@@ -202,8 +203,9 @@ public class ClassesPanel extends JPanel {
                     parentPanelReference.currentDate.getDay()));
         });
         editClassBut.addActionListener((e)->{
-            System.out.println("Debug: editClassBut TODO");
-            //TODO
+            new ClassesEditExistingClass(this, schedNewClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                parentPanelReference.currentDate.getMonth()+1,
+                parentPanelReference.currentDate.getDay()), parentPanelReference.getSelectedClass());
         });
         removeClassBut.addActionListener((e)->{
             System.out.println("Debug: removeClassBut TODO");
@@ -250,5 +252,7 @@ public class ClassesPanel extends JPanel {
         this.add(classesPanelBot, BorderLayout.SOUTH);
 
     }
+
+
 
 }

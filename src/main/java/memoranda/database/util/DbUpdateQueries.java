@@ -1,6 +1,10 @@
 package main.java.memoranda.database.util;
 
+import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import main.java.memoranda.database.BeltEntity;
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.database.RoleEntity;
 
 import java.sql.Connection;
@@ -65,5 +69,56 @@ public class DbUpdateQueries {
 
         pstmt.close();
         conn.close();
+    }
+
+    public boolean updateClass(int roomNumber,
+                            LocalDate startDate,
+                            double startTime,
+                            double endTime,
+                            String trainerEmail,
+                            int maxClassSize,
+                            BeltEntity minBeltRequired,
+                            String createdByEmail,
+                            int oldRoom,
+                            double oldStart) throws SQLException {
+        if (oldStart != startTime || oldRoom != roomNumber) {
+            String strDate = startDate.format(SqlConstants.DBDATEFORMAT);
+            String sql = "SELECT * FROM GYMCLASS WHERE StartDate=?" +
+                "AND StartTime=?" +
+                "AND RoomNumber=?";
+            Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+            PreparedStatement pstmt  = conn.prepareStatement(sql);
+            pstmt.setString(1,strDate);
+            pstmt.setDouble(2,startTime);
+            pstmt.setInt(3, roomNumber);
+            ResultSet rs  = pstmt.executeQuery();
+            if (rs.next() != false) return false;
+            pstmt.close();
+            conn.close();
+        }
+        String strDate = startDate.format(SqlConstants.DBDATEFORMAT);
+        String sql = "UPDATE GYMCLASS SET RoomNumber = ?, StartDate = ?, StartTime = ?, EndTime = ?," +
+            "TrainerEmail = ?, MaxClassSize = ?, MinBeltRequired = ?, CreatedByEmail = ?" +
+            "WHERE RoomNumber = ? AND StartTime = ? AND StartDate = ?";
+        System.out.println(sql);
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, roomNumber);
+        pstmt.setString(2, strDate);
+        pstmt.setDouble(3, startTime);
+        pstmt.setDouble(4, endTime);
+        pstmt.setString(5, trainerEmail);
+        pstmt.setInt(6, maxClassSize);
+        pstmt.setString(7, minBeltRequired.rank.name());
+        pstmt.setString(8, createdByEmail);
+        pstmt.setInt(9, oldRoom);
+        pstmt.setDouble(10, oldStart);
+        pstmt.setString(11, strDate);
+
+        pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
+        return true;
     }
 }

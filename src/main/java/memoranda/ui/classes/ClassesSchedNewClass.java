@@ -218,7 +218,6 @@ public class ClassesSchedNewClass extends JFrame {
                 belt = trainer.substring(i+2, trainer.length());
             }
         }
-        System.out.println(belt);
         return belt;
     }
 
@@ -236,7 +235,6 @@ public class ClassesSchedNewClass extends JFrame {
                 i = trainer.length();
             }
         }
-        System.out.println(email);
         return email;
     }
 
@@ -248,7 +246,6 @@ public class ClassesSchedNewClass extends JFrame {
         String room = roomCB.getSelectedItem().toString();
         String substr = room.substring(5, 6);
         int i = Integer.parseInt(substr);
-        System.out.println("[DEBUG] extracted room number: " + i);
         return i;
     }
 }

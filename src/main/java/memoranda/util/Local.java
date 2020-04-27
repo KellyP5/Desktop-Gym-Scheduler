@@ -179,7 +179,7 @@ public class Local {
             ArrayList<UserEntity> al = App.conn.getDrq().getAllUsersOfCertainRole(role);
             String[] trainers = new String[al.size()];
             for (int i=0; i < al.size(); i++) {
-                trainers[i] = al.get(i).getEmail();
+                trainers[i] = al.get(i).getEmail() + " Belt: " + al.get(i).getBelt().toString();
             }
             return trainers;
         } catch (SQLException e) {

@@ -23,6 +23,7 @@ public class ClassesSchedNewClass extends JFrame {
     JComboBox beltsCB;
     JComboBox levelsCB;
     JComboBox trainersCB;
+    JLabel lblTrainers;
 
 
 
@@ -64,7 +65,9 @@ public class ClassesSchedNewClass extends JFrame {
     public void initGuiComponents(){
         classCreate = new JPanel();
         createButton = new JButton("Create");
+
         trainersCB = new JComboBox(Local.getTrainerNames());
+        lblTrainers = new JLabel("Select Trainer");
 
         firstName = new JTextField(20);
         lastName = new JTextField(20);
@@ -74,7 +77,7 @@ public class ClassesSchedNewClass extends JFrame {
         trainerButton = new JRadioButton();
         studentButton = new JRadioButton();
         adminButton = new JRadioButton();
-        fillOutForm = new JLabel("Please fill out the form with your information");
+        fillOutForm = new JLabel("Please fill out the form with class information");
         accountSelection = new JLabel("Which type of account would you like to create?");
         buttons = new ButtonGroup(); // Ensures that only 1 option can be chosen
         buttons.add(trainerButton);
@@ -85,12 +88,11 @@ public class ClassesSchedNewClass extends JFrame {
         levelsCB = new JComboBox(Local.getBeltNames());
         lblLevels = new JLabel();
 
-
         setTitle("Schedule New Class");
         setSize(300, 500);
 
 
-        fillOutForm.setBounds(30, 110, 250, 50);
+        fillOutForm.setBounds(15, 5, 275, 50);
         fillOutForm.setFont(new Font("Bell MT", Font.PLAIN, 12));
 
         email.setText("E-mail");
@@ -98,8 +100,11 @@ public class ClassesSchedNewClass extends JFrame {
 
         classCreate.setLayout(null);
 
-        trainersCB.setPreferredSize(new Dimension(100, 25));
-        trainersCB.setBounds(35, 400, 100, 20);
+        trainersCB.setPreferredSize(new Dimension(200, 25));
+        trainersCB.setBounds(100, 50, 200, 20);
+        lblTrainers.setPreferredSize(new Dimension(100, 25));
+        lblTrainers.setBounds(5, 50, 100, 25);
+
         lblBelt.setBounds(5, 400, 100, 20);
         lblBelt.setText(Local.getString("Belt:"));
         lblBelt.setMinimumSize(new Dimension(60, 24));
@@ -112,11 +117,6 @@ public class ClassesSchedNewClass extends JFrame {
 
 
         email.setBounds(70, 230, 150, 25);
-        pass.setBounds(125, 270, 150, 25);
-        pass2.setBounds(125, 310, 150, 25);
-
-        firstName.setBounds(70, 150, 150, 25);
-        lastName.setBounds(70, 190, 150, 25);
 
         accountSelection.setBounds(0, 330, 300, 50);
 
@@ -134,6 +134,8 @@ public class ClassesSchedNewClass extends JFrame {
 
         classCreate.add(createButton);
         classCreate.add(email);
+        classCreate.add(lblTrainers);
+
         classCreate.add(accountSelection);
         classCreate.add(trainerButton);
         classCreate.add(studentButton);

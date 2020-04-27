@@ -46,10 +46,10 @@ public class ClassesSchedNewClass extends JFrame {
     public ClassesSchedNewClass(ClassesPanel ref, Component rel, LocalDate currentDate) {
         this.topLevelReference = ref;//we store this to use in our action listener.
         date = currentDate;
+
         initGuiComponents();
 
         initActionEvents();
-
         getContentPane().add(classCreate);
         setVisible(true);
         setLocationRelativeTo(null);
@@ -103,6 +103,7 @@ public class ClassesSchedNewClass extends JFrame {
 
 
         classCreate.setLayout(null);
+
         classCreate.add(createButton);
         classCreate.add(lblTrainers);
         classCreate.add(lblBelt);
@@ -133,7 +134,7 @@ public class ClassesSchedNewClass extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    createAccount();
+                    createClass();
 
                 } catch (SQLException ex) {
                     ex.printStackTrace();
@@ -148,7 +149,7 @@ public class ClassesSchedNewClass extends JFrame {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
-                        createAccount();
+                        createClass();
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     }
@@ -170,22 +171,29 @@ public class ClassesSchedNewClass extends JFrame {
      * Call to create account. Tests fields on Account Creation window for data.
      * @throws SQLException Throws exception is account does not exist.
      */
-    public void createAccount () throws SQLException {
-            //System.out.println("Attempting to create account with E-mail: "+ email.getText() );
-            SqlConnection sql = SqlConnection.getInstance();
-            DbReadQueries dbrq = sql.getDrq();
-            RoleEntity role;
-            BeltEntity belt = new BeltEntity(BeltEntity.Rank.black1);
-            String rank = beltsCB.getSelectedItem().toString();
-            BeltEntity.Rank r = belt.getRank(rank);
-            belt = new BeltEntity(r);
-            // Add new user to database
-            //App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
-            dispose();
-            //this.topLevelReference.addUserToTable(email.getText(),rank,role.toString());
-            showCreatedSuccessfullyPopup();
-            throwInputError("An account already exists with that email.");
-            throwInputError("Select the type of account to create");
+    public void createClass () throws SQLException {
+        String trainerBelt = extractBelt();
+        BeltEntity beltEntity = new BeltEntity("white");
+        if (!beltEntity.checkBeltRank(trainerBelt, beltsCB.getSelectedItem().toString())){
+            throwInputError("This trainer is not a high enough belt level to host this class");
+            return;
+        }
+        //System.out.println("Attempting to create account with E-mail: "+ email.getText() );
+        /**SqlConnection sql = SqlConnection.getInstance();
+        DbReadQueries dbrq = sql.getDrq();
+        RoleEntity role;
+        BeltEntity belt = new BeltEntity(BeltEntity.Rank.black1);
+        String rank = beltsCB.getSelectedItem().toString();
+        BeltEntity.Rank r = belt.getRank(rank);
+        belt = new BeltEntity(r);
+        // Add new user to database
+        //App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
+        dispose();
+        //this.topLevelReference.addUserToTable(email.getText(),rank,role.toString());
+        showCreatedSuccessfullyPopup();
+        throwInputError("An account already exists with that email.");
+        throwInputError("Select the type of account to create");
+         **/
     }
 
     /**
@@ -195,6 +203,23 @@ public class ClassesSchedNewClass extends JFrame {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "Account was created successfully!",
                 "Account Creation", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+    }
+
+    /**
+     * Extracts the belt from the selected trainer
+     * @return String belt
+     */
+    public String extractBelt() {
+        String trainer = trainersCB.getSelectedItem().toString();
+        String belt = "";
+        int j;
+        for (int i = 0; i < trainer.length(); i++) {
+            if (trainer.charAt(i) == ':') {
+                belt = trainer.substring(i+2, trainer.length());
+            }
+        }
+        System.out.println(belt);
+        return belt;
     }
 }
 

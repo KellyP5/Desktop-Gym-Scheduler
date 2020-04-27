@@ -33,17 +33,17 @@ public class AppFrame extends JFrame {
     private JPanel contentPane;
 
     //Status bar on the bottum showing the version
-    JLabel statusBar = new JLabel();
+    private JLabel statusBar = new JLabel();
 
     //top menu bar
-    JMenuBar menuBar = new JMenuBar();
-    JMenu jMenuFile = new JMenu();
-    JMenuItem jMenuFileExit = new JMenuItem();
+    private JMenuBar menuBar = new JMenuBar();
+    private JMenu jMenuFile = new JMenu();
+    private JMenuItem jMenuFileExit = new JMenuItem();
 
     //logout button top right main app
-    Image logoutimg = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
-    Image logoutButtonIcon = logoutimg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-    JButton logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
+    private Image logoutimg = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
+    private Image logoutButtonIcon = logoutimg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+    private JButton logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
 
     //Not sure what this panel is for yet, but so far its really important!
     public WorkPanel workPanel = new WorkPanel();
@@ -56,12 +56,12 @@ public class AppFrame extends JFrame {
     };
 
     //This is the button inside the toolbar drop down in file
-    JMenuItem jMenuEditPref = new JMenuItem(preferencesAction);
+    private JMenuItem jMenuEditPref = new JMenuItem(preferencesAction);
 
 
     //Help menu that shows the about page inside top toolbar
-    JMenu jMenuHelp = new JMenu();
-    JMenuItem jMenuHelpAbout = new JMenuItem();
+    private JMenu jMenuHelp = new JMenu();
+    private JMenuItem jMenuHelpAbout = new JMenuItem();
 
 
     public AppFrame() throws IOException {
@@ -72,7 +72,31 @@ public class AppFrame extends JFrame {
     /**
      * Initializes our JFrame
      */
-    private void init() {
+    private void init() throws IOException {
+
+
+        this.contentPane = new JPanel();
+        this.statusBar = new JLabel();
+        this.menuBar = new JMenuBar();
+        this.jMenuFile = new JMenu();
+        this.jMenuFileExit = new JMenuItem();
+        this.logoutimg = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
+        this.logoutButtonIcon = logoutimg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        this.logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
+
+        this.workPanel = new WorkPanel();
+
+
+
+
+
+
+
+
+
+
+
+
 
         this.setTitle("GloboGym");
 

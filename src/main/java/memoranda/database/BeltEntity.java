@@ -8,6 +8,7 @@
 package main.java.memoranda.database;
 
 import java.util.Objects;
+import main.java.memoranda.util.Local;
 
 /*
 Belt Entity is the entity used for all Belt related SQL
@@ -133,11 +134,16 @@ public class BeltEntity {
         return rank == that.rank;
     }
 
+    /**
+     * Takes in a belt of a trainer and another belt, and returns
+     * whether that trainer is qualified to teach a class at that level.
+     * @param trainer String belt of the trainer
+     * @param c String belt of the comparison belt
+     * @return True if trainer can and false if he can't
+     */
     public boolean checkBeltRank(String trainer, String c) {
         int train=0, clas=0;
-        String[] ranks = new String[] {"white", "yellow", "orange", "purple", "blue",
-                "blue_stripe", "green", "green_stripe", "brown1", "brown2", "brown3", "black1",
-                "black2", "black3"};
+        String[] ranks = Local.getBeltNames();
         for (int i=0; i<ranks.length; i++) {
             if (ranks[i].equalsIgnoreCase(trainer)) train = i;
             if (ranks[i].equalsIgnoreCase(c)) clas = i;

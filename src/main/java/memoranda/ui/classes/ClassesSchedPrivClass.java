@@ -57,7 +57,7 @@ public class ClassesSchedPrivClass extends JFrame {
         classCreate = new JPanel();
         //Label
         setTitle("Schedule New Class");
-        setSize(300, 500);
+        setSize(300, 230);
         //Top Label
         fillOutForm = new JLabel("Please fill out the form with private class info");
         fillOutForm.setBounds(15, -10, 275, 50);

@@ -59,7 +59,7 @@ public class ClassesSchedNewClass extends JFrame {
         classCreate = new JPanel();
         //Label
         setTitle("Schedule New Class");
-        setSize(300, 500);
+        setSize(300, 250);
         //Top Label
         fillOutForm = new JLabel("Please fill out the form with class information");
         fillOutForm.setBounds(15, -10, 275, 50);

@@ -212,7 +212,6 @@ public class ClassesSchedNewClass extends JFrame {
     public String extractBelt() {
         String trainer = trainersCB.getSelectedItem().toString();
         String belt = "";
-        int j;
         for (int i = 0; i < trainer.length(); i++) {
             if (trainer.charAt(i) == ':') {
                 belt = trainer.substring(i+2, trainer.length());

@@ -1,5 +1,8 @@
 package main.java.memoranda.database;
 
+import main.java.memoranda.ui.App;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -16,7 +19,7 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
     private int _maxClassSize;
     private BeltEntity _minBeltEntityRequired;
     private String _createdByEmail;
-
+    private int _numStudents;
 
     public GymClassEntity(int id, int _roomNumber, LocalDateTime _startDateTime,
                           LocalDateTime _endDateTime, String _trainerEmail, int _maxClassSize,
@@ -33,6 +36,11 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
 
     public int getId() {
         return _Id;
+    }
+
+    public int getNumberOfStudentsEnrolledInClass(int classId) throws SQLException {
+        this._numStudents = App.conn.getDrq().getNumberOfStudentsEnrolledInClass(classId);
+        return this._numStudents;
     }
 
     public void printGymClass() {

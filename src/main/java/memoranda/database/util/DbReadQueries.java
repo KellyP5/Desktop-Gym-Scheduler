@@ -44,6 +44,28 @@ public class DbReadQueries {
         return userEntity;
     }
 
+    /**
+     * Gets the number of students enrolled in a class. Used to determine if a class
+     * is full or not.
+     * @param id The unique identifier of the Class
+     * @return The amount of students enrolled in the class
+     * @throws SQLException
+     */
+    public int getNumberOfStudentsEnrolledInClass(int id) throws SQLException {
+        String sql = "SELECT COUNT(UserEmail) AS total FROM ENROLLEDUSER " +
+                "INNER JOIN GYMCLASS on GYMCLASS.Id = ENROLLEDUSER.ClassId " +
+                "WHERE ENROLLEDUSER.ClassId = ?";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        ResultSet rs = pstmt.executeQuery();
+        if (!rs.next()) {
+            return 0;
+        }
+        int total = rs.getInt("total");
+        return total;
+    }
+
     /*
     gets all of a USER's information based on the email provided
     */

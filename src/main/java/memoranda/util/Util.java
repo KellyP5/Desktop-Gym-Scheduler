@@ -7,23 +7,16 @@
  * Copyright (c) 2003 Memoranda team: http://memoranda.sf.net
  */
 package main.java.memoranda.util;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
-import java.util.Iterator;
-
 import javax.swing.JFileChooser;
-
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.App;
-import main.java.memoranda.ui.AppFrame;
 import main.java.memoranda.ui.ExceptionDialog;
-
-import java.util.Random;
 
 /**
  * The type Util.
@@ -211,14 +204,14 @@ public class Util {
      */
     static Set tempFiles = new HashSet();
     
-    static {
+/*    static {
     	AppFrame.addExitListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
 				for (Iterator i = tempFiles.iterator(); i.hasNext();) 
 					((File)i.next()).delete();				}
 			});
-    }
+    }*/
 
     /**
      * Gets temp file.

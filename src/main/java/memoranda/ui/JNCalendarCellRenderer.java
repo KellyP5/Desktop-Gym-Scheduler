@@ -7,14 +7,16 @@
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 package main.java.memoranda.ui;
+import java.awt.Color;
+import java.awt.Component;
+import java.util.Calendar;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JTable;
 import main.java.memoranda.CurrentProject;
 import main.java.memoranda.EventsManager;
-import main.java.memoranda.Task;
 import main.java.memoranda.date.CalendarDate;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.Calendar;
 
 /**
  * The type Jn calendar cell renderer.
@@ -30,28 +32,7 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
      * The Ev icon.
      */
     ImageIcon evIcon = new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/en.png"));
-    /**
-     * The T.
-     */
-    Task t = null;
 
-    /**
-     * Sets task.
-     *
-     * @param _t the t
-     */
-    public void setTask(Task _t) {
-        t = _t;
-    }
-
-    /**
-     * Gets task.
-     *
-     * @return the task
-     */
-    public Task getTask() {
-        return t;
-    }
 
     public Component getTableCellRendererComponent(
         JTable table,
@@ -104,10 +85,6 @@ public class JNCalendarCellRenderer extends javax.swing.table.DefaultTableCellRe
 		// set background color
 		if (currentPanel == null)
 			label.setBackground(Color.WHITE);
-		
-		else if (currentPanel.equals("TASKS") && (t != null) && 
-			(d.inPeriod(t.getStartDate(), t.getEndDate()))) 
-				label.setBackground( new Color(230, 255, 230));
 		
 		else if(currentPanel.equals("NOTES") && 
 		CurrentProject.getNoteList().getNoteForDate(d) != null) 

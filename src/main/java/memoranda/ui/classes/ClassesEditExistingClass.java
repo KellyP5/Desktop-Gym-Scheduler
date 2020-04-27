@@ -62,7 +62,7 @@ public class ClassesEditExistingClass extends JFrame {
         setTitle("Schedule New Class");
         setSize(300, 250);
         //Top Label
-        fillOutForm = new JLabel("Please fill out the form with class information");
+        fillOutForm = new JLabel("Please edit the existing class info below");
         fillOutForm.setBounds(15, -10, 275, 50);
         fillOutForm.setFont(new Font("Bell MT", Font.PLAIN, 12));
         //Current Date Label
@@ -71,11 +71,14 @@ public class ClassesEditExistingClass extends JFrame {
         currentDate.setFont(new Font("Bell MT", Font.ITALIC, 12));
         //Trainers CB and Label
         trainersCB = new JComboBox(Local.getTrainerNames());
+        System.out.println(selectedClass.getTrainerEmail() + " Belt: " + selectedClass.getMinBeltEntityRequired().toString());
+        trainersCB.setSelectedItem(selectedClass.getTrainerEmail() + " Belt: " + selectedClass.getMinBeltEntityRequired().toString());
         lblTrainers = new JLabel("Select Trainer:");
         trainersCB.setBounds(100, 50, 200, 20);
         lblTrainers.setBounds(5, 50, 100, 25);
         //Times CB and Label
         times = new JComboBox(Local.getTimes());
+        times.setSelectedItem(selectedClass.getStartTimeAsString());
         lblTimes = new JLabel("Select Start Time:");
         times.setBounds(150, 75, 70, 20);
         lblTimes.setBounds(25, 75, 125, 25);
@@ -86,17 +89,19 @@ public class ClassesEditExistingClass extends JFrame {
         lblBelt.setBounds(15, 100, 125, 20);
         //Set Max Class Size
         classSizeCB = new JComboBox(Local.getMaxClassSize());
+        classSizeCB.setSelectedItem(String.valueOf(selectedClass.getMaxClassSize()));
         lblClassSize = new JLabel("Select Max Class Size:");
         classSizeCB.setBounds(155, 125, 50, 20);
         lblClassSize.setBounds(15, 125, 135, 20);
         //Select Room
         roomCB = new JComboBox(Local.getRoomNames());
+        roomCB.setSelectedItem("Room " + selectedClass.getRoomNumber());
         lblRooms = new JLabel("Select Room Number:");
         roomCB.setBounds(155, 150, 100, 20);
         lblRooms.setBounds(15, 150, 135, 20);
         //Create Button
-        createButton = new JButton("Create");
-        createButton.setBounds(100, 190, 80, 20);
+        createButton = new JButton("Edit Class");
+        createButton.setBounds(100, 190, 90, 20);
 
 
         classCreate.setLayout(null);
@@ -228,7 +233,6 @@ public class ClassesEditExistingClass extends JFrame {
     public String extractTrainerEmail() {
         String trainer = trainersCB.getSelectedItem().toString();
         String email = "";
-        int j;
         for (int i = 0; i < trainer.length(); i++) {
             if (trainer.charAt(i) == ' ') {
                 email = trainer.substring(0, i);

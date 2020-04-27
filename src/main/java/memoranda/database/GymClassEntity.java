@@ -119,6 +119,15 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
         this._createdByEmail = _createdByEmail;
     }
 
+    public String getStartTimeAsString() {
+        String s = _startDateTime.toString();
+        String hour = s.substring(11, 13);
+        String minute = s.substring(14,16);
+        s = hour + minute;
+        System.out.println(s);
+        return s;
+    }
+
     @Override
     public int compareTo(GymClassEntity gymClassEntity) {
         return getStartDateTime().compareTo(gymClassEntity.getStartDateTime());

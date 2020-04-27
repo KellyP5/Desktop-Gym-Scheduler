@@ -19,11 +19,14 @@ public class ClassesSchedNewClass extends JFrame {
 
     JPanel classCreate;
     JButton createButton;
-    JComboBox Month;
+    JComboBox times;
+    JLabel lblTimes;
     JComboBox beltsCB;
     JComboBox levelsCB;
     JComboBox trainersCB;
     JLabel lblTrainers;
+    JComboBox classSizeCB;
+    JLabel lblClassSize;
 
 
 
@@ -65,15 +68,27 @@ public class ClassesSchedNewClass extends JFrame {
     public void initGuiComponents(){
         classCreate = new JPanel();
         createButton = new JButton("Create");
-
+        //Trainers CB and Label
         trainersCB = new JComboBox(Local.getTrainerNames());
-        lblTrainers = new JLabel("Select Trainer");
+        lblTrainers = new JLabel("Select Trainer:");
+        trainersCB.setBounds(100, 50, 200, 20);
+        lblTrainers.setBounds(5, 50, 100, 25);
+        //Times CB and Label
+        times = new JComboBox(Local.getTimes());
+        lblTimes = new JLabel("Select Start Time:");
+        times.setBounds(150, 75, 70, 20);
+        lblTimes.setBounds(25, 75, 125, 25);
+        //Belts CB and Label
+        beltsCB = new JComboBox(Local.getBeltNames());
+        lblBelt = new JLabel("Select Belt Level:");
+        beltsCB.setBounds(150, 100, 115, 20);
+        lblBelt.setBounds(15, 100, 125, 20);
+        //Set Max Class Size
+        classSizeCB = new JComboBox(Local.getMaxClassSize());
+        lblClassSize = new JLabel("Select Max Class Size:");
+        classSizeCB.setBounds(155, 125, 50, 20);
+        lblClassSize.setBounds(15, 125, 135, 20);
 
-        firstName = new JTextField(20);
-        lastName = new JTextField(20);
-        email = new JTextField(20);
-        pass = new JPasswordField(20);
-        pass2 = new JPasswordField(20);
         trainerButton = new JRadioButton();
         studentButton = new JRadioButton();
         adminButton = new JRadioButton();
@@ -83,8 +98,7 @@ public class ClassesSchedNewClass extends JFrame {
         buttons.add(trainerButton);
         buttons.add(studentButton);
         buttons.add(adminButton);
-        beltsCB = new JComboBox(Local.getBeltNames());
-        lblBelt = new JLabel();
+
         levelsCB = new JComboBox(Local.getBeltNames());
         lblLevels = new JLabel();
 
@@ -95,19 +109,7 @@ public class ClassesSchedNewClass extends JFrame {
         fillOutForm.setBounds(15, 5, 275, 50);
         fillOutForm.setFont(new Font("Bell MT", Font.PLAIN, 12));
 
-        email.setText("E-mail");
-        email.setForeground(Color.LIGHT_GRAY);
-
         classCreate.setLayout(null);
-
-        trainersCB.setPreferredSize(new Dimension(200, 25));
-        trainersCB.setBounds(100, 50, 200, 20);
-        lblTrainers.setPreferredSize(new Dimension(100, 25));
-        lblTrainers.setBounds(5, 50, 100, 25);
-
-        lblBelt.setBounds(5, 400, 100, 20);
-        lblBelt.setText(Local.getString("Belt:"));
-        lblBelt.setMinimumSize(new Dimension(60, 24));
 
         levelsCB.setPreferredSize(new Dimension(100, 25));
         levelsCB.setBounds(150, 400, 100, 20);
@@ -115,8 +117,6 @@ public class ClassesSchedNewClass extends JFrame {
         lblLevels.setText(Local.getString("Level:"));
         lblLevels.setMinimumSize(new Dimension(60, 24));
 
-
-        email.setBounds(70, 230, 150, 25);
 
         accountSelection.setBounds(0, 330, 300, 50);
 
@@ -133,8 +133,10 @@ public class ClassesSchedNewClass extends JFrame {
         createButton.setBounds(100, 445, 80, 20);
 
         classCreate.add(createButton);
-        classCreate.add(email);
         classCreate.add(lblTrainers);
+        classCreate.add(lblBelt);
+        classCreate.add(classSizeCB);
+        classCreate.add(lblClassSize);
 
         classCreate.add(accountSelection);
         classCreate.add(trainerButton);
@@ -143,6 +145,8 @@ public class ClassesSchedNewClass extends JFrame {
         classCreate.add(fillOutForm);
         classCreate.add(beltsCB);
         classCreate.add(trainersCB);
+        classCreate.add(times);
+        classCreate.add(lblTimes);
         classCreate.setBackground(new Color(230, 230, 230));
 
     }
@@ -151,92 +155,6 @@ public class ClassesSchedNewClass extends JFrame {
      * Initializes our action events in one call.
      */
     public void initActionEvents(){
-
-        /**
-         * Manages first name entry box.
-         */
-        firstName.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent focusEvent) {
-                if (firstName.getText().equals("First Name")) {
-                    // Clear out the text field so the user can type
-                    firstName.setText("");
-                    firstName.setForeground(Color.BLACK);
-                } else {
-                    // Highlight all characters in text box
-                    firstName.selectAll();
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent focusEvent) {
-                // When the user clicks/tabs away from First Name,
-                // if nothing was typed in the box, put the grayed out
-                // 'First Name' in the box as a prompt
-                if (firstName.getText().equals("")) {
-                    firstName.setText("First Name");
-                    firstName.setForeground(Color.LIGHT_GRAY);
-                }
-            }
-        });
-
-        /**
-         * Manages last name entry box
-         */
-        // When the cursor is in the Last Name text field
-        lastName.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent focusEvent) {
-                // Clear out the text field so the user can type
-                if (lastName.getText().equals("Last Name")) {
-                    lastName.setText("");
-                    lastName.setForeground(Color.BLACK);
-                } else {
-                    // Highlight all characters in text box
-                    lastName.selectAll();
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent focusEvent) {
-                // When the user clicks/tabs away from Last Name, if
-                // nothing was typed in the box, then put the grayed
-                // out 'Last Name' back
-                if (lastName.getText().equals("")) {
-                    lastName.setText("Last Name");
-                    lastName.setForeground(Color.LIGHT_GRAY);
-                }
-            }
-        });
-
-        /**
-         * Manages e-mail entry box
-         */
-        email.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent focusEvent) {
-                // Clear out the text field so the user can type
-                if (email.getText().equals("E-mail")) {
-                    email.setText("");
-                    email.setForeground(Color.BLACK);
-                } else {
-                    // Highlight all characters in text box
-                    email.selectAll();
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent focusEvent) {
-                // When the user clicks/tabs away from Username,
-                // if nothing was typed in the box, put the grayed
-                // out 'Username' in the box
-                if (email.getText().equals("")) {
-                    email.setText("E-mail");
-                    email.setForeground(Color.LIGHT_GRAY);
-                }
-            }
-        });
-
         /**
          * Manages create button entry box
          */

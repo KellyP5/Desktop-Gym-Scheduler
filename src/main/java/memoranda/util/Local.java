@@ -130,7 +130,10 @@ public class Local {
      * The Beltnames.
      */
     static String beltnames[] =
-            { "white", "yellow", "orange", "purple", "blue", "blue stripe", "green", "green stripe", "brown1", "brown2", "brown3", "black1", "black2", "black3"};
+            { "white", "yellow", "orange", "purple", "blue", "blue_stripe", "green", "green_stripe", "brown1", "brown2", "brown3", "black1", "black2", "black3"};
+
+    static String classSize[] =
+            {"2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
 
     /**
      * Gets string.
@@ -173,6 +176,10 @@ public class Local {
         return beltnames;
     }
 
+    public static String[] getMaxClassSize() {
+        return classSize;
+    }
+
     public static String[] getTrainerNames() {
         RoleEntity role = new RoleEntity("trainer");
         try {
@@ -195,6 +202,13 @@ public class Local {
      */
     public static String[] getRoomNames() {
         return roomnames;
+    }
+
+    public static String[] getTimes() {
+        String[] times = new String[]{"0500", "0600", "0700", "0800", "0900",
+        "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800"
+        , "1900", "2000", "2100"};
+        return times;
     }
 
     /**

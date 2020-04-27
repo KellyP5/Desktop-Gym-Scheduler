@@ -153,10 +153,6 @@ public class PreferencesDialog extends JDialog {
      */
     JPanel resourcePanel = new JPanel(new BorderLayout());
 
-    /**
-     * The Resource type panel.
-     */
-    ResourceTypePanel resourceTypePanel = new ResourceTypePanel();
 
     /**
      * The Rst panel border.
@@ -580,8 +576,6 @@ public class PreferencesDialog extends JDialog {
 
 		// Build Tab2
 		rstPanelBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
-		resourceTypePanel.setBorder(rstPanelBorder);
-		resourcePanel.add(resourceTypePanel, BorderLayout.CENTER);
 		rsbpBorder = new TitledBorder(BorderFactory.createEmptyBorder(5, 5, 5,
 				5), Local.getString("Web browser executable"));
 		rsBottomPanel.setBorder(rsbpBorder);

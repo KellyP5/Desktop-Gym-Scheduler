@@ -1,17 +1,34 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Insets;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import main.java.memoranda.CurrentNote;
+import main.java.memoranda.CurrentProject;
+import main.java.memoranda.History;
+import main.java.memoranda.HistoryItem;
+import main.java.memoranda.HistoryListener;
+import main.java.memoranda.Note;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
 import main.java.memoranda.ui.classes.ClassesPanel;
-import main.java.memoranda.util.Local;
-
-import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * DailyItemsPanel is the panel everyone sees.
@@ -39,8 +56,7 @@ public class DailyItemsPanel extends JPanel {
 
     JPanel editorsPanel = new JPanel();
 
-    
-    TaskPanel tasksPanel = null;
+
     ClassesPanel classesPanel = null;
     AgendaPanel agendaPanel = null;
 
@@ -74,7 +90,6 @@ public class DailyItemsPanel extends JPanel {
 
     FlowLayout flowLayout1 = new FlowLayout();
 
-    JButton taskB = new JButton();
 
     JPanel mainTabsPanel = new JPanel();
 
@@ -105,7 +120,6 @@ public class DailyItemsPanel extends JPanel {
 
             parentPanel = _parentPanel;
             currentDate = CurrentDate.get();
-            tasksPanel = new TaskPanel(this);
             classesPanel = new ClassesPanel(this);
             agendaPanel = new AgendaPanel(this);
 
@@ -175,18 +189,7 @@ public class DailyItemsPanel extends JPanel {
 
         flowLayout1.setAlignment(FlowLayout.RIGHT);
         flowLayout1.setVgap(0);
-        taskB.setMargin(new Insets(0, 0, 0, 0));
-        taskB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                taskB_actionPerformed(e);
-            }
-        });
-        taskB.setPreferredSize(new Dimension(24, 24));
-        taskB.setToolTipText(Local.getString("Active to-do tasks"));
-        taskB.setBorderPainted(false);
-        taskB.setMaximumSize(new Dimension(24, 24));
-        taskB.setOpaque(false);
-        taskB.setIcon(new ImageIcon(main.java.memoranda.ui.AppFrame.class.getResource("/ui/icons/task.png")));
+
 
         notesControlPane.setFont(new java.awt.Font("Dialog", 1, 10));
         mainTabsPanel.setLayout(cardLayout2);
@@ -203,7 +206,6 @@ public class DailyItemsPanel extends JPanel {
 
         editorsPanel.add(agendaPanel, "AGENDA");
         editorsPanel.add(classesPanel, "CLASSES");
-        editorsPanel.add(tasksPanel, "TASKS");
         editorsPanel.add(editorPanel, "NOTES");
 
         splitPane.add(mainPanel, JSplitPane.RIGHT);
@@ -243,17 +245,6 @@ public class DailyItemsPanel extends JPanel {
             }
         });
 
-        EventsScheduler.addListener(new EventNotificationListener() {
-            public void eventIsOccured(main.java.memoranda.Event ev) {
-                /*DEBUG*/
-                System.out.println("Debug 00: "+"ev.getTimeString() "+ " " + ev.getText());
-                updateIndicators();
-            }
-
-            public void eventsChanged() {
-                updateIndicators();
-            }
-        });
 
 
         currentNote = CurrentProject.getNoteList().getNoteForDate(CurrentDate.get());
@@ -261,7 +252,6 @@ public class DailyItemsPanel extends JPanel {
         editorPanel.setDocument(currentNote);
         History.add(new HistoryItem(CurrentDate.get(), CurrentProject.get()));
         cmainPanel.add(mainTabsPanel, BorderLayout.CENTER);
-        updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
         mainPanel.setBorder(null);
     }
 
@@ -306,8 +296,6 @@ public class DailyItemsPanel extends JPanel {
         else {
             currentDateLabel.setIcon(null);
         }
-
-        updateIndicators(newdate, CurrentProject.getTaskList());
         App.getFrame().setCursor(cur);
     }
 
@@ -343,36 +331,9 @@ public class DailyItemsPanel extends JPanel {
         }
     }
 
-    /**
-     * Update indicators.
-     *
-     * @param date the date
-     * @param tl   the tl
-     */
-    public void updateIndicators(CalendarDate date, TaskList tl) {
-        indicatorsPanel.removeAll();
-        if (date.equals(CalendarDate.today())) {
-            if (tl.getActiveSubTasks(null,date).size() > 0)
-                indicatorsPanel.add(taskB, null);
-            if (EventsScheduler.isEventScheduled()) {
-                /*String evlist = "";
-                for (Iterator it = EventsScheduler.getScheduledEvents().iterator(); it.hasNext();) {
-                    net.sf.memoranda.Event ev = (net.sf.memoranda.Event)it.next();
-                    evlist += ev.getTimeString()+" - "+ev.getText()+"\n";
-                } */
-                main.java.memoranda.Event ev = EventsScheduler.getFirstScheduledEvent();
 
-            }
-        }
-        indicatorsPanel.updateUI();
-    }
 
-    /**
-     * Update indicators.
-     */
-    public void updateIndicators() {
-        updateIndicators(CurrentDate.get(), CurrentProject.getTaskList());
-    }
+
 
 
     /**
@@ -386,11 +347,6 @@ public class DailyItemsPanel extends JPanel {
         System.out.println("public void selectPanel(String pan): " +pan);
 
         switch(pan){
-            case "TASKS":
-            {
-
-                break;
-            }
             case "AGENDA":
             {
                 agendaPanel.setActive(true);
@@ -422,15 +378,6 @@ public class DailyItemsPanel extends JPanel {
      */
     public String getCurrentPanel() {
         return CurrentPanel;
-    }
-
-    /**
-     * Task b action performed.
-     *
-     * @param e the e
-     */
-    void taskB_actionPerformed(ActionEvent e) {
-        parentPanel.tasksB_actionPerformed(null);
     }
 
 

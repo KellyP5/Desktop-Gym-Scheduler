@@ -21,7 +21,6 @@ import main.java.memoranda.util.Storage;
 public class CurrentProject {
 
     private static Project _project = null;
-    private static TaskList _tasklist = null;
     private static NoteList _notelist = null;
     private static Vector projectListeners = new Vector();
 
@@ -45,7 +44,7 @@ public class CurrentProject {
 			
 		}		
 		
-        _tasklist = CurrentStorage.get().openTaskList(_project);
+
         _notelist = CurrentStorage.get().openNoteList(_project);
 
 /*        AppFrame.addExitListener(new ActionListener() {
@@ -65,14 +64,6 @@ public class CurrentProject {
         return _project;
     }
 
-    /**
-     * Gets task list.
-     *
-     * @return the task list
-     */
-    public static TaskList getTaskList() {
-            return _tasklist;
-    }
 
     /**
      * Gets note list.
@@ -91,10 +82,8 @@ public class CurrentProject {
      */
     public static void set(Project project) {
         if (project.getID().equals(_project.getID())) return;
-        TaskList newtasklist = CurrentStorage.get().openTaskList(project);
         NoteList newnotelist = CurrentStorage.get().openNoteList(project);
         _project = project;
-        _tasklist = newtasklist;
         _notelist = newnotelist;
         notifyListenersAfter();
         Context.put("LAST_OPENED_PROJECT_ID", project.getID());
@@ -133,7 +122,6 @@ public class CurrentProject {
         Storage storage = CurrentStorage.get();
 
         storage.storeNoteList(_notelist, _project);
-        storage.storeTaskList(_tasklist, _project);
         storage.storeProjectManager();
     }
 
@@ -142,7 +130,6 @@ public class CurrentProject {
      */
     public static void free() {
         _project = null;
-        _tasklist = null;
         _notelist = null;
     }
 }

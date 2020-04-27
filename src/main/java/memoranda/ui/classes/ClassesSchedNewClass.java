@@ -188,6 +188,7 @@ public class ClassesSchedNewClass extends JFrame {
         try {
             App.conn.getDcq().insertClass(room, date, startTime, startTime+1, extractTrainerEmail()
                     , maxSize, belt, extractTrainerEmail());
+            topLevelReference.refresh();
             showCreatedSuccessfullyPopup();
         } catch (SQLException e) {
             e.printStackTrace();

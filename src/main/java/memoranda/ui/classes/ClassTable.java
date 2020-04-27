@@ -134,7 +134,7 @@ public class ClassTable {
      * that tables by deleting all the elements, and then inserting
      * all the new elements.
      */
-    private void refresh(){
+    public void refresh(){
 
         try{
             this.classes = App.conn.getDrq().getAllClassesByDate(date);

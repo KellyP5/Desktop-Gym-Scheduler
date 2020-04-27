@@ -36,7 +36,6 @@ public class ClassesPanel extends JPanel {
 
     private ClassTable room1;
     private ClassTable room2;
-
     private ClassTable room3;
     private ClassTable room4;
 
@@ -68,6 +67,17 @@ public class ClassesPanel extends JPanel {
 
         initRooms();//each room handles its own action listener
 
+    }
+
+    /**
+     * Refreshes each of the rooms on the Classes Panel.
+     * Used when classes are edited or added.
+     */
+    public void refresh() {
+        room1.refresh();
+        room2.refresh();
+        room3.refresh();
+        room4.refresh();
     }
 
     /**

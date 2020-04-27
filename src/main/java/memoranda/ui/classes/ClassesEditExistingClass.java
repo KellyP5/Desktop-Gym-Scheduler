@@ -198,6 +198,7 @@ public class ClassesEditExistingClass extends JFrame {
             if (ret == false) {
                 throwInputError("There is already a class in that room at that time.");
             } else {
+                topLevelReference.refresh();
                 showCreatedSuccessfullyPopup();
             }
         } catch (SQLException e) {

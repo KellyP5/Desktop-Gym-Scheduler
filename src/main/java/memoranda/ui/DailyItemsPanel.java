@@ -392,11 +392,26 @@ public class DailyItemsPanel extends JPanel {
         parentPanel.tasksB_actionPerformed(null);
     }
 
+    /**
+     * used to set the selected class when one is clicked. Only one stored at a time.
+     * @param gce Gym Class Entity
+     */
     public void setSelectedClass(GymClassEntity gce) {
         this.selectedClass = gce;
     }
 
+    /**
+     * Getter for the class currently selected.
+     * @return GymClassEntity of selected class
+     */
     public GymClassEntity getSelectedClass(){
         return this.selectedClass;
+    }
+
+    /**
+     * Can be called to refresh all rooms on classes panel.
+     */
+    public void refreshClassesPanel() {
+        classesPanel.refresh();
     }
 }

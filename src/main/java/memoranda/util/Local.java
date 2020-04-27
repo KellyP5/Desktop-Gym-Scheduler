@@ -133,7 +133,7 @@ public class Local {
             { "white", "yellow", "orange", "purple", "blue", "blue_stripe", "green", "green_stripe", "brown1", "brown2", "brown3", "black1", "black2", "black3"};
 
     static String classSize[] =
-            {"2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+            {"3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
 
     /**
      * Gets string.

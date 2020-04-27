@@ -83,8 +83,8 @@ public class ClassTable {
         for(int i = 0;i< this.classes.size();i++){
             if(this.classes.get(i).getRoomNumber()==this.room) {
                 ArrayList<String> e = new ArrayList<>();
-                e.add(convertStartDateTime(this.classes.get(i).getStartDateTime().toString())); //time
-                //e.add(this.classes.get(i).getStartDateTime().toString());//time
+                //e.add(convertStartDateTime(this.classes.get(i).getStartDateTime().toString())); //time
+                e.add(this.classes.get(i).getStartDateTime().toString());//time
                 e.add(this.classes.get(i).getTrainerEmail());//trainer
                 e.add(this.classes.get(i).getMinBeltEntityRequired().toString());//MinBelt
                 e.add(Integer.toString(this.classes.get(i).getMaxClassSize()));//MaxSize

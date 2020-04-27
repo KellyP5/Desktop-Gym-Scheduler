@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 import main.java.memoranda.util.Local;
 
 /**
- * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
+ * Main JFrame for the application.
  */
 public class AppFrame extends JFrame {
 
@@ -33,40 +33,35 @@ public class AppFrame extends JFrame {
     private JPanel contentPane;
 
     //Status bar on the bottum showing the version
-    private JLabel statusBar = new JLabel();
+    private JLabel statusBar;
 
     //top menu bar
-    private JMenuBar menuBar = new JMenuBar();
-    private JMenu jMenuFile = new JMenu();
-    private JMenuItem jMenuFileExit = new JMenuItem();
+    private JMenuBar menuBar;
+    private JMenu jMenuFile;
+    private JMenuItem jMenuFileExit;
 
     //logout button top right main app
-    private Image logoutimg = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
-    private Image logoutButtonIcon = logoutimg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-    private JButton logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
+    private Image logoutimg;
+    private Image logoutButtonIcon;
+    private JButton logoutButton;
 
     //Not sure what this panel is for yet, but so far its really important!
-    public WorkPanel workPanel = new WorkPanel();
+    public WorkPanel workPanel;
 
     //This is the action event listener for the preferences tab in the top left under file
-    public Action preferencesAction = new AbstractAction("Preferences") {
-        public void actionPerformed(ActionEvent e) {
-            showPreferences();
-        }
-    };
+    public Action preferencesAction;
 
     //This is the button inside the toolbar drop down in file
-    private JMenuItem jMenuEditPref = new JMenuItem(preferencesAction);
-
+    private JMenuItem jMenuEditPref;
 
     //Help menu that shows the about page inside top toolbar
     private JMenu jMenuHelp = new JMenu();
     private JMenuItem jMenuHelpAbout = new JMenuItem();
 
-
     public AppFrame() throws IOException {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
         init();
+        initActionEvents();
     }
 
     /**
@@ -74,8 +69,7 @@ public class AppFrame extends JFrame {
      */
     private void init() throws IOException {
 
-
-        this.contentPane = new JPanel();
+        //Instantiation
         this.statusBar = new JLabel();
         this.menuBar = new JMenuBar();
         this.jMenuFile = new JMenu();
@@ -83,81 +77,78 @@ public class AppFrame extends JFrame {
         this.logoutimg = ImageIO.read(getClass().getResource("/ui/icons/logoutbutton.png"));
         this.logoutButtonIcon = logoutimg.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         this.logoutButton = new JButton(new ImageIcon(logoutButtonIcon));
-
         this.workPanel = new WorkPanel();
 
+        this.preferencesAction = new AbstractAction("Preferences") {
+            public void actionPerformed(ActionEvent e) {
+                showPreferences();
+            }
+        };
+        this.jMenuEditPref = new JMenuItem(preferencesAction);
 
+        this.jMenuHelp = new JMenu();
+        this.jMenuHelpAbout = new JMenuItem();
+        //End instantiation
 
-
-
-
-
-
-
-
-
-
+        this.contentPane = (JPanel) this.getContentPane();
+        this.contentPane.setLayout(new BorderLayout());
 
         this.setTitle("GloboGym");
-
-        contentPane = (JPanel) this.getContentPane();
-        contentPane.setLayout(new BorderLayout());
-
-        statusBar.setText(" Version:" + App.VERSION_INFO + " (Build "
+        this.statusBar.setText(" Version:" + App.VERSION_INFO + " (Build "
             + App.BUILD_INFO + " )");
+        this.jMenuFile.setText(Local.getString("File"));
+        this.jMenuFileExit.setText(Local.getString("Exit"));
+        this.jMenuHelp.setText(Local.getString("Help"));
+        this.jMenuHelpAbout.setText(Local.getString("About Globo Gym"));
 
-        jMenuFile.setText(Local.getString("File"));
-        jMenuFileExit.setText(Local.getString("Exit"));
-        jMenuFileExit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                doExit();
-            }
-        });
-        jMenuHelp.setText(Local.getString("Help"));
+        this.workPanel.setBorder(null);
+        this.workPanel.setPreferredSize(new Dimension(1073, 300));
 
-        jMenuHelpAbout.setText(Local.getString("About Globo Gym"));
-        jMenuHelpAbout.addActionListener(new ActionListener() {
+        this.jMenuFile.add(jMenuEditPref);
+        this.jMenuFile.add(jMenuFileExit);
+        this.jMenuHelp.add(jMenuHelpAbout);
+        this.menuBar.add(jMenuFile);
+        this.menuBar.add(jMenuHelp);
+
+        this.setJMenuBar(menuBar);
+
+        this.logoutButton.setMaximumSize(new Dimension(5, 30));
+        this.logoutButton.setOpaque(false);
+        this.logoutButton.setContentAreaFilled(false);
+        this.logoutButton.setBorderPainted(false);
+        this.menuBar.add(Box.createHorizontalGlue());
+        this.menuBar.add(logoutButton);
+
+        this.contentPane.add(statusBar, BorderLayout.SOUTH);
+        this.contentPane.add(workPanel);
+
+    }
+
+    /**
+     * Contains most action event handlers.
+     */
+    private void initActionEvents() {
+
+        this.jMenuHelpAbout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 jMenuHelpAbout_actionPerformed(e);
             }
         });
 
-        workPanel.setBorder(null);
-        workPanel.setPreferredSize(new Dimension(1073, 300));
+        this.jMenuFileExit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                doExit();
+            }
+        });
 
-        jMenuFile.add(jMenuEditPref);
-        jMenuFile.add(jMenuFileExit);
-        jMenuHelp.add(jMenuHelpAbout);
-
-        menuBar.add(jMenuFile);
-        menuBar.add(jMenuHelp);
-
-        this.setJMenuBar(menuBar);
-
-
-
-        logoutButton.setMaximumSize(new Dimension(5, 30));
-        logoutButton.setOpaque(false);
-        logoutButton.setContentAreaFilled(false);
-        logoutButton.setBorderPainted(false);
-        menuBar.add(Box.createHorizontalGlue());
-        menuBar.add(logoutButton);
-
-
-        logoutButton.addActionListener(new ActionListener() {
+        this.logoutButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //TODO
                 //LOGOUT FUNCTION WILL BE CALLED HERE.
                 //System.out.println("DEBUG: Test");
             }
         });
-
-        this.contentPane.add(statusBar, BorderLayout.SOUTH);
-        this.contentPane.add(workPanel);
-
-
     }
-
 
     /**
      * Do exit is called when from the top left on the toolbar, file -> Exit
@@ -178,7 +169,6 @@ public class AppFrame extends JFrame {
      *
      * @param e the e
      */
-//Help | About action performed
     public void jMenuHelpAbout_actionPerformed(ActionEvent e) {
         AppFrame_AboutBox dlg = new AppFrame_AboutBox(this);
         Dimension dlgSize = dlg.getSize();
@@ -190,6 +180,11 @@ public class AppFrame extends JFrame {
         dlg.setVisible(true);
     }
 
+    /**
+     * Closes and minmizes the program based on the window event.
+     *
+     * @param e the event.
+     */
     protected void processWindowEvent(WindowEvent e) {
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
             doExit();

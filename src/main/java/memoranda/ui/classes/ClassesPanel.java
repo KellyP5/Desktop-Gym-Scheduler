@@ -197,8 +197,9 @@ public class ClassesPanel extends JPanel {
                     parentPanelReference.currentDate.getDay()));
         });
         schedPriClassBut.addActionListener((e)->{
-            System.out.println("Debug: schedPriClassBut TODO");
-            //TODO
+            new ClassesSchedPrivClass(this, schedNewClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                    parentPanelReference.currentDate.getMonth()+1,
+                    parentPanelReference.currentDate.getDay()));
         });
         editClassBut.addActionListener((e)->{
             System.out.println("Debug: editClassBut TODO");

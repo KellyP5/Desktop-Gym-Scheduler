@@ -1,6 +1,7 @@
 package main.java.memoranda.ui;
 
 import main.java.memoranda.*;
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -51,6 +52,7 @@ public class DailyItemsPanel extends JPanel {
     boolean expanded = true;
 
     public CalendarDate currentDate;
+    private GymClassEntity selectedClass;
 
     boolean calendarIgnoreChange = false;
     boolean dateChangedByCalendar = false;
@@ -433,5 +435,12 @@ public class DailyItemsPanel extends JPanel {
         parentPanel.tasksB_actionPerformed(null);
     }
 
+    public void setSelectedClass(GymClassEntity gce) {
+        this.selectedClass = gce;
+    }
+
+    public GymClassEntity getSelectedClass(){
+        return this.selectedClass;
+    }
 
 }

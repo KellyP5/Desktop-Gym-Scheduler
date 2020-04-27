@@ -26,7 +26,7 @@ public class ClassTable {
     private DailyItemsPanel parentRef;
     private int room;
     private ArrayList<GymClassEntity> classes;
-    public GymClassEntity selectedClass;
+    private GymClassEntity selectedClass;
 
     /**
      * Constructor
@@ -118,6 +118,9 @@ public class ClassTable {
             }
         });
 
+        /**
+         * Registers when a class is selected and stores the class
+         */
         classTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -171,9 +174,7 @@ public class ClassTable {
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }
-            System.out.println("You have selected the following class:");
-            selectedClass.printClass();
+            parentRef.setSelectedClass(selectedClass);
         }
     }
-
 }

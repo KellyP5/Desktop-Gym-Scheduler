@@ -1,17 +1,21 @@
 package main.java.memoranda.ui.classes;
 
+import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.ui.DailyItemsPanel;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 
 public class ClassesPanel extends JPanel {
 
     private DailyItemsPanel parentPanelReference = null;
 
     private JToolBar topToolBar = new JToolBar();
+
+    private LocalDate date;
 
     private JButton schedNewClassBut;//all the buttons for the top bar
     private JButton editClassBut;
@@ -32,14 +36,15 @@ public class ClassesPanel extends JPanel {
 
     private ClassTable room1;
     private ClassTable room2;
-
     private ClassTable room3;
     private ClassTable room4;
 
     public ClassesPanel(DailyItemsPanel _parentPanel) {
         try {
+            date = LocalDate.of(_parentPanel.currentDate.getYear(),
+                    _parentPanel.currentDate.getMonth()+1,
+                    _parentPanel.currentDate.getDay());
             parentPanelReference = _parentPanel;
-
             init();
         } catch (Exception ex) {
             new ExceptionDialog(ex);
@@ -50,6 +55,9 @@ public class ClassesPanel extends JPanel {
      * Main init method for the ClassesPanel
      */
     private void init() {
+        date = LocalDate.of(parentPanelReference.currentDate.getYear(),
+                parentPanelReference.currentDate.getMonth()+1,
+                parentPanelReference.currentDate.getDay());
         this.setLayout(new BorderLayout());
         topToolBar.setFloatable(false);
 
@@ -59,6 +67,17 @@ public class ClassesPanel extends JPanel {
 
         initRooms();//each room handles its own action listener
 
+    }
+
+    /**
+     * Refreshes each of the rooms on the Classes Panel.
+     * Used when classes are edited or added.
+     */
+    public void refresh() {
+        room1.refresh();
+        room2.refresh();
+        room3.refresh();
+        room4.refresh();
     }
 
     /**
@@ -184,16 +203,19 @@ public class ClassesPanel extends JPanel {
     private void initActionListenersTopToolBar(){
 
         schedNewClassBut.addActionListener((e)->{
-            System.out.println("Debug: schedNewClassBut TODO");
-            //TODO
+            new ClassesSchedNewClass(this, schedNewClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                    parentPanelReference.currentDate.getMonth()+1,
+                    parentPanelReference.currentDate.getDay()));
         });
         schedPriClassBut.addActionListener((e)->{
-            System.out.println("Debug: schedPriClassBut TODO");
-            //TODO
+            new ClassesSchedPrivClass(this, schedNewClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                    parentPanelReference.currentDate.getMonth()+1,
+                    parentPanelReference.currentDate.getDay()));
         });
         editClassBut.addActionListener((e)->{
-            System.out.println("Debug: editClassBut TODO");
-            //TODO
+            new ClassesEditExistingClass(this, schedNewClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                parentPanelReference.currentDate.getMonth()+1,
+                parentPanelReference.currentDate.getDay()), parentPanelReference.getSelectedClass());
         });
         removeClassBut.addActionListener((e)->{
             System.out.println("Debug: removeClassBut TODO");
@@ -240,5 +262,7 @@ public class ClassesPanel extends JPanel {
         this.add(classesPanelBot, BorderLayout.SOUTH);
 
     }
+
+
 
 }

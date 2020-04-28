@@ -119,8 +119,36 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
         this._createdByEmail = _createdByEmail;
     }
 
+    /**
+     * Converts gym start time to string.
+     * @return String of converted time
+     */
+    public String getStartTimeAsString() {
+        String s = _startDateTime.toString();
+        String hour = s.substring(11, 13);
+        String minute = s.substring(14,16);
+        s = hour + minute;
+        System.out.println(s);
+        return s;
+    }
+
     @Override
     public int compareTo(GymClassEntity gymClassEntity) {
         return getStartDateTime().compareTo(gymClassEntity.getStartDateTime());
+    }
+
+    /**
+     * Prints out a class. Used for debugging Gym Class Entities and related
+     * queries.
+     */
+    public void printClass() {
+        System.out.println("ID: " + this._Id
+        + "\nroomNumber: " + this._roomNumber
+            + "\nmaxClassSize " + this._maxClassSize
+            + "\nstartDateTime " + this._startDateTime.toString()
+            + "\nendDateTime " + this._endDateTime.toString()
+            + "\ntrainer email " + this._trainerEmail
+            + "\nmin belt required " + this._minBeltEntityRequired.toString()
+            + "\ncreated by e-mail " + this._createdByEmail);
     }
 }

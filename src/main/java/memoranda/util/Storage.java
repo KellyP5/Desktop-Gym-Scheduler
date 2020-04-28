@@ -11,8 +11,7 @@ package main.java.memoranda.util;
 import main.java.memoranda.Note;
 import main.java.memoranda.NoteList;
 import main.java.memoranda.Project;
-import main.java.memoranda.ResourcesList;
-import main.java.memoranda.TaskList;
+
 
 /**
  * The interface Storage.
@@ -20,21 +19,6 @@ import main.java.memoranda.TaskList;
 /*$Id: Storage.java,v 1.4 2004/01/30 12:17:42 alexeya Exp $*/
 public interface Storage {
 
-    /**
-     * Open task list task list.
-     *
-     * @param prj the prj
-     * @return the task list
-     */
-    TaskList openTaskList(Project prj);
-
-    /**
-     * Store task list.
-     *
-     * @param tl  the tl
-     * @param prj the prj
-     */
-    void storeTaskList(TaskList tl, Project prj);
 
     /**
      * Open note list note list.
@@ -127,21 +111,6 @@ public interface Storage {
      */
     void removeProjectStorage(Project prj);
 
-    /**
-     * Open resources list resources list.
-     *
-     * @param prj the prj
-     * @return the resources list
-     */
-    ResourcesList openResourcesList(Project prj);
-
-    /**
-     * Store resources list.
-     *
-     * @param rl  the rl
-     * @param prj the prj
-     */
-    void storeResourcesList(ResourcesList rl, Project prj);
 
     /**
      * Restore context.

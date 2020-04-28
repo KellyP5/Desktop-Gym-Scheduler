@@ -1,4 +1,9 @@
+Develop: [![Build Status](https://travis-ci.com/amehlhase316/Neujahrskranz.svg?token=DEpki1Lns9D95cqpWXRP&branch=develop)](https://travis-ci.com/amehlhase316/Neujahrskranz)
+
+Master: [![Build Status](https://travis-ci.com/amehlhase316/Neujahrskranz.svg?token=DEpki1Lns9D95cqpWXRP&branch=master)](https://travis-ci.com/amehlhase316/Neujahrskranz)
+
 Project SER316
+
 
 This is the initial dump for the SER316 project. It is a slightly modified version of the Memoranda project from memoranda.sf.net
 

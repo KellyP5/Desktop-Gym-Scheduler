@@ -2,6 +2,7 @@ package main.java.memoranda.ui;
 
 import main.java.memoranda.History;
 import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
@@ -12,6 +13,8 @@ import main.java.memoranda.util.Local;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -36,6 +39,10 @@ public class AgendaPanel extends JPanel {
 	 * The Border layout 1.
 	 */
 	BorderLayout borderLayout1 = new BorderLayout();
+
+	boolean trainerView = false;
+
+	boolean studentView = true;
 
 	/**
 	 * The Panel.
@@ -155,10 +162,13 @@ public class AgendaPanel extends JPanel {
 	 */
 	private ArrayList<ArrayList<String>> _getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
 		//TEMPORARY will need to be changed to the actual once the logged user can be checked
-/*		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrq().
-				getAllClassesTrainerIsTeachingByEmail(email);*/
-		ArrayList<GymClassEntity> gymClassEntities = Gym.getEnrolledClassesByEmailAndDate(email,selectedCalendarDate);
-
+		ArrayList<GymClassEntity> gymClassEntities = null;
+		if(trainerView == true) {
+			gymClassEntities = App.conn.getDrq().
+					getAllClassesTrainerIsTeachingByEmail(email);
+		}else if(studentView == true) {
+			gymClassEntities = Gym.getEnrolledClassesByEmailAndDate(email,selectedCalendarDate);
+		}
 		if (gymClassEntities!=null) {
 			ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
 			for (int i = 0; i < gymClassEntities.size(); i++) {
@@ -217,6 +227,8 @@ public class AgendaPanel extends JPanel {
 		toolBar.setFloatable(false);
 
 		trainerViewClassBut = new JButton("Training Schedule");
+		studentViewClassBut = new JButton("Personal Schedule");
+
 		Color color = Color.decode("#16034f");
 		trainerViewClassBut.setBackground(color);
 		trainerViewClassBut.setForeground(Color.WHITE);
@@ -230,8 +242,6 @@ public class AgendaPanel extends JPanel {
 		trainerViewClassBut.setBorderPainted(false);
 		trainerViewClassBut.setFont(new Font("Arial", Font.PLAIN, 10));
 
-		studentViewClassBut = new JButton("Personal Schedule");
-
 		studentViewClassBut.setBackground(color);
 		studentViewClassBut.setForeground(Color.WHITE);
 		studentViewClassBut.setEnabled(true);
@@ -242,11 +252,18 @@ public class AgendaPanel extends JPanel {
 		studentViewClassBut.setPreferredSize(new Dimension(130, 24));
 		studentViewClassBut.setFocusable(false);
 		studentViewClassBut.setBorderPainted(false);
+
+
 		studentViewClassBut.setFont(new Font("Arial", Font.PLAIN, 10));
+		if(App.gym.getUserRole().userRole == RoleEntity.UserRole.admin
+				||App.gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
 
 		toolBar.add(studentViewClassBut);
 		toolBar.addSeparator(new Dimension(2, 24));
+
+
 		toolBar.add(trainerViewClassBut);
+		}
 		//toolBar.addSeparator(new Dimension(8, 24));
 		this.add(toolBar, BorderLayout.NORTH);
 	}
@@ -255,11 +272,30 @@ public class AgendaPanel extends JPanel {
 	 * Sets up our event listener for keeping our date current and what we are displaying to the user.
 	 */
 	void initEventListeners() {
-		CurrentDate.addDateListener(new DateListener() {
-			public void dateChange(CalendarDate d) {
-				if (isActive)
-					refresh(d);
+		this.studentViewClassBut.addActionListener(new ActionListener(){
+
+			public void actionPerformed( ActionEvent aActionEvent ) {
+				System.out.println("DEBUG: student view selected");
+				studentView = true;
+				trainerView = false;
+				refresh(CurrentDate.get());
+			}});
+		this.trainerViewClassBut.addActionListener(e -> {
+			if(e.getSource() == trainerViewClassBut) {
+				System.out.println("DEBUG: trainer view selected");
+				studentView = false;
+				trainerView = true;
+				refresh(CurrentDate.get());
 			}
+		});
+		studentViewClassBut.addActionListener((e)->{
+			System.out.println("Debug: removeClassBut TODO");
+			//TODO
+		});
+		CurrentDate.addDateListener(d -> {
+
+			if (isActive)
+				refresh(d);
 		});
 	}
 

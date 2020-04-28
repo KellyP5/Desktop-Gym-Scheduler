@@ -24,6 +24,7 @@ public class databaseEntityTest {
     public static TrainerAvailabilityEntity tae1;
     public static UserEntity udt1;
     public static RoleEntity ur1;
+    private static String imageUrl;
 
     /**
      * Sets up for database object tests
@@ -32,6 +33,7 @@ public class databaseEntityTest {
     public static void setUp() {
         be1 = new BeltEntity("");
         ur1 = new RoleEntity(RoleEntity.UserRole.trainer);
+        imageUrl = "src/main/resources/ui/Placeholder.png";
 
     }
 
@@ -91,7 +93,7 @@ public class databaseEntityTest {
     @Test
     public void userEntity()  {
         udt1 = new UserEntity("fname", "lname", "password", "mail@mail.com",
-                new RoleEntity(RoleEntity.UserRole.trainer), "src/main/resources/ui/Placeholder.png");
+                new RoleEntity(RoleEntity.UserRole.trainer), imageUrl);
         assertEquals("fname", udt1.getFirstName());
         assertEquals("lname", udt1.getLastName());
         assertEquals("password", udt1.getPassword());

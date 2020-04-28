@@ -207,18 +207,6 @@ public class UserManagement extends JPanel {
         model.addRow(new Object[]{pEmail,pRank,pRole});
     }
 
-    public void addUserToTable(UserEntity user, String url) {
-        DefaultTableModel model = (DefaultTableModel) this.userList.getModel();
-        String email = user.getEmail();
-        String role = user.getRole().toString();
-        String beltRank = user.getBelt().toString();
-        System.out.println("IMAGE URL IN USER MGMT: " + url);
-        user.setImageUrl(url);
-        _selectedUser.setImageUrl(url);
-        System.out.println("SELECTED USER URL: " + _selectedUser.getImageUrl());
-        model.addRow(new Object[]{email, beltRank, role});
-    }
-
     /**
      * Called inside the UserManagementEditUser and UserManagementRemoveUser classes. Removes
      * the selected user from the table, after they've been removed/updated in the database

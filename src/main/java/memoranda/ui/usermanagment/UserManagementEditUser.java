@@ -36,6 +36,7 @@ public class UserManagementEditUser extends JDialog {
     private ImageIcon _image;
     private JButton _newImageButton;
     private JButton _clearImageButton;
+    private String placeHolderPath;
     private String _imageUrl;
     private JLabel _firstNameLabel;
     private JTextField _firstNameBox;
@@ -97,6 +98,8 @@ public class UserManagementEditUser extends JDialog {
         _emailBox.setBounds(110, 130, 120, 20);
         _emailBox.setText(_selectedUser.getEmail());
 
+        placeHolderPath = "src/main/resources/ui/Placeholder.png";
+
         _imageBox = new JLabel();
         _imageBox.setBounds(240, 10, 200, 200);
         _imageUrl = _selectedUser.getImageUrl();
@@ -128,9 +131,8 @@ public class UserManagementEditUser extends JDialog {
                 String fileName = f.getAbsolutePath();
                 String name = f.getName();
                 try {
-                    ImageIcon image = new ImageIcon(scaleImage(200, 200, ImageIO.read(new File(f.getAbsolutePath()))));
+                    ImageIcon image = new ImageIcon(scaleImage(200, 200, ImageIO.read(new File(fileName))));
                     _imageBox.setIcon(image);
-                    File file = new File("src/main/resources/ui/" + name);
                     java.nio.file.Files.copy(
                             new java.io.File(fileName).toPath(),
                             new java.io.File("src/main/resources/ui/" + name).toPath(),
@@ -151,16 +153,15 @@ public class UserManagementEditUser extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                String filePath = "src/main/resources/ui/Placeholder.png";
                 ImageIcon image = null;
                 try {
-                    image = new ImageIcon(scaleImage(200,200, ImageIO.read(new File("src/main/resources/ui/Placeholder.png"))));
+                    image = new ImageIcon(scaleImage(200,200, ImageIO.read(new File(placeHolderPath))));
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
                 _imageBox.setIcon(image);
-                _selectedUser.setImageUrl(filePath);
-                _imageUrl = filePath;
+                _selectedUser.setImageUrl(placeHolderPath);
+                _imageUrl = placeHolderPath;
                 _imageBox.repaint();
             }
         });

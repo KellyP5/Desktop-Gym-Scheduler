@@ -2,10 +2,34 @@ package main.java.memoranda.gym;
 
 import static org.junit.Assert.assertEquals;
 
+import main.java.memoranda.database.BeltEntity;
 import main.java.memoranda.database.UserEntity;
 import org.junit.Test;
 
 public class GymTest {
+
+    @Test
+    public void testCreateReadDeleteTrainer(){
+
+        Gym gym = new Gym();
+        gym.deleteUser("unique13131312231@gmail.com");
+
+        BeltEntity be = new BeltEntity("brown2");
+
+        Response create = gym.createTrainer("unique13131312231@gmail.com",
+            "fname",
+            "lname",
+            "1234",
+            be);
+        assertEquals("Success: Trainer created.",create.getMsg());
+
+        Response read = gym.readGetUser("unique13131312231@gmail.com");
+        UserEntity ue = (UserEntity)read.getValue();
+        assertEquals(be,ue.getBelt());
+
+        //delete the test
+        gym.deleteUser("unique13131312231@gmail.com");
+    }
 
     @Test
     public void testCreateReadDeleteCustomer(){

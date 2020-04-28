@@ -7,14 +7,16 @@ RoleEntity is for sql uses related to the Role field, which appears in the USER 
 used for permissions and visibility in the GUI.
  */
 public class RoleEntity {
-    
-    public enum UserRole{
+
+    public enum UserRole {
         admin,
         trainer,
         customer
     }
+
     public UserRole userRole;
-    public RoleEntity(UserRole userRole){
+
+    public RoleEntity(UserRole userRole) {
         this.userRole = userRole;
     }
 
@@ -22,27 +24,24 @@ public class RoleEntity {
      * Initializes role entities based on a string input.
      * Used for converting things from the DB or from GUI
      * Elements.
+     *
      * @param s
      */
     public RoleEntity(String s) {
         switch (s) {
-            case "admin":
-            {
+            case "admin": {
                 this.userRole = UserRole.admin;
                 break;
             }
-            case "trainer":
-            {
+            case "trainer": {
                 this.userRole = UserRole.trainer;
                 break;
             }
-            case "customer":
-            {
+            case "customer": {
                 this.userRole = UserRole.customer;
                 break;
             }
-            default:
-            {
+            default: {
                 this.userRole = UserRole.customer;
                 break;
             }
@@ -51,8 +50,12 @@ public class RoleEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         RoleEntity that = (RoleEntity) o;
         return userRole == that.userRole;
     }
@@ -66,20 +69,17 @@ public class RoleEntity {
     public String toString() {
         String ret = "";
 
-        switch (userRole){
-            case admin:
-            {
-                ret+= "admin";
+        switch (userRole) {
+            case admin: {
+                ret += "admin";
                 break;
             }
-            case trainer:
-            {
-                ret+= "trainer";
+            case trainer: {
+                ret += "trainer";
                 break;
             }
-            case customer:
-            {
-                ret+= "customer";
+            case customer: {
+                ret += "customer";
                 break;
             }
 

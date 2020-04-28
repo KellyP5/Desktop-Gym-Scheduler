@@ -12,22 +12,27 @@ public class GymTest {
     public void testCreateReadDeleteTrainer(){
 
         Gym gym = new Gym();
+        // just to make sure we don't have this user already in the DB
         gym.deleteUser("unique13131312231@gmail.com");
 
         BeltEntity be = new BeltEntity("brown2");
-
         Response create = gym.createTrainer("unique13131312231@gmail.com",
             "fname",
             "lname",
             "1234",
             be);
+        assertEquals(true,create.isSuccess());
+        assertEquals(false,create.isFailure());
+        assertEquals(null,create.getValue());// create methods don't return a value
         assertEquals("Success: Trainer created.",create.getMsg());
 
         Response read = gym.readGetUser("unique13131312231@gmail.com");
-        UserEntity ue = (UserEntity)read.getValue();
+        assertEquals(true,read.isSuccess());
+        assertEquals(false,read.isFailure());
+        UserEntity ue = (UserEntity)read.getValue();//Read methods return an object, must be type casted.
         assertEquals(be,ue.getBelt());
 
-        //delete the test
+        //clean up
         gym.deleteUser("unique13131312231@gmail.com");
     }
 

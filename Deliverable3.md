@@ -86,7 +86,7 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
    * Kevin Wilkinson :
    Working on removing old code/functionality, and will be no life'n this sprint soon, and I have no blockers.
    
-   #### Meeting 2 
+   #### Meeting 3
 >
    * Kelly Ellis :
    Working on the class page. Adding images to profiles, and no blockers.

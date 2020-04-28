@@ -15,9 +15,13 @@ import main.java.memoranda.ui.App;
  * createAdmin
  * createTrainer
  * createCustomer
+ * createGroupClass
+ * createPrivateClass
  * ---RemoveMethods
+ * readGetUser
  * ---UpdateMethods
  * ---DeleteMethods
+ * deleteUser
  */
 public class Gym {
 
@@ -289,3 +293,5 @@ public class Gym {
 
     }
 }
+
+

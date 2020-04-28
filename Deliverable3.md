@@ -85,7 +85,23 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
    to get details for classes.
    * Kevin Wilkinson :
    Working on removing old code/functionality, and will be no life'n this sprint soon, and I have no blockers.
-
+   
+   #### Meeting 2 
+>
+   * Kelly Ellis :
+   Working on the class page. Adding images to profiles, and no blockers.
+   * Kevin Somers :
+  I haven't accomplished anything since the last standup because I'm finishing up my assignment, I do plan to start working on my tasks either late tonight or tomorrow at the latest.  I currently have no impediments
+   * Kelly Petrone :
+   Working on the classes page. No blocker. Will be working on the edit enroll classes button.
+   * Rita Barrilleaux :
+   Working on set availability, need a method for set availabilty. Blockers, working with the db
+   * Alex Mack :
+   Agenda page changing buttons based on the logged in user. Blockers, need a method from the gym class.
+   * Kevin Wilkinson :
+   Working on the gym database
+   
+   
 ## 3: After the Sprint
 
 ### Sprint Review

@@ -1,15 +1,13 @@
 package main.java.memoranda.gym;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.UserEntity;
-import main.java.memoranda.database.util.DbReadQueries;
 import main.java.memoranda.ui.App;
-
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Gym {
 

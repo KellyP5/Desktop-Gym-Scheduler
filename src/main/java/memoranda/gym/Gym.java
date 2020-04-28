@@ -23,30 +23,12 @@ public class Gym {
 
     //This variable will be the currently logged in user.
     private UserEntity user;
-
     private static SqlConnection conn;
 
-    private enum UserRole {
+    public enum UserRole {
         admin,
         trainer,
         customer
-    }
-
-    private enum Rank {
-        white,
-        yellow,
-        orange,
-        purple,
-        blue,
-        blue_stripe,
-        green,
-        green_stripe,
-        brown1,
-        brown2,
-        brown3,
-        black1,
-        black2,
-        black3
     }
 
     public Gym() {
@@ -61,57 +43,26 @@ public class Gym {
         }
     }
 
+    //TODO
     public boolean login() {
 
         //insert login code
+
         //assign this.user;
+
         //TODO
         return false;
     }
 
-    UserRole getUserRole() {
-        try {
-            if (isAdmin()) {
-                return UserRole.admin;
-            } else if (isTrainer()) {
-                return UserRole.trainer;
-            } else {
-                return UserRole.customer;
-            }
-        } catch (Exception ecp) {
-            ecp.printStackTrace();
-        }
-
-        return null;
+    /**
+     * Returns Role Entity.
+     * @return the Role Entity
+     */
+    public RoleEntity getUserRole() {
+        return user.getRole();
     }
 
-    boolean isAdmin() throws Exception {
-        if (this.user == null) {
-            throw new Exception("User is not instantiated, null value.");
-        } else if (this.user.getRole().userRole == RoleEntity.UserRole.admin) {
-            return true;
-        }
-        return false;
-    }
-
-    boolean isTrainer() throws Exception {
-        if (this.user == null) {
-            throw new Exception("User is not instantiated, null value.");
-        } else if (this.user.getRole().userRole == RoleEntity.UserRole.trainer) {
-            return true;
-        }
-        return false;
-    }
-
-    boolean isCustomer() throws Exception {
-        if (this.user == null) {
-            throw new Exception("User is not instantiated, null value.");
-        } else if (this.user.getRole().userRole == RoleEntity.UserRole.customer) {
-            return true;
-        }
-        return false;
-    }
-
+    //TODO needs refactoring
     public static ArrayList<GymClassEntity> getEnrolledClassesByEmailAndDate(String email,
                                                                              LocalDate selectedCalendarDate) {
         try {
@@ -319,14 +270,16 @@ public class Gym {
         try {
             ue = conn.getDrq().getUserByEmail(email);
 
-            if (ue == null)
+            if (ue == null) {
                 return Response.failure("Error: Cannot delete, user does not exist.");
+            }
 
             conn.getDcq().deleteUser(email);
             ue = conn.getDrq().getUserByEmail(email);
 
-            if (ue == null)
+            if (ue == null) {
                 return Response.success("Success: User deleted");
+            }
 
             return Response.failure("Error: User is not deleted.");
         } catch (SQLException ecp) {

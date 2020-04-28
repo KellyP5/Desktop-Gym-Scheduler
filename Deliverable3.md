@@ -99,7 +99,7 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
    * Alex Mack :
    Agenda page changing buttons based on the logged in user. Blockers, need a method from the gym class.
    * Kevin Wilkinson :
-   Working on the gym database
+   Working on the gym database. No blockers, accepting new taskers as to what people need from the db as an error proof method call.
    
    
 ## 3: After the Sprint

@@ -35,7 +35,7 @@ public class ClassTable extends DefaultTableModel {
      * @param ref Uses DailyItemspanel to snag CurrentDate attribute
      * @param room Is the room number of the class table
      */
-    public ClassTable(DailyItemsPanel ref, int room)  {
+    public ClassTable(DailyItemsPanel ref, int room) throws SQLException {
 
         this.parentRef = ref;
         this.room = room;
@@ -46,7 +46,7 @@ public class ClassTable extends DefaultTableModel {
     /**
      * Main initialization code for our ClassTable class
      * */
-    private void init() {
+    private void init() throws SQLException {
 
         LocalDate date = LocalDate.of(parentRef.currentDate.getYear(),
                 parentRef.currentDate.getMonth()+1,
@@ -80,7 +80,7 @@ public class ClassTable extends DefaultTableModel {
      * Initializes the table
      * @param pDate the date the table will use.
      */
-    private void initTable(LocalDate pDate)  {
+    private void initTable(LocalDate pDate) throws SQLException {
         //this.classes = App.conn.getDrqTest().getAllClassesByDate(parentRef.currentDate);
         //LocalDate date = LocalDate.of(2020, 4,11);
 
@@ -102,7 +102,9 @@ public class ClassTable extends DefaultTableModel {
                 e.add(this.classes.get(i).getTrainerEmail());//trainer
                 e.add(this.classes.get(i).getMinBeltEntityRequired().toString());//MinBelt
                 e.add(Integer.toString(this.classes.get(i).getMaxClassSize()));//MaxSize
-                e.add(Integer.toString(this.classes.get(i).getNumStudents()));
+                int num = this.classes.get(i).getNumberOfStudentsEnrolledInClass(this.classes.get(i).getId());
+                e.add(Integer.toString(num));
+                //e.add(Integer.toString(this.classes.get(i).getNumStudents()));
                 al.add(e);
             }
         }
@@ -144,7 +146,7 @@ public class ClassTable extends DefaultTableModel {
      */
     private void initActionListeners(){
         CurrentDate.addDateListener(new DateListener() {
-            public void dateChange(CalendarDate d)  {
+            public void dateChange(CalendarDate d) throws SQLException {
                 System.out.println("public void dateChange(CalendarDate d): "+d.toString());
                 date = LocalDate.of(d.getYear(),d.getMonth()+1,d.getDay());
                 refresh();
@@ -157,7 +159,7 @@ public class ClassTable extends DefaultTableModel {
      * that tables by deleting all the elements, and then inserting
      * all the new elements.
      */
-    private void refresh(){
+    private void refresh() throws SQLException {
 
         try{
             this.classes = App.conn.getDrq().getAllClassesByDate(date);
@@ -181,11 +183,12 @@ public class ClassTable extends DefaultTableModel {
         for(int i = 0;i< this.classes.size();i++){
             //test if this classtable is the table to display the class
             if(this.classes.get(i).getRoomNumber()==this.room){
+                int num = this.classes.get(i).getNumberOfStudentsEnrolledInClass(this.classes.get(i).getId());
                 dm.addRow(new Object[]{this.classes.get(i).getStartDateTime().toString(),
                         this.classes.get(i).getTrainerEmail(),
                         this.classes.get(i).getMinBeltEntityRequired(),
                         Integer.toString(this.classes.get(i).getMaxClassSize()),
-                        Integer.toString(this.classes.get(i).getNumStudents())});
+                        Integer.toString(num)});
             }
         }
     }

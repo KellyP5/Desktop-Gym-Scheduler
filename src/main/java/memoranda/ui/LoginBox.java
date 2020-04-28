@@ -344,7 +344,7 @@ public class LoginBox extends JFrame {
     private void showSplash() {
         splash = new JFrame();
         ImageIcon spl;
-        spl = new ImageIcon(App.class.getResource("/ui/splash.png")); //name is included on the logo
+        spl = new ImageIcon("src/main/resources/ui/splash.png"); //name is included on the logo
         JLabel l = new JLabel();
         l.setSize(400, 300);
         l.setIcon(spl);

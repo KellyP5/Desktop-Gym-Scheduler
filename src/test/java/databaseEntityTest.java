@@ -1,9 +1,12 @@
 package test.java;
 
 import main.java.memoranda.database.*;
+import main.java.memoranda.ui.App;
+import main.java.memoranda.ui.LoginBox;
 import org.junit.*;
 
 import javax.management.relation.Role;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.temporal.Temporal;
@@ -30,11 +33,12 @@ public class databaseEntityTest {
      * Sets up for database object tests
      */
     @BeforeClass
-    public static void setUp() {
+    public static void setUp() throws SQLException, IOException {
         be1 = new BeltEntity("");
         ur1 = new RoleEntity(RoleEntity.UserRole.trainer);
         imageUrl = "src/main/resources/ui/Placeholder.png";
-
+        LoginBox loginBox = new LoginBox();
+        App app = new App(true, loginBox.conn);
     }
 
     /**

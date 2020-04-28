@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -232,7 +233,11 @@ public class DailyItemsPanel extends JPanel {
                 if (calendarIgnoreChange)
                     return;
                 dateChangedByCalendar = true;
-                CurrentDate.set(calendar.get());
+                try {
+                    CurrentDate.set(calendar.get());
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
                 dateChangedByCalendar = false;
             }
         });
@@ -240,7 +245,7 @@ public class DailyItemsPanel extends JPanel {
 
 
         History.addHistoryListener(new HistoryListener() {
-            public void historyWasRolledTo(HistoryItem hi) {
+            public void historyWasRolledTo(HistoryItem hi) throws SQLException {
                 historyChanged(hi);
             }
         });
@@ -301,7 +306,7 @@ public class DailyItemsPanel extends JPanel {
 
 
 
-    void historyChanged(HistoryItem hi) {
+    void historyChanged(HistoryItem hi) throws SQLException {
         changedByHistory = true;
         CurrentProject.set(hi.getProject());
         CurrentDate.set(hi.getDate());

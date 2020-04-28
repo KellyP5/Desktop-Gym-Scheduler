@@ -7,6 +7,7 @@ import main.java.memoranda.util.Local;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class ClassesPanel extends JPanel {
 
@@ -52,7 +53,7 @@ public class ClassesPanel extends JPanel {
     /**
      * Main init method for the ClassesPanel
      */
-    private void init() {
+    private void init() throws SQLException {
         this.setLayout(new BorderLayout());
         topToolBar.setFloatable(false);
 
@@ -245,7 +246,7 @@ public class ClassesPanel extends JPanel {
     /**
      * All code associated with initializing the class tables.
      */
-    private void initRooms(){
+    private void initRooms() throws SQLException {
 
         room1 = new ClassTable(this.parentPanelReference,1);
         room2 = new ClassTable(this.parentPanelReference,2);

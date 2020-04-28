@@ -32,7 +32,7 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
         this._maxClassSize = _maxClassSize;
         this._minBeltEntityRequired = _minBeltEntityRequired;
         this._createdByEmail = _createdByEmail;
-        this._numStudents = getNumberOfStudentsEnrolledInClass(id);
+        //this._numStudents = getNumberOfStudentsEnrolledInClass(id);
     }
 
     public int getId() {
@@ -40,7 +40,11 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
     }
 
     public int getNumberOfStudentsEnrolledInClass(int classId) throws SQLException {
-        this._numStudents = App.conn.getDrq().getNumberOfStudentsEnrolledInClass(classId);
+        if (App.conn.getDrq().getNumberOfStudentsEnrolledInClass(classId) != 0) {
+            this._numStudents = App.conn.getDrq().getNumberOfStudentsEnrolledInClass(classId);
+        } else {
+            this._numStudents = 0;
+        }
         return this._numStudents;
     }
 

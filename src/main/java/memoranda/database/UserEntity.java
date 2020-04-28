@@ -26,20 +26,20 @@ public class UserEntity {
      * Constructor for a user who is not a trainer (student)
      */
     public UserEntity(String _firstName, String _lastName, String _password, String _email,
-                      RoleEntity _role) {
+                      RoleEntity _role, String imageUrl) {
         this._firstName = _firstName;
         this._lastName = _lastName;
         this._password = _password;
         this._email = _email;
         this._role = _role;
-        this._imageUrl = "src/main/resources/ui/Placeholder.png";
+        this._imageUrl = imageUrl;
     }
 
     /**
      * Constructor for a user who IS a trainer
      */
     public UserEntity(String _firstName, String _lastName, String _password, String _email,
-                      RoleEntity _role, BeltEntity _belt, BeltEntity _trainingBelt) {
+                      RoleEntity _role, BeltEntity _belt, BeltEntity _trainingBelt, String imageUrl) {
         this._firstName = _firstName;
         this._lastName = _lastName;
         this._password = _password;
@@ -47,7 +47,7 @@ public class UserEntity {
         this._role = _role;
         this._belt = _belt;
         this._trainingBelt = _trainingBelt;
-        this._imageUrl = "src/main/resources/ui/Placeholder.png";
+        this._imageUrl = imageUrl;
     }
 
     /**

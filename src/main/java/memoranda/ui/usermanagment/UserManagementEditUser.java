@@ -35,6 +35,7 @@ public class UserManagementEditUser extends JDialog {
     private JLabel _imageBox;
     private ImageIcon _image;
     private JButton _newImageButton;
+    private JButton _clearImageButton;
     private String _imageUrl;
     private JLabel _firstNameLabel;
     private JTextField _firstNameBox;
@@ -70,47 +71,53 @@ public class UserManagementEditUser extends JDialog {
         this.topLevelReference = ref;
 
         _selectedUser = _user;
-        System.out.println("USER PHOTO: " + _selectedUser.getImageUrl());
 
         _mainPanel = new JPanel();
         this.setTitle("Edit User");
-        _mainPanel.setPreferredSize(new Dimension(350,400));
+        _mainPanel.setPreferredSize(new Dimension(450,400));
 
         _firstNameLabel = new JLabel("First Name");
-        _firstNameLabel.setBounds(30, 70, 75, 20);
+        _firstNameLabel.setBounds(30, 50, 75, 20);
 
         _firstNameBox = new JTextField(10);
-        _firstNameBox.setBounds(110,70,120,20);
+        _firstNameBox.setBounds(110,50,120,20);
         _firstNameBox.setText(_selectedUser.getFirstName());
 
         _lastNameLabel = new JLabel("Last Name");
-        _lastNameLabel.setBounds(30, 110, 75, 20);
+        _lastNameLabel.setBounds(30, 90, 75, 20);
 
         _lastNameBox = new JTextField(10);
-        _lastNameBox.setBounds(110, 110, 120, 20);
+        _lastNameBox.setBounds(110, 90, 120, 20);
         _lastNameBox.setText(_selectedUser.getLastName());
 
         _emailLabel = new JLabel("Email");
-        _emailLabel.setBounds(30, 150, 75, 20);
+        _emailLabel.setBounds(30, 130, 75, 20);
 
         _emailBox = new JTextField(20);
-        _emailBox.setBounds(110, 150, 120, 20);
+        _emailBox.setBounds(110, 130, 120, 20);
         _emailBox.setText(_selectedUser.getEmail());
 
-        _role = new JLabel("Role");
-        _role.setBounds(30, 190, 75, 20);
-
         _imageBox = new JLabel();
-        _imageBox.setBounds(240, 10, 100, 100);
+        _imageBox.setBounds(240, 10, 200, 200);
         _imageUrl = _selectedUser.getImageUrl();
-        _image = new ImageIcon(scaleImage(100, 100, ImageIO.read(new File(_imageUrl))));
-        //_image = new ImageIcon(_selectedUser.getImageUrl());
+
+        // Gets the user's image to display on their profile page
+        if (App.conn.getDrq().getUserImageUrl(_selectedUser.getEmail()) != null) {
+            _imageUrl = App.conn.getDrq().getUserImageUrl(_selectedUser.getEmail());
+        }
+        _image = new ImageIcon(scaleImage(200, 200, ImageIO.read(new File(_imageUrl))));
         _imageBox.setIcon(_image);
 
         _newImageButton = new JButton();
         _newImageButton.setText("Upload");
-        _newImageButton.setBounds(240, 120, 100,25);
+        _newImageButton.setBounds(290, 220, 100,25);
 
+        _clearImageButton = new JButton();
+        _clearImageButton.setText("Clear");
+        _clearImageButton.setBounds(290, 250, 100, 25);
+
+        // Allows a user to upload a new image to their profile and saves
+        // it to the project directory
         _newImageButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -121,7 +128,7 @@ public class UserManagementEditUser extends JDialog {
                 String fileName = f.getAbsolutePath();
                 String name = f.getName();
                 try {
-                    ImageIcon image = new ImageIcon(scaleImage(100, 100, ImageIO.read(new File(f.getAbsolutePath()))));
+                    ImageIcon image = new ImageIcon(scaleImage(200, 200, ImageIO.read(new File(f.getAbsolutePath()))));
                     _imageBox.setIcon(image);
                     File file = new File("src/main/resources/ui/" + name);
                     java.nio.file.Files.copy(
@@ -139,11 +146,32 @@ public class UserManagementEditUser extends JDialog {
             }
         });
 
+        // Clears out the user's image and replaces it with the placeholder image
+        _clearImageButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                String filePath = "src/main/resources/ui/Placeholder.png";
+                ImageIcon image = null;
+                try {
+                    image = new ImageIcon(scaleImage(200,200, ImageIO.read(new File("src/main/resources/ui/Placeholder.png"))));
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                _imageBox.setIcon(image);
+                _selectedUser.setImageUrl(filePath);
+                _imageUrl = filePath;
+                _imageBox.repaint();
+            }
+        });
+
+        _role = new JLabel("Role");
+        _role.setBounds(30, 170, 75, 20);
 
         _buttons = new ButtonGroup();
         _trainerButton = new JRadioButton();
         _trainerButton.setText("Trainer");
-        _trainerButton.setBounds(90, 190, 80,20);
+        _trainerButton.setBounds(110, 170, 80,20);
         // If user is changed to trainer, add trainer belt option
         _trainerButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -157,7 +185,7 @@ public class UserManagementEditUser extends JDialog {
 
         _customerButton = new JRadioButton();
         _customerButton.setText("Customer");
-        _customerButton.setBounds(170, 190, 90, 20);
+        _customerButton.setBounds(110, 190, 90, 20);
         // If user is changed to customer, remove trainer belt option
         _customerButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -171,7 +199,7 @@ public class UserManagementEditUser extends JDialog {
 
         _adminButton = new JRadioButton();
         _adminButton.setText("Admin");
-        _adminButton.setBounds(260, 190, 80, 20);
+        _adminButton.setBounds(110, 210, 80, 20);
         // If user is changed to admin, add trainer belt option
         _adminButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -197,7 +225,7 @@ public class UserManagementEditUser extends JDialog {
         }
 
         _belt = new JLabel("Belt");
-        _belt.setBounds(30, 230, 75, 20);
+        _belt.setBounds(30, 250, 75, 20);
 
         _beltColors = new String[] {"White", "Yellow", "Orange", "Purple", "Blue",
         "Blue Stripe", "Green", "Green Stripe", "Brown1", "Brown2", "Brown3",
@@ -213,11 +241,11 @@ public class UserManagementEditUser extends JDialog {
 
         _beltList = new JComboBox(_beltColors);
         _beltList.setSelectedIndex(index); // Set to selected user's belt
-        _beltList.setBounds(110, 230, 120, 20);
+        _beltList.setBounds(110, 250, 120, 20);
         _beltList.setBackground(Color.WHITE);
 
         _trainerBelt = new JLabel("Trainer Belt");
-        _trainerBelt.setBounds(30, 270, 75, 20);
+        _trainerBelt.setBounds(30, 290, 75, 20);
 
         _trainerBeltColors = _beltColors;
 
@@ -231,11 +259,11 @@ public class UserManagementEditUser extends JDialog {
 
         _trainerBeltList = new JComboBox(_trainerBeltColors);
         _trainerBeltList.setSelectedIndex(trainerIndex); // Set to selected user's trainer belt (if trainer)
-        _trainerBeltList.setBounds(110, 270, 120, 20);
+        _trainerBeltList.setBounds(110, 290, 120, 20);
         _trainerBeltList.setBackground(Color.WHITE);
 
         _updateButton = new JButton("Update");
-        _updateButton.setBounds(120, 320, 100, 30);
+        _updateButton.setBounds(180, 330, 100, 30);
 
         _updateButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -287,6 +315,7 @@ public class UserManagementEditUser extends JDialog {
         _mainPanel.add(_updateButton);
         _mainPanel.add(_imageBox);
         _mainPanel.add(_newImageButton);
+        _mainPanel.add(_clearImageButton);
 
         // Only show trainer belt options if the selected user is a trainer or admin
         // Customers should not have this option
@@ -383,7 +412,7 @@ public class UserManagementEditUser extends JDialog {
         // Alert user that the update was successful
         if (change) {
             App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
-                    _selectedUser.getPassword(), role, belt);
+                    _selectedUser.getPassword(), role, belt, _imageUrl);
             updateSuccessful();
             // Update the table with the new information
             this.topLevelReference.removeUserFromTable();
@@ -441,7 +470,15 @@ public class UserManagementEditUser extends JDialog {
         }
     }
 
-    public static BufferedImage scaleImage(int w, int h, BufferedImage img) throws Exception {
+    /**
+     * Scales the selected user image down to set # of pixels and displays it
+     *
+     * @param w Image width
+     * @param h Image height
+     * @param img The image to scale
+     * @return The scaled image
+     */
+    public static BufferedImage scaleImage(int w, int h, BufferedImage img) {
             BufferedImage buffered;
             buffered = new BufferedImage(w, h, BufferedImage.TRANSLUCENT);
             Graphics2D g2d = (Graphics2D) buffered.createGraphics();

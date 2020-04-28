@@ -3,6 +3,7 @@ package main.java.memoranda.ui.usermanagment;
 import main.java.memoranda.database.BeltEntity;
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.database.util.DbReadQueries;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.util.Local;
@@ -16,7 +17,6 @@ import java.util.Arrays;
 public class UserManagementAddUser extends JFrame {
 
     UserManagement topLevelReference;
-
     JPanel accountCreate;
     ImageIcon globoLogo;
     JLabel logo;
@@ -89,7 +89,7 @@ public class UserManagementAddUser extends JFrame {
 
 
         setTitle("Create Account");
-        setSize(300, 500);
+        setSize(300, 520);
 
         logo.setBounds(85, 10, 113, 113);
         logo.setIcon(globoLogo);
@@ -364,8 +364,9 @@ public class UserManagementAddUser extends JFrame {
                 String rank = beltsCB.getSelectedItem().toString();
                 BeltEntity.Rank r = belt.getRank(rank);
                 belt = new BeltEntity(r);
+                String image = "src/main/resources/ui/Placeholder.png";
                 // Add new user to database
-                App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
+                App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt, image);
                 dispose();
                 this.topLevelReference.addUserToTable(email.getText(),rank,role.toString());
                 showCreatedSuccessfullyPopup();

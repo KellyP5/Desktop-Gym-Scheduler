@@ -91,7 +91,7 @@ public class databaseEntityTest {
     @Test
     public void userEntity()  {
         udt1 = new UserEntity("fname", "lname", "password", "mail@mail.com",
-                new RoleEntity(RoleEntity.UserRole.trainer));
+                new RoleEntity(RoleEntity.UserRole.trainer), "src/main/resources/ui/Placeholder.png");
         assertEquals("fname", udt1.getFirstName());
         assertEquals("lname", udt1.getLastName());
         assertEquals("password", udt1.getPassword());

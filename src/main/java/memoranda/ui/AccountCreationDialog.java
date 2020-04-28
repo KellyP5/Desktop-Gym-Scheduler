@@ -351,7 +351,8 @@ public class AccountCreationDialog extends JFrame {
                         role = new RoleEntity(RoleEntity.UserRole.customer);
                     }
                     // Add new user to database
-                    LoginBox.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role);
+                    LoginBox.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role,
+                            "src/main/resources/ui/Placeholder.png");
                     dispose();
                     createdSuccessfully();
                 } catch (SQLException | IOException ex) {

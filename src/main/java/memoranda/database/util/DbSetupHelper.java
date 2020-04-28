@@ -107,13 +107,13 @@ public class DbSetupHelper {
         BeltEntity minRequiredBelt = new BeltEntity(BeltEntity.Rank.white);
         BeltEntity blackBelt = new BeltEntity(BeltEntity.Rank.black1);
         dcq.insertUser("kevin@gmail.com","kevin","johnson",
-                "foo", customer);
+                "foo", customer, "src/main/resources/ui/Placeholder.png");
         dcq.insertUser("steve@gmail.com", "steve", "jacobs",
-                "foobar", admin);
+                "foobar", admin, "src/main/resources/ui/Placeholder.png");
         dcq.insertUser("sarah@gmail.com", "sarah", "baker",
-                "abc123", trainer);
+                "abc123", trainer, "src/main/resources/ui/Placeholder.png");
         dcq.insertUser("brenda@gmail.com", "brenda", "wiley",
-                "sdfsdf", admin, blackBelt, blackBelt);
+                "sdfsdf", admin, blackBelt, blackBelt, "src/main/resources/ui/Placeholder.png");
         dcq.insertClass(1,"04/11/2020",12.5,13.0,
                 "sarah@gmail.com",
                 20,minRequiredBelt,"steve@gmail.com");

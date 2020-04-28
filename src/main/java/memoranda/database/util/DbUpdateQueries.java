@@ -22,10 +22,11 @@ public class DbUpdateQueries {
                            String lastName,
                            String password,
                            RoleEntity role,
-                           BeltEntity belt) throws SQLException {
+                           BeltEntity belt,
+                           String imageUrl) throws SQLException {
 
         Connection conn = DriverManager.getConnection(_dbUrl);
-        String query = "UPDATE USER SET Email = ?, FirstName = ?, LastName = ?, Role = ?, Belt = ? " +
+        String query = "UPDATE USER SET Email = ?, FirstName = ?, LastName = ?, Role = ?, Belt = ?, ImageURL = ? " +
                 "where password = ?";
         PreparedStatement pstmt = conn.prepareStatement(query);
         pstmt.setString(1, email);
@@ -33,7 +34,8 @@ public class DbUpdateQueries {
         pstmt.setString(3, lastName);
         pstmt.setString(4, role.userRole.name());
         pstmt.setString(5, belt.rank.name());
-        pstmt.setString(6, password);
+        pstmt.setString(6, imageUrl);
+        pstmt.setString(7, password);
         pstmt.executeUpdate();
 
         pstmt.close();
@@ -47,12 +49,13 @@ public class DbUpdateQueries {
                            String password,
                            RoleEntity role,
                            BeltEntity belt,
-                           BeltEntity trainingBelt) throws SQLException {
+                           BeltEntity trainingBelt,
+                           String imageUrl) throws SQLException {
 
         Connection conn = DriverManager.getConnection(_dbUrl);
 
         String query = "UPDATE USER SET Email = ?, FirstName = ?, LastName = ?, Role = ?, Belt = ?, " +
-                "TrainingBelt = ? where password = ?";
+                "TrainingBelt = ?, ImageURL = ? where password = ?";
         PreparedStatement pstmt = conn.prepareStatement(query);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
@@ -60,7 +63,8 @@ public class DbUpdateQueries {
         pstmt.setString(4, role.userRole.name());
         pstmt.setString(5, belt.rank.name());
         pstmt.setString(6, trainingBelt.rank.name());
-        pstmt.setString(7, password);
+        pstmt.setString(7, imageUrl);
+        pstmt.setString(8, password);
         pstmt.executeUpdate();
 
         pstmt.close();

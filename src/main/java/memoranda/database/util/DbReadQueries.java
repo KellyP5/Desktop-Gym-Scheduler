@@ -113,6 +113,19 @@ public class DbReadQueries {
         return users;
     }
 
+    public String getUserImageUrl(String email) throws SQLException {
+        String sql = "SELECT ImageURl FROM USER WHERE Email=?";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, email);
+        ResultSet rs = pstmt.executeQuery();
+        while (!rs.next()) {
+            return "";
+        }
+        String url = rs.getString(1);
+        return url;
+    }
+
     /*
     returns all classes a specific user is enrolled in
      */
@@ -309,6 +322,6 @@ public class DbReadQueries {
                                         rs.getString("Email"),
                                         role,
                                         belt,
-                                        trainingBelt);
+                                        trainingBelt, "src/main/resources/ui/Placeholder.png");
     }
 }

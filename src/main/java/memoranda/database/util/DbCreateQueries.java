@@ -27,9 +27,10 @@ public class DbCreateQueries {
                            String firstName,
                            String lastName,
                            String password,
-                           RoleEntity role) throws SQLException {
+                           RoleEntity role,
+                           String imageUrl) throws SQLException {
         String sql = "INSERT INTO USER" +
-                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
+                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt,ImageURL) VALUES(?,?,?,?,?,?,?,?)";
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -40,6 +41,7 @@ public class DbCreateQueries {
         pstmt.setString(5, role.userRole.name());
         pstmt.setNull(6, Types.NULL);
         pstmt.setNull(7, Types.NULL);
+        pstmt.setString(8, imageUrl);
         pstmt.executeUpdate();
 
         pstmt.close();
@@ -58,9 +60,10 @@ public class DbCreateQueries {
                             String password,
                             RoleEntity role,
                             BeltEntity belt,
-                            BeltEntity trainingBelt) throws SQLException {
+                            BeltEntity trainingBelt,
+                            String imageUrl) throws SQLException {
         String sql = "INSERT INTO USER" +
-                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
+                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt,ImageURL) VALUES(?,?,?,?,?,?,?,?)";
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -71,6 +74,7 @@ public class DbCreateQueries {
         pstmt.setString(5, role.userRole.name());
         pstmt.setString(6, belt.rank.name());
         pstmt.setString(7, trainingBelt.rank.name());
+        pstmt.setString(8, imageUrl);
         pstmt.executeUpdate();
 
         pstmt.close();

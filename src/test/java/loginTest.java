@@ -25,7 +25,7 @@ public class loginTest {
 
         login = new LoginBox();
         sqlConnection.getDcqTest().insertUser("Test@Test.com", "TestFirst", "TestLast",
-                "TestPass", new RoleEntity(RoleEntity.UserRole.trainer));
+                "TestPass", new RoleEntity(RoleEntity.UserRole.trainer), "src/main/resources/ui/Placeholder.png");
 
         login.getEmail().setText("Test@Test.com");
         login.getPassword().setText("TestPass");

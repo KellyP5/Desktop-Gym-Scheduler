@@ -136,9 +136,9 @@ public class Gym {
      * @return A Response which contains a bool that dictates success/failure and the msg on why
      */
     public Response createAdmin(String email,
-                              String fname,
-                              String lname,
-                              String pwd) {
+                                String fname,
+                                String lname,
+                                String pwd) {
 
         try {
             //test if the user already exists.
@@ -171,9 +171,9 @@ public class Gym {
      * @return A Response which contains a bool that dictates success/failure and the msg on why
      */
     public Response createCustomer(String email,
-                                 String fname,
-                                 String lname,
-                                 String pwd) {
+                                   String fname,
+                                   String lname,
+                                   String pwd) {
 
         try {
             //test if the user already exists.
@@ -192,7 +192,7 @@ public class Gym {
             return Response.failure("Error: SQL error.");
         }
 
-        return Response.success("Success: Admin created.");
+        return Response.success("Success: Customer created.");
     }
 
     /**
@@ -206,7 +206,7 @@ public class Gym {
      * @return A Response which contains a bool that dictates success/failure and the msg on why
      */
     public Response createTrainer(String email, String fname, String lname,
-                                String pwd, BeltEntity trainingRank) {
+                                  String pwd, BeltEntity trainingRank) {
 
         try {
             //test if the user already exists.
@@ -224,31 +224,32 @@ public class Gym {
             return Response.failure("Error: SQL error.");
         }
 
-        return Response.success("Success: Admin created.");
+        return Response.success("Success: Trainer created.");
     }
 
 
     /**
-     *  Creates a group class if a class does not already exist at the starttime,date, and room number.
-     * @param rNum The room number.
-     * @param date The start date.
-     * @param sTime The start time.
-     * @param eTime The end time.
-     * @param tEmail The email of the trainer.
-     * @param maxClassSize The max class size.
-     * @param minBelt The minimum belt required to enter this class.
+     * Creates a group class if a class does not already exist at the starttime,date, and room number.
+     *
+     * @param rNum           The room number.
+     * @param date           The start date.
+     * @param sTime          The start time.
+     * @param eTime          The end time.
+     * @param tEmail         The email of the trainer.
+     * @param maxClassSize   The max class size.
+     * @param minBelt        The minimum belt required to enter this class.
      * @param createdByEmail The email of who created this course.
      * @return A Response which contains a bool that dictates success/failure and the msg on why
      */
     public Response createGroupClass(int rNum, LocalDate date, double sTime, double eTime,
-                                   String tEmail, int maxClassSize, BeltEntity minBelt,
-                                   String createdByEmail) {
+                                     String tEmail, int maxClassSize, BeltEntity minBelt,
+                                     String createdByEmail) {
 
         try {
 
             UserEntity ue = conn.getDrq().getUserByEmail(tEmail);
 
-            if(!BeltEntity.checkBeltRank(ue.getBelt().toString(),minBelt.toString())){
+            if (!BeltEntity.checkBeltRank(ue.getBelt().toString(), minBelt.toString())) {
                 Response.failure("Error: Trainer rank is too low");
             }
 
@@ -273,29 +274,65 @@ public class Gym {
     }
 
     /**
+     * Creates a private class if a class does not already exist at the starttime, date, and room number.
+     * The private class method wraps the group class, but hard codes the size to 2. Thats because a private
+     * class is by definition a class with only 2 people in it.
      *
-     *  Creates a private class if a class does not already exist at the starttime, date, and room number.
-     *  The private class method wraps the group class, but hard codes the size to 2. Thats because a private
-     *  class is by definition a class with only 2 people in it.
-     *
-     * @param rNum The room number.
-     * @param date The start date.
-     * @param sTime The start time.
-     * @param eTime The end time.
-     * @param tEmail The email of the trainer.
-     * @param minBelt The minimum belt required to enter this class.
+     * @param rNum           The room number.
+     * @param date           The start date.
+     * @param sTime          The start time.
+     * @param eTime          The end time.
+     * @param tEmail         The email of the trainer.
+     * @param minBelt        The minimum belt required to enter this class.
      * @param createdByEmail The email of who created this course.
      * @return A Response which contains a bool that dictates success/failure and the msg on why
      */
     public Response createPrivateClass(int rNum, LocalDate date, double sTime, double eTime,
-                                     String tEmail, BeltEntity minBelt,
-                                     String createdByEmail) {
+                                       String tEmail, BeltEntity minBelt,
+                                       String createdByEmail) {
 
         return createGroupClass(rNum, date, sTime, eTime,
             tEmail, 2, minBelt, createdByEmail);
     }
 
-
     //DB Encapsulated Read methods /////////////////////////////////////////////////////////
 
+    public Response readGetUser(String email) {
+        UserEntity ue = null;
+        try {
+            ue = conn.getDrq().getUserByEmail(email);
+            if (ue == null) {
+                return Response.failure("Error: User does not exist");
+            }
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error.");
+        }
+
+        return Response.success("Success: User retreived", ue);
+    }
+
+    //DB Encapsulated Delete methods /////////////////////////////////////////////////////////
+
+    public Response deleteUser(String email) {
+        UserEntity ue = null;
+        try {
+            ue = conn.getDrq().getUserByEmail(email);
+
+            if (ue == null)
+                return Response.failure("Error: Cannot delete, user does not exist.");
+
+            conn.getDcq().deleteUser(email);
+            ue = conn.getDrq().getUserByEmail(email);
+
+            if (ue == null)
+                return Response.success("Success: User deleted");
+
+            return Response.failure("Error: User is not deleted.");
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error.");
+        }
+
+    }
 }

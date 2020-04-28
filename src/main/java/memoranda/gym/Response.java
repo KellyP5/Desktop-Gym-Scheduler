@@ -1,9 +1,10 @@
 package main.java.memoranda.gym;
 
 
-public class Response {
+public class Response<T> {
     private String msg;
     private boolean success;
+    private T value;
 
     /**
      * This constructor is private. Instantiation should be done via
@@ -16,6 +17,14 @@ public class Response {
     private Response(boolean success, String msg) {
         this.success = success;
         this.msg = msg;
+        this.value = null;
+    }
+
+
+    private Response(boolean success, String msg, T value) {
+        this.success = success;
+        this.msg = msg;
+        this.value = value;
     }
 
     /**
@@ -42,22 +51,34 @@ public class Response {
         return msg;
     }
 
+    public T getValue(){
+        return this.value;
+    }
+
     /**
      * This static method constructs the msg.
      * @param msg the successful msg.
      * @return returns the response.
      */
-    public static  Response success(String msg) {
+    public static Response success(String msg) {
         return new Response(true,msg);
     }
 
+    /**
+     * This static method constructs the msg.
+     * @param msg the successful msg.
+     * @return returns the response.
+     */
+    public static <T> Response success(String msg, T value) {
+        return new Response(true, msg, value);
+    }
 
     /**
      * This static method constructs the msg.
      * @param error is the unsuccessful msg
      * @return returns the response.
      */
-    public static Response  failure(String error) {
+    public static Response failure(String error) {
         return new Response(false, error);
     }
 }

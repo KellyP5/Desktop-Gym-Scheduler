@@ -16,18 +16,16 @@ public class loginTest {
 
     static LoginBox login;
     public static SqlConnection sqlConnection;
-    private static String imageUrl;
 
     @BeforeClass
     public static void setUp() throws SQLException {
         sqlConnection = SqlConnection.getInstance();
         sqlConnection.getDbSetupHelperTest().deleteTestTables();
         sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
-        imageUrl = "src/main/resources/ui/Placeholder.png";
 
         login = new LoginBox();
         sqlConnection.getDcqTest().insertUser("Test@Test.com", "TestFirst", "TestLast",
-                "TestPass", new RoleEntity(RoleEntity.UserRole.trainer), imageUrl);
+                "TestPass", new RoleEntity(RoleEntity.UserRole.trainer));
 
         login.getEmail().setText("Test@Test.com");
         login.getPassword().setText("TestPass");

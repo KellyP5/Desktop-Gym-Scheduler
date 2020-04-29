@@ -102,12 +102,15 @@ public class UserManagementEditUser extends JDialog {
 
         _imageBox = new JLabel();
         _imageBox.setBounds(240, 10, 200, 200);
-        _imageUrl = _selectedUser.getImageUrl();
+        _imageUrl = _selectedUser.getUserImageFromDB();
 
         // Gets the user's image to display on their profile page
+        /*
         if (App.conn.getDrq().getUserImageUrl(_selectedUser.getEmail()) != null) {
             _imageUrl = App.conn.getDrq().getUserImageUrl(_selectedUser.getEmail());
         }
+
+         */
         _image = new ImageIcon(scaleImage(200, 200, ImageIO.read(new File(_imageUrl))));
         _imageBox.setIcon(_image);
 
@@ -142,6 +145,7 @@ public class UserManagementEditUser extends JDialog {
                     );
                     _selectedUser.setImageUrl("src/main/resources/ui/" + name);
                     _imageUrl = "src/main/resources/ui/" + name;
+                    App.conn.getDuq().updateUserImage(_selectedUser.getEmail(), _imageUrl);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -413,7 +417,7 @@ public class UserManagementEditUser extends JDialog {
         // Alert user that the update was successful
         if (change) {
             App.conn.getDuq().updateUser(_emailBox.getText(), _firstNameBox.getText(), _lastNameBox.getText(),
-                    _selectedUser.getPassword(), role, belt, _imageUrl);
+                    _selectedUser.getPassword(), role, belt);
             updateSuccessful();
             // Update the table with the new information
             this.topLevelReference.removeUserFromTable();

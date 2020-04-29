@@ -26,11 +26,10 @@ public class DbUpdateQueries {
                            String lastName,
                            String password,
                            RoleEntity role,
-                           BeltEntity belt,
-                           String imageUrl) throws SQLException {
+                           BeltEntity belt) throws SQLException {
 
         Connection conn = DriverManager.getConnection(_dbUrl);
-        String query = "UPDATE USER SET Email = ?, FirstName = ?, LastName = ?, Role = ?, Belt = ?, ImageURL = ? " +
+        String query = "UPDATE USER SET Email = ?, FirstName = ?, LastName = ?, Role = ?, Belt = ? " +
                 "where password = ?";
         PreparedStatement pstmt = conn.prepareStatement(query);
         pstmt.setString(1, email);
@@ -38,8 +37,7 @@ public class DbUpdateQueries {
         pstmt.setString(3, lastName);
         pstmt.setString(4, role.userRole.name());
         pstmt.setString(5, belt.rank.name());
-        pstmt.setString(6, imageUrl);
-        pstmt.setString(7, password);
+        pstmt.setString(6, password);
         pstmt.executeUpdate();
 
         pstmt.close();
@@ -53,13 +51,12 @@ public class DbUpdateQueries {
                            String password,
                            RoleEntity role,
                            BeltEntity belt,
-                           BeltEntity trainingBelt,
-                           String imageUrl) throws SQLException {
+                           BeltEntity trainingBelt) throws SQLException {
 
         Connection conn = DriverManager.getConnection(_dbUrl);
 
         String query = "UPDATE USER SET Email = ?, FirstName = ?, LastName = ?, Role = ?, Belt = ?, " +
-                "TrainingBelt = ?, ImageURL = ? where password = ?";
+                "TrainingBelt = ? where password = ?";
         PreparedStatement pstmt = conn.prepareStatement(query);
         pstmt.setString(1, email);
         pstmt.setString(2, firstName);
@@ -67,10 +64,26 @@ public class DbUpdateQueries {
         pstmt.setString(4, role.userRole.name());
         pstmt.setString(5, belt.rank.name());
         pstmt.setString(6, trainingBelt.rank.name());
-        pstmt.setString(7, imageUrl);
-        pstmt.setString(8, password);
+        pstmt.setString(7, password);
         pstmt.executeUpdate();
 
+        pstmt.close();
+        conn.close();
+    }
+
+    /**
+     * Updates the user's image in the database, after the image has been changed
+     * @param email The user's email
+     * @param imageUrl The path to the image
+     * @throws SQLException
+     */
+    public void updateUserImage(String email, String imageUrl) throws SQLException {
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        String query = "UPDATE USERIMAGE SET ImageURL = ? where Email = ?";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, imageUrl);
+        pstmt.setString(2, email);
+        pstmt.executeUpdate();
         pstmt.close();
         conn.close();
     }

@@ -1,17 +1,11 @@
 package test.java;
 
 import main.java.memoranda.database.*;
-import main.java.memoranda.ui.App;
-import main.java.memoranda.ui.LoginBox;
 import main.java.memoranda.util.Local;
 import org.junit.*;
 
-import javax.management.relation.Role;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAmount;
 
 import static org.junit.Assert.*;
 
@@ -37,7 +31,6 @@ public class databaseEntityTest {
     public static void setUp() {
         be1 = new BeltEntity("");
         ur1 = new RoleEntity(RoleEntity.UserRole.trainer);
-        imageUrl = "src/main/resources/ui/Placeholder.png";
     }
 
     /**
@@ -96,7 +89,7 @@ public class databaseEntityTest {
     @Test
     public void userEntity()  {
         udt1 = new UserEntity("fname", "lname", "password", "mail@mail.com",
-                new RoleEntity(RoleEntity.UserRole.trainer), imageUrl);
+                new RoleEntity(RoleEntity.UserRole.trainer));
         assertEquals("fname", udt1.getFirstName());
         assertEquals("lname", udt1.getLastName());
         assertEquals("password", udt1.getPassword());

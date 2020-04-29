@@ -366,7 +366,9 @@ public class UserManagementAddUser extends JFrame {
                 belt = new BeltEntity(r);
                 String image = "src/main/resources/ui/Placeholder.png";
                 // Add new user to database
-                App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt, image);
+                App.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
+                App.conn.getDcq().insertUserImage(email.getText(), image);
+
                 dispose();
                 this.topLevelReference.addUserToTable(email.getText(),rank,role.toString());
                 showCreatedSuccessfullyPopup();

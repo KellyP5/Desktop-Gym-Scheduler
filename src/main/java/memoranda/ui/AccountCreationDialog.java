@@ -1,5 +1,6 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.database.BeltEntity;
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.UserEntity;
@@ -345,14 +346,22 @@ public class AccountCreationDialog extends JFrame {
                 System.out.println("Attempting to create account with E-mail: " + email.getText());
                 try {
                     RoleEntity role;
+                    BeltEntity belt;
                     if (trainerButton.isSelected()) {
                         role = new RoleEntity(RoleEntity.UserRole.trainer);
+                        belt = new BeltEntity(BeltEntity.Rank.white);
+                        // Add new user to database
+                        LoginBox.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
+
                     } else {
                         role = new RoleEntity(RoleEntity.UserRole.customer);
+                        belt = new BeltEntity(BeltEntity.Rank.white);
+                        // Add new user to database
+                        LoginBox.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role, belt, belt);
+
                     }
-                    // Add new user to database
-                    LoginBox.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role,
-                            "src/main/resources/ui/Placeholder.png");
+                    LoginBox.conn.getDcq().insertUserImage(email.getText(),"src/main/resources/ui/Placeholder.png");
+
                     dispose();
                     createdSuccessfully();
                 } catch (SQLException | IOException ex) {

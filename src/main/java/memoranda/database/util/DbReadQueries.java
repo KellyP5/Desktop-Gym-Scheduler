@@ -66,6 +66,19 @@ public class DbReadQueries {
         return total;
     }
 
+    public String getUserImage(String email) throws SQLException {
+        String sql = "SELECT ImageURL FROM USERIMAGE WHERE Email=?";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, email);
+        ResultSet rs = pstmt.executeQuery();
+        while (!rs.next()) {
+            return "";
+        }
+        String url = rs.getString(1);
+        return url;
+    }
+
     /*
     gets all of a USER's information based on the email provided
     */
@@ -111,19 +124,6 @@ public class DbReadQueries {
         statement.close();
         conn.close();
         return users;
-    }
-
-    public String getUserImageUrl(String email) throws SQLException {
-        String sql = "SELECT ImageURl FROM USER WHERE Email=?";
-        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, email);
-        ResultSet rs = pstmt.executeQuery();
-        while (!rs.next()) {
-            return "";
-        }
-        String url = rs.getString(1);
-        return url;
     }
 
     /*
@@ -329,12 +329,6 @@ public class DbReadQueries {
      * @throws SQLException sql  exception.
      */
     private UserEntity _getUserFromResultSet(ResultSet rs) throws SQLException {
-        /*
-        if (!rs.next()) {
-            return null;
-        }
-        
-         */
 
         String strBelt = rs.getString("Belt");
         BeltEntity belt = null;
@@ -355,6 +349,6 @@ public class DbReadQueries {
                                         rs.getString("Email"),
                                         role,
                                         belt,
-                                        trainingBelt, "src/main/resources/ui/Placeholder.png");
+                                        trainingBelt);
     }
 }

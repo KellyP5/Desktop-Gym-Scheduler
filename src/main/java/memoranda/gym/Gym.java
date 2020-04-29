@@ -102,7 +102,7 @@ public class Gym {
                 //starting and training are BLACK based on the admin role
                 BeltEntity be = new BeltEntity("black3");
                 RoleEntity re = new RoleEntity("admin");
-                conn.getDcq().insertUser(email, fname, lname, pwd, re, be, be, null);
+                conn.getDcq().insertUser(email, fname, lname, pwd, re, be, be);
             } else {
                 return Response.failure("Error: User already exists.");
             }
@@ -169,7 +169,7 @@ public class Gym {
             if (ue == null) {
                 //starting and training are the training rank
                 RoleEntity re = new RoleEntity("trainer");
-                conn.getDcq().insertUser(email, fname, lname, pwd, re, trainingRank, trainingRank, null);
+                conn.getDcq().insertUser(email, fname, lname, pwd, re, trainingRank, trainingRank);
             } else {
                 return Response.failure("Error: User already exists.");
             }

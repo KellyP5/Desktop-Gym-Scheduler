@@ -27,7 +27,6 @@ public class databaseTest {
     public static DbCreateQueries dcq = null;
     public static DbReadQueries drq = null;
     public static DbUpdateQueries duq = null;
-    private static String imageUrl;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -38,7 +37,6 @@ public class databaseTest {
         duq = sqlConnection.getDuqTest();
         sqlConnection.getDbSetupHelperTest().deleteTestTables();
         sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
-        imageUrl = "src/main/resources/ui/Placeholder.png";
     }
 
     @After
@@ -55,14 +53,14 @@ public class databaseTest {
         RoleEntity trainer = new RoleEntity(RoleEntity.UserRole.trainer);
         BeltEntity white = new BeltEntity(BeltEntity.Rank.white);
         UserEntity userOriginal = new UserEntity("kevin",
-                "johnson","foo","kevin@gmail.com",trainer,white,white, imageUrl);
+                "johnson","foo","kevin@gmail.com",trainer,white,white);
         dcq.insertUser(userOriginal.getEmail(),
                 userOriginal.getFirstName(),
                 userOriginal.getLastName(),
                 userOriginal.getPassword(),
                 userOriginal.getRole(),
                 userOriginal.getBelt(),
-                userOriginal.getTrainingBelt(), imageUrl);
+                userOriginal.getTrainingBelt());
         UserEntity userFromDb = drq.getUserByEmail(userOriginal.getEmail());
 
         assertEquals(userOriginal, userFromDb);
@@ -76,23 +74,23 @@ public class databaseTest {
         BeltEntity white = new BeltEntity(BeltEntity.Rank.white);
         UserEntity trainerUser = new UserEntity("steve",
                 "jones","foo","steve@gmail.com",trainerRole,white,
-                white, "src/main/resources/ui/Placeholder.png");
+                white);
         UserEntity adminUser = new UserEntity("susan","baker",
-                "foobar","susan@gmail.com",adminRole, white, white, imageUrl);
+                "foobar","susan@gmail.com",adminRole, white, white);
         dcq.insertUser(trainerUser.getEmail(),
                 trainerUser.getFirstName(),
                 trainerUser.getLastName(),
                 trainerUser.getPassword(),
                 trainerUser.getRole(),
                 trainerUser.getBelt(),
-                trainerUser.getTrainingBelt(), imageUrl);
+                trainerUser.getTrainingBelt());
         dcq.insertUser(adminUser.getEmail(),
                 adminUser.getFirstName(),
                 adminUser.getLastName(),
                 adminUser.getPassword(),
                 adminUser.getRole(),
                 adminUser.getBelt(),
-                adminUser.getTrainingBelt(), imageUrl);
+                adminUser.getTrainingBelt());
 
         //create all objects necessary for creating a gym class
         BeltEntity minReqBeltIsGreen = new BeltEntity(BeltEntity.Rank.green);
@@ -145,7 +143,7 @@ public class databaseTest {
                 "kevin@kevin.com",
                 re,
                 be,
-                be, imageUrl);
+                be);
 
         dcq.insertUser(ue1.getEmail(),
                 ue1.getFirstName(),
@@ -153,7 +151,7 @@ public class databaseTest {
                 ue1.getPassword(),
                 ue1.getRole(),
                 ue1.getBelt(),
-                ue1.getTrainingBelt(), imageUrl);
+                ue1.getTrainingBelt());
 
         UserEntity expected = ue1;
         UserEntity testEntity = drq.getUserByEmail("kevin@kevin.com");
@@ -173,7 +171,7 @@ public class databaseTest {
                 "kevin@kevin.com",
                 re,
                 be,
-                be, imageUrl);
+                be);
 
 
         for(int i = 0;i< 100;i++){
@@ -182,7 +180,7 @@ public class databaseTest {
                     "kevin@kevin.com"+i,
                     re,
                     be,
-                    be, imageUrl);
+                    be);
 
             dcq.insertUser(ue1.getEmail(),
                     ue1.getFirstName(),
@@ -190,7 +188,7 @@ public class databaseTest {
                     ue1.getPassword(),
                     ue1.getRole(),
                     ue1.getBelt(),
-                    ue1.getTrainingBelt(), imageUrl);
+                    ue1.getTrainingBelt());
         }
 
         ArrayList<UserEntity> ues = drq.getAllUsers();
@@ -233,10 +231,10 @@ public class databaseTest {
         ArrayList<UserEntity> usersToAdd = new ArrayList<>();
         usersToAdd.add(new UserEntity("jack",
                 "johnson","foobar","jackj@gmail.com",trainerRole,white,
-                white, "src/main/resources/ui/Placeholder.png"));
+                white));
         usersToAdd.add(new UserEntity("jack",
                 "ryans","foo","jack@gmail.com",adminRole,white,
-                white, imageUrl));
+                white));
         for (UserEntity user: usersToAdd) {
             dcq.insertUser(user.getEmail(),
                     user.getFirstName(),
@@ -244,7 +242,7 @@ public class databaseTest {
                     user.getPassword(),
                     user.getRole(),
                     user.getBelt(),
-                    user.getTrainingBelt(), imageUrl);
+                    user.getTrainingBelt());
         }
         BeltEntity minReqBeltIsGreen = new BeltEntity(BeltEntity.Rank.green);
         LocalTime localStartTime = LocalTime.of(12,30);
@@ -314,14 +312,14 @@ public class databaseTest {
         RoleEntity trainer = new RoleEntity(RoleEntity.UserRole.trainer);
         BeltEntity white = new BeltEntity(BeltEntity.Rank.white);
         UserEntity userOriginal = new UserEntity("kevin",
-                "johnson","foo","ash@gmail.com",trainer,white,white, imageUrl);
+                "johnson","foo","ash@gmail.com",trainer,white,white);
         dcq.insertUser(userOriginal.getEmail(),
                 userOriginal.getFirstName(),
                 userOriginal.getLastName(),
                 userOriginal.getPassword(),
                 userOriginal.getRole(),
                 userOriginal.getBelt(),
-                userOriginal.getTrainingBelt(), imageUrl);
+                userOriginal.getTrainingBelt());
         dcq.deleteUser(userOriginal.getEmail());
         UserEntity userFromDb = drq.getUserByEmail(userOriginal.getEmail());
         assertNull(userFromDb);
@@ -331,10 +329,10 @@ public class databaseTest {
     public void customerUserIsUpdated() throws SQLException {
         RoleEntity role = new RoleEntity(RoleEntity.UserRole.customer);
         BeltEntity belt = new BeltEntity(BeltEntity.Rank.orange);
-        UserEntity customer = new UserEntity("CustomerFirst", "CustomerLast", "pass", "Customer@gmail.com", role, imageUrl);
-        dcq.insertUser(customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPassword(), customer.getRole(), imageUrl);
+        UserEntity customer = new UserEntity("CustomerFirst", "CustomerLast", "pass", "Customer@gmail.com", role);
+        dcq.insertUser(customer.getEmail(), customer.getFirstName(), customer.getLastName(), customer.getPassword(), customer.getRole());
 
-        duq.updateUser("Customer@gmail.com", "Kelly", "Last", "pass", role, belt, imageUrl);
+        duq.updateUser("Customer@gmail.com", "Kelly", "Last", "pass", role, belt);
 
         UserEntity newUser = drq.getUserByEmail("Customer@gmail.com");
 
@@ -346,10 +344,10 @@ public class databaseTest {
         RoleEntity role = new RoleEntity(RoleEntity.UserRole.trainer);
         BeltEntity belt = new BeltEntity(BeltEntity.Rank.orange);
         BeltEntity trainBelt = new BeltEntity(BeltEntity.Rank.yellow);
-        UserEntity trainer = new UserEntity("TrainerFirst", "TrainerLast", "test", "Trainer@gmail.com", role, imageUrl);
-        dcq.insertUser(trainer.getEmail(), trainer.getFirstName(), trainer.getLastName(), trainer.getPassword(), role, belt, trainBelt, imageUrl);
+        UserEntity trainer = new UserEntity("TrainerFirst", "TrainerLast", "test", "Trainer@gmail.com", role);
+        dcq.insertUser(trainer.getEmail(), trainer.getFirstName(), trainer.getLastName(), trainer.getPassword(), role, belt, trainBelt);
 
-        duq.updateUser("Trainer@gmail.com", "Kelly", "Last", "test", role, belt, imageUrl);
+        duq.updateUser("Trainer@gmail.com", "Kelly", "Last", "test", role, belt);
 
         UserEntity newUser1 = drq.getUserByEmail("Trainer@gmail.com");
 

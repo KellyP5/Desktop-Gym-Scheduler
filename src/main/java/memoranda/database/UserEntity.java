@@ -7,6 +7,9 @@
  */
 package main.java.memoranda.database;
 
+import main.java.memoranda.ui.App;
+
+import java.sql.SQLException;
 import java.util.Objects;
 
 /*
@@ -26,20 +29,19 @@ public class UserEntity {
      * Constructor for a user who is not a trainer (student)
      */
     public UserEntity(String _firstName, String _lastName, String _password, String _email,
-                      RoleEntity _role, String imageUrl) {
+                      RoleEntity _role) {
         this._firstName = _firstName;
         this._lastName = _lastName;
         this._password = _password;
         this._email = _email;
         this._role = _role;
-        this._imageUrl = imageUrl;
     }
 
     /**
      * Constructor for a user who IS a trainer
      */
     public UserEntity(String _firstName, String _lastName, String _password, String _email,
-                      RoleEntity _role, BeltEntity _belt, BeltEntity _trainingBelt, String imageUrl) {
+                      RoleEntity _role, BeltEntity _belt, BeltEntity _trainingBelt) {
         this._firstName = _firstName;
         this._lastName = _lastName;
         this._password = _password;
@@ -47,7 +49,6 @@ public class UserEntity {
         this._role = _role;
         this._belt = _belt;
         this._trainingBelt = _trainingBelt;
-        this._imageUrl = imageUrl;
     }
 
     /**
@@ -72,6 +73,11 @@ public class UserEntity {
      * @return The string of the URL
      */
     public String getImageUrl() {
+        return this._imageUrl;
+    }
+
+    public String getUserImageFromDB() throws SQLException {
+        this._imageUrl = App.conn.getDrq().getUserImage(this._email);
         return this._imageUrl;
     }
 
@@ -185,10 +191,10 @@ public class UserEntity {
      * @return The trainer's BeltEntity
      */
     public BeltEntity getTrainingBelt() {
-        if (_trainingBelt == null) {
+        if (this._trainingBelt == null) {
             return new BeltEntity(BeltEntity.Rank.white);
         } else {
-            return _trainingBelt;
+            return this._trainingBelt;
         }
     }
 

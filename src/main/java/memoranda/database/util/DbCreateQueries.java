@@ -24,10 +24,9 @@ public class DbCreateQueries {
                            String firstName,
                            String lastName,
                            String password,
-                           RoleEntity role,
-                           String imageUrl) throws SQLException {
+                           RoleEntity role) throws SQLException {
         String sql = "INSERT INTO USER" +
-                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt,ImageURL) VALUES(?,?,?,?,?,?,?,?)";
+                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -38,7 +37,6 @@ public class DbCreateQueries {
         pstmt.setString(5, role.userRole.name());
         pstmt.setNull(6, Types.NULL);
         pstmt.setNull(7, Types.NULL);
-        pstmt.setString(8, imageUrl);
         pstmt.executeUpdate();
 
         pstmt.close();
@@ -52,10 +50,9 @@ public class DbCreateQueries {
                             String password,
                             RoleEntity role,
                             BeltEntity startingBelt,
-                            BeltEntity trainingBelt,
-                            String imageUrl) throws SQLException {
+                            BeltEntity trainingBelt) throws SQLException {
         String sql = "INSERT INTO USER" +
-                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt,ImageURL) VALUES(?,?,?,?,?,?,?,?)";
+                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -66,7 +63,6 @@ public class DbCreateQueries {
         pstmt.setString(5, role.userRole.name());
         pstmt.setString(6, startingBelt.toString());
         pstmt.setString(7, trainingBelt.toString());
-        pstmt.setString(8, imageUrl);
         pstmt.executeUpdate();
 
         pstmt.close();
@@ -163,6 +159,20 @@ public class DbCreateQueries {
         pstmt.setInt(6, maxClassSize);
         pstmt.setString(7, minBeltRequired.rank.name());
         pstmt.setString(8, createdByEmail);
+        pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
+    }
+
+    public void insertUserImage(String Email, String imageUrl) throws SQLException {
+        String sql = "INSERT INTO USERIMAGE " +
+                "(Email,ImageURL) VALUES (?,?)";
+
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, Email);
+        pstmt.setString(2, imageUrl);
         pstmt.executeUpdate();
 
         pstmt.close();

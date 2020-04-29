@@ -2,6 +2,7 @@ package main.java.memoranda.ui;
 
 import main.java.memoranda.History;
 import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
@@ -320,7 +321,7 @@ public class AgendaPanel extends JPanel {
 
 	/**
 	 * This method updates to Agenda page tool bar to display the trainer's belt color.
-	 *It will need to be updated when we can check to see who the currently logged user is
+	 * It will need to be updated when we can check to see who the currently logged user is
 	 *
 	 * @throws SQLException the sql exception
 	 */
@@ -331,7 +332,7 @@ public class AgendaPanel extends JPanel {
 		//user is a trainer or not.
 
 		JLabel instructorBelt = new JLabel();
-		Font labelFont = instructorBelt.getFont(); //creats Font to change font size
+		Font labelFont = instructorBelt.getFont(); //creates Font to change font size
 		instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
 		UserEntity user = LoginBox.getUser();
 		String beltText = user.getTrainingBelt().toString();
@@ -354,5 +355,4 @@ public class AgendaPanel extends JPanel {
 	public void setActive(boolean isa) {
 		isActive = isa;
 	}
-
 }

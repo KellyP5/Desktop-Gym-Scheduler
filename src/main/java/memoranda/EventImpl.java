@@ -22,7 +22,7 @@ import nu.xom.Element;
  * The type Event.
  */
 /*$Id: EventImpl.java,v 1.9 2004/10/06 16:00:11 ivanrise Exp $*/
-public class EventImpl implements Event, Comparable {
+public class EventImpl implements Event {
 
     private Element _elem = null;
 
@@ -161,9 +161,5 @@ public class EventImpl implements Event, Comparable {
         return false;
     }
 
-    public int compareTo(Object o) {
-        Event event = (Event) o;
-        return (getHour() * 60 + getMinute()) - (event.getHour() * 60 + event.getMinute());
-    }
 
 }

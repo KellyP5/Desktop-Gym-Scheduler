@@ -5,6 +5,7 @@
  *
  * @author Kevin Wilkinson
  */
+
 package main.java.memoranda.database;
 
 import java.util.Objects;
@@ -14,83 +15,73 @@ Belt Entity is the entity used for all Belt related SQL
  */
 public class BeltEntity {
 
+    public static String[] beltNames =
+        {"white", "yellow", "orange", "purple", "blue", "blue_stripe", "green", "green_stripe",
+            "brown1", "brown2", "brown3", "black1", "black2", "black3"};
 
     /**
      * Converts the Belt Rank to a string
+     *
      * @return The belt rank as a string
      */
 
     @Override
     public String toString() {
         String ret = "";
-        switch(this.rank){
-            case white:
-            {
+        switch (this.rank) {
+            case white: {
                 ret += "white";
                 break;
             }
-            case yellow:
-            {
+            case yellow: {
                 ret += "yellow";
                 break;
             }
-            case orange:
-            {
+            case orange: {
                 ret += "orange";
                 break;
             }
-            case purple:
-            {
+            case purple: {
                 ret += "purple";
                 break;
             }
-            case blue:
-            {
+            case blue: {
                 ret += "blue";
                 break;
             }
-            case blue_stripe:
-            {
+            case blue_stripe: {
                 ret += "blue_stripe";
                 break;
             }
-            case green:
-            {
+            case green: {
                 ret += "green";
                 break;
             }
-            case green_stripe:
-            {
+            case green_stripe: {
                 ret += "green_stripe";
                 break;
             }
-            case brown1:
-            {
+            case brown1: {
                 ret += "brown1";
                 break;
             }
-            case brown2:
-            {
+            case brown2: {
                 ret += "brown2";
                 break;
             }
-            case brown3:
-            {
+            case brown3: {
                 ret += "brown3";
                 break;
             }
-            case black1:
-            {
+            case black1: {
                 ret += "black1";
                 break;
             }
-            case black2:
-            {
+            case black2: {
                 ret += "black2";
                 break;
             }
-            case black3:
-            {
+            case black3: {
                 ret += "black3";
                 break;
             }
@@ -98,7 +89,7 @@ public class BeltEntity {
         return ret;
     }
 
-    public enum Rank{
+    public enum Rank {
         white,
         yellow,
         orange,
@@ -114,105 +105,125 @@ public class BeltEntity {
         black2,
         black3
     }
+
     public Rank rank;
-    public BeltEntity(Rank rank){
+
+    public BeltEntity(Rank rank) {
         this.rank = rank;
     }
-    public BeltEntity(String rank) {this.rank = getRank(rank);}
+
+    public BeltEntity(String rank) {
+        this.rank = getRank(rank);
+    }
 
     /**
      * Checks if two belt ranks are equal
+     *
      * @param o The belt to compare
      * @return Returns true if equal, false otherwise
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         BeltEntity that = (BeltEntity) o;
         return rank == that.rank;
     }
 
     /**
+     * Takes in a belt of a trainer and another belt, and returns
+     * whether that trainer is qualified to teach a class at that level.
+     *
+     * @param trainer String belt of the trainer
+     * @param c       String belt of the comparison belt
+     * @return True if trainer can and false if he can't
+     */
+    public static boolean checkBeltRank(String trainer, String c) {
+        int train = 0, clas = 0;
+        for (int i = 0; i < beltNames.length; i++) {
+            if (beltNames[i].equalsIgnoreCase(trainer)) {
+                train = i;
+            }
+            if (beltNames[i].equalsIgnoreCase(c)) {
+                clas = i;
+            }
+        }
+        if (train >= clas) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Needed a way to convert a string into a rank for the account creation
-     * @param String to convert
+     *
      * @return Rank
      */
     public Rank getRank(String s) {
         Rank belt;
-        switch(s){
-            case "white":
-            {
+        switch (s) {
+            case "white": {
                 belt = Rank.white;
                 break;
             }
-            case "yellow":
-            {
+            case "yellow": {
                 belt = Rank.yellow;
                 break;
             }
-            case "orange":
-            {
+            case "orange": {
                 belt = Rank.orange;
                 break;
             }
-            case "purple":
-            {
+            case "purple": {
                 belt = Rank.purple;
                 break;
             }
-            case "blue":
-            {
+            case "blue": {
                 belt = Rank.blue;
                 break;
             }
-            case "blue_stripe":
-            {
+            case "blue_stripe": {
                 belt = Rank.blue_stripe;
                 break;
             }
-            case "green":
-            {
+            case "green": {
                 belt = Rank.green;
                 break;
             }
-            case "green_stripe":
-            {
+            case "green_stripe": {
                 belt = Rank.green_stripe;
                 break;
             }
-            case "brown1":
-            {
+            case "brown1": {
                 belt = Rank.brown1;
                 break;
             }
-            case "brown2":
-            {
+            case "brown2": {
                 belt = Rank.brown2;
                 break;
             }
-            case "brown3":
-            {
+            case "brown3": {
                 belt = Rank.brown3;
                 break;
             }
-            case "black1":
-            {
+            case "black1": {
                 belt = Rank.black1;
                 break;
             }
-            case "black2":
-            {
+            case "black2": {
                 belt = Rank.black2;
                 break;
             }
-            case "black3":
-            {
+            case "black3": {
                 belt = Rank.black3;
                 break;
             }
-            default:
-            {
+            default: {
                 belt = Rank.white;
                 break;
             }

@@ -1,26 +1,26 @@
 package test.java;
 
-import main.java.memoranda.database.*;
-import main.java.memoranda.database.util.DbCreateQueries;
-import main.java.memoranda.database.util.DbReadQueries;
-import main.java.memoranda.database.util.DbUpdateQueries;
-import main.java.memoranda.database.util.SqlConstants;
-
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import org.junit.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import main.java.memoranda.database.BeltEntity;
+import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.util.DbCreateQueries;
+import main.java.memoranda.database.util.DbReadQueries;
+import main.java.memoranda.database.util.DbUpdateQueries;
+import main.java.memoranda.database.util.SqlConstants;
+import org.junit.After;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class databaseTest {
     public static SqlConnection sqlConnection = null;
@@ -164,7 +164,7 @@ public class databaseTest {
     }
 
     @Test
-    public void test1000Inserts_drq() throws SQLException{
+    public void test100Inserts_drq() throws SQLException{
         RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
         BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
 
@@ -176,7 +176,7 @@ public class databaseTest {
                 be, imageUrl);
 
 
-        for(int i = 0;i< 1000;i++){
+        for(int i = 0;i< 100;i++){
             UserEntity ue1 = new UserEntity("kevin",
                     "kevin","kevin",
                     "kevin@kevin.com"+i,
@@ -195,8 +195,8 @@ public class databaseTest {
 
         ArrayList<UserEntity> ues = drq.getAllUsers();
 
-        assertEquals(1000,ues.size());
-        assertEquals(expected.getEmail()+499,ues.get(499).getEmail());
+        assertEquals(100,ues.size());
+        assertEquals(expected.getEmail()+59,ues.get(59).getEmail());
     }
 
     @Test

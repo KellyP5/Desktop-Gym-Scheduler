@@ -290,6 +290,39 @@ public class DbReadQueries {
     }
 
     /**
+     * Gets classes by the date and time.
+     * @param localDate date to search
+     * @param time time to search
+     * @param room room to search
+     * @return ArrayList<GymClassEntity>
+     * @throws SQLException
+     */
+    public ArrayList<GymClassEntity> getAllClassesByDateTime(LocalDate localDate, double time, int room) throws SQLException {
+        String strDate = localDate.format(SqlConstants.DBDATEFORMAT);
+
+        String sql = "SELECT * FROM GYMCLASS WHERE StartDate=?" +
+                "AND StartTime=?" +
+                "AND RoomNumber=?";
+
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt  = conn.prepareStatement(sql);
+        pstmt.setString(1,strDate);
+        pstmt.setDouble(2,time);
+        pstmt.setInt(3, room);
+
+        ResultSet rs  = pstmt.executeQuery();
+
+        ArrayList<GymClassEntity> gymClasses = new ArrayList<>();
+        while(rs.next()){
+            gymClasses.add(_getGymClassFromResultSet(rs));
+        }
+
+        pstmt.close();
+        conn.close();
+        return gymClasses;
+    }
+
+    /**
      * private method used for parsing the result set.
      * @param rs Result set to parse.
      * @return returns null if the the rs set is empty, otherwise returns UserEntity.

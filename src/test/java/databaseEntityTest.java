@@ -3,6 +3,7 @@ package test.java;
 import main.java.memoranda.database.*;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.ui.LoginBox;
+import main.java.memoranda.util.Local;
 import org.junit.*;
 
 import javax.management.relation.Role;
@@ -136,7 +137,29 @@ public class databaseEntityTest {
 
         assertEquals(start, tae1.getStartDateTime());
         assertEquals(end, tae1.getEndDateTime());
+    }
 
+    /**
+     * Tests times and conversions for use with the DB.
+     */
+    @Test
+    public void getTimeAndConvert() {
+        String[] times = Local.getTimes();
+        String[] actualTimes = new String[]{"0500", "0600", "0700", "0800", "0900",
+                "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800"
+                , "1900", "2000", "2100"};
+        assertEquals(times, actualTimes);
+        double time = 6.0;
+        assertEquals(time, Local.getDoubleTime("0600"), 0.0);
+    }
 
+    /**
+     * Ensures max class sizes is returning properly for DB formatting.
+     */
+    @Test
+    public void getClassSizes() {
+        String classSize[] =
+                {"3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+        assertEquals(classSize, Local.getMaxClassSize());
     }
 }

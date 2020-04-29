@@ -1,12 +1,21 @@
 package main.java.memoranda.ui.classes;
 
-import main.java.memoranda.util.Local;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import main.java.memoranda.util.Local;
 
 
 /**
@@ -145,8 +154,11 @@ public class ClassesSetAvailability extends JFrame {
     public void availabilitySetup () throws SQLException {
 
 
+        String userEmail = extractTrainerEmail();
         double start = Local.getDoubleTime(startTimeCB.getSelectedItem().toString());
         double end = Local.getDoubleTime(endTimeCB.getSelectedItem().toString());
+        LocalDate date = this.date;
+
         System.out.println(date.toString());
       //  try {
      //       App.conn.getDcq().insertTrainerAvailability(extractTrainerEmail(), date, start, end);

@@ -2,8 +2,10 @@ package main.java.memoranda.gym;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
 import main.java.memoranda.database.BeltEntity;
 import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.util.SqlConstants;
 import org.junit.Test;
 
 public class GymTest {
@@ -94,6 +96,22 @@ public class GymTest {
 
         //just to make sure the test user isn't still in the db.
         Response deleteRes2 = gym.deleteUser("unique13131312231@gmail.com");
+    }
+
+
+
+    @Test
+    public void testTrainerAvail(){
+        Gym gym = new Gym();
+
+        //gym.createTrainer("1331331@gmail.com","test1","test2","1234",new BeltEntity("black3"));
+
+        //("MM/dd/yyyy");
+        LocalDate d = LocalDate.of(1998,04,28);
+        String s = d.format(SqlConstants.DBDATEFORMAT);
+        LocalDate localDate =  LocalDate.parse(s,SqlConstants.DBDATEFORMAT);
+        gym.createAvailability("1331331@gmail.com",5.0,13.0, localDate);
+
     }
 
 }

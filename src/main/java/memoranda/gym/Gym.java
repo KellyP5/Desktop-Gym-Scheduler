@@ -7,6 +7,7 @@ import main.java.memoranda.database.BeltEntity;
 import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.database.TrainerAvailabilityEntity;
 import main.java.memoranda.database.UserEntity;
 import main.java.memoranda.ui.App;
 
@@ -80,6 +81,54 @@ public class Gym {
 
 
     //DB Encapsulated Create methods /////////////////////////////////////////////////////////
+
+    /*
+
+
+        String userEmail = extractTrainerEmail();
+        double start = Local.getDoubleTime(startTimeCB.getSelectedItem().toString());
+        double end = Local.getDoubleTime(endTimeCB.getSelectedItem().toString());
+        LocalDate date = this.date;
+
+     */
+
+    public Response createAvailability(String email, double startTime, double entTime, LocalDate date){
+
+        //check if the user exists
+
+        //check if the user is a trainer
+
+        //PRIMARY KEY(TrainerEmail, StartDate, StartTime, EndTime)
+
+        try {
+            //test if the user already exists.
+            UserEntity ue = conn.getDrq().getUserByEmail(email);
+            if (ue == null) {
+                return Response.failure("Error: User does not exists.");
+            } else {
+
+                conn.getDcq().insertTrainerAvailability(email,date.toString(),startTime,entTime);
+                ArrayList<TrainerAvailabilityEntity> tae = conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
+                int i = 0;
+            }
+
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error.");
+        }
+
+/*        return Response.success("Success: Admin created.");*/
+
+
+
+        return null;
+    }
+
+
+
+
+
+
 
 
     /**
@@ -297,7 +346,6 @@ public class Gym {
     }
 
     //update user fname, lastname, email, belt, trainerbelt, roles
-
 
 
     //DB Encapsulated Delete methods /////////////////////////////////////////////////////////

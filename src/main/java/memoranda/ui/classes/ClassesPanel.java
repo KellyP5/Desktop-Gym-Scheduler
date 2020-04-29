@@ -222,8 +222,9 @@ public class ClassesPanel extends JPanel {
             //TODO
         });
         setAvailabilityBut.addActionListener((e)->{
-            System.out.println("Debug: setAvailabilityBut TODO");
-            //TODO
+            new ClassesSetAvailability(this, setAvailabilityBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                    parentPanelReference.currentDate.getMonth()+1,
+                    parentPanelReference.currentDate.getDay()));
         });
         enrollClassButt.addActionListener((e)->{
             System.out.println("Debug: enrollClassButt TODO");

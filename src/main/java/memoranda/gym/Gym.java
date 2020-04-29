@@ -60,6 +60,7 @@ public class Gym {
 
     /**
      * Returns Role Entity.
+     *
      * @return the Role Entity
      */
     public RoleEntity getUserRole() {
@@ -266,6 +267,38 @@ public class Gym {
 
         return Response.success("Success: User retreived", ue);
     }
+
+    //DB Encapsulated Update methods /////////////////////////////////////////////////////////
+
+    public Response updateUserPassword(String email) {
+
+        UserEntity ue = null;
+        try {
+            ue = conn.getDrq().getUserByEmail(email);
+
+            if (ue == null) {
+                return Response.failure("Error: Cannot delete, user does not exist.");
+            }
+
+            conn.getDcq().deleteUser(email);
+            ue = conn.getDrq().getUserByEmail(email);
+
+            if (ue == null) {
+                return Response.success("Success: User deleted");
+            }
+
+            return Response.failure("Error: User is not deleted.");
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error.");
+        }
+
+
+    }
+
+    //update user fname, lastname, email, belt, trainerbelt, roles
+
+
 
     //DB Encapsulated Delete methods /////////////////////////////////////////////////////////
 

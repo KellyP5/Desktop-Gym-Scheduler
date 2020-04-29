@@ -34,12 +34,10 @@ public class databaseEntityTest {
      * Sets up for database object tests
      */
     @BeforeClass
-    public static void setUp() throws SQLException, IOException {
+    public static void setUp() {
         be1 = new BeltEntity("");
         ur1 = new RoleEntity(RoleEntity.UserRole.trainer);
         imageUrl = "src/main/resources/ui/Placeholder.png";
-        LoginBox loginBox = new LoginBox();
-        App app = new App(true, loginBox.conn);
     }
 
     /**
@@ -120,9 +118,6 @@ public class databaseEntityTest {
         assertEquals("customer", re3.toString());
 
     }
-
-
-
 
     /**
      * Tests trainer availbility Entity

@@ -416,7 +416,7 @@ public class DailyItemsPanel extends JPanel {
     /**
      * Can be called to refresh all rooms on classes panel.
      */
-    public void refreshClassesPanel() {
+    public void refreshClassesPanel() throws SQLException {
         classesPanel.refresh();
     }
 }

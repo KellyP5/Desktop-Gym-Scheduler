@@ -185,7 +185,11 @@ public class UserEntity {
      * @return The trainer's BeltEntity
      */
     public BeltEntity getTrainingBelt() {
-        return _trainingBelt;
+        if (_trainingBelt == null) {
+            return new BeltEntity(BeltEntity.Rank.white);
+        } else {
+            return _trainingBelt;
+        }
     }
 
     /**

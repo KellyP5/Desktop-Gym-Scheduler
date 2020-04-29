@@ -51,7 +51,7 @@ public class DbCreateQueries {
                             String lastName,
                             String password,
                             RoleEntity role,
-                            BeltEntity belt,
+                            BeltEntity startingBelt,
                             BeltEntity trainingBelt,
                             String imageUrl) throws SQLException {
         String sql = "INSERT INTO USER" +

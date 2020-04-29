@@ -3,6 +3,7 @@ package main.java.memoranda.ui.classes;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import main.java.memoranda.database.GymClassEntity;
+//import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;

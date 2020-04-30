@@ -19,11 +19,14 @@ import main.java.memoranda.ui.App;
  * createCustomer
  * createGroupClass
  * createPrivateClass
- * ---RemoveMethods
+ * createTrainerAvailability
+ * ---Read
+ * readGetClass
  * readGetUser
  * ---UpdateMethods
  * ---DeleteMethods
  * deleteUser
+ * deleteClass
  */
 public class Gym {
 
@@ -48,6 +51,7 @@ public class Gym {
             ecp.printStackTrace();
         }
     }
+
 
     //TODO
     public boolean login() {
@@ -95,10 +99,11 @@ public class Gym {
 
     /**
      * Creates trainer availability.
-     * @param email The email of the trainer.
+     *
+     * @param email     The email of the trainer.
      * @param startTime The start time.
-     * @param endTime The end time.
-     * @param date the date.
+     * @param endTime   The end time.
+     * @param date      the date.
      * @return
      */
     public Response createTrainerAvailability(String email, double startTime, double endTime,
@@ -141,7 +146,7 @@ public class Gym {
             String startDate = date.format(SqlConstants.DBDATEFORMAT);
 
 
-            conn.getDcq().insertTrainerAvailability(email,startDate,startTime,endTime);
+            conn.getDcq().insertTrainerAvailability(email, startDate, startTime, endTime);
             curAvail = conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
 
             for (int i = 0; i < curAvail.size(); i++) {
@@ -346,10 +351,34 @@ public class Gym {
         return Response.success("Success: User retreived", ue);
     }
 
+    /**
+     * Gets just 1 class.
+     * @param localDate is the local date
+     * @param startTime is the start time
+     * @param roomNumber is the room number
+     * @return
+     */
+    public Response readGetClass(LocalDate localDate, double startTime, int roomNumber) {
+
+        try {
+            String str = localDate.format(SqlConstants.DBDATEFORMAT);
+            GymClassEntity gce = conn.getDrq().getClass(str, startTime, roomNumber);
+            if (gce == null) {
+                return Response.failure("Error: Class not found.");
+            }
+            return Response.success("Success: Class found.", gce);
+
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error");
+        }
+    }
+
     //DB Encapsulated Update methods /////////////////////////////////////////////////////////
 
     /**
-     *  //TODO
+     * //TODO
+     *
      * @param email
      * @return
      */
@@ -379,11 +408,11 @@ public class Gym {
 
     }
 
-
     //DB Encapsulated Delete methods /////////////////////////////////////////////////////////
 
     /**
      * Deletes a user from the database.
+     *
      * @param email the email of the user.
      * @return the response.
      */
@@ -410,6 +439,31 @@ public class Gym {
         }
 
     }
+
+    /**
+     * Deletes 1 classs.
+     *
+     * @param roomNumber The room number.
+     * @param startDate  The start date.
+     * @param startTime  The start time.
+     * @return
+     */
+    public Response deleteClass( LocalDate startDate,double startTime,int roomNumber ) {
+
+        try {
+
+            String str = startDate.format(SqlConstants.DBDATEFORMAT);
+            conn.getDbd().deleteClass(roomNumber, str, startTime);
+
+            return Response.failure("Success: Class might be deleted.");
+
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error.");
+        }
+
+    }
+
 }
 
 

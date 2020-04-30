@@ -222,9 +222,78 @@ public class DbReadQueries {
         return classesTrainerIsTeaching;
     }
 
-    /*
-    helper method for creating and returning a GymClassEntity from a result set
+    /**
+     * Gets classes by the date and time.
+     *
+     * @param localDate date to search
+     * @param time      time to search
+     * @param room      room to search
+     * @return ArrayList<GymClassEntity>
+     * @throws SQLException
      */
+    public ArrayList<GymClassEntity> getAllClassesByDateTime(LocalDate localDate, double time,
+                                                             int room) throws SQLException {
+        String strDate = localDate.format(SqlConstants.DBDATEFORMAT);
+
+        String sql = "SELECT * FROM GYMCLASS WHERE StartDate=?" +
+            "AND StartTime=?" +
+            "AND RoomNumber=?";
+
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, strDate);
+        pstmt.setDouble(2, time);
+        pstmt.setInt(3, room);
+
+        ResultSet rs = pstmt.executeQuery();
+
+        ArrayList<GymClassEntity> gymClasses = new ArrayList<>();
+        while (rs.next()) {
+            gymClasses.add(_getGymClassFromResultSet(rs));
+        }
+
+        pstmt.close();
+        conn.close();
+        return gymClasses;
+    }
+
+    /**
+     * Parses the classes for 1 class.
+     * @param localDate the localdate
+     * @param startTime the start time
+     * @param roomNumber the room number.
+     * @return
+     * @throws SQLException throws this exception.
+     */
+    public GymClassEntity getClass(String localDate, double startTime, int roomNumber)
+        throws SQLException {
+        String sql = "SELECT * FROM GYMCLASS " +
+            "WHERE RoomNumber=? AND " +
+            "StartDate=? AND " +
+            "StartTime=?;";
+
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, roomNumber);
+        pstmt.setString(2, localDate);
+        pstmt.setDouble(3, startTime);
+
+        ResultSet rs = pstmt.executeQuery();
+        //////////////////////////////////
+        if (!rs.next()) {
+            return null;
+        }
+        //////////////////////////////////
+        GymClassEntity gce = _getGymClassFromResultSet(rs);
+
+        pstmt.close();
+        conn.close();
+        return gce;
+    }
+
+    /*
+helper method for creating and returning a GymClassEntity from a result set
+ */
     private GymClassEntity _getGymClassFromResultSet(ResultSet rs) throws SQLException {
 
         LocalDateTime startDateTime = _getLocalDateTimeFromDbFields(
@@ -277,41 +346,6 @@ public class DbReadQueries {
         LocalTime localTime = LocalTime.of(hours, minutes);
 
         return LocalDateTime.of(localDate, localTime);
-    }
-
-    /**
-     * Gets classes by the date and time.
-     *
-     * @param localDate date to search
-     * @param time      time to search
-     * @param room      room to search
-     * @return ArrayList<GymClassEntity>
-     * @throws SQLException
-     */
-    public ArrayList<GymClassEntity> getAllClassesByDateTime(LocalDate localDate, double time,
-                                                             int room) throws SQLException {
-        String strDate = localDate.format(SqlConstants.DBDATEFORMAT);
-
-        String sql = "SELECT * FROM GYMCLASS WHERE StartDate=?" +
-            "AND StartTime=?" +
-            "AND RoomNumber=?";
-
-        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, strDate);
-        pstmt.setDouble(2, time);
-        pstmt.setInt(3, room);
-
-        ResultSet rs = pstmt.executeQuery();
-
-        ArrayList<GymClassEntity> gymClasses = new ArrayList<>();
-        while (rs.next()) {
-            gymClasses.add(_getGymClassFromResultSet(rs));
-        }
-
-        pstmt.close();
-        conn.close();
-        return gymClasses;
     }
 
     /**

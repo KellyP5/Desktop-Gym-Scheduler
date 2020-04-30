@@ -72,7 +72,7 @@ public class UserManagementRemoveUser extends JDialog {
 
                 System.out.println("Deleting the user " + _email);
 
-                Gym gym = new Gym();
+                Gym gym = Gym.getInstance();
                 gym.deleteUser(_email);
                 this.userManagement.removeUserFromTable();
                 dispose();

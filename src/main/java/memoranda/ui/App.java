@@ -8,7 +8,6 @@ import java.util.Properties;
 import javax.swing.UIManager;
 import main.java.memoranda.EventsScheduler;
 import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Configuration;
 
 /**
@@ -36,8 +35,6 @@ public class App {
     public static final String WEBSITE_URL = "http://globogym.com";
 
     public static SqlConnection conn = null;
-
-    public static Gym gym = null;
 
     FileInputStream input;
 
@@ -87,8 +84,6 @@ public class App {
         super();
 
         this.conn = connection;
-
-        this.gym = new Gym();//insert connection code
 
         // Updates the version and build numbers via the build.gradle file
         try {

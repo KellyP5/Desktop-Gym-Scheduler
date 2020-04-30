@@ -97,8 +97,6 @@ public class GymTest {
         Response deleteRes2 = gym.deleteUser("unique13131312231@gmail.com");
     }
 
-
-
     @Test
     public void testTrainerAvail(){
         Gym gym = new Gym();
@@ -106,8 +104,6 @@ public class GymTest {
         gym.deleteUser("1331331@gmail.com");
         gym.createTrainer("1331331@gmail.com","test1","test2","1234",new BeltEntity("black3"));
         //("MM/dd/yyyy");
-
-
 
         LocalDate localDate = LocalDate.of(1998,04,28);
 
@@ -117,6 +113,33 @@ public class GymTest {
         assertEquals(false,res.isFailure());
         assertEquals(null,res.getValue());
         assertEquals("Success: Trainers availability has been added.",res.getMsg());
+    }
+
+    @Test
+    public void testDeleteClass(){
+
+        Gym gym = new Gym();
+        Response res1 = gym.createTrainer("1331331@gmail.com","test1","test2","1234",new BeltEntity("black3"));
+
+        LocalDate ld = LocalDate.of(1988,04,28);
+        double startTime = 5.0;
+        double endTime = 8.0;
+
+        Response res2 = gym.createGroupClass(1337,ld,startTime,endTime,"1331331@gmail.com",20,
+            new BeltEntity("white"), "1331331@gmail.com");
+
+        Response res3 = gym.readGetClass(ld,startTime,1337);
+
+        assertEquals("Success: Class found.",res3.getMsg());
+
+        Response res4 = gym.deleteClass(ld,startTime,1337);
+
+        assertEquals("Success: Class might be deleted.",res4.getMsg());
+
+        Response res5 = gym.readGetClass(ld,startTime,1337);
+
+        assertEquals("Error: Class not found.",res5.getMsg());
+
     }
 
 }

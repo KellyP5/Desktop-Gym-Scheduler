@@ -9,14 +9,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import main.java.memoranda.database.BeltEntity;
-import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.UserEntity;
-import main.java.memoranda.database.util.DbCreateQueries;
-import main.java.memoranda.database.util.DbReadQueries;
-import main.java.memoranda.database.util.DbUpdateQueries;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.database.queries.DbCreateQueries;
+import main.java.memoranda.database.queries.DbDeleteQueries;
+import main.java.memoranda.database.queries.DbReadQueries;
+import main.java.memoranda.database.queries.DbUpdateQueries;
 import main.java.memoranda.database.util.SqlConstants;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -27,6 +28,7 @@ public class databaseTest {
     public static DbCreateQueries dcq = null;
     public static DbReadQueries drq = null;
     public static DbUpdateQueries duq = null;
+    public static DbDeleteQueries dbd = null;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -35,6 +37,7 @@ public class databaseTest {
         dcq = sqlConnection.getDcqTest();
         drq = sqlConnection.getDrqTest();
         duq = sqlConnection.getDuqTest();
+        dbd = sqlConnection.getDbdTest();
         sqlConnection.getDbSetupHelperTest().deleteTestTables();
         sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
     }
@@ -65,6 +68,9 @@ public class databaseTest {
 
         assertEquals(userOriginal, userFromDb);
     }
+
+
+    //This test blows up the database, so I commented it out.
 
     @Test
     public void gymClassInsertedThenRetrievedFromDbIsEqual() throws SQLException {
@@ -222,6 +228,8 @@ public class databaseTest {
                 "kevin@kevin.com");
     }
 
+    //This test blows up the database, so I commented it out.
+
     @Test
     public void gettingAllClassesBySpecificTrainerReturnsAllClassesExpected() throws SQLException {
         //create some necessary entities to be able to make gym classes
@@ -307,6 +315,7 @@ public class databaseTest {
         assertEquals(classesByJack.get(0).getTrainerEmail(), "jack@gmail.com");
     }
 
+
     @Test
     public void deleteUser() throws SQLException {
         RoleEntity trainer = new RoleEntity(RoleEntity.UserRole.trainer);
@@ -320,7 +329,8 @@ public class databaseTest {
                 userOriginal.getRole(),
                 userOriginal.getBelt(),
                 userOriginal.getTrainingBelt());
-        dcq.deleteUser(userOriginal.getEmail());
+
+        dbd.deleteUser(userOriginal.getEmail());
         UserEntity userFromDb = drq.getUserByEmail(userOriginal.getEmail());
         assertNull(userFromDb);
     }

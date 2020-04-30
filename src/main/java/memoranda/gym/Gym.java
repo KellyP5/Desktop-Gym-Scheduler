@@ -92,43 +92,56 @@ public class Gym {
 
      */
 
-    public Response createAvailability(String email, double startTime, double entTime, LocalDate date){
+    public Response createTrainerAvailability(String email, double startTime, double entTime,
+                                              LocalDate date) {
 
-        //check if the user exists
 
+        TrainerAvailabilityEntity newTAE =
+            new TrainerAvailabilityEntity(email, date, startTime, entTime);
         //check if the user is a trainer
 
         //PRIMARY KEY(TrainerEmail, StartDate, StartTime, EndTime)
 
         try {
-            //test if the user already exists.
+
             UserEntity ue = conn.getDrq().getUserByEmail(email);
+
             if (ue == null) {
                 return Response.failure("Error: User does not exists.");
-            } else {
-
-                conn.getDcq().insertTrainerAvailability(email,date.toString(),startTime,entTime);
-                ArrayList<TrainerAvailabilityEntity> tae = conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
-                int i = 0;
             }
+            if (!ue.isTrainer()) {
+                return Response.failure("Error: User is not a trainer.");
+            }
+            ArrayList<TrainerAvailabilityEntity> curAvail =
+                conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
+
+            //returns values in the format of 1998-04-28T05:00
+
+            //need to see what is the current availabilty
+            for (int i = 0; i < curAvail.size(); i++) {
+                TrainerAvailabilityEntity te = curAvail.get(i);
+                if (te.equals(newTAE)) {
+                    return Response.failure("Error: This availability already exists");
+                }
+            }
+
+
+
+/*            conn.getDcq().insertTrainerAvailability(email, date.toString(), startTime, entTime);
+            ArrayList<TrainerAvailabilityEntity> tae =
+                conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
+            int i = 0;*/
 
         } catch (SQLException ecp) {
             ecp.printStackTrace();
             return Response.failure("Error: SQL error.");
         }
 
-/*        return Response.success("Success: Admin created.");*/
-
+        /*        return Response.success("Success: Admin created.");*/
 
 
         return null;
     }
-
-
-
-
-
-
 
 
     /**

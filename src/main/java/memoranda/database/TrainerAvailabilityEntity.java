@@ -16,16 +16,16 @@ public class TrainerAvailabilityEntity {
     private LocalDateTime _startDateTime;
     private LocalDateTime _endDateTime;
 
-    public TrainerAvailabilityEntity(String email, double startTime, double entTime,
-                                     LocalDate localDate) {
+    public TrainerAvailabilityEntity(String email,LocalDate localDate,
+                                     double startTime, double entTime) {
 
         this._email = email;
 
-        LocalTime lst = LocalTime.of((int)startTime, 0);
+        LocalTime localStartTime = LocalTime.of((int)startTime, 0);
         LocalTime localEndTime = LocalTime.of((int)entTime, 0);
 
-        this._startDateTime = LocalDateTime.of(localDate, lst);
-        this._startDateTime = LocalDateTime.of(localDate, localEndTime);
+        this._startDateTime = LocalDateTime.of(localDate, localStartTime);
+        this._endDateTime = LocalDateTime.of(localDate, localEndTime);
     }
 
     public TrainerAvailabilityEntity(LocalDateTime _startDateTime, LocalDateTime _endDateTime) {
@@ -87,9 +87,9 @@ public class TrainerAvailabilityEntity {
         LocalDate thatLocalDate = that.getLocalDate();
 
         LocalTime thisStartTime = this.getStartDateTime().toLocalTime();
-        LocalTime thisEndTime = this.getEndDateTime().toLocalTime();
-
         LocalTime thatStartTime = that.getStartDateTime().toLocalTime();
+
+        LocalTime thisEndTime = this.getEndDateTime().toLocalTime();
         LocalTime thatEndTime = that.getEndDateTime().toLocalTime();
 
         return thisLocalDate.equals(thatLocalDate) &&

@@ -178,6 +178,11 @@ public class UserEntity {
         this._trainingBelt = trainingBelt;
     }
 
+
+    public boolean isTrainer(){
+        return this.getRole().toString().compareTo("trainer")==0;
+    }
+
     /**
      * Checks if two users are equal to each other
      *

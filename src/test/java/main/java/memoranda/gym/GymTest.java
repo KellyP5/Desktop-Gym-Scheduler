@@ -110,7 +110,7 @@ public class GymTest {
         LocalDate d = LocalDate.of(1998,04,28);
         String s = d.format(SqlConstants.DBDATEFORMAT);
         LocalDate localDate =  LocalDate.parse(s,SqlConstants.DBDATEFORMAT);
-        gym.createAvailability("1331331@gmail.com",5.0,13.0, localDate);
+        gym.createTrainerAvailability("1331331@gmail.com",5.0,13.0, localDate);
 
     }
 

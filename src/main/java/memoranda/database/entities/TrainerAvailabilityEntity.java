@@ -1,4 +1,4 @@
-package main.java.memoranda.database;
+package main.java.memoranda.database.entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

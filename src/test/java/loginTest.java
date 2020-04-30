@@ -3,9 +3,9 @@ package test.java;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
-import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.ui.LoginBox;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

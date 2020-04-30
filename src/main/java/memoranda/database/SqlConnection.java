@@ -2,11 +2,11 @@ package main.java.memoranda.database;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import main.java.memoranda.database.util.DbCreateQueries;
-import main.java.memoranda.database.util.DbDeleteQueries;
-import main.java.memoranda.database.util.DbReadQueries;
+import main.java.memoranda.database.queries.DbCreateQueries;
+import main.java.memoranda.database.queries.DbDeleteQueries;
+import main.java.memoranda.database.queries.DbReadQueries;
 import main.java.memoranda.database.util.DbSetupHelper;
-import main.java.memoranda.database.util.DbUpdateQueries;
+import main.java.memoranda.database.queries.DbUpdateQueries;
 import main.java.memoranda.database.util.EnforcedConnection;
 import main.java.memoranda.database.util.SqlConstants;
 

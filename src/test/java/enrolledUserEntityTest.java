@@ -1,6 +1,6 @@
 package test.java;
 
-import main.java.memoranda.database.EnrolledUserEntity;
+import main.java.memoranda.database.entities.EnrolledUserEntity;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

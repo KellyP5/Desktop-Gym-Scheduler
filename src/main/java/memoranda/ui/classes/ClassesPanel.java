@@ -1,6 +1,5 @@
 package main.java.memoranda.ui.classes;
 
-import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.ui.DailyItemsPanel;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Local;

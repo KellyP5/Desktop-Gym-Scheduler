@@ -3,12 +3,12 @@ package main.java.memoranda.gym;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import main.java.memoranda.database.BeltEntity;
-import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.TrainerAvailabilityEntity;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.ui.App;
 
 /**

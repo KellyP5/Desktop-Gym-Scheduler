@@ -1,8 +1,9 @@
-package main.java.memoranda.database.util;
+package main.java.memoranda.database.queries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import main.java.memoranda.database.util.EnforcedConnection;
 
 public class DbDeleteQueries {
 

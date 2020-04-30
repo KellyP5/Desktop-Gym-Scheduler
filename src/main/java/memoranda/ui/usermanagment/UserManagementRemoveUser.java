@@ -1,11 +1,14 @@
 package main.java.memoranda.ui.usermanagment;
 
-import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.util.DbCreateQueries;
+import static main.java.memoranda.ui.App.gym;
 
-import javax.swing.*;
-import java.awt.*;
-import java.sql.SQLException;
+import java.awt.Component;
+import java.awt.Dimension;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 public class UserManagementRemoveUser extends JDialog {
 
@@ -64,16 +67,12 @@ public class UserManagementRemoveUser extends JDialog {
 
         this._b1.addActionListener(actionEvent -> {
             if (_remove == true) {
-                try {
-                    System.out.println("Deleting the user " + _email);
-                    SqlConnection sql = SqlConnection.getInstance();
-                    DbCreateQueries dcq = sql.getDcq();
-                    dcq.deleteUser(_email);
-                    this.userManagement.removeUserFromTable();
-                    dispose();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+
+                System.out.println("Deleting the user " + _email);
+                gym.deleteUser(_email);
+                this.userManagement.removeUserFromTable();
+                dispose();
+
             } else {
                 dispose();
             }

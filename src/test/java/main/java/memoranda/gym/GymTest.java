@@ -15,7 +15,7 @@ public class GymTest {
 
         Gym gym = new Gym();
         // just to make sure we don't have this user already in the DB
-        gym.deleteUser("unique13131312231@gmail.com");
+        Response res = gym.deleteUser("unique13131312231@gmail.com");
 
         BeltEntity be = new BeltEntity("brown2");
         Response create = gym.createTrainer("unique13131312231@gmail.com",
@@ -105,13 +105,19 @@ public class GymTest {
         Gym gym = new Gym();
 
         //gym.createTrainer("1331331@gmail.com","test1","test2","1234",new BeltEntity("black3"));
-
         //("MM/dd/yyyy");
+
         LocalDate d = LocalDate.of(1998,04,28);
         String s = d.format(SqlConstants.DBDATEFORMAT);
         LocalDate localDate =  LocalDate.parse(s,SqlConstants.DBDATEFORMAT);
-        gym.createTrainerAvailability("1331331@gmail.com",5.0,13.0, localDate);
 
+
+        Response res = gym.createTrainerAvailability("1331331@gmail.com",5.0,13.0, localDate);
+
+        assertEquals(true,res.isSuccess());
+        assertEquals(false,res.isFailure());
+        assertEquals(null,res.getValue());
+        assertEquals("Success: Trainers availability has been added.",res.getMsg());
     }
 
 }

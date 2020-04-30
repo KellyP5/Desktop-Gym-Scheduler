@@ -98,8 +98,8 @@ public class Gym {
 
         TrainerAvailabilityEntity newTAE =
             new TrainerAvailabilityEntity(email, date, startTime, entTime);
-        //check if the user is a trainer
 
+        //check if the user is a trainer
         //PRIMARY KEY(TrainerEmail, StartDate, StartTime, EndTime)
 
         try {
@@ -125,22 +125,24 @@ public class Gym {
                 }
             }
 
+            String startDate = date.toString();
 
+            conn.getDcq().insertTrainerAvailability(email,startDate,startTime,entTime);
+            curAvail = conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
 
-/*            conn.getDcq().insertTrainerAvailability(email, date.toString(), startTime, entTime);
-            ArrayList<TrainerAvailabilityEntity> tae =
-                conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
-            int i = 0;*/
+            for (int i = 0; i < curAvail.size(); i++) {
+                TrainerAvailabilityEntity te = curAvail.get(i);
+                if (te.equals(newTAE)) {
+                    return Response.success("Success: Trainers availability has been added.");
+                }
+            }
 
         } catch (SQLException ecp) {
             ecp.printStackTrace();
             return Response.failure("Error: SQL error.");
         }
 
-        /*        return Response.success("Success: Admin created.");*/
-
-
-        return null;
+        return Response.failure("Error: You should not see this.");
     }
 
 
@@ -342,7 +344,7 @@ public class Gym {
                 return Response.failure("Error: Cannot delete, user does not exist.");
             }
 
-            conn.getDcq().deleteUser(email);
+            conn.getDbd().deleteUser(email);
             ue = conn.getDrq().getUserByEmail(email);
 
             if (ue == null) {
@@ -372,7 +374,7 @@ public class Gym {
                 return Response.failure("Error: Cannot delete, user does not exist.");
             }
 
-            conn.getDcq().deleteUser(email);
+            conn.getDbd().deleteUser(email);
             ue = conn.getDrq().getUserByEmail(email);
 
             if (ue == null) {

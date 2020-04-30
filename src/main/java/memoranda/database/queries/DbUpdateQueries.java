@@ -1,16 +1,16 @@
-package main.java.memoranda.database.util;
+package main.java.memoranda.database.queries;
 
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import main.java.memoranda.database.BeltEntity;
-import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.RoleEntity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import main.java.memoranda.database.util.EnforcedConnection;
+import main.java.memoranda.database.util.SqlConstants;
 
 public class DbUpdateQueries {
 

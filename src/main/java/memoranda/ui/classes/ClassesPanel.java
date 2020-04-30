@@ -1,6 +1,5 @@
 package main.java.memoranda.ui.classes;
 
-import main.java.memoranda.database.GymClassEntity;
 import main.java.memoranda.ui.DailyItemsPanel;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Local;
@@ -222,8 +221,9 @@ public class ClassesPanel extends JPanel {
             //TODO
         });
         setAvailabilityBut.addActionListener((e)->{
-            System.out.println("Debug: setAvailabilityBut TODO");
-            //TODO
+            new ClassesSetAvailability(this, setAvailabilityBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                    parentPanelReference.currentDate.getMonth()+1,
+                    parentPanelReference.currentDate.getDay()));
         });
         enrollClassButt.addActionListener((e)->{
             System.out.println("Debug: enrollClassButt TODO");

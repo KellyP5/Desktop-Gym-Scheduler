@@ -1,7 +1,7 @@
 package main.java.memoranda.ui.classes;
 
-import main.java.memoranda.database.BeltEntity;
-import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.util.Local;
 

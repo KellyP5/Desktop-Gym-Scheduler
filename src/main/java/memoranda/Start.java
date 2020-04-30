@@ -30,10 +30,10 @@ public class Start {
      * @param args the input arguments
      */
     public static void main(String[] args) throws IOException, SQLException {
-        gym = new Gym();
+        gym = Gym.getInstance();
 
         if ((args.length == 0) || (!args[0].equals("-m"))) {
-            login = new LoginBox();
+            gym.login();
 
         }
         else{

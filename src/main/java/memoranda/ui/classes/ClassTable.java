@@ -1,6 +1,8 @@
 package main.java.memoranda.ui.classes;
 
-import main.java.memoranda.database.GymClassEntity;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -10,15 +12,13 @@ import main.java.memoranda.ui.DailyItemsPanel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import main.java.memoranda.util.Local;
 
 public class ClassTable extends DefaultTableModel {
 
@@ -28,13 +28,14 @@ public class ClassTable extends DefaultTableModel {
     private int room;
     private ArrayList<GymClassEntity> classes;
     DefaultTableModel dm;
+    private GymClassEntity selectedClass;
 
     /**
      * Constructor
      * @param ref Uses DailyItemspanel to snag CurrentDate attribute
      * @param room Is the room number of the class table
      */
-    public ClassTable(DailyItemsPanel ref, int room)  {
+    public ClassTable(DailyItemsPanel ref, int room) throws SQLException {
 
         this.parentRef = ref;
         this.room = room;
@@ -45,14 +46,14 @@ public class ClassTable extends DefaultTableModel {
     /**
      * Main initialization code for our ClassTable class
      * */
-    private void init() {
+    private void init() throws SQLException {
 
         LocalDate date = LocalDate.of(parentRef.currentDate.getYear(),
                 parentRef.currentDate.getMonth()+1,
                 parentRef.currentDate.getDay());
         initTable(date);
 
-        // Sets all rows to green. Green = still open spots in class
+        // Sets all open classes to WHITE. Sets closed classes to RED
         classTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean
@@ -62,35 +63,34 @@ public class ClassTable extends DefaultTableModel {
                 classTable.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
 
                 });
-
-                setBackground(Color.green);
+                int colFour = Integer.parseInt((String) classTable.getValueAt(row, 4));
+                int colThree = Integer.parseInt((String) classTable.getValueAt(row, 3));
+                if (colFour >= colThree) {
+                    setBackground(Color.RED); // Full class
+                } else {
+                    setBackground(Color.WHITE); // Open class
+                }
                 return this;
             }
         });
-
         initActionListeners();
-
-    }
-
-    private String convertStartDateTime(String dateTime) {
-        return dateTime.substring(dateTime.length() - 5);
     }
 
     /**
      * Initializes the table
      * @param pDate the date the table will use.
      */
-    private void initTable(LocalDate pDate)  {
+    private void initTable(LocalDate pDate) throws SQLException {
         //this.classes = App.conn.getDrqTest().getAllClassesByDate(parentRef.currentDate);
         //LocalDate date = LocalDate.of(2020, 4,11);
-
+        this.date = pDate;
         try{
             this.classes = App.conn.getDrq().getAllClassesByDate(pDate);
         }catch(SQLException c){
             c.printStackTrace();
         }
 
-        String[] columnNames = {"Time", "Trainer", "MinBelt","MaxSize"};
+        String[] columnNames = {"Time", "Trainer", "MinBelt","MaxSize","NumStudents"};
 
         Collections.sort(this.classes);
 
@@ -98,11 +98,13 @@ public class ClassTable extends DefaultTableModel {
         for(int i = 0;i< this.classes.size();i++){
             if(this.classes.get(i).getRoomNumber()==this.room) {
                 ArrayList<String> e = new ArrayList<>();
-                e.add(convertStartDateTime(this.classes.get(i).getStartDateTime().toString())); //time
+                e.add(this.classes.get(i).getStartDateTime().toString()); //time
                 e.add(this.classes.get(i).getTrainerEmail());//trainer
                 e.add(this.classes.get(i).getMinBeltEntityRequired().toString());//MinBelt
                 e.add(Integer.toString(this.classes.get(i).getMaxClassSize()));//MaxSize
-
+                int num = this.classes.get(i).getNumberOfStudentsEnrolledInClass(this.classes.get(i).getId());
+                e.add(Integer.toString(num));
+                //e.add(Integer.toString(this.classes.get(i).getNumStudents()));
                 al.add(e);
             }
         }
@@ -131,6 +133,12 @@ public class ClassTable extends DefaultTableModel {
         this.classTable.setSelectionForeground(Color.BLUE);
         this.classTable.setModel(tableModel);
 
+        // Format columns so text fits
+        TableColumnModel tcm = classTable.getColumnModel();
+        tcm.getColumn(0).setPreferredWidth(100);
+        tcm.getColumn(1).setPreferredWidth(100);
+        tcm.getColumn(3).setPreferredWidth(50);
+        tcm.getColumn(4).setPreferredWidth(70);
     }
 
     /**
@@ -138,10 +146,20 @@ public class ClassTable extends DefaultTableModel {
      */
     private void initActionListeners(){
         CurrentDate.addDateListener(new DateListener() {
-            public void dateChange(CalendarDate d)  {
+            public void dateChange(CalendarDate d) throws SQLException {
                 System.out.println("public void dateChange(CalendarDate d): "+d.toString());
                 date = LocalDate.of(d.getYear(),d.getMonth()+1,d.getDay());
                 refresh();
+            }
+        });
+
+        /**
+         * Registers when a class is selected and stores the class
+         */
+        classTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                classSelected();
             }
         });
     }
@@ -151,7 +169,7 @@ public class ClassTable extends DefaultTableModel {
      * that tables by deleting all the elements, and then inserting
      * all the new elements.
      */
-    private void refresh(){
+    void refresh() throws SQLException {
 
         try{
             this.classes = App.conn.getDrq().getAllClassesByDate(date);
@@ -175,13 +193,32 @@ public class ClassTable extends DefaultTableModel {
         for(int i = 0;i< this.classes.size();i++){
             //test if this classtable is the table to display the class
             if(this.classes.get(i).getRoomNumber()==this.room){
-
-                dm.addRow(new Object[]{convertStartDateTime(this.classes.get(i).getStartDateTime().toString()),
+                int num = this.classes.get(i).getNumberOfStudentsEnrolledInClass(this.classes.get(i).getId());
+                dm.addRow(new Object[]{this.classes.get(i).getStartDateTime().toString(),
                         this.classes.get(i).getTrainerEmail(),
                         this.classes.get(i).getMinBeltEntityRequired(),
-                        Integer.toString(this.classes.get(i).getMaxClassSize())});
-
+                        Integer.toString(this.classes.get(i).getMaxClassSize()),
+                        Integer.toString(num)});
             }
+        }
+    }
+
+    /**
+     * Called to set the currently selected class. Only allows one class to be
+     * selected at a time and that class is stored in the parent Daily Items Panel
+     * For access in other classes.
+     */
+    private void classSelected() {
+        if (classTable.getSelectedRow() > -1) {
+            LocalDate date = Local.convertToLocalDate(classTable.getValueAt(classTable.getSelectedRow(), 0).toString());
+            double time = Local.convertToDoubleTime(classTable.getValueAt(classTable.getSelectedRow(), 0).toString());
+            String email = classTable.getValueAt(classTable.getSelectedRow(), 2).toString();
+            try {
+                selectedClass = App.conn.getDrq().getAllClassesByDateTime(date, time, room).get(0);
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+            parentRef.setSelectedClass(selectedClass);
         }
     }
 }

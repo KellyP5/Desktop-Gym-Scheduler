@@ -9,12 +9,17 @@
 package main.java.memoranda.ui;
 
 import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.gym.Gym;
+import main.java.memoranda.gym.Response;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.sql.SQLException;
+
+import static main.java.memoranda.gym.Gym.*;
 
 public class LoginBox extends JFrame {
 
@@ -22,6 +27,7 @@ public class LoginBox extends JFrame {
     private JFrame splash;
     public static SqlConnection conn = null;
     private App app;
+    private Gym gym;
 
     private static UserEntity _user;
     private JPanel _login;
@@ -42,6 +48,7 @@ public class LoginBox extends JFrame {
         showSplash();
 
         this.conn = SqlConnection.getInstance();
+        gym = Gym.getInstance();
 
         _login = new JPanel();
         _loginButton = new JButton("Login");
@@ -112,7 +119,13 @@ public class LoginBox extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                boolean verified = userVerification();
+                try {
+                    boolean verified = userVerification();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 dispose(); // Close the login dialog box
             }
         });
@@ -126,7 +139,13 @@ public class LoginBox extends JFrame {
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    boolean verified = userVerification();
+                    try {
+                        boolean verified = userVerification();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
             }
         });
@@ -220,10 +239,14 @@ public class LoginBox extends JFrame {
      * @return Returns true if the user's information matches a user in the database,
      * returns false otherwise.
      */
-    public boolean userVerification() {
-        try {
+    public boolean userVerification() throws SQLException, IOException {
             if (_email.getText() != null) {
-                _user = this.conn.getDrq().getUserByEmail(_email.getText());
+                Response response = gym.readGetUser(_email.getText());
+                if (response.isSuccess()) {
+                    _user = (UserEntity) response.getValue();
+                } else {
+                    _user = null;
+                }
                 if (!accountExists(_user)) {
                     accountDoesNotExist();
                     return false;
@@ -239,9 +262,6 @@ public class LoginBox extends JFrame {
                     }
                 }
             }
-        } catch (SQLException | IOException exc) {
-            exc.printStackTrace();
-        }
         return false;
     }
 
@@ -344,7 +364,7 @@ public class LoginBox extends JFrame {
     private void showSplash() {
         splash = new JFrame();
         ImageIcon spl;
-        spl = new ImageIcon(App.class.getResource("/ui/splash.png")); //name is included on the logo
+        spl = new ImageIcon("src/main/resources/ui/splash.png"); //name is included on the logo
         JLabel l = new JLabel();
         l.setSize(400, 300);
         l.setIcon(spl);

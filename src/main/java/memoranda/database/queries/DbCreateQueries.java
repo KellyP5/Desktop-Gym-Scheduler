@@ -1,11 +1,14 @@
-package main.java.memoranda.database.util;
+package main.java.memoranda.database.queries;
 
-import main.java.memoranda.database.BeltEntity;
-import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.RoleEntity;
-
-import java.sql.*;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.time.LocalDate;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.util.EnforcedConnection;
+import main.java.memoranda.database.util.SqlConstants;
 
 /*
 helpful utility class for various create (insert) queries
@@ -18,11 +21,7 @@ public class DbCreateQueries {
         this._dbUrl = dbUrl;
     }
 
-    /*
-    add a new user to the USER table, example usage:
-    RoleEntity role = new RoleEntity(RoleEntity.UserRole.customer);
-    insertUser("steve@gmail.com", "steve", "johnson", "foofoo", role);
-    */
+    //TODO This method should not exist. The database should not allow the creation of a user without a belt.
     public void insertUser(String email,
                            String firstName,
                            String lastName,
@@ -45,19 +44,14 @@ public class DbCreateQueries {
         pstmt.close();
         conn.close();
     }
-    /*
-    add a new user to the USER table, example usage:
-    RoleEntity role = new RoleEntity(RoleEntity.UserRole.trainer);
-    BeltEntity belt = new BeltEntity(BeltEntity.Rank.white);
-    BeltEntity trainingBelt = new BeltEntity(BeltEntity.rank.white);
-    insertUser("steve@gmail.com", "steve", "johnson", "foofoo", role, belt, trainingBelt);
-     */
+
+    //Admin and Trainer uses this
     public void insertUser(String email,
                             String firstName,
                             String lastName,
                             String password,
                             RoleEntity role,
-                            BeltEntity belt,
+                            BeltEntity startingBelt,
                             BeltEntity trainingBelt) throws SQLException {
         String sql = "INSERT INTO USER" +
                 "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
@@ -69,32 +63,51 @@ public class DbCreateQueries {
         pstmt.setString(3, lastName);
         pstmt.setString(4, password);
         pstmt.setString(5, role.userRole.name());
-        pstmt.setString(6, belt.rank.name());
-        pstmt.setString(7, trainingBelt.rank.name());
+        pstmt.setString(6, startingBelt.toString());
+        pstmt.setString(7, trainingBelt.toString());
         pstmt.executeUpdate();
 
         pstmt.close();
         conn.close();
     }
-    /*
-    add a new class to the GYMCLASS table, example usage:
-    BeltEntity minBeltRequired = new BeltEntity(BeltEntity.Rank.white);
-    insertClass(1, "04/11/2020", 12.0, 13.0, "kevin@gmail.com", 20, minBeltRequired,
-                "admin@gmail.com");
-    Note that start time and end time is a double, 0.0 indicates midnight and 23.59 is right
-    before midnight
-     */
+    //Customer uses this
+    public void insertUser(String email,
+                           String firstName,
+                           String lastName,
+                           String password,
+                           RoleEntity role,
+                           BeltEntity startingBelt) throws SQLException {
+
+        String sql = "INSERT INTO USER" +
+            "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
+
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, email);
+        pstmt.setString(2, firstName);
+        pstmt.setString(3, lastName);
+        pstmt.setString(4, password);
+        pstmt.setString(5, role.userRole.name());
+        pstmt.setString(6, startingBelt.toString());
+        pstmt.setString(7, null);
+        pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
+    }
+
+    //TODO startDate time as a string doesn't make sense to use as per KELLY discussion
     public void insertClass(int roomNumber,
-                             String startDate,
-                             double startTime,
-                             double endTime,
-                             String trainerEmail,
-                             int maxClassSize,
-                             BeltEntity minBeltRequired,
-                             String createdByEmail) throws SQLException {
+                            String startDate,
+                            double startTime,
+                            double endTime,
+                            String trainerEmail,
+                            int maxClassSize,
+                            BeltEntity minBeltRequired,
+                            String createdByEmail) throws SQLException {
         String sql = "INSERT INTO GYMCLASS" +
-        "(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
-        "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
+            "(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
+            "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -111,14 +124,50 @@ public class DbCreateQueries {
         pstmt.close();
         conn.close();
     }
-    /*
-    add a new class to the GYMCLASS table, example usage:
-    BeltEntity minBeltRequired = new BeltEntity(BeltEntity.Rank.white);
-    insertClass(1, 1, "04/11/2020", 12.0, 13.0, "kevin@gmail.com", 20, minBeltRequired,
-                "admin@gmail.com");
-    Note that start time and end time is a double, 0.0 indicates midnight and 23.59 is right
-    before midnight
+
+    /**
+     * Inserts class but accounts for LocalDate format.
+     *
+     * @param roomNumber
+     * @param startDate
+     * @param startTime
+     * @param endTime
+     * @param trainerEmail
+     * @param maxClassSize
+     * @param minBeltRequired
+     * @param createdByEmail
+     * @throws SQLException
      */
+    public void insertClass(int roomNumber,
+                            LocalDate startDate,
+                            double startTime,
+                            double endTime,
+                            String trainerEmail,
+                            int maxClassSize,
+                            BeltEntity minBeltRequired,
+                            String createdByEmail) throws SQLException {
+        String strDate = startDate.format(SqlConstants.DBDATEFORMAT);
+        String sql = "INSERT INTO GYMCLASS" +
+            "(RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
+            "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?)";
+
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, roomNumber);
+        pstmt.setString(2, strDate);
+        pstmt.setDouble(3, startTime);
+        pstmt.setDouble(4, endTime);
+        pstmt.setString(5, trainerEmail);
+        pstmt.setInt(6, maxClassSize);
+        pstmt.setString(7, minBeltRequired.rank.name());
+        pstmt.setString(8, createdByEmail);
+        pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
+    }
+
+    //TODO This method should not exist. No one will have any idea on what the ID is to insert the class.
     public void insertClass(int id,
                             int roomNumber,
                             String startDate,
@@ -129,8 +178,8 @@ public class DbCreateQueries {
                             BeltEntity minBeltRequired,
                             String createdByEmail) throws SQLException {
         String sql = "INSERT INTO GYMCLASS" +
-                "(Id, RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
-                "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?,?)";
+            "(Id, RoomNumber,StartDate,StartTime,EndTime,TrainerEmail,MaxClassSize,MinBeltRequired," +
+            "CreatedByEmail) VALUES(?,?,?,?,?,?,?,?,?)";
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -149,6 +198,20 @@ public class DbCreateQueries {
         conn.close();
     }
 
+    public void insertUserImage(String Email, String imageUrl) throws SQLException {
+        String sql = "INSERT INTO USERIMAGE " +
+                "(Email,ImageURL) VALUES (?,?)";
+
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, Email);
+        pstmt.setString(2, imageUrl);
+        pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
+    }
+
 
     /*
     insert a new trainer availability into TRAINERAVAILABILITY, example usage:
@@ -159,7 +222,7 @@ public class DbCreateQueries {
                                           double startTime,
                                           double endTime) throws SQLException {
         String sql = "INSERT INTO TRAINERAVAILABILITY" +
-                "(TrainerEmail,StartDate,StartTime,EndTime) VALUES(?,?,?,?)";
+            "(TrainerEmail,StartDate,StartTime,EndTime) VALUES(?,?,?,?)";
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -172,6 +235,7 @@ public class DbCreateQueries {
         pstmt.close();
         conn.close();
     }
+
     /*
     insert a new user that's signed up for a class (add user to EnrolledUser), example usage:
     insertEnrolledUser(11, "jeff@gmail.com");
@@ -191,6 +255,7 @@ public class DbCreateQueries {
 
     /**
      * Delete a user from the DB based on e-mail
+     *
      * @param userEmail
      * @throws SQLException
      */
@@ -198,11 +263,9 @@ public class DbCreateQueries {
         String sql = "DELETE FROM USER WHERE Email=?; DELETE FROM ENROLLEDUSER WHERE UserEmail=?";
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1,userEmail);
+        pstmt.setString(1, userEmail);
         pstmt.executeUpdate();
         pstmt.close();
         conn.close();
     }
-
-
 }

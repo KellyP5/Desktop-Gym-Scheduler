@@ -5,8 +5,11 @@
  * belt types (belt color, and trainer belt color if applicable)
  *
  */
-package main.java.memoranda.database;
+package main.java.memoranda.database.entities;
 
+import main.java.memoranda.ui.App;
+
+import java.sql.SQLException;
 import java.util.Objects;
 
 /*
@@ -20,6 +23,7 @@ public class UserEntity {
     private RoleEntity _role;
     private BeltEntity _belt;
     private BeltEntity _trainingBelt;
+    private String _imageUrl;
 
     /**
      * Constructor for a user who is not a trainer (student)
@@ -55,6 +59,28 @@ public class UserEntity {
     public String getEmail() {
         return _email;
     }
+
+    /**
+     * Sets the url for the image of the user's photo
+     * @param url The url to use
+     */
+    public void setImageUrl(String url) {
+        this._imageUrl = url;
+    }
+
+    /**
+     * Gets the url for the image of the user's photo
+     * @return The string of the URL
+     */
+    public String getImageUrl() {
+        return this._imageUrl;
+    }
+
+    public String getUserImageFromDB() throws SQLException {
+        this._imageUrl = App.conn.getDrq().getUserImage(this._email);
+        return this._imageUrl;
+    }
+
 
     /**
      * Sets the user's email
@@ -166,7 +192,11 @@ public class UserEntity {
      * @return The trainer's BeltEntity
      */
     public BeltEntity getTrainingBelt() {
-        return _trainingBelt;
+        if (_trainingBelt == null) {
+            return new BeltEntity(BeltEntity.Rank.white);
+        } else {
+            return _trainingBelt;
+        }
     }
 
     /**
@@ -176,6 +206,11 @@ public class UserEntity {
      */
     public void setTrainingBelt(BeltEntity trainingBelt) {
         this._trainingBelt = trainingBelt;
+    }
+
+
+    public boolean isTrainer(){
+        return this.getRole().toString().compareTo("trainer")==0;
     }
 
     /**

@@ -158,11 +158,13 @@ public class ClassesSetAvailability extends JFrame {
 
         Response availability = gym.createTrainerAvailability(userEmail, start, end, date);
         availability.getMsg();
-
-        int dialogButton = JOptionPane.OK_OPTION;
+        /**
+         * Popup window that returns appropriate success or fail message.
+         */
+        Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, availability.getMsg(),
-                "Your Availability", dialogButton, JOptionPane.INFORMATION_MESSAGE,
-                null, null, null);
+                "Your Availability", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, option, option[0]);
 
     }
 

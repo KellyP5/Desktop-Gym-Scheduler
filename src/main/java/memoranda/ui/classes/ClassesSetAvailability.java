@@ -1,25 +1,23 @@
 package main.java.memoranda.ui.classes;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
+import main.java.memoranda.gym.Gym;
+import main.java.memoranda.gym.Response;
+import main.java.memoranda.util.Local;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import main.java.memoranda.util.Local;
+
+
 
 
 /**
- * ClassesSetAvailability class creates pop up window to set up trainer's availability
+ * ClassesSetAvailability class creates pop up window to set up trainer's availability.
  */
 public class ClassesSetAvailability extends JFrame {
 
@@ -36,7 +34,7 @@ public class ClassesSetAvailability extends JFrame {
     JLabel currentDate;
     JLabel fillOutForm;
 
-    /** ClassesSetAvailability constructor
+    /** ClassesSetAvailability constructor.
      *
      * @param ref This parent reference is passed in so we can call refresh on it once the  UI is updated.
      * @param rel Used to set the position of the add user popup.
@@ -53,7 +51,7 @@ public class ClassesSetAvailability extends JFrame {
     }
 
     /**
-     * guiSetAvailability contains gui components for set availability button
+     * guiSetAvailability contains gui components for set availability button.
      */
     public void guiSetAvailability(){
         setAvailability = new JPanel();
@@ -103,11 +101,11 @@ public class ClassesSetAvailability extends JFrame {
     }
 
     /**
-     * actionEventHandler handles mouse events
+     * actionEventHandler handles mouse events.
      */
     public void actionEventHandler(){
         /**
-         * Manages create button entry box
+         * Manages create button entry box.
          */
 
         setButton.addMouseListener(new MouseAdapter() {
@@ -138,48 +136,30 @@ public class ClassesSetAvailability extends JFrame {
         });
     }
 
-    /**
-     * Throws JOptionPane window on error.
-     * @param error Message to display to the user
-     */
-    public void throwInputError (String error) {
-        final JFrame parent = new JFrame();
-        JOptionPane.showMessageDialog(parent, error);
-    }
 
     /**
-     * availabilitySetup stores trainer's entered availability
+     * availabilitySetup stores trainer's entered availability.
      * @throws SQLException Throws exception the time is already set
      */
     public void availabilitySetup () throws SQLException {
-
 
 
         String userEmail = extractTrainerEmail();
         double start = Local.getDoubleTime(startTimeCB.getSelectedItem().toString());
         double end = Local.getDoubleTime(endTimeCB.getSelectedItem().toString());
         LocalDate date = this.date;
-
         System.out.println(date.toString());
-      //  try {
-     //       App.conn.getDcq().insertTrainerAvailability(extractTrainerEmail(), date, start, end);
-      //      showCreatedSuccessfullyPopup();
-      //  } catch (SQLException e) {
-      //      e.printStackTrace();
-      //      return;
-     //   }
-
-    }
-
-    /**
-     * Popup window that tells the user the account was created successfully
-     */
-    public void showCreatedSuccessfullyPopup() {
+        Gym gym = new Gym();
+        Response availability = gym.createTrainerAvailability(userEmail, start, end, date);
+        /**
+         * Popup window that returns appropriate success or fail message.
+         */
         Object[] option = {"OK"};
-        int x = JOptionPane.showOptionDialog(null, "Class was created successfully!",
-                "Class Creation", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
-    }
+        int x = JOptionPane.showOptionDialog(null, availability.getMsg(),
+                "Your Availability", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, option, option[0]);
 
+    }
 
     /**
      * Extracts trainer email from combo box.
@@ -188,7 +168,6 @@ public class ClassesSetAvailability extends JFrame {
     public String extractTrainerEmail() {
         String trainer = trainersCB.getSelectedItem().toString();
         String email = "";
-        int j;
         for (int i = 0; i < trainer.length(); i++) {
             if (trainer.charAt(i) == ' ') {
                 email = trainer.substring(0, i);

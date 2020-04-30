@@ -1,8 +1,8 @@
 package main.java.memoranda.ui;
 
 import main.java.memoranda.History;
-import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;

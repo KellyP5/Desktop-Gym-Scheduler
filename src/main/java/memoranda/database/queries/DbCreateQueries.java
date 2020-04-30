@@ -1,12 +1,14 @@
-package main.java.memoranda.database.util;
+package main.java.memoranda.database.queries;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.time.LocalDate;
-import main.java.memoranda.database.BeltEntity;
-import main.java.memoranda.database.RoleEntity;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.util.EnforcedConnection;
+import main.java.memoranda.database.util.SqlConstants;
 
 /*
 helpful utility class for various create (insert) queries
@@ -238,21 +240,9 @@ public class DbCreateQueries {
         conn.close();
     }
 
-    /**
-     * Delete a user from the DB based on e-mail
-     *
-     * @param userEmail
-     * @throws SQLException
-     */
-    public void deleteUser(String userEmail) throws SQLException {
-        String sql = "DELETE FROM USER WHERE Email=?; DELETE FROM ENROLLEDUSER WHERE UserEmail=?";
-        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, userEmail);
-        pstmt.executeUpdate();
-        pstmt.close();
-        conn.close();
-    }
+
+
+
 
 
 }

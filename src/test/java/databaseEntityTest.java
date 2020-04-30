@@ -1,13 +1,15 @@
 package test.java;
 
-import main.java.memoranda.database.*;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.EnrolledUserEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.util.Local;
 import org.junit.*;
 
-import javax.management.relation.Role;
 import java.time.LocalDateTime;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAmount;
 
 import static org.junit.Assert.*;
 

@@ -1,14 +1,21 @@
-package main.java.memoranda.database.util;
+package main.java.memoranda.database.queries;
 
-import main.java.memoranda.database.*;
-import main.java.memoranda.gym.Gym;
-
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.database.util.EnforcedConnection;
+import main.java.memoranda.database.util.SqlConstants;
 
 /*
 Class for all read related queries
@@ -118,6 +125,7 @@ public class DbReadQueries {
      */
     public ArrayList<TrainerAvailabilityEntity> getTrainerDateTimeAvailabilityByEmail(String email)
             throws SQLException {
+
         String sql = "SELECT * FROM TRAINERAVAILABILITY WHERE TRAINERAVAILABILITY.TrainerEmail=?";
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
@@ -238,7 +246,13 @@ public class DbReadQueries {
      */
     private LocalDateTime _getLocalDateTimeFromDbFields(String strDate, double time) {
         //get LocalDate
-        LocalDate localDate = LocalDate.parse(strDate, SqlConstants.DBDATEFORMAT);
+
+        //LocalDate localDate = LocalDate.parse(strDate, SqlConstants.DBDATEFORMAT);// this is a bug
+
+        LocalDate d = LocalDate.parse(strDate);//this is the fix
+        String formatedStr = d.format(SqlConstants.DBDATEFORMAT);
+        LocalDate localDate =  LocalDate.parse(formatedStr,SqlConstants.DBDATEFORMAT);
+
 
         //get LocalTime
         String strTime = String.valueOf(time);

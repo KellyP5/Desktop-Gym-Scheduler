@@ -1,4 +1,4 @@
-package main.java.memoranda.database;
+package main.java.memoranda.database.entities;
 
 /*
 Enrolled Entity is the entity used for all EnrolledUser related SQL.  This is whats returned for

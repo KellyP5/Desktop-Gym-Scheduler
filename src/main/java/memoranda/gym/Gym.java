@@ -49,6 +49,8 @@ public class Gym {
         }
     }
 
+
+
     //TODO
     public boolean login() {
 
@@ -409,6 +411,24 @@ public class Gym {
         }
 
     }
+
+
+    public Response deleteClass(int roomNumber,LocalDate startDate, double startTime){
+
+        try {
+
+            String str = startDate.format(SqlConstants.DBDATEFORMAT);
+            conn.getDbd().deleteClass(roomNumber,str,startTime);
+
+            return Response.failure("Success: Class might be deleted.");
+
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error.");
+        }
+
+    }
+
 }
 
 

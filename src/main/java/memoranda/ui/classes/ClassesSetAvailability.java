@@ -144,7 +144,7 @@ public class ClassesSetAvailability extends JFrame {
 
 
     /**
-     * availabilitySetup stores trainer's entered availability
+     * availabilitySetup stores trainer's entered availability.
      * @throws SQLException Throws exception the time is already set
      */
     public void availabilitySetup () throws SQLException {
@@ -158,8 +158,10 @@ public class ClassesSetAvailability extends JFrame {
 
         Response availability = gym.createTrainerAvailability(userEmail, start, end, date);
         availability.getMsg();
-        int y = JOptionPane.showOptionDialog(null, availability.getMsg(),
-                "Your Availability", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,
+
+        int dialogButton = JOptionPane.OK_OPTION;
+        int x = JOptionPane.showOptionDialog(null, availability.getMsg(),
+                "Your Availability", dialogButton, JOptionPane.INFORMATION_MESSAGE,
                 null, null, null);
 
     }
@@ -171,7 +173,6 @@ public class ClassesSetAvailability extends JFrame {
     public String extractTrainerEmail() {
         String trainer = trainersCB.getSelectedItem().toString();
         String email = "";
-        int j;
         for (int i = 0; i < trainer.length(); i++) {
             if (trainer.charAt(i) == ' ') {
                 email = trainer.substring(0, i);

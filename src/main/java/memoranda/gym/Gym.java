@@ -63,7 +63,10 @@ public class Gym {
     }
 
 
-    //TODO
+    /**
+     * Launches the LoginBox GUI and gets the currently logged in user 
+     * @return True if the user successfully logged in, false otherwise
+     */
     public boolean login() throws SQLException {
 
         //insert login code

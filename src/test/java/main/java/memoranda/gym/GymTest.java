@@ -105,8 +105,6 @@ public class GymTest {
         gym.createTrainer("1331331@gmail.com","test1","test2","1234",new BeltEntity("black3"));
         //("MM/dd/yyyy");
 
-
-
         LocalDate localDate = LocalDate.of(1998,04,28);
 
         Response res = gym.createTrainerAvailability("1331331@gmail.com",5.0,13.0, localDate);
@@ -126,12 +124,21 @@ public class GymTest {
         LocalDate ld = LocalDate.of(1988,04,28);
         double startTime = 5.0;
         double endTime = 8.0;
+
         Response res2 = gym.createGroupClass(1337,ld,startTime,endTime,"1331331@gmail.com",20,
             new BeltEntity("white"), "1331331@gmail.com");
 
-        Response res3 = gym.deleteClass(1337,ld,startTime);
+        Response res3 = gym.readGetClass(ld,startTime,1337);
 
-        assertEquals("Success: Class might be deleted.",res3.getMsg());
+        assertEquals("Success: Class found.",res3.getMsg());
+
+        Response res4 = gym.deleteClass(ld,startTime,1337);
+
+        assertEquals("Success: Class might be deleted.",res4.getMsg());
+
+        Response res5 = gym.readGetClass(ld,startTime,1337);
+
+        assertEquals("Error: Class not found.",res5.getMsg());
 
     }
 

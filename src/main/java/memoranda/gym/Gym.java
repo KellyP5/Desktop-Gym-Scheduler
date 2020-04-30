@@ -3,12 +3,13 @@ package main.java.memoranda.gym;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.entities.BeltEntity;
 import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.database.entities.RoleEntity;
-import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
 import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.database.util.SqlConstants;
 import main.java.memoranda.ui.App;
 
 /**
@@ -103,6 +104,8 @@ public class Gym {
     public Response createTrainerAvailability(String email, double startTime, double endTime,
                                               LocalDate date) {
 
+/*        //04/29/2020
+        LocalDate date = LocalDate.parse(pdate.toString(), SqlConstants.DBDATEFORMAT);*/
 
         TrainerAvailabilityEntity newTAE =
             new TrainerAvailabilityEntity(email, date, startTime, endTime);
@@ -133,7 +136,9 @@ public class Gym {
                 }
             }
 
-            String startDate = date.toString();
+
+            String startDate = date.format(SqlConstants.DBDATEFORMAT);
+
 
             conn.getDcq().insertTrainerAvailability(email,startDate,startTime,endTime);
             curAvail = conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);

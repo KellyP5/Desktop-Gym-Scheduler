@@ -5,15 +5,20 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import main.java.memoranda.database.entities.BeltEntity;
-import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.database.queries.DbCreateQueries;
 import main.java.memoranda.database.queries.DbDeleteQueries;
 import main.java.memoranda.database.queries.DbReadQueries;
 import main.java.memoranda.database.queries.DbUpdateQueries;
+import main.java.memoranda.database.util.SqlConstants;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -67,7 +72,7 @@ public class databaseTest {
 
     //This test blows up the database, so I commented it out.
 
-/*    @Test
+    @Test
     public void gymClassInsertedThenRetrievedFromDbIsEqual() throws SQLException {
         //create a UserEntity trainer and admin that we can use for creating the gymclass
         RoleEntity trainerRole = new RoleEntity(RoleEntity.UserRole.trainer);
@@ -126,7 +131,7 @@ public class databaseTest {
                 adminUser.getEmail());
         ArrayList<GymClassEntity> classes = drq.getAllClassesByDate(localDate);
         assertEquals(classes.get(0), classOriginal);
-    }*/
+    }
 
     @Test
     public void testNull_emptyDb_drq_getUserByEmail() throws SQLException{
@@ -224,7 +229,7 @@ public class databaseTest {
     }
 
     //This test blows up the database, so I commented it out.
-/*
+
     @Test
     public void gettingAllClassesBySpecificTrainerReturnsAllClassesExpected() throws SQLException {
         //create some necessary entities to be able to make gym classes
@@ -309,7 +314,7 @@ public class databaseTest {
         assertEquals(classesByJack.size(), 1);
         assertEquals(classesByJack.get(0).getTrainerEmail(), "jack@gmail.com");
     }
-*/
+
 
     @Test
     public void deleteUser() throws SQLException {

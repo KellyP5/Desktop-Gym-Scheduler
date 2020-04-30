@@ -6,7 +6,9 @@
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
+
 package main.java.memoranda.util;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -54,8 +56,8 @@ public class FileStorage implements Storage {
         if (mHome.length() > 0) {
             JN_DOCPATH = mHome;
             /*DEBUG*/
-        	System.out.println("[DEBUG]***Memoranda storage path has set to: " +
-        	 JN_DOCPATH);
+            System.out.println("[DEBUG]***Memoranda storage path has set to: " +
+                JN_DOCPATH);
         }
     }
 
@@ -73,14 +75,13 @@ public class FileStorage implements Storage {
             /*The XOM bug: reserved characters are not escaped*/
             //Serializer serializer = new Serializer(new FileOutputStream(filePath), "UTF-8");
             //serializer.write(doc);
-        	
+
             OutputStreamWriter fw =
                 new OutputStreamWriter(new FileOutputStream(filePath), "UTF-8");
             fw.write(doc.toXML());
             fw.flush();
             fw.close();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             new ExceptionDialog(
                 ex,
                 "Failed to write a document to " + filePath,
@@ -109,8 +110,7 @@ public class FileStorage implements Storage {
     public static Document openDocument(String filePath) {
         try {
             return openDocument(new FileInputStream(filePath));
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             new ExceptionDialog(
                 ex,
                 "Failed to read a document from " + filePath,
@@ -137,11 +137,12 @@ public class FileStorage implements Storage {
             JN_DOCPATH + note.getProject().getID() + File.separator;
         doc.putProperty(
             javax.swing.text.Document.TitleProperty,
-            note.getTitle());        
+            note.getTitle());
         CalendarDate d = note.getDate();
 
         filename += note.getId();//d.getDay() + "-" + d.getMonth() + "-" + d.getYear();
-        /*DEBUG*/System.out.println("[DEBUG] Save note: "+ filename);
+        /*DEBUG*/
+        System.out.println("[DEBUG] Save note: " + filename);
 
         try {
             OutputStreamWriter fw =
@@ -152,8 +153,7 @@ public class FileStorage implements Storage {
             fw.close();
             //editorKit.write(new FileOutputStream(filename), doc, 0, doc.getLength());
             //editorKit.write(fw, doc, 0, doc.getLength());
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             new ExceptionDialog(
                 ex,
                 "Failed to write a document to " + filename,
@@ -181,14 +181,16 @@ public class FileStorage implements Storage {
             }*/
 
     }
+
     /**
      * @see main.java.memoranda.util.Storage#openNote(main.java.memoranda.Note)
      */
     public javax.swing.text.Document openNote(Note note) {
 
         HTMLDocument doc = (HTMLDocument) editorKit.createDefaultDocument();
-        if (note == null)
+        if (note == null) {
             return doc;
+        }
         /*
                 String filename = JN_DOCPATH + note.getProject().getID() + File.separator;
                 CalendarDate d = note.getDate();
@@ -200,17 +202,16 @@ public class FileStorage implements Storage {
 
 //            Util.debug("Open note: " + filename);
 //        	Util.debug("Note Title: " + note.getTitle());
-        	doc.setBase(new URL(getNoteURL(note)));
-        	editorKit.read(
+            doc.setBase(new URL(getNoteURL(note)));
+            editorKit.read(
                 new InputStreamReader(new FileInputStream(filename), "UTF-8"),
                 doc,
                 0);
-        }
-        catch (Exception ex) {
-            //ex.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
             // Do nothing - we've got a new empty document!
         }
-        
+
         return doc;
         /*HTMLDocument doc = (HTMLDocument)editorKit.createDefaultDocument();
         if (note == null) return doc;
@@ -233,7 +234,7 @@ public class FileStorage implements Storage {
         return doc;*/
     }
 
-    public String getNoteURL(Note note) {        
+    public String getNoteURL(Note note) {
         return "file:" + JN_DOCPATH + note.getProject().getID() + "/" + note.getId();
     }
 
@@ -247,8 +248,8 @@ public class FileStorage implements Storage {
         String filename = JN_DOCPATH + note.getProject().getID() + File.separator;
 //        CalendarDate d = note.getDate();
         filename += note.getId();//d.getDay() + "-" + d.getMonth() + "-" + d.getYear();
-	return filename;
-   }
+        return filename;
+    }
 
 
     public void removeNote(Note note) {
@@ -283,13 +284,11 @@ public class FileStorage implements Storage {
         String id = prj.getID();
         File f = new File(JN_DOCPATH + id);
         File[] files = f.listFiles();
-        for (int i = 0; i < files.length; i++)
+        for (int i = 0; i < files.length; i++) {
             files[i].delete();
+        }
         f.delete();
     }
-
-
-
 
 
     /**
@@ -302,12 +301,13 @@ public class FileStorage implements Storage {
         File dir = new File(JN_DOCPATH + prj.getID());
         dir.mkdirs();
     }
+
     /**
      * @see main.java.memoranda.util.Storage#openNoteList(main.java.memoranda.Project)
      */
     public NoteList openNoteList(Project prj) {
         String fn = JN_DOCPATH + prj.getID() + File.separator + ".notes";
-      //System.out.println(fn);
+        //System.out.println(fn);
         if (documentExists(fn)) {
             /*DEBUG*/
             System.out.println(
@@ -317,13 +317,13 @@ public class FileStorage implements Storage {
                     + File.separator
                     + ".notes");
             return new NoteListImpl(openDocument(fn), prj);
-        }
-        else {
+        } else {
             /*DEBUG*/
             System.out.println("[DEBUG] New note list created");
             return new NoteListImpl(prj);
         }
     }
+
     /**
      * @see main.java.memoranda.util.Storage#storeNoteList(main.java.memoranda.NoteList, main.java.memoranda.Project)
      */
@@ -339,6 +339,7 @@ public class FileStorage implements Storage {
             nl.getXMLContent(),
             JN_DOCPATH + prj.getID() + File.separator + ".notes");
     }
+
     /**
      * @see main.java.memoranda.util.Storage#openEventsList()
      */
@@ -352,6 +353,7 @@ public class FileStorage implements Storage {
             "[DEBUG] Open events manager: " + JN_DOCPATH + ".events");
         EventsManager._doc = openDocument(JN_DOCPATH + ".events");
     }
+
     /**
      * @see main.java.memoranda.util.Storage#storeEventsList()
      */
@@ -361,6 +363,7 @@ public class FileStorage implements Storage {
             "[DEBUG] Save events manager: " + JN_DOCPATH + ".events");
         saveDocument(EventsManager._doc, JN_DOCPATH + ".events");
     }
+
     /**
      * @see main.java.memoranda.util.Storage#openMimeTypesList()
      */
@@ -371,8 +374,7 @@ public class FileStorage implements Storage {
                     openDocument(
                         FileStorage.class.getResourceAsStream(
                             "/util/default.mimetypes"));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 new ExceptionDialog(
                     e,
                     "Failed to read default mimetypes config from resources",
@@ -385,6 +387,7 @@ public class FileStorage implements Storage {
             "[DEBUG] Open mimetypes list: " + JN_DOCPATH + ".mimetypes");
         MimeTypesList._doc = openDocument(JN_DOCPATH + ".mimetypes");
     }
+
     /**
      * @see main.java.memoranda.util.Storage#storeMimeTypesList()
      */
@@ -405,12 +408,12 @@ public class FileStorage implements Storage {
             System.out.println(
                 "[DEBUG] Open context: " + JN_DOCPATH + ".context");
             Context.context.load(new FileInputStream(JN_DOCPATH + ".context"));
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             /*DEBUG*/
             System.out.println("Context created.");
         }
     }
+
     /**
      * @see main.java.memoranda.util.Storage#storeContext()
      */
@@ -420,8 +423,7 @@ public class FileStorage implements Storage {
             System.out.println(
                 "[DEBUG] Save context: " + JN_DOCPATH + ".context");
             Context.context.save(new FileOutputStream(JN_DOCPATH + ".context"));
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             new ExceptionDialog(
                 ex,
                 "Failed to store context to " + JN_DOCPATH + ".context",

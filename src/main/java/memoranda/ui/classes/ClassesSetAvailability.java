@@ -151,7 +151,6 @@ public class ClassesSetAvailability extends JFrame {
         System.out.println(date.toString());
         Gym gym = new Gym();
         Response availability = gym.createTrainerAvailability(userEmail, start, end, date);
-        availability.getMsg();
         /**
          * Popup window that returns appropriate success or fail message.
          */

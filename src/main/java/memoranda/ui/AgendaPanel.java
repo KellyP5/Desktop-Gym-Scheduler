@@ -1,9 +1,8 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.History;
-import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.RoleEntity;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -43,6 +42,8 @@ public class AgendaPanel extends JPanel {
 	boolean trainerView = false;
 
 	boolean studentView = true;
+
+	Gym gym = new Gym();
 
 	/**
 	 * The Panel.
@@ -255,8 +256,9 @@ public class AgendaPanel extends JPanel {
 
 
 		studentViewClassBut.setFont(new Font("Arial", Font.PLAIN, 10));
-		if(App.gym.getUserRole().userRole == RoleEntity.UserRole.admin
-				||App.gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
+
+		if(gym.getUserRole().userRole == RoleEntity.UserRole.admin
+				||gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
 
 		toolBar.add(studentViewClassBut);
 		toolBar.addSeparator(new Dimension(2, 24));
@@ -266,12 +268,11 @@ public class AgendaPanel extends JPanel {
 		}
 		//toolBar.addSeparator(new Dimension(8, 24));
 		this.add(toolBar, BorderLayout.NORTH);
+		studentViewClassBut.setEnabled(false);
+		toolBarListeners();
 	}
 
-	/**
-	 * Sets up our event listener for keeping our date current and what we are displaying to the user.
-	 */
-	void initEventListeners() {
+	void toolBarListeners(){
 		this.studentViewClassBut.addActionListener(new ActionListener(){
 
 			public void actionPerformed( ActionEvent aActionEvent ) {
@@ -279,6 +280,8 @@ public class AgendaPanel extends JPanel {
 				studentView = true;
 				trainerView = false;
 				refresh(CurrentDate.get());
+				studentViewClassBut.setEnabled(false);
+				trainerViewClassBut.setEnabled(true);
 			}});
 		this.trainerViewClassBut.addActionListener(e -> {
 			if(e.getSource() == trainerViewClassBut) {
@@ -286,8 +289,18 @@ public class AgendaPanel extends JPanel {
 				studentView = false;
 				trainerView = true;
 				refresh(CurrentDate.get());
+				studentViewClassBut.setEnabled(true);
+				trainerViewClassBut.setEnabled(false);
 			}
 		});
+	}
+
+
+
+	/**
+	 * Sets up our event listener for keeping our date current and what we are displaying to the user.
+	 */
+	void initEventListeners() {
 		studentViewClassBut.addActionListener((e)->{
 			System.out.println("Debug: removeClassBut TODO");
 			//TODO

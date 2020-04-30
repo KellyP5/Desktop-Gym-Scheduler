@@ -92,12 +92,20 @@ public class Gym {
 
      */
 
-    public Response createTrainerAvailability(String email, double startTime, double entTime,
+    /**
+     * Creates trainer availability.
+     * @param email The email of the trainer.
+     * @param startTime The start time.
+     * @param endTime The end time.
+     * @param date the date.
+     * @return
+     */
+    public Response createTrainerAvailability(String email, double startTime, double endTime,
                                               LocalDate date) {
 
 
         TrainerAvailabilityEntity newTAE =
-            new TrainerAvailabilityEntity(email, date, startTime, entTime);
+            new TrainerAvailabilityEntity(email, date, startTime, endTime);
 
         //check if the user is a trainer
         //PRIMARY KEY(TrainerEmail, StartDate, StartTime, EndTime)
@@ -127,7 +135,7 @@ public class Gym {
 
             String startDate = date.toString();
 
-            conn.getDcq().insertTrainerAvailability(email,startDate,startTime,entTime);
+            conn.getDcq().insertTrainerAvailability(email,startDate,startTime,endTime);
             curAvail = conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
 
             for (int i = 0; i < curAvail.size(); i++) {
@@ -334,6 +342,11 @@ public class Gym {
 
     //DB Encapsulated Update methods /////////////////////////////////////////////////////////
 
+    /**
+     *  //TODO
+     * @param email
+     * @return
+     */
     public Response updateUserPassword(String email) {
 
         UserEntity ue = null;
@@ -360,11 +373,14 @@ public class Gym {
 
     }
 
-    //update user fname, lastname, email, belt, trainerbelt, roles
-
 
     //DB Encapsulated Delete methods /////////////////////////////////////////////////////////
 
+    /**
+     * Deletes a user from the database.
+     * @param email the email of the user.
+     * @return the response.
+     */
     public Response deleteUser(String email) {
         UserEntity ue = null;
         try {

@@ -1,6 +1,5 @@
 package main.java.memoranda.ui.usermanagment;
 
-import static main.java.memoranda.ui.App.gym;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -9,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import main.java.memoranda.gym.Gym;
 
 public class UserManagementRemoveUser extends JDialog {
 
@@ -24,6 +24,7 @@ public class UserManagementRemoveUser extends JDialog {
      * @param  role of the user trying to remove
      */
     public UserManagementRemoveUser(UserManagement ref, Component rel, String email, String role){
+
         super(new JFrame());
         this.userManagement = ref;
 
@@ -66,9 +67,12 @@ public class UserManagementRemoveUser extends JDialog {
     private void _setActions(){
 
         this._b1.addActionListener(actionEvent -> {
+
             if (_remove == true) {
 
                 System.out.println("Deleting the user " + _email);
+
+                Gym gym = new Gym();
                 gym.deleteUser(_email);
                 this.userManagement.removeUserFromTable();
                 dispose();

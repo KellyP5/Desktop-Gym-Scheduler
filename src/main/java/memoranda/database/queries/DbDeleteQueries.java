@@ -14,6 +14,20 @@ public class DbDeleteQueries {
         this._dbUrl = dbUrl;
     }
 
+    public void deleteClass(int roomNumber, String startDate, double startTime)
+        throws SQLException {
+        String sql = "DELETE FROM GYMCLASS WHERE RoomNumber=? AND " +
+            "StartDate=? AND " +
+            "StartTime=?;";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, roomNumber);
+        pstmt.setString(2, startDate);
+        pstmt.setDouble(3, startTime);
+        pstmt.executeUpdate();
+        pstmt.close();
+        conn.close();
+    }
 
     /**
      * Delete a user from the DB based on e-mail

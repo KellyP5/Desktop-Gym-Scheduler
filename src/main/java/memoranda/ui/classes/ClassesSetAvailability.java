@@ -154,7 +154,6 @@ public class ClassesSetAvailability extends JFrame {
     public void availabilitySetup () throws SQLException {
 
 
-        //test comment
         String userEmail = extractTrainerEmail();
         double start = Local.getDoubleTime(startTimeCB.getSelectedItem().toString());
         double end = Local.getDoubleTime(endTimeCB.getSelectedItem().toString());

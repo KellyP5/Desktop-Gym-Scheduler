@@ -1,11 +1,7 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.database.RoleEntity;
-import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.UserEntity;
-import main.java.memoranda.database.util.DbReadQueries;
+import main.java.memoranda.database.entities.RoleEntity;
 
-import javax.management.relation.Role;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

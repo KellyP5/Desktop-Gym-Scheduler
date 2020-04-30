@@ -1,16 +1,15 @@
 package test.java;
 
-import main.java.memoranda.database.RoleEntity;
+import static org.junit.Assert.assertTrue;
+
+import java.sql.SQLException;
+import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.ui.LoginBox;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.sql.SQLException;
-
-import static org.junit.Assert.assertTrue;
 
 public class loginTest {
 
@@ -35,7 +34,7 @@ public class loginTest {
     @AfterClass
     public static void tearDown() throws SQLException {
         sqlConnection.getDbSetupHelperTest().closeDatabase();
-        sqlConnection.getDcq().deleteUser("Test@Test.com");
+        sqlConnection.getDbd().deleteUser("Test@Test.com");
         // Close the login GUI
         login.dispose();
     }

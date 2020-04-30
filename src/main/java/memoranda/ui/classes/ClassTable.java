@@ -1,6 +1,8 @@
 package main.java.memoranda.ui.classes;
 
-import main.java.memoranda.database.GymClassEntity;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -10,16 +12,13 @@ import main.java.memoranda.ui.DailyItemsPanel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import main.java.memoranda.util.Local;
 
 public class ClassTable extends DefaultTableModel {
 
@@ -29,6 +28,7 @@ public class ClassTable extends DefaultTableModel {
     private int room;
     private ArrayList<GymClassEntity> classes;
     DefaultTableModel dm;
+    private GymClassEntity selectedClass;
 
     /**
      * Constructor
@@ -83,7 +83,7 @@ public class ClassTable extends DefaultTableModel {
     private void initTable(LocalDate pDate)  {
         //this.classes = App.conn.getDrqTest().getAllClassesByDate(parentRef.currentDate);
         //LocalDate date = LocalDate.of(2020, 4,11);
-
+        this.date = pDate;
         try{
             this.classes = App.conn.getDrq().getAllClassesByDate(pDate);
         }catch(SQLException c){
@@ -150,6 +150,16 @@ public class ClassTable extends DefaultTableModel {
                 refresh();
             }
         });
+
+        /**
+         * Registers when a class is selected and stores the class
+         */
+        classTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                classSelected();
+            }
+        });
     }
 
     /**
@@ -157,7 +167,7 @@ public class ClassTable extends DefaultTableModel {
      * that tables by deleting all the elements, and then inserting
      * all the new elements.
      */
-    private void refresh(){
+    public void refresh(){
 
         try{
             this.classes = App.conn.getDrq().getAllClassesByDate(date);
@@ -187,6 +197,24 @@ public class ClassTable extends DefaultTableModel {
                         Integer.toString(this.classes.get(i).getMaxClassSize()),
                         Integer.toString(this.classes.get(i).getNumStudents())});
             }
+        }
+    }
+    /**
+     * Called to set the currently selected class. Only allows one class to be
+     * selected at a time and that class is stored in the parent Daily Items Panel
+     * For access in other classes.
+     */
+    private void classSelected() {
+        if (classTable.getSelectedRow() > -1) {
+            LocalDate date = Local.convertToLocalDate(classTable.getValueAt(classTable.getSelectedRow(), 0).toString());
+            double time = Local.convertToDoubleTime(classTable.getValueAt(classTable.getSelectedRow(), 0).toString());
+            String email = classTable.getValueAt(classTable.getSelectedRow(), 2).toString();
+            try {
+                selectedClass = App.conn.getDrq().getAllClassesByDateTime(date, time, room).get(0);
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+            parentRef.setSelectedClass(selectedClass);
         }
     }
 }

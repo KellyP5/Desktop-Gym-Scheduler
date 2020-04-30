@@ -741,6 +741,7 @@ public class AppFrame extends JFrame {
             App.closeWindow();
                 try {
                     LoginBox login = new LoginBox();
+                    login.toFront();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }

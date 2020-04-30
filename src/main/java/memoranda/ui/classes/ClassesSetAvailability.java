@@ -1,25 +1,19 @@
 package main.java.memoranda.ui.classes;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
+import main.java.memoranda.gym.Gym;
+import main.java.memoranda.gym.Response;
+import main.java.memoranda.util.Local;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
-import main.java.memoranda.gym.Response;
-import main.java.memoranda.util.Local;
 
-import static main.java.memoranda.ui.App.gym;
 
 
 /**
@@ -155,7 +149,7 @@ public class ClassesSetAvailability extends JFrame {
         double end = Local.getDoubleTime(endTimeCB.getSelectedItem().toString());
         LocalDate date = this.date;
         System.out.println(date.toString());
-
+        Gym gym = new Gym();
         Response availability = gym.createTrainerAvailability(userEmail, start, end, date);
         availability.getMsg();
         /**

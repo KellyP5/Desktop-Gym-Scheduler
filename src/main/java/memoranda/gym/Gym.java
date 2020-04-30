@@ -128,6 +128,7 @@ public class Gym {
             if (!ue.isTrainer()) {
                 return Response.failure("Error: User is not a trainer.");
             }
+
             ArrayList<TrainerAvailabilityEntity> curAvail =
                 conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
 

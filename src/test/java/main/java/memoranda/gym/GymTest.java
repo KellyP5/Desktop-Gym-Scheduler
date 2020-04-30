@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.time.LocalDate;
 import main.java.memoranda.database.entities.BeltEntity;
 import main.java.memoranda.database.entities.UserEntity;
-import main.java.memoranda.database.util.SqlConstants;
 import org.junit.Test;
 
 public class GymTest {
@@ -109,9 +108,8 @@ public class GymTest {
         //("MM/dd/yyyy");
 
 
-        LocalDate d = LocalDate.of(1998,04,28);
-        String s = d.format(SqlConstants.DBDATEFORMAT);
-        LocalDate localDate =  LocalDate.parse(s,SqlConstants.DBDATEFORMAT);
+
+        LocalDate localDate = LocalDate.of(1998,04,28);
 
         Response res = gym.createTrainerAvailability("1331331@gmail.com",5.0,13.0, localDate);
 

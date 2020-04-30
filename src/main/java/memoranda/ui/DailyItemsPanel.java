@@ -1,7 +1,6 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.*;
-import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;

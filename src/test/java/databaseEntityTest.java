@@ -1,9 +1,13 @@
 package test.java;
 
-import main.java.memoranda.database.*;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.EnrolledUserEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.util.Local;
 import org.junit.*;
-
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 

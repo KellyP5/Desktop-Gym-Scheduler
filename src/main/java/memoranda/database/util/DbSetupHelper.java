@@ -1,10 +1,15 @@
 package main.java.memoranda.database.util;
 
-import main.java.memoranda.database.*;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.database.queries.DbCreateQueries;
+import main.java.memoranda.database.queries.DbReadQueries;
 
 /*
 Utility class with many helpful methods for setup and configuration of the real db and test db

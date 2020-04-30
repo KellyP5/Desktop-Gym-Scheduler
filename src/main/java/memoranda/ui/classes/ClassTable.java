@@ -2,9 +2,7 @@ package main.java.memoranda.ui.classes;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import main.java.memoranda.database.GymClassEntity;
-//import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -14,15 +12,12 @@ import main.java.memoranda.ui.DailyItemsPanel;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import main.java.memoranda.util.Local;
 
 public class ClassTable extends DefaultTableModel {

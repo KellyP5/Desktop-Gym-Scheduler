@@ -9,7 +9,7 @@
 package main.java.memoranda.ui;
 
 import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

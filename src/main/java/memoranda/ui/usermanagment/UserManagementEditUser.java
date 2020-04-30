@@ -10,9 +10,9 @@
  */
 package main.java.memoranda.ui.usermanagment;
 
-import main.java.memoranda.database.BeltEntity;
-import main.java.memoranda.database.RoleEntity;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.ui.App;
 
 import javax.imageio.ImageIO;

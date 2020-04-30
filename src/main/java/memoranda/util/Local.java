@@ -5,8 +5,9 @@ import java.text.DateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
-import main.java.memoranda.database.RoleEntity;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.App;
 
@@ -215,6 +216,7 @@ public class Local {
             return null;
         }
     }
+
 
     /**
      * Get room names string [ ].

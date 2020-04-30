@@ -5,7 +5,7 @@
  * belt types (belt color, and trainer belt color if applicable)
  *
  */
-package main.java.memoranda.database;
+package main.java.memoranda.database.entities;
 
 import main.java.memoranda.ui.App;
 
@@ -206,6 +206,11 @@ public class UserEntity {
      */
     public void setTrainingBelt(BeltEntity trainingBelt) {
         this._trainingBelt = trainingBelt;
+    }
+
+
+    public boolean isTrainer(){
+        return this.getRole().toString().compareTo("trainer")==0;
     }
 
     /**

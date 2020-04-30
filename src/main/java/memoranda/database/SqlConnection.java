@@ -1,25 +1,34 @@
 package main.java.memoranda.database;
 
-import main.java.memoranda.database.util.*;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import main.java.memoranda.database.queries.DbCreateQueries;
+import main.java.memoranda.database.queries.DbDeleteQueries;
+import main.java.memoranda.database.queries.DbReadQueries;
+import main.java.memoranda.database.util.DbSetupHelper;
+import main.java.memoranda.database.queries.DbUpdateQueries;
+import main.java.memoranda.database.util.EnforcedConnection;
+import main.java.memoranda.database.util.SqlConstants;
 
 /*
 SqlConnection is a singleton pattern that ensures only one connection is made to each database (real and test)
  */
 public class SqlConnection {
 
-    private DbReadQueries drq;
-    private DbReadQueries drqTest;
     private DbCreateQueries dcq;
     private DbCreateQueries dcqTest;
-    private DbSetupHelper dbSetupHelper;
-    private DbSetupHelper dbSetupHelperTest;
+
+    private DbReadQueries drq;
+    private DbReadQueries drqTest;
+
     private DbUpdateQueries duq;
     private DbUpdateQueries duqTest;
+
+    private DbDeleteQueries dbd;
+    private DbDeleteQueries dbdTest;
+
+    private DbSetupHelper dbSetupHelper;
+    private DbSetupHelper dbSetupHelperTest;
 
     /*
     This is just a helper main that can be ran to generate the real and test databases.
@@ -47,6 +56,10 @@ public class SqlConnection {
         dbSetupHelperTest = new DbSetupHelper(SqlConstants.DEFAULTTESTDBLOC);
         duq = new DbUpdateQueries(SqlConstants.DEFAULTDBLOC);
         duqTest = new DbUpdateQueries(SqlConstants.DEFAULTTESTDBLOC);
+
+        this.dbd = new DbDeleteQueries(SqlConstants.DEFAULTDBLOC);
+        this.dbdTest = new DbDeleteQueries(SqlConstants.DEFAULTTESTDBLOC);
+
     }
 
     /*
@@ -95,4 +108,8 @@ public class SqlConnection {
     public DbUpdateQueries getDuqTest() {
         return duqTest;
     }
+
+    public DbDeleteQueries getDbd(){return this.dbd;}
+
+    public DbDeleteQueries getDbdTest(){return this.dbdTest;}
 }

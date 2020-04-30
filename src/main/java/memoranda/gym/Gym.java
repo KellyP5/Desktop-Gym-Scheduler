@@ -3,11 +3,13 @@ package main.java.memoranda.gym;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import main.java.memoranda.database.BeltEntity;
-import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.RoleEntity;
 import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.database.util.SqlConstants;
 import main.java.memoranda.ui.App;
 
 /**
@@ -17,11 +19,14 @@ import main.java.memoranda.ui.App;
  * createCustomer
  * createGroupClass
  * createPrivateClass
- * ---RemoveMethods
+ * createTrainerAvailability
+ * ---Read
+ * readGetClass
  * readGetUser
  * ---UpdateMethods
  * ---DeleteMethods
  * deleteUser
+ * deleteClass
  */
 public class Gym {
 
@@ -47,6 +52,7 @@ public class Gym {
         }
     }
 
+
     //TODO
     public boolean login() {
 
@@ -60,6 +66,7 @@ public class Gym {
 
     /**
      * Returns Role Entity.
+     *
      * @return the Role Entity
      */
     public RoleEntity getUserRole() {
@@ -79,6 +86,83 @@ public class Gym {
 
 
     //DB Encapsulated Create methods /////////////////////////////////////////////////////////
+
+    /*
+
+
+        String userEmail = extractTrainerEmail();
+        double start = Local.getDoubleTime(startTimeCB.getSelectedItem().toString());
+        double end = Local.getDoubleTime(endTimeCB.getSelectedItem().toString());
+        LocalDate date = this.date;
+
+     */
+
+    /**
+     * Creates trainer availability.
+     *
+     * @param email     The email of the trainer.
+     * @param startTime The start time.
+     * @param endTime   The end time.
+     * @param date      the date.
+     * @return
+     */
+    public Response createTrainerAvailability(String email, double startTime, double endTime,
+                                              LocalDate date) {
+
+/*        //04/29/2020
+        LocalDate date = LocalDate.parse(pdate.toString(), SqlConstants.DBDATEFORMAT);*/
+
+        TrainerAvailabilityEntity newTAE =
+            new TrainerAvailabilityEntity(email, date, startTime, endTime);
+
+        //check if the user is a trainer
+        //PRIMARY KEY(TrainerEmail, StartDate, StartTime, EndTime)
+
+        try {
+
+            UserEntity ue = conn.getDrq().getUserByEmail(email);
+
+            if (ue == null) {
+                return Response.failure("Error: User does not exists.");
+            }
+            if (!ue.isTrainer()) {
+                return Response.failure("Error: User is not a trainer.");
+            }
+
+            ArrayList<TrainerAvailabilityEntity> curAvail =
+                conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
+
+            //returns values in the format of 1998-04-28T05:00
+
+            //need to see what is the current availabilty
+            for (int i = 0; i < curAvail.size(); i++) {
+                TrainerAvailabilityEntity te = curAvail.get(i);
+                if (te.equals(newTAE)) {
+                    return Response.failure("Error: This availability already exists");
+                }
+            }
+
+
+            String startDate = date.format(SqlConstants.DBDATEFORMAT);
+
+
+            conn.getDcq().insertTrainerAvailability(email, startDate, startTime, endTime);
+            curAvail = conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
+
+            for (int i = 0; i < curAvail.size(); i++) {
+                TrainerAvailabilityEntity te = curAvail.get(i);
+                if (te.equals(newTAE)) {
+                    return Response.success("Success: Trainers availability has been added.");
+                }
+            }
+
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error.");
+        }
+
+        return Response.failure("Error: You should not see this.");
+    }
 
 
     /**
@@ -267,8 +351,71 @@ public class Gym {
         return Response.success("Success: User retreived", ue);
     }
 
+    /**
+     * Gets just 1 class.
+     * @param localDate is the local date
+     * @param startTime is the start time
+     * @param roomNumber is the room number
+     * @return
+     */
+    public Response readGetClass(LocalDate localDate, double startTime, int roomNumber) {
+
+        try {
+            String str = localDate.format(SqlConstants.DBDATEFORMAT);
+            GymClassEntity gce = conn.getDrq().getClass(str, startTime, roomNumber);
+            if (gce == null) {
+                return Response.failure("Error: Class not found.");
+            }
+            return Response.success("Success: Class found.", gce);
+
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error");
+        }
+    }
+
+    //DB Encapsulated Update methods /////////////////////////////////////////////////////////
+
+    /**
+     * //TODO
+     *
+     * @param email
+     * @return
+     */
+    public Response updateUserPassword(String email) {
+
+        UserEntity ue = null;
+        try {
+            ue = conn.getDrq().getUserByEmail(email);
+
+            if (ue == null) {
+                return Response.failure("Error: Cannot delete, user does not exist.");
+            }
+
+            conn.getDbd().deleteUser(email);
+            ue = conn.getDrq().getUserByEmail(email);
+
+            if (ue == null) {
+                return Response.success("Success: User deleted");
+            }
+
+            return Response.failure("Error: User is not deleted.");
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error.");
+        }
+
+
+    }
+
     //DB Encapsulated Delete methods /////////////////////////////////////////////////////////
 
+    /**
+     * Deletes a user from the database.
+     *
+     * @param email the email of the user.
+     * @return the response.
+     */
     public Response deleteUser(String email) {
         UserEntity ue = null;
         try {
@@ -278,7 +425,7 @@ public class Gym {
                 return Response.failure("Error: Cannot delete, user does not exist.");
             }
 
-            conn.getDcq().deleteUser(email);
+            conn.getDbd().deleteUser(email);
             ue = conn.getDrq().getUserByEmail(email);
 
             if (ue == null) {
@@ -292,6 +439,31 @@ public class Gym {
         }
 
     }
+
+    /**
+     * Deletes 1 classs.
+     *
+     * @param roomNumber The room number.
+     * @param startDate  The start date.
+     * @param startTime  The start time.
+     * @return
+     */
+    public Response deleteClass( LocalDate startDate,double startTime,int roomNumber ) {
+
+        try {
+
+            String str = startDate.format(SqlConstants.DBDATEFORMAT);
+            conn.getDbd().deleteClass(roomNumber, str, startTime);
+
+            return Response.failure("Success: Class might be deleted.");
+
+        } catch (SQLException ecp) {
+            ecp.printStackTrace();
+            return Response.failure("Error: SQL error.");
+        }
+
+    }
+
 }
 
 

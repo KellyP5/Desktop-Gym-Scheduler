@@ -161,13 +161,7 @@ public class ClassesSetAvailability extends JFrame {
         LocalDate date = this.date;
 
         System.out.println(date.toString());
-      //  try {
-     //       App.conn.getDcq().insertTrainerAvailability(extractTrainerEmail(), date, start, end);
-      //      showCreatedSuccessfullyPopup();
-      //  } catch (SQLException e) {
-      //      e.printStackTrace();
-      //      return;
-     //   }
+
 
     }
 

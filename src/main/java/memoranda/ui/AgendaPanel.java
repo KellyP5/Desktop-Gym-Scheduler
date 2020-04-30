@@ -63,6 +63,10 @@ public class AgendaPanel extends JPanel {
 	 * The Scroll pane.
 	 */
 	JScrollPane scrollPane;
+	/**
+	 *
+	 */
+	UserEntity loggedInUser;
 
 	/**
 	 * Instantiates a new Agenda panel.
@@ -85,6 +89,8 @@ public class AgendaPanel extends JPanel {
 	 */
 	void jbInit() throws Exception {
 		this.setLayout(borderLayout1);
+
+		loggedInUser = Gym.getInstance().getUser();
 
 		initToolBar();
 

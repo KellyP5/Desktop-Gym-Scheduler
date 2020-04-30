@@ -1,5 +1,7 @@
 package main.java.memoranda.ui.classes;
 
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.ui.DailyItemsPanel;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Local;
@@ -38,8 +40,11 @@ public class ClassesPanel extends JPanel {
     private ClassTable room3;
     private ClassTable room4;
 
+    private UserEntity loggedInUser;
+
     public ClassesPanel(DailyItemsPanel _parentPanel) {
         try {
+            loggedInUser = Gym.getInstance().getUser();
             date = LocalDate.of(_parentPanel.currentDate.getYear(),
                     _parentPanel.currentDate.getMonth()+1,
                     _parentPanel.currentDate.getDay());
@@ -178,19 +183,39 @@ public class ClassesPanel extends JPanel {
         cancelEnrollmentBut.setFont( new Font("Arial", Font.PLAIN, 10));
 
         //place all the buttons
-        topToolBar.add(schedNewClassBut, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(schedPriClassBut, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(editClassBut, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(removeClassBut, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(setAvailabilityBut, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(enrollClassButt, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(cancelEnrollmentBut, null);
+        loggedInUser = Gym.getInstance().getUser();
+        System.out.println("[DEBUG]: WHAT USER" + loggedInUser.getRole().toString());
+        if (loggedInUser.isTrainer()) {
+            topToolBar.add(schedPriClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(removeClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(setAvailabilityBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(enrollClassButt, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(cancelEnrollmentBut, null);
+        } else if (loggedInUser.isCustomer()) {
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(enrollClassButt, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(cancelEnrollmentBut, null);
+        } else {
+            topToolBar.add(schedNewClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(schedPriClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(editClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(removeClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(setAvailabilityBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(enrollClassButt, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(cancelEnrollmentBut, null);
+        }
+
         this.add(topToolBar, BorderLayout.NORTH);
     }
 

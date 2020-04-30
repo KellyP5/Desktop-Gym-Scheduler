@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -737,10 +738,13 @@ public class AppFrame extends JFrame {
         logoutButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
+            App.closeWindow();
+                try {
+                    LoginBox login = new LoginBox();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
 
-                //LOGOUT FUNCTION WILL BE CALLED HERE.
-                //System.out.println("DEBUG: Test");
-                //
             }
         });
 

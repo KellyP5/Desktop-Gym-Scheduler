@@ -15,11 +15,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import main.java.memoranda.gym.Response;
 import main.java.memoranda.util.Local;
+
+import static main.java.memoranda.ui.App.gym;
 
 
 /**
- * ClassesSetAvailability class creates pop up window to set up trainer's availability
+ * ClassesSetAvailability class creates pop up window to set up trainer's availability.
  */
 public class ClassesSetAvailability extends JFrame {
 
@@ -36,7 +40,7 @@ public class ClassesSetAvailability extends JFrame {
     JLabel currentDate;
     JLabel fillOutForm;
 
-    /** ClassesSetAvailability constructor
+    /** ClassesSetAvailability constructor.
      *
      * @param ref This parent reference is passed in so we can call refresh on it once the  UI is updated.
      * @param rel Used to set the position of the add user popup.
@@ -53,7 +57,7 @@ public class ClassesSetAvailability extends JFrame {
     }
 
     /**
-     * guiSetAvailability contains gui components for set availability button
+     * guiSetAvailability contains gui components for set availability button.
      */
     public void guiSetAvailability(){
         setAvailability = new JPanel();
@@ -103,11 +107,11 @@ public class ClassesSetAvailability extends JFrame {
     }
 
     /**
-     * actionEventHandler handles mouse events
+     * actionEventHandler handles mouse events.
      */
     public void actionEventHandler(){
         /**
-         * Manages create button entry box
+         * Manages create button entry box.
          */
 
         setButton.addMouseListener(new MouseAdapter() {
@@ -138,14 +142,6 @@ public class ClassesSetAvailability extends JFrame {
         });
     }
 
-    /**
-     * Throws JOptionPane window on error.
-     * @param error Message to display to the user
-     */
-    public void throwInputError (String error) {
-        final JFrame parent = new JFrame();
-        JOptionPane.showMessageDialog(parent, error);
-    }
 
     /**
      * availabilitySetup stores trainer's entered availability
@@ -158,21 +154,15 @@ public class ClassesSetAvailability extends JFrame {
         double start = Local.getDoubleTime(startTimeCB.getSelectedItem().toString());
         double end = Local.getDoubleTime(endTimeCB.getSelectedItem().toString());
         LocalDate date = this.date;
-
         System.out.println(date.toString());
 
+        Response availability = gym.createTrainerAvailability(userEmail, start, end, date);
+        availability.getMsg();
+        int y = JOptionPane.showOptionDialog(null, availability.getMsg(),
+                "Your Availability", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, null, null);
 
     }
-
-    /**
-     * Popup window that tells the user the account was created successfully
-     */
-    public void showCreatedSuccessfullyPopup() {
-        Object[] option = {"OK"};
-        int x = JOptionPane.showOptionDialog(null, "Class was created successfully!",
-                "Class Creation", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
-    }
-
 
     /**
      * Extracts trainer email from combo box.

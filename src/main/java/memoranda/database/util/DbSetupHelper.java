@@ -60,8 +60,7 @@ public class DbSetupHelper {
                 + "    Password text NOT NULL,\n"
                 + "    Role text NOT NULL COLLATE NOCASE,\n"
                 + "    Belt text COLLATE NOCASE,\n"
-                + "    TrainingBelt text COLLATE NOCASE,\n"
-                + "    ImageURL text COLLATE NOCASE\n"
+                + "    TrainingBelt text COLLATE NOCASE\n"
                 + ");";
         createTable(userSql, "User");
 

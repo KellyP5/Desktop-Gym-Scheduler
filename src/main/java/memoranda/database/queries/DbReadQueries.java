@@ -70,6 +70,8 @@ public class DbReadQueries {
             return 0;
         }
         int total = rs.getInt("total");
+        conn.close();
+        pstmt.close();
         return total;
     }
 
@@ -83,7 +85,10 @@ public class DbReadQueries {
             return "";
         }
         String url = rs.getString(1);
+        conn.close();
+        pstmt.close();
         return url;
+
     }
 
     /*
@@ -132,19 +137,6 @@ public class DbReadQueries {
         statement.close();
         conn.close();
         return users;
-    }
-
-    public String getUserImageUrl(String email) throws SQLException {
-        String sql = "SELECT ImageURl FROM USER WHERE Email=?";
-        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setString(1, email);
-        ResultSet rs = pstmt.executeQuery();
-        while (!rs.next()) {
-            return "";
-        }
-        String url = rs.getString(1);
-        return url;
     }
 
     /*

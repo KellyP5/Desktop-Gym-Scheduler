@@ -352,6 +352,7 @@ public class AccountCreationDialog extends JFrame {
                     } else {
                         gym.createCustomer(email.getText(), firstName.getText(), lastName.getText(), pass.getText());
                     }
+                    LoginBox.conn.getDcq().insertUserImage(email.getText(),"src/main/resources/ui/Placeholder.png");
                     dispose();
                     createdSuccessfully();
                 } catch (IOException ex) {

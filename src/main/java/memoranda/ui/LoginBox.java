@@ -258,6 +258,7 @@ public class LoginBox extends JFrame {
      *     returns false otherwise.
      */
     public boolean userVerification() throws SQLException, IOException {
+
         if (_email.getText() != null) {
             Response response = gym.readGetUser(_email.getText());
             if (response.isSuccess()) {

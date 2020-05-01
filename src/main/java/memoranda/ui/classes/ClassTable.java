@@ -221,4 +221,5 @@ public class ClassTable extends DefaultTableModel {
             parentRef.setSelectedClass(selectedClass);
         }
     }
+
 }

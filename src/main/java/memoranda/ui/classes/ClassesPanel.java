@@ -1,5 +1,6 @@
 package main.java.memoranda.ui.classes;
 
+import main.java.memoranda.Start;
 import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.ui.DailyItemsPanel;
@@ -183,7 +184,7 @@ public class ClassesPanel extends JPanel {
         cancelEnrollmentBut.setFont( new Font("Arial", Font.PLAIN, 10));
 
         //place all the buttons
-        loggedInUser = Gym.getInstance().getUser();
+        loggedInUser = Start.getGym().getUser();
         System.out.println("[DEBUG]: WHAT USER" + loggedInUser.getRole().toString());
         if (loggedInUser.isTrainer()) {
             topToolBar.add(schedPriClassBut, null);

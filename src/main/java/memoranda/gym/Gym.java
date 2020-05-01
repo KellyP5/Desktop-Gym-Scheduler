@@ -62,25 +62,6 @@ public class Gym {
         return gym;
     }
 
-
-    /**
-     * Launches the LoginBox GUI and gets the currently logged in user 
-     * @return True if the user successfully logged in, false otherwise
-     */
-    public boolean login() throws SQLException {
-
-        //insert login code
-        login = new LoginBox();
-
-        //assign this.user;
-        this.user = login.getUser();
-
-        if (user != null) {
-            return true;
-        }
-        return false;
-    }
-
     /**
      * Returns Role Entity.
      *
@@ -96,6 +77,14 @@ public class Gym {
      */
     public UserEntity getUser() {
         return this.user;
+    }
+
+    /**
+     * Sets the logged in user
+     * @param user The currently logged in user
+     */
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     //TODO needs refactoring

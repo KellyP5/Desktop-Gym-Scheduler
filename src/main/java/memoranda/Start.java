@@ -10,6 +10,8 @@ package main.java.memoranda;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.ui.LoginBox;
@@ -33,12 +35,16 @@ public class Start {
         gym = Gym.getInstance();
 
         if ((args.length == 0) || (!args[0].equals("-m"))) {
-            gym.login();
+            login = new LoginBox();
 
         }
         else{
             app = new App(false, login.conn);
         }
+    }
+
+    public static Gym getGym() {
+        return gym;
     }
 }
 

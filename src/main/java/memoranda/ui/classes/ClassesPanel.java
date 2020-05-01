@@ -5,7 +5,9 @@ import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class ClassesPanel extends JPanel {
@@ -23,6 +25,8 @@ public class ClassesPanel extends JPanel {
     private JButton enrollClassButt;
     private JButton cancelEnrollmentBut;
     private JButton removeClassBut;
+
+    private JPanel colorKey;
 
     private JPanel classesPanelTop;//contains scroll panes 1,2
     private JPanel classesPanelBot;//contains scroll panes 3,4
@@ -53,7 +57,7 @@ public class ClassesPanel extends JPanel {
     /**
      * Main init method for the ClassesPanel
      */
-    private void init() {
+    private void init() throws SQLException {
         date = LocalDate.of(parentPanelReference.currentDate.getYear(),
                 parentPanelReference.currentDate.getMonth()+1,
                 parentPanelReference.currentDate.getDay());
@@ -72,7 +76,7 @@ public class ClassesPanel extends JPanel {
      * Refreshes each of the rooms on the Classes Panel.
      * Used when classes are edited or added.
      */
-    public void refresh() {
+    public void refresh() throws SQLException {
         room1.refresh();
         room2.refresh();
         room3.refresh();
@@ -177,6 +181,28 @@ public class ClassesPanel extends JPanel {
         cancelEnrollmentBut.setEnabled(true);
         cancelEnrollmentBut.setFont( new Font("Arial", Font.PLAIN, 10));
 
+        // Add the key for the color of the classes
+        // Green = Open, Red = Full
+        this.colorKey = new JPanel();
+        JLabel open = new JLabel("Open");
+
+        JPanel whiteOpen = new JPanel();
+        whiteOpen.setPreferredSize(new Dimension(10,10));
+        whiteOpen.setBackground(Color.WHITE);
+
+        JLabel full = new JLabel("Full");
+
+        JPanel redClosed = new JPanel();
+        redClosed.setPreferredSize(new Dimension(10,10));
+        redClosed.setBackground(Color.RED);
+
+        JLabel key = new JLabel("Key: ");
+        colorKey.add(key);
+        colorKey.add(open);
+        colorKey.add(whiteOpen);
+        colorKey.add(full);
+        colorKey.add(redClosed);
+
         //place all the buttons
         topToolBar.add(schedNewClassBut, null);
         topToolBar.addSeparator(new Dimension(2, 24));
@@ -191,7 +217,11 @@ public class ClassesPanel extends JPanel {
         topToolBar.add(enrollClassButt, null);
         topToolBar.addSeparator(new Dimension(2, 24));
         topToolBar.add(cancelEnrollmentBut, null);
+        topToolBar.addSeparator(new Dimension(100, 24));
+        topToolBar.add(colorKey, null);
         this.add(topToolBar, BorderLayout.NORTH);
+
+        this.setVisible(true);
     }
 
     /**
@@ -238,7 +268,7 @@ public class ClassesPanel extends JPanel {
     /**
      * All code associated with initializing the class tables.
      */
-    private void initRooms(){
+    private void initRooms() throws SQLException {
 
         room1 = new ClassTable(this.parentPanelReference,1);
         room2 = new ClassTable(this.parentPanelReference,2);
@@ -254,15 +284,20 @@ public class ClassesPanel extends JPanel {
         this.classesPanelBot= new JPanel(new FlowLayout());
 
         this.classesPanelTop.add(this.room1ScrollPane);
+        // Add titles to rooms
+        this.room1ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 1", TitledBorder.CENTER, TitledBorder.TOP));
         this.classesPanelTop.add(this.room2ScrollPane);
+        this.room2ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 2", TitledBorder.CENTER, TitledBorder.TOP));
         this.classesPanelBot.add(this.room3ScrollPane);
+        this.room3ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 3", TitledBorder.CENTER, TitledBorder.TOP));
         this.classesPanelBot.add(this.room4ScrollPane);
-
+        this.room4ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 4", TitledBorder.CENTER, TitledBorder.TOP));
+        
         this.add(classesPanelTop, BorderLayout.CENTER);
         this.add(classesPanelBot, BorderLayout.SOUTH);
-
     }
-
-
-
 }

@@ -51,6 +51,41 @@ public class DbReadQueries {
         return userEntity;
     }
 
+    /**
+     * Gets the number of students enrolled in a class. Used to determine if a class
+     * is full or not.
+     * @param id The unique identifier of the Class
+     * @return The amount of students enrolled in the class
+     * @throws SQLException
+     */
+    public int getNumberOfStudentsEnrolledInClass(int id) throws SQLException {
+        String sql = "SELECT COUNT(UserEmail) AS total FROM ENROLLEDUSER " +
+                "INNER JOIN GYMCLASS on GYMCLASS.Id = ENROLLEDUSER.ClassId " +
+                "WHERE ENROLLEDUSER.ClassId = ?";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        ResultSet rs = pstmt.executeQuery();
+        if (!rs.next()) {
+            return 0;
+        }
+        int total = rs.getInt("total");
+        return total;
+    }
+
+    public String getUserImage(String email) throws SQLException {
+        String sql = "SELECT ImageURL FROM USERIMAGE WHERE Email=?";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, email);
+        ResultSet rs = pstmt.executeQuery();
+        while (!rs.next()) {
+            return "";
+        }
+        String url = rs.getString(1);
+        return url;
+    }
+
     /*
     gets all of a USER's information based on the email provided
     */
@@ -97,6 +132,19 @@ public class DbReadQueries {
         statement.close();
         conn.close();
         return users;
+    }
+
+    public String getUserImageUrl(String email) throws SQLException {
+        String sql = "SELECT ImageURl FROM USER WHERE Email=?";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, email);
+        ResultSet rs = pstmt.executeQuery();
+        while (!rs.next()) {
+            return "";
+        }
+        String url = rs.getString(1);
+        return url;
     }
 
     /*
@@ -356,12 +404,6 @@ helper method for creating and returning a GymClassEntity from a result set
      * @throws SQLException sql  exception.
      */
     private UserEntity _getUserFromResultSet(ResultSet rs) throws SQLException {
-        /*
-        if (!rs.next()) {
-            return null;
-        }
-        
-         */
 
         String strBelt = rs.getString("Belt");
         BeltEntity belt = null;

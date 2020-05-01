@@ -7,6 +7,7 @@
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
 package main.java.memoranda.date;
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Vector;
 
@@ -33,7 +34,7 @@ public class CurrentDate {
      *
      * @param date the date
      */
-    public static void set(CalendarDate date) {
+    public static void set(CalendarDate date) throws SQLException {
         if (date.equals(_date)) return;
         _date = date;
         dateChanged(date);
@@ -42,7 +43,7 @@ public class CurrentDate {
     /**
      * Reset.
      */
-    public static void reset() {
+    public static void reset() throws SQLException {
         set(new CalendarDate());
     }
 
@@ -64,7 +65,7 @@ public class CurrentDate {
         return dateListeners;
     }
 
-    private static void dateChanged(CalendarDate date) {
+    private static void dateChanged(CalendarDate date) throws SQLException {
         for (int i = 0; i < dateListeners.size(); i++)
             ((DateListener)dateListeners.get(i)).dateChange(date);
     }

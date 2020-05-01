@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 /**
  * Tests database Objects
  */
-public class databaseEntityTest {
+public class DatabaseEntityTest {
     public static EnrolledUserEntity eu1;
     public static BeltEntity be1, be2, be3;
     public static GymClassEntity gce1;

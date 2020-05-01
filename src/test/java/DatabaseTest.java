@@ -23,12 +23,12 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class databaseTest {
-    public static SqlConnection sqlConnection = null;
-    public static DbCreateQueries dcq = null;
-    public static DbReadQueries drq = null;
-    public static DbUpdateQueries duq = null;
-    public static DbDeleteQueries dbd = null;
+public class DatabaseTest {
+    static SqlConnection sqlConnection = null;
+    static DbCreateQueries dcq = null;
+    static DbReadQueries drq = null;
+    static DbUpdateQueries duq = null;
+    static DbDeleteQueries dbd = null;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -249,9 +249,6 @@ public class databaseTest {
 
     @Test
     public void test0Inserts_drq() throws SQLException{
-        RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
-        BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
-
         ArrayList<UserEntity> ues = drq.getAllUsers();
 
         assertEquals(0,ues.size());

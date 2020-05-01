@@ -212,9 +212,8 @@ public class ClassesPanel extends JPanel {
         colorKey.add(full);
         colorKey.add(redClosed);
 
-        //place all the buttons
+        //places buttons based on the logged in users role
         loggedInUser = Start.getGym().getUser();
-        System.out.println("[DEBUG]: WHAT USER" + loggedInUser.getRole().toString());
         if (loggedInUser.isTrainer()) {
             topToolBar.add(schedPriClassBut, null);
             topToolBar.addSeparator(new Dimension(2, 24));

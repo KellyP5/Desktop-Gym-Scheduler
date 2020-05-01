@@ -1,5 +1,7 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.ui.usermanagment.UserManagement;
 import main.java.memoranda.util.Context;
 import main.java.memoranda.util.Local;
@@ -68,9 +70,13 @@ public class WorkPanel extends JPanel {
      * The Border 1.
      */
     Border border1;
+	/**
+	 * Currently logged in user
+	 */
+	private Gym gym = Gym.getInstance();
+	private UserEntity loggedInUser;
 
-
-    /**
+	/**
      * Instantiates a new Work panel.
      */
     public WorkPanel() {
@@ -112,10 +118,18 @@ public class WorkPanel extends JPanel {
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 
-		toolBar.add(agendaB, null);
-		toolBar.add(classesB, null);
-		toolBar.add(notesB, null);
-		toolBar.add(userMgmt, null);
+		loggedInUser = gym.getUser();
+		if (loggedInUser.isAdmin()) {
+			toolBar.add(agendaB, null);
+			toolBar.add(classesB, null);
+			toolBar.add(notesB, null);
+			toolBar.add(userMgmt, null);
+		} else {
+			toolBar.add(agendaB, null);
+			toolBar.add(classesB, null);
+			toolBar.add(notesB, null);
+		}
+
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));

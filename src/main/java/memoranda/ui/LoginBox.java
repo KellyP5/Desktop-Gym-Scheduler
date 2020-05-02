@@ -6,33 +6,20 @@
  * @author Kelly Ellis (klellis4@asu.edu)
  *
  */
-
 package main.java.memoranda.ui;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.sql.SQLException;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.gym.Response;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import java.sql.SQLException;
+
+import static main.java.memoranda.gym.Gym.*;
 
 public class LoginBox extends JFrame {
 
@@ -56,11 +43,6 @@ public class LoginBox extends JFrame {
     private JButton _createAccount;
     private AccountCreationDialog _createAcc;
 
-    /**
-     * Launches the initial Login GUI that verifies the user's information.
-     *
-     * @throws SQLException When getting database connection
-     */
     public LoginBox() throws SQLException {
 
         showSplash();
@@ -138,7 +120,7 @@ public class LoginBox extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 try {
-                    userVerification();
+                    boolean verified = userVerification();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 } catch (IOException ex) {
@@ -158,7 +140,7 @@ public class LoginBox extends JFrame {
                 super.keyPressed(e);
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     try {
-                        userVerification();
+                        boolean verified = userVerification();
                     } catch (SQLException ex) {
                         ex.printStackTrace();
                     } catch (IOException ex) {
@@ -255,37 +237,37 @@ public class LoginBox extends JFrame {
      * a user in the database. If so, it goes on to check that the correct password was
      * entered. If not, it prompts the user that the account does not exist.
      * @return Returns true if the user's information matches a user in the database,
-     *     returns false otherwise.
+     * returns false otherwise.
      */
     public boolean userVerification() throws SQLException, IOException {
-
-        if (_email.getText() != null) {
-            Response response = gym.readGetUser(_email.getText());
-            if (response.isSuccess()) {
-                _user = (UserEntity) response.getValue();
-            } else {
-                _user = null;
-            }
-            if (!accountExists(_user)) {
-                accountDoesNotExist();
-                return false;
-            } else {
-                if (passwordIsCorrect(_user.getPassword())) {
-                    //App.init();
-                    app = new App(true, this.conn);
-                    dispose();
-                    return true;
+            if (_email.getText() != null) {
+                Response response = gym.readGetUser(_email.getText());
+                if (response.isSuccess()) {
+                    _user = (UserEntity) response.getValue();
+                    gym.setUser(_user);
                 } else {
-                    String emailText = _email.getText();
-                    incorrectPassword(emailText);
+                    _user = null;
+                }
+                if (!accountExists(_user)) {
+                    accountDoesNotExist();
+                    return false;
+                } else {
+                    if (passwordIsCorrect(_user.getPassword())) {
+                        //App.init();
+                        app = new App(true, this.conn);
+                        dispose();
+                        return true;
+                    } else {
+                        String emailText = _email.getText();
+                        incorrectPassword(emailText);
+                    }
                 }
             }
-        }
         return false;
     }
 
     /**
-     * Checks that the user exists in the database.
+     * Checks that the user exists in the database
      * @param user The user to check existence in the DB for
      * @return Returns true if the user exists (is not null), false otherwise
      */
@@ -304,11 +286,9 @@ public class LoginBox extends JFrame {
      */
     public void accountDoesNotExist() throws SQLException {
         Object[] options = {"Yes", "No"};
-        int x = JOptionPane.showOptionDialog(null,
-                "An account with that username could not be found."
-                        + " Would you like to create one?", "Account Not Found",
-                JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
-                options, null);
+        int x = JOptionPane.showOptionDialog(null, "An account with that username could not be found." +
+                        " Would you like to create one?", "Account Not Found", JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
         if (x == JOptionPane.YES_OPTION) {
             _createAcc = new AccountCreationDialog();
@@ -319,7 +299,7 @@ public class LoginBox extends JFrame {
 
 
     /**
-     * Checks the user's password against the information stored in the database.
+     * Checks the user's password against the information stored in the database
      * @param password The user's password from the database
      * @return Returns true if the passwords match, false otherwise
      */
@@ -331,16 +311,14 @@ public class LoginBox extends JFrame {
     }
 
     /**
-     * Pop up dialog that alerts the user the incorrect password was entered.
+     * Pop up dialog that alerts the user the incorrect password was entered
      * @param email Takes in the email that was entered so the login box can be
      *              populated with that again
      */
     public void incorrectPassword(String email) throws SQLException {
         Object[] option = {"OK"};
-        int x = JOptionPane.showOptionDialog(null,
-                "The password you entered was incorrect.",
-                "Incorrect Password", JOptionPane.OK_OPTION,
-                JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
+        int x = JOptionPane.showOptionDialog(null, "The password you entered was incorrect.",
+                "Incorrect Password", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
         if (x == JOptionPane.OK_OPTION) {
             login = new LoginBox();
             login._email.setText(email);
@@ -349,7 +327,7 @@ public class LoginBox extends JFrame {
     }
 
     /**
-     * Gets the currently logged in user.
+     * Gets the currently logged in user
      *
      * @return Returns the user as a UserEntity
      */
@@ -360,7 +338,7 @@ public class LoginBox extends JFrame {
 
 
     /**
-     * Gets the swing component for email (used for testing).
+     * Gets the swing component for email (used for testing)
      *
      * @return the JTextField for email
      */
@@ -371,7 +349,7 @@ public class LoginBox extends JFrame {
 
 
     /**
-     * Gets the swing component for password (used for testing).
+     * Gets the swing component for password (used for testing)
      *
      * @return the JTextField for password
      */

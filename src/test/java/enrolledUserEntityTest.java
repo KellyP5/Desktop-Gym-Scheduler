@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Tests database Objects
  */
-public class EnrolledUserEntityTest {
+public class enrolledUserEntityTest {
 
     /**
      * Tests Belt Entity object

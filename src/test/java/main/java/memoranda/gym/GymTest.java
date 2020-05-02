@@ -62,7 +62,7 @@ public class GymTest {
     public void testReadFailure(){
         Gym gym = Gym.getInstance();
 
-        gym.deleteUser("unique13131312231@gmail.com");
+        Response deleteRes = gym.deleteUser("unique13131312231@gmail.com");
         Response readRes = gym.readGetUser("unique13131312231@gmail.com");
 
         assertEquals(readRes.isFailure(),true);
@@ -119,13 +119,13 @@ public class GymTest {
     public void testDeleteClass(){
 
         Gym gym = Gym.getInstance();
-        gym.createTrainer("1331331@gmail.com","test1","test2","1234",new BeltEntity("black3"));
+        Response res1 = gym.createTrainer("1331331@gmail.com","test1","test2","1234",new BeltEntity("black3"));
 
         LocalDate ld = LocalDate.of(1988,04,28);
         double startTime = 5.0;
         double endTime = 8.0;
 
-        gym.createGroupClass(1337,ld,startTime,endTime,"1331331@gmail.com",20,
+        Response res2 = gym.createGroupClass(1337,ld,startTime,endTime,"1331331@gmail.com",20,
             new BeltEntity("white"), "1331331@gmail.com");
 
         Response res3 = gym.readGetClass(ld,startTime,1337);

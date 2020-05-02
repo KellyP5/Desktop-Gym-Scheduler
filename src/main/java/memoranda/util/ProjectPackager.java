@@ -8,6 +8,7 @@
  */
 package main.java.memoranda.util;
 import java.io.BufferedReader;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -58,7 +59,7 @@ public class ProjectPackager {
             zip = new ZipOutputStream(new FileOutputStream(zipfile));
             File prDir = new File(JN_DOCPATH + prj.getID());
             
-            packDirectory(prDir.getPath(), prDir, zip);
+            PackDirectory(prDir.getPath(), prDir, zip);
             zip.putNextEntry(new ZipEntry("__PROJECT_INFO__"));
             String prInfo = prj.getID() + "\n" + prj.getTitle() + "\n" + prj.getStartDate().toString() + "\n";
             if (prj.getEndDate() != null)
@@ -148,9 +149,9 @@ public class ProjectPackager {
      * @param theZIPStream      the the zip stream
      * @throws IOException the io exception
      */
-    public static void packDirectory(String startingDirectory,
-                                     File theDirectory,
-                                     ZipOutputStream theZIPStream )
+    public static void PackDirectory( String startingDirectory,
+                                    File theDirectory,
+                                    ZipOutputStream theZIPStream )
     throws java.io.IOException
     {
        File[] theFiles = theDirectory.listFiles();
@@ -169,7 +170,7 @@ public class ProjectPackager {
              theZIPStream.closeEntry();
 
              // recurse down
-             packDirectory( startingDirectory, theFiles[i], theZIPStream );
+             PackDirectory( startingDirectory, theFiles[i], theZIPStream );
           }
           else // regular file
           { 

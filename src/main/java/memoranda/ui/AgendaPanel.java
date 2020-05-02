@@ -268,7 +268,14 @@ public class AgendaPanel extends JPanel {
 		}
 		//toolBar.addSeparator(new Dimension(8, 24));
 		this.add(toolBar, BorderLayout.NORTH);
-		studentViewClassBut.setEnabled(false);
+		if(studentView == true) {
+			studentViewClassBut.setEnabled(true);
+			trainerViewClassBut.setEnabled(false);
+		}else{
+			trainerViewClassBut.setEnabled(true);
+			studentViewClassBut.setEnabled(false);
+		}
+
 		toolBarListeners();
 	}
 
@@ -318,6 +325,7 @@ public class AgendaPanel extends JPanel {
 	 * @param date the date
 	 */
 	public void refresh(CalendarDate date) {
+
 		updateTrainerBeltDisplay();
 		String[][] data = null;
 		LocalDate convertedDate = _convertDateToLocalDateTime(date);

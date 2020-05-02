@@ -60,7 +60,6 @@ public class ClassesEnrollClass {
     }
 
 
-
     private void scheduleUpdatesToGui() {
         scheduleDelayedTextUpdate("Checking you aren't already enrolled in this class...", 0, false);
         scheduleDelayedStudentIsntAlreadyEnrolledCheck(0);

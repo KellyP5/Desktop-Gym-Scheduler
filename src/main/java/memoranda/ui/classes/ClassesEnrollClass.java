@@ -14,6 +14,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/*
+Class instantiated when the user clicks on the enroll in class button.  This attempts to enroll the user in the
+selected class.
+ */
 public class ClassesEnrollClass {
     private static final String tryingGifLocation = "src/main/resources/ui/liftWeight2.gif";
     private static final String failedGifLocation = "src/main/resources/ui/liftWeight2_red.gif";
@@ -55,7 +59,7 @@ public class ClassesEnrollClass {
     /**Check if the gym class is full.
      * @param gce GymClassEntity that is being checked for capacity
      * @return true if the gym class is full
-     * @throws SQLException
+     * @throws SQLException if invalid class information is provided (nonexistant class in database)
      */
     public boolean classIsNotFull(GymClassEntity gce) throws SQLException {
         return App.conn.getDrq().getNumberOfStudentsEnrolledInClass(gce.getId()) < gce.getMaxClassSize();
@@ -70,7 +74,7 @@ public class ClassesEnrollClass {
         return loggedInUser.getTrainingBelt().rank.ordinal() >= classSelected.getMinBeltEntityRequired().rank.ordinal();
     }
 
-    /**Checks if the user is already enrolled in a class from the given list of classes and class id.  
+    /**Checks if the user is already enrolled in a class from the given list of classes and class id.
      * @param usersCurrentEnrolledClasses list of the users classes to check
      * @param classIdAttemptingToEnrollIn id of the class user is attempting to enroll in
      * @return
@@ -236,11 +240,7 @@ public class ClassesEnrollClass {
         t.start();
     }
 
-    /**
-     * Throws JOptionPane window on error.
-     * @param error Message to display to the user
-     */
-    public void throwInputError (String error) {
+    private void throwInputError (String error) {
         final JFrame parent = new JFrame();
         JOptionPane.showMessageDialog(parent, error);
     }

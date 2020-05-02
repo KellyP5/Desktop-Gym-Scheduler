@@ -208,23 +208,7 @@ public class AgendaPanel extends JPanel {
 		}
 	}
 
-	/**
-	 * Gets trainer belt.
-	 *
-	 * @param email the email
-	 * @return the trainer belt
-	 * @throws SQLException the sql exception
-	 */
-	public String getTrainerBelt(String email) throws SQLException {
-		//TEMPORARY will need to be changed to the real DB once logged users can be checked.
-		UserEntity user = App.conn.getDrq().getUserByEmail(email);
-		if (user == null){
-			throw new SQLException("User " + email + " does not exist in the database!");
-		}
-		String belt = App.conn.getDrq().getUserByEmail(email).getBelt().rank.toString();
-		return belt;
 
-	}
 
 	/**
 	 * Init tool bar.
@@ -286,6 +270,7 @@ public class AgendaPanel extends JPanel {
 			}
 
 			toolBarListeners();
+
 		}
 	}
 
@@ -418,13 +403,13 @@ public class AgendaPanel extends JPanel {
 			UserEntity user = LoginBox.getUser();
 			String beltText = user.getTrainingBelt().toString();
 			if (gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
-				instructorBelt.setText("Trainer: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
+				instructorBelt.setText("Trainer: " + gym.getUser().getFirstName() + " " + gym.getUser().getLastName() + " Belt: " +
 						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
 			} else if (gym.getUserRole().userRole == RoleEntity.UserRole.customer) {
-				instructorBelt.setText("User: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
+				instructorBelt.setText("User: " + gym.getUser().getFirstName() + " " + gym.getUser().getLastName() + " Belt: " +
 						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
 			} else if (gym.getUserRole().userRole == RoleEntity.UserRole.admin) {
-				instructorBelt.setText("Admin: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
+				instructorBelt.setText("Admin: " + gym.getUser().getFirstName() + " " + gym.getUser().getLastName() + " Belt: " +
 						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
 			}
 			//add right padding to belt display

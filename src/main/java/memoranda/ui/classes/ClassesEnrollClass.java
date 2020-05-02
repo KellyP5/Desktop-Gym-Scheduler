@@ -22,7 +22,7 @@ public class ClassesEnrollClass {
     Gym gym;
     JDialog enrollDialog;
     JLabel infoText;
-    boolean shouldContinue;
+    boolean shouldUpdateText;
 
     public ClassesEnrollClass(ClassesPanel topLevelReference, LocalDate date, GymClassEntity selectedClass) {
         if (selectedClass == null) {
@@ -33,7 +33,7 @@ public class ClassesEnrollClass {
         this.topLevelReference = topLevelReference;
         this.date = date;
         this.selectedClass = selectedClass;
-        this.shouldContinue = true;
+        this.shouldUpdateText = true;
         this.gym = Gym.getInstance();
         createGuiElements();
 
@@ -61,18 +61,18 @@ public class ClassesEnrollClass {
 
 
     private void scheduleUpdatesToGui() {
-        scheduleDelayedTextUpdate("Checking you aren't already enrolled in this class...", 0, false);
-        scheduleDelayedStudentIsntAlreadyEnrolledCheck(0);
-        scheduleDelayedTextUpdate("Checking your belt rank is sufficient...", 2000, false);
-        scheduleDelayedStudentBeltRankIsSufficientCheck(2000);
-        scheduleDelayedTextUpdate("Checking class availability...", 4000, false);
-        scheduleDelayedClassSizeCheck(4000);
-        scheduleDelayedTextUpdate("Enrolling in class...", 6000, false);
-        scheduleDelayedEnrollUser(6000);
+        scheduleDelayedTextUpdate("Checking you aren't already enrolled in this class...", 0);
+        scheduleDelayedStudentIsntAlreadyEnrolledCheck(1000);
+        scheduleDelayedTextUpdate("Checking your belt rank is sufficient...", 2000);
+        scheduleDelayedStudentBeltRankIsSufficientCheck(3000);
+        scheduleDelayedTextUpdate("Checking class availability...", 4000);
+        scheduleDelayedClassSizeCheck(5000);
+        scheduleDelayedTextUpdate("Enrolling in class...", 6000);
+        scheduleDelayedEnrollUser(7000);
     }
 
 
-    public void createGuiElements() {
+    private void createGuiElements() {
         //setup gif
         Icon icon = new ImageIcon(enrollDialogGifLocation);
         JLabel gif = new JLabel(icon);
@@ -102,17 +102,18 @@ public class ClassesEnrollClass {
 
     private void scheduleDelayedClassSizeCheck(int delay) {
         ActionListener listener = event -> {
-            if (!shouldContinue) {
+            if (!shouldUpdateText) {
                 return;
             }
             try {
                 if (!classIsNotFull(selectedClass)) {
+                    shouldUpdateText = false;
                     infoText.setText("Class is full!");
-                    shouldContinue = false;
+                    scheduleClose(2000);
                 }
             } catch (SQLException e) {
-                infoText.setText("Failed to retrieve class information to determine if it's full!");
-                shouldContinue = false;
+                shouldUpdateText = false;
+                scheduleClose(2000);
             }
         };
         Timer t = new Timer(delay, listener);
@@ -123,13 +124,14 @@ public class ClassesEnrollClass {
 
     private void scheduleDelayedStudentBeltRankIsSufficientCheck(int delay) {
         ActionListener listener = event -> {
-            if (!shouldContinue) {
+            if (!shouldUpdateText) {
                 return;
             }
 
             if (!userHasSufficientTrainingToEnroll(selectedClass, gym.getUser())) {
-                infoText.setText("You dont have sufficient belt rank training to enroll in this class!");
-                shouldContinue = false;
+                shouldUpdateText = false;
+                infoText.setText("Belt rank is insufficient to enroll in that class!");
+                scheduleClose(2000);
             }
         };
         Timer t = new Timer(delay, listener);
@@ -141,7 +143,7 @@ public class ClassesEnrollClass {
 
     private void scheduleDelayedStudentIsntAlreadyEnrolledCheck(int delay) {
         ActionListener listener = event -> {
-            if (!shouldContinue) {
+            if (!shouldUpdateText) {
                 return;
             }
             Response response = gym.getClassesUserEnrolledInByEmail(gym.getUser().getEmail());
@@ -150,8 +152,9 @@ public class ClassesEnrollClass {
             if (response.isFailure()
                     || userIsAlreadyEnrolledInClass((ArrayList<GymClassEntity>)response.getValue(),
                     selectedClass.getId())) {
-                shouldContinue = false;
-                scheduleDelayedTextUpdate("", 0, true);
+                shouldUpdateText = false;
+                infoText.setText("You're already enrolled!");
+                scheduleClose(2000);
             }
 
         };
@@ -163,17 +166,14 @@ public class ClassesEnrollClass {
 
     private void scheduleDelayedEnrollUser(int delay) {
         ActionListener listener = event -> {
-            if (!shouldContinue) {
+            if (!shouldUpdateText) {
                 return;
             }
             Response response = gym.enrollUser(selectedClass.getId(), gym.getUser().getEmail());
-            if (response.isFailure()) {
-                infoText.setText(response.getMsg());
-                shouldContinue = false;
-            } else {
+            if (response.isSuccess()) {
                 infoText.setText("User Enrolled!");
             }
-            scheduleDelayedTextUpdate("", 1000, true);
+            scheduleClose(1000);
         };
         Timer t = new Timer(delay, listener);
         t.setRepeats(false);
@@ -181,17 +181,26 @@ public class ClassesEnrollClass {
 
     }
 
-    private void scheduleDelayedTextUpdate(String text, int delay, boolean isFinal) {
+    private void scheduleDelayedTextUpdate(String text, int delay) {
         ActionListener listener = new ActionListener(){
             public void actionPerformed(ActionEvent event) {
-                if (isFinal) {
-                    enrollDialog.dispose();
-                } else if (shouldContinue) {
+                if (shouldUpdateText) {
                     infoText.setText(text);
                 }
             }
         };
 
+        Timer t = new Timer(delay, listener);
+        t.setRepeats(false);
+        t.start();
+    }
+
+    private void scheduleClose(int delay) {
+        ActionListener listener = new ActionListener(){
+            public void actionPerformed(ActionEvent event) {
+                enrollDialog.dispose();
+            }
+        };
         Timer t = new Timer(delay, listener);
         t.setRepeats(false);
         t.start();

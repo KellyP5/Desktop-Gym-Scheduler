@@ -122,6 +122,7 @@ public class AppFrame extends JFrame {
 
         this.contentPane.add(statusBar, BorderLayout.SOUTH);
         this.contentPane.add(workPanel);
+        workPanel.selectPanel("AGENDA");
 
     }
 

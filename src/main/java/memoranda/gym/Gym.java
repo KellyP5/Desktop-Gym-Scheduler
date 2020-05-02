@@ -64,6 +64,10 @@ public class Gym {
 
     }
 
+    /**
+     * sets the gym and user objects to null
+     * so that a new one can be created upon logging back in
+     */
     public static void logout(){
         gym = null;
         user = null;

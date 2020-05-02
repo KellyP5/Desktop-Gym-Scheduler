@@ -5,7 +5,6 @@ import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
-import main.java.memoranda.date.DateListener;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Local;
 
@@ -272,6 +271,10 @@ public class AgendaPanel extends JPanel {
 		studentViewClassBut.setEnabled(false);
 		toolBarListeners();
 	}
+
+	/**
+	 * listeners for the personal schedule and training schedule buttons
+	 */
 
 	void toolBarListeners(){
 		this.studentViewClassBut.addActionListener(new ActionListener(){

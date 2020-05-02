@@ -272,6 +272,8 @@ public class WorkPanel extends JPanel {
 				notesB_actionPerformed(null);
 			else if (pan.equals("TASKS"))
 				tasksB_actionPerformed(null);
+			else if (pan.equals("AGENDA"))
+				agendaB_actionPerformed(null);
 			else if (pan.equals("CLASSES"))
 				classesB_actionPerformed(null);
 			else if (pan.equals("USERMANAGMENT"))

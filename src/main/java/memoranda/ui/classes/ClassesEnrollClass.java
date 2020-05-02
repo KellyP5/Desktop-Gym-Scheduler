@@ -1,11 +1,13 @@
 package main.java.memoranda.ui.classes;
 
 import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.gym.Gym;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ClassesEnrollClass {
     private static final String enrollDialogGifLocation = "src/main/resources/ui/liftWeight.gif";
@@ -23,22 +25,23 @@ public class ClassesEnrollClass {
         this.topLevelReference = topLevelReference;
         this.date = date;
         this.selectedClass = gce;
-        printSelectedClass();
         initActionEvents();
     }
 
-    public void printSelectedClass(){
-        System.out.println("CLASSES ENROLL CLASS" + selectedClass.getTrainerEmail() + " Belt: " + selectedClass.getMinBeltEntityRequired().toString());
-    }
 
     public void initActionEvents() {
         Icon icon = new ImageIcon(enrollDialogGifLocation);
 
-        JLabel label = new JLabel(icon);
+        JLabel gif = new JLabel(icon);
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(topLevelReference);
         enrollDialog = new JDialog(topFrame, true);
         enrollDialog.setUndecorated(true);
-        enrollDialog.getContentPane().add(label);
+        enrollDialog.getContentPane().add(gif);
+
+
+        JLabel infoText = new JLabel(); //TODO
+
+
         enrollDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         enrollDialog.pack();
         enrollDialog.setLocationRelativeTo(topFrame);
@@ -57,6 +60,16 @@ public class ClassesEnrollClass {
 
         enrollDialog.setVisible(true);
     }
+
+    public boolean classIsNotFull() {
+        int roomNumber = selectedClass.getRoomNumber();
+        LocalDateTime localdt = selectedClass.getStartDateTime();
+        String startTime = selectedClass.getStartTimeAsString();
+
+        //TODO
+        return false;
+    }
+
 
     /**
      * Throws JOptionPane window on error.

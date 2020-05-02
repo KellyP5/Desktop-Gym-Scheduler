@@ -256,27 +256,28 @@ public class AgendaPanel extends JPanel {
 
 
 		studentViewClassBut.setFont(new Font("Arial", Font.PLAIN, 10));
+		if(gym.getUser() != null) {
+			if (gym.getUserRole().userRole == RoleEntity.UserRole.admin
+					|| gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
 
-		if(gym.getUserRole().userRole == RoleEntity.UserRole.admin
-				||gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
-
-		toolBar.add(studentViewClassBut);
-		toolBar.addSeparator(new Dimension(2, 24));
+				toolBar.add(studentViewClassBut);
+				toolBar.addSeparator(new Dimension(2, 24));
 
 
-		toolBar.add(trainerViewClassBut);
+				toolBar.add(trainerViewClassBut);
+			}
+			//toolBar.addSeparator(new Dimension(8, 24));
+			this.add(toolBar, BorderLayout.NORTH);
+			if (studentView == true) { //keeps the same button selected when the calendar date is refreshed.
+				studentViewClassBut.setEnabled(true);
+				trainerViewClassBut.setEnabled(false);
+			} else {
+				trainerViewClassBut.setEnabled(true);
+				studentViewClassBut.setEnabled(false);
+			}
+
+			toolBarListeners();
 		}
-		//toolBar.addSeparator(new Dimension(8, 24));
-		this.add(toolBar, BorderLayout.NORTH);
-		if(studentView == true) { //keeps the same button selected when the calendar date is refreshed.
-			studentViewClassBut.setEnabled(true);
-			trainerViewClassBut.setEnabled(false);
-		}else{
-			trainerViewClassBut.setEnabled(true);
-			studentViewClassBut.setEnabled(false);
-		}
-
-		toolBarListeners();
 	}
 
 	/**
@@ -331,6 +332,7 @@ public class AgendaPanel extends JPanel {
 	public void refresh(CalendarDate date) {
 
 
+		updateTrainerBeltDisplay();
 		String[][] data = null;
 		LocalDate convertedDate = _convertDateToLocalDateTime(date);
 
@@ -396,25 +398,34 @@ public class AgendaPanel extends JPanel {
 	 * @throws SQLException the sql exception
 	 */
 
-	private void updateTrainerBeltDisplay(){
+	private void updateTrainerBeltDisplay() {
 
 		//A check will need to be added here to check to see if the currently logged
 		//user is a trainer or not.
+		if(gym.getUser() != null) {
+			JLabel instructorBelt = new JLabel();
+			Font labelFont = instructorBelt.getFont(); //creats Font to change font size
+			instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
+			UserEntity user = LoginBox.getUser();
+			String beltText = user.getTrainingBelt().toString();
+			if (gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
+				instructorBelt.setText("Trainer: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
+						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
+			} else if (gym.getUserRole().userRole == RoleEntity.UserRole.customer) {
+				instructorBelt.setText("User: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
+						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
+			} else if (gym.getUserRole().userRole == RoleEntity.UserRole.admin) {
+				instructorBelt.setText("Admin: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
+						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
+			}
+			//add right padding to belt display
+			instructorBelt.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
 
-		JLabel instructorBelt = new JLabel();
-		Font labelFont = instructorBelt.getFont(); //creats Font to change font size
-		instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
-		UserEntity user = LoginBox.getUser();
-		String beltText = user.getTrainingBelt().toString();
-		instructorBelt.setText("User: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
-				beltText.substring(0,1).toUpperCase() + beltText.substring(1));
-		//add right padding to belt display
-		instructorBelt.setBorder(BorderFactory.createEmptyBorder(0,0,0,25));
-
-		toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
-		initToolBar(); // reinitiates tool bar
-		toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
-		toolBar.add(instructorBelt); //adds the instructor belt jlabel to toolbar
+			toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
+			initToolBar(); // reinitiates tool bar
+			toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
+			toolBar.add(instructorBelt); //adds the instructor belt jlabel to toolbar
+		}
 	}
 
 	/**

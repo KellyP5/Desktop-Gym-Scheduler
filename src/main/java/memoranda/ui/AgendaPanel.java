@@ -64,6 +64,8 @@ public class AgendaPanel extends JPanel {
 	 */
 	JScrollPane scrollPane;
 
+	Gym gym = Gym.getInstance();
+
 	/**
 	 * Instantiates a new Agenda panel.
 	 *
@@ -272,7 +274,7 @@ public class AgendaPanel extends JPanel {
 		ArrayList<ArrayList<String>> d = null;
 		ArrayList<ArrayList<String>> temp;
 		try {
-			UserEntity user = LoginBox.getUser();
+			UserEntity user = gym.getUser();
 			temp = _getClassDataForTrainer(user.getEmail(), convertedDate);
 			if (temp != null && !temp.isEmpty()) {
 				d = temp;
@@ -333,7 +335,7 @@ public class AgendaPanel extends JPanel {
 		JLabel instructorBelt = new JLabel();
 		Font labelFont = instructorBelt.getFont(); //creats Font to change font size
 		instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
-		UserEntity user = LoginBox.getUser();
+		UserEntity user = gym.getUser();
 		String beltText = user.getTrainingBelt().toString();
 		instructorBelt.setText("User: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
 				beltText.substring(0,1).toUpperCase() + beltText.substring(1));

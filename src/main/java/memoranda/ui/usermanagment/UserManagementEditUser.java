@@ -400,7 +400,7 @@ public class UserManagementEditUser extends JDialog {
      */
     public void emailAlreadyExists() {
         Object[] option = {"OK"};
-        JOptionPane.showOptionDialog(null, "The email you entered is already in use",
+        int x = JOptionPane.showOptionDialog(null, "The email you entered is already in use",
                 "Email In Use", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
     }
 

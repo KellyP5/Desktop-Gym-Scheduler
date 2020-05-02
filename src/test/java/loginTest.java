@@ -11,10 +11,10 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class LoginTest {
+public class loginTest {
 
     static LoginBox login;
-    static SqlConnection sqlConnection;
+    public static SqlConnection sqlConnection;
 
     @BeforeClass
     public static void setUp() throws SQLException {

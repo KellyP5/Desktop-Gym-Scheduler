@@ -244,6 +244,7 @@ public class LoginBox extends JFrame {
                 Response response = gym.readGetUser(_email.getText());
                 if (response.isSuccess()) {
                     _user = (UserEntity) response.getValue();
+                    gym.setUser(_user);
                 } else {
                     _user = null;
                 }

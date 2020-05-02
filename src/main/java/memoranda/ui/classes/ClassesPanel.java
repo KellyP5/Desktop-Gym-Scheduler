@@ -1,5 +1,7 @@
 package main.java.memoranda.ui.classes;
 
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.ui.DailyItemsPanel;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Local;
@@ -17,6 +19,8 @@ public class ClassesPanel extends JPanel {
     private JToolBar topToolBar = new JToolBar();
 
     private LocalDate date;
+
+    private Gym gym = Gym.getInstance();
 
     private JButton schedNewClassBut;//all the buttons for the top bar
     private JButton editClassBut;
@@ -48,6 +52,7 @@ public class ClassesPanel extends JPanel {
                     _parentPanel.currentDate.getMonth()+1,
                     _parentPanel.currentDate.getDay());
             parentPanelReference = _parentPanel;
+
             init();
         } catch (Exception ex) {
             new ExceptionDialog(ex);

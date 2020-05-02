@@ -478,6 +478,21 @@ public class Gym {
 
     }
 
+    /**Enroll the user provided into the class with the id passed.
+     * @param classId class id of where this user will be added as a student
+     * @param userEmail email of the student that will be enrolling
+     * @return
+     */
+    public Response enrollUser(int classId, String userEmail) {
+        try {
+            conn.getDcq().insertEnrolledUser(classId, userEmail);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Response.failure("Error: could not find class id or useremail");
+        }
+        return Response.success("Added student");
+    }
+
 }
 
 

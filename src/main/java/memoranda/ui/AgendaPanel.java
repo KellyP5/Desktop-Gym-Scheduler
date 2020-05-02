@@ -268,7 +268,7 @@ public class AgendaPanel extends JPanel {
 		}
 		//toolBar.addSeparator(new Dimension(8, 24));
 		this.add(toolBar, BorderLayout.NORTH);
-		if(studentView == true) {
+		if(studentView == true) { //keeps the same button selected when the calendar date is refreshed.
 			studentViewClassBut.setEnabled(true);
 			trainerViewClassBut.setEnabled(false);
 		}else{

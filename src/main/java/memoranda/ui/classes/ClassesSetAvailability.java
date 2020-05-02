@@ -149,7 +149,7 @@ public class ClassesSetAvailability extends JFrame {
         double end = Local.getDoubleTime(endTimeCB.getSelectedItem().toString());
         LocalDate date = this.date;
         System.out.println(date.toString());
-        Gym gym = new Gym();
+        Gym gym = Gym.getInstance();
         Response availability = gym.createTrainerAvailability(userEmail, start, end, date);
         /**
          * Popup window that returns appropriate success or fail message.

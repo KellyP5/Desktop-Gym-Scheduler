@@ -11,6 +11,7 @@ import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
 import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.database.util.SqlConstants;
 import main.java.memoranda.ui.App;
+import main.java.memoranda.ui.LoginBox;
 
 /**
  * ---CreateMethods
@@ -31,8 +32,10 @@ import main.java.memoranda.ui.App;
 public class Gym {
 
     //This variable will be the currently logged in user.
-    private UserEntity user;
+    private static UserEntity user;
     private static SqlConnection conn;
+    private LoginBox login;
+    private static Gym gym;
 
     public enum UserRole {
         admin,
@@ -40,7 +43,7 @@ public class Gym {
         customer
     }
 
-    public Gym() {
+    private Gym() {
 
         this.user = null;
         this.conn = null;
@@ -52,16 +55,11 @@ public class Gym {
         }
     }
 
-
-    //TODO
-    public boolean login() {
-
-        //insert login code
-
-        //assign this.user;
-
-        //TODO
-        return false;
+    public static Gym getInstance() {
+        if (gym == null) {
+            gym = new Gym();
+        }
+        return gym;
     }
 
     /**
@@ -71,6 +69,22 @@ public class Gym {
      */
     public RoleEntity getUserRole() {
         return user.getRole();
+    }
+
+    /**
+     * Gets the currently logged in user
+     * @return The user
+     */
+    public UserEntity getUser() {
+        return this.user;
+    }
+
+    /**
+     * Sets the logged in user
+     * @param user The currently logged in user
+     */
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     //TODO needs refactoring

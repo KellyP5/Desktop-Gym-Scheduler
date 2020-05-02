@@ -51,7 +51,7 @@ public class UserManagementRemoveUser extends JDialog {
             label.setText("Are you sure you want to delete the user with email: " + email + "?");
             _b1 = new JButton("CONFIRM");
             this.setTitle("Remove User");
-            _mainPanel.setPreferredSize(new Dimension(200,100));
+            _mainPanel.setPreferredSize(new Dimension(250,100));
             _mainPanel.add(_b1);
         }
 
@@ -72,7 +72,7 @@ public class UserManagementRemoveUser extends JDialog {
 
                 System.out.println("Deleting the user " + _email);
 
-                Gym gym = new Gym();
+                Gym gym = Gym.getInstance();
                 gym.deleteUser(_email);
                 this.userManagement.removeUserFromTable();
                 dispose();

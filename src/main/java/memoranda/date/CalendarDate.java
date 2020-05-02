@@ -6,6 +6,7 @@
  * @author Alex V. Alishevskikh, alex@openmechanics.net
  * Copyright (c) 2003 Memoranda Team. http://memoranda.sf.net
  */
+
 package main.java.memoranda.date;
 
 import java.text.DateFormat;
@@ -56,12 +57,14 @@ public class CalendarDate {
         _month = month;
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, _year);
-        cal.set(Calendar.MONTH, _month);cal.getTime();
+        cal.set(Calendar.MONTH, _month);
+        cal.getTime();
         int dmax = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-        if (day <= dmax)
-          _day = day;
-        else
-          _day = dmax;
+        if (day <= dmax) {
+            _day = day;
+        } else {
+            _day = dmax;
+        }
 
     }
 
@@ -210,17 +213,11 @@ public class CalendarDate {
     public boolean equals(Object object) {
         if (object.getClass().isInstance(CalendarDate.class)) {
             CalendarDate d2 = (CalendarDate) object;
-            return ((d2.getDay() == getDay()) && (d2.getMonth() == getMonth()) && (d2.getYear() == getYear()));
+            return ((d2.getDay() == getDay()) && (d2.getMonth() == getMonth()) &&
+                (d2.getYear() == getYear()));
         }
-        else if (object.getClass().isInstance(Calendar.class)) {
-            Calendar cal = (Calendar) object;
-            return this.equals(new CalendarDate(cal));
-        }
-        else if (object.getClass().isInstance(Date.class)) {
-            Date d = (Date) object;
-            return this.equals(new CalendarDate(d));
-        }
-        return super.equals(object);
+
+        return false;
     }
 
     /**
@@ -230,8 +227,11 @@ public class CalendarDate {
      * @return the boolean
      */
     public boolean equals(CalendarDate date) {
-        if (date == null) return false;
-        return ((date.getDay() == getDay()) && (date.getMonth() == getMonth()) && (date.getYear() == getYear()));
+        if (date == null) {
+            return false;
+        }
+        return ((date.getDay() == getDay()) && (date.getMonth() == getMonth()) &&
+            (date.getYear() == getYear()));
     }
 
     /**
@@ -241,7 +241,9 @@ public class CalendarDate {
      * @return the boolean
      */
     public boolean before(CalendarDate date) {
-        if (date == null) return true;
+        if (date == null) {
+            return true;
+        }
         return this.getCalendar().before(date.getCalendar());
     }
 
@@ -252,7 +254,9 @@ public class CalendarDate {
      * @return the boolean
      */
     public boolean after(CalendarDate date) {
-        if (date == null) return true;
+        if (date == null) {
+            return true;
+        }
         return this.getCalendar().after(date.getCalendar());
     }
 
@@ -306,6 +310,6 @@ public class CalendarDate {
     public String getShortDateString() {
         return Local.getDateString(this, DateFormat.SHORT);
     }
-    
+
 
 }

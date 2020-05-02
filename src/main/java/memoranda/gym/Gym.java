@@ -70,12 +70,7 @@ public class Gym {
      * @return the Role Entity
      */
     public RoleEntity getUserRole() {
-        try {
-            this.user = App.conn.getDrq().getUserByEmail("admin@gym.com");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        this.user.setRole(new RoleEntity("admin"));
+
         return user.getRole();
     }
 

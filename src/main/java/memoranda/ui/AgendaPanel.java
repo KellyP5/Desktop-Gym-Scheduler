@@ -43,7 +43,8 @@ public class AgendaPanel extends JPanel {
 
 	boolean studentView = true;
 
-	Gym gym = new Gym();
+	Gym gym = Gym.getInstance();
+	private UserEntity loggedUser = gym.getUser();
 
 	/**
 	 * The Panel.

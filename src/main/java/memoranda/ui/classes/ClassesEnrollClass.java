@@ -15,13 +15,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ClassesEnrollClass {
-    private static final String enrollDialogGifLocation = "src/main/resources/ui/liftWeight.gif";
+    private static final String tryingGifLocation = "src/main/resources/ui/liftWeight2.gif";
+    private static final String failedGifLocation = "src/main/resources/ui/liftWeight2_red.gif";
+    private static final String successGifLocation = "src/main/resources/ui/SpinWeight.gif";
     ClassesPanel topLevelReference;
     LocalDate date;
     GymClassEntity selectedClass;
     Gym gym;
     JDialog enrollDialog;
     JLabel infoText;
+    JLabel gif;
+    Icon tryingIcon;
+    Icon failedIcon;
+    Icon successIcon;
+
     boolean shouldUpdateText;
 
     public ClassesEnrollClass(ClassesPanel topLevelReference, LocalDate date, GymClassEntity selectedClass) {
@@ -35,20 +42,39 @@ public class ClassesEnrollClass {
         this.selectedClass = selectedClass;
         this.shouldUpdateText = true;
         this.gym = Gym.getInstance();
+        tryingIcon = new ImageIcon(tryingGifLocation);
+        failedIcon = new ImageIcon(failedGifLocation);
+        successIcon = new ImageIcon(successGifLocation);
+
         createGuiElements();
 
         scheduleUpdatesToGui();
         enrollDialog.setVisible(true);
     }
 
+    /**Check if the gym class is full.
+     * @param gce GymClassEntity that is being checked for capacity
+     * @return true if the gym class is full
+     * @throws SQLException
+     */
     public boolean classIsNotFull(GymClassEntity gce) throws SQLException {
         return App.conn.getDrq().getNumberOfStudentsEnrolledInClass(gce.getId()) < gce.getMaxClassSize();
     }
 
+    /**Check if the user has sufficient training to enroll in the class.
+     * @param classSelected class that is being checked against (to get the min belt required)
+     * @param loggedInUser  User that is being checked if they have sufficient training to enroll
+     * @return
+     */
     public boolean userHasSufficientTrainingToEnroll(GymClassEntity classSelected, UserEntity loggedInUser) {
         return loggedInUser.getTrainingBelt().rank.ordinal() >= classSelected.getMinBeltEntityRequired().rank.ordinal();
     }
 
+    /**Checks if the user is already enrolled in a class from the given list of classes and class id.  
+     * @param usersCurrentEnrolledClasses list of the users classes to check
+     * @param classIdAttemptingToEnrollIn id of the class user is attempting to enroll in
+     * @return
+     */
     public boolean userIsAlreadyEnrolledInClass(ArrayList<GymClassEntity> usersCurrentEnrolledClasses,
                                                 int classIdAttemptingToEnrollIn) {
         for (GymClassEntity gymClassEntity : usersCurrentEnrolledClasses) {
@@ -74,8 +100,8 @@ public class ClassesEnrollClass {
 
     private void createGuiElements() {
         //setup gif
-        Icon icon = new ImageIcon(enrollDialogGifLocation);
-        JLabel gif = new JLabel(icon);
+        Icon icon = new ImageIcon(tryingGifLocation);
+        gif = new JLabel(icon);
         gif.setAlignmentX(Component.CENTER_ALIGNMENT);
         JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(topLevelReference);
 
@@ -109,6 +135,7 @@ public class ClassesEnrollClass {
                 if (!classIsNotFull(selectedClass)) {
                     shouldUpdateText = false;
                     infoText.setText("Class is full!");
+                    gif.setIcon(failedIcon);
                     scheduleClose(2000);
                 }
             } catch (SQLException e) {
@@ -131,6 +158,7 @@ public class ClassesEnrollClass {
             if (!userHasSufficientTrainingToEnroll(selectedClass, gym.getUser())) {
                 shouldUpdateText = false;
                 infoText.setText("Belt rank is insufficient to enroll in that class!");
+                gif.setIcon(failedIcon);
                 scheduleClose(2000);
             }
         };
@@ -154,6 +182,7 @@ public class ClassesEnrollClass {
                     selectedClass.getId())) {
                 shouldUpdateText = false;
                 infoText.setText("You're already enrolled!");
+                gif.setIcon(failedIcon);
                 scheduleClose(2000);
             }
 
@@ -171,9 +200,10 @@ public class ClassesEnrollClass {
             }
             Response response = gym.enrollUser(selectedClass.getId(), gym.getUser().getEmail());
             if (response.isSuccess()) {
+                gif.setIcon(successIcon);
                 infoText.setText("User Enrolled!");
             }
-            scheduleClose(1000);
+            scheduleClose(1500);
         };
         Timer t = new Timer(delay, listener);
         t.setRepeats(false);

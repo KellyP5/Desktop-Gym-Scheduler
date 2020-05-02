@@ -12,7 +12,7 @@ public class GymTest {
     @Test
     public void testCreateReadDeleteTrainer(){
 
-        Gym gym = new Gym();
+        Gym gym = Gym.getInstance();
         // just to make sure we don't have this user already in the DB
         Response res = gym.deleteUser("unique13131312231@gmail.com");
 
@@ -39,7 +39,7 @@ public class GymTest {
 
     @Test
     public void testCreateReadDeleteCustomer(){
-        Gym gym = new Gym();
+        Gym gym = Gym.getInstance();
 
         //test the create
         Response createRes = gym.createCustomer("unique13131312231@gmail.com",
@@ -60,7 +60,7 @@ public class GymTest {
 
     @Test
     public void testReadFailure(){
-        Gym gym = new Gym();
+        Gym gym = Gym.getInstance();
 
         Response deleteRes = gym.deleteUser("unique13131312231@gmail.com");
         Response readRes = gym.readGetUser("unique13131312231@gmail.com");
@@ -71,7 +71,7 @@ public class GymTest {
 
     @Test
     public void testAlreadyCreatedFailure(){
-        Gym gym = new Gym();
+        Gym gym = Gym.getInstance();
 
         //just to make sure the user doesn't exist already
         Response deleteRes = gym.deleteUser("unique13131312231@gmail.com");
@@ -99,7 +99,7 @@ public class GymTest {
 
     @Test
     public void testTrainerAvail(){
-        Gym gym = new Gym();
+        Gym gym = Gym.getInstance();
 
         gym.deleteUser("1331331@gmail.com");
         gym.createTrainer("1331331@gmail.com","test1","test2","1234",new BeltEntity("black3"));
@@ -118,7 +118,7 @@ public class GymTest {
     @Test
     public void testDeleteClass(){
 
-        Gym gym = new Gym();
+        Gym gym = Gym.getInstance();
         Response res1 = gym.createTrainer("1331331@gmail.com","test1","test2","1234",new BeltEntity("black3"));
 
         LocalDate ld = LocalDate.of(1988,04,28);

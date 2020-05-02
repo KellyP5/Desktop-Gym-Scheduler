@@ -28,7 +28,7 @@ public class DbCreateQueries {
                            String password,
                            RoleEntity role) throws SQLException {
         String sql = "INSERT INTO USER" +
-            "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
+                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -47,15 +47,14 @@ public class DbCreateQueries {
 
     //Admin and Trainer uses this
     public void insertUser(String email,
-                           String firstName,
-                           String lastName,
-                           String password,
-                           RoleEntity role,
-                           BeltEntity startingBelt,
-                           BeltEntity trainingBelt) throws SQLException {
-
+                            String firstName,
+                            String lastName,
+                            String password,
+                            RoleEntity role,
+                            BeltEntity startingBelt,
+                            BeltEntity trainingBelt) throws SQLException {
         String sql = "INSERT INTO USER" +
-            "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
+                "(Email,FirstName,LastName,Password,Role,Belt,TrainingBelt) VALUES(?,?,?,?,?,?,?)";
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -199,6 +198,20 @@ public class DbCreateQueries {
         conn.close();
     }
 
+    public void insertUserImage(String Email, String imageUrl) throws SQLException {
+        String sql = "INSERT INTO USERIMAGE " +
+                "(Email,ImageURL) VALUES (?,?)";
+
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, Email);
+        pstmt.setString(2, imageUrl);
+        pstmt.executeUpdate();
+
+        pstmt.close();
+        conn.close();
+    }
+
 
     /*
     insert a new trainer availability into TRAINERAVAILABILITY, example usage:
@@ -240,9 +253,19 @@ public class DbCreateQueries {
         conn.close();
     }
 
-
-
-
-
-
+    /**
+     * Delete a user from the DB based on e-mail
+     *
+     * @param userEmail
+     * @throws SQLException
+     */
+    public void deleteUser(String userEmail) throws SQLException {
+        String sql = "DELETE FROM USER WHERE Email=?; DELETE FROM ENROLLEDUSER WHERE UserEmail=?";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, userEmail);
+        pstmt.executeUpdate();
+        pstmt.close();
+        conn.close();
+    }
 }

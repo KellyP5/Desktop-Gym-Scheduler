@@ -44,11 +44,55 @@ public class databaseTest {
 
     @After
     public void tearDown() throws Exception {
-        //sqlConnection.getDbSetupHelperTest().closeDatabase();
         sqlConnection.getDbSetupHelperTest().deleteTestTables();
         sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
         SqlConnection.close();
+    }
 
+    @Test
+    public void insertUserImageTest() throws SQLException {
+        dcq.insertUser("pam@gym.com", "Pam", "Halpert", "pass", new RoleEntity(RoleEntity.UserRole.customer));
+        String image = "/ui/resources/ui/pam.jpg";
+        dcq.insertUserImage("pam@gym.com", image);
+        assertTrue(drq.getUserImage("pam@gym.com").equals(image));
+    }
+
+    @Test
+    public void getNumberOfStudentsEnrolledInClassEqualsZeroTest() throws SQLException {
+        dcq.insertUser("kellye@gym.com", "Kelly", "Ellis", "pass", new RoleEntity(RoleEntity.UserRole.trainer),
+                new BeltEntity(BeltEntity.Rank.green), new BeltEntity(BeltEntity.Rank.green));
+        dcq.insertClass(1, 1, "05/01/2020", 12.0, 13.0, "kellye@gym.com",
+                20, new BeltEntity(BeltEntity.Rank.green), "kellye@gym.com");
+
+        int numStudents = drq.getNumberOfStudentsEnrolledInClass(1);
+        assertTrue(numStudents == 0);
+    }
+
+    @Test
+    public void getNumberOfStudentsEnrolledInClassEqualsTwoTest() throws SQLException {
+        dcq.insertUser("kellye@gym.com", "Kelly", "Ellis", "pass", new RoleEntity(RoleEntity.UserRole.trainer),
+                new BeltEntity(BeltEntity.Rank.green), new BeltEntity(BeltEntity.Rank.green));
+        dcq.insertUser("student1@gym.com", "Student", "One", "pass", new RoleEntity(RoleEntity.UserRole.customer));
+        dcq.insertUser("student2@gym.com", "Student", "Two", "pass", new RoleEntity(RoleEntity.UserRole.customer));
+
+        dcq.insertClass(1, 1, "05/01/2020", 12.0, 13.0, "kellye@gym.com",
+                20, new BeltEntity(BeltEntity.Rank.green), "kellye@gym.com");
+        dcq.insertEnrolledUser(1, "student1@gym.com");
+        dcq.insertEnrolledUser(1, "student2@gym.com");
+
+        int numStudents = drq.getNumberOfStudentsEnrolledInClass(1);
+        assertTrue(numStudents == 2);
+    }
+
+    @Test
+    public void updateUserImageTest() throws SQLException {
+        dcq.insertUser("pam@gym.com", "Pam", "Halpert", "pass", new RoleEntity(RoleEntity.UserRole.customer));
+        String image = "/ui/resources/ui/pam.jpg";
+        dcq.insertUserImage("pam@gym.com", image);
+
+        String imageUpdated = "/ui/resources/ui/dwight.jpg";
+        duq.updateUserImage("pam@gym.com", imageUpdated);
+        assertTrue(drq.getUserImage("pam@gym.com").equals(imageUpdated));
     }
 
     @Test

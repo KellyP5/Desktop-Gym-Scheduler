@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ClassesEnrollClass {
     private static final String enrollDialogGifLocation = "src/main/resources/ui/liftWeight.gif";
@@ -39,13 +40,14 @@ public class ClassesEnrollClass {
     }
 
     private void scheduleUpdatesToGui() {
-        scheduleDelayedTextUpdate("Checking your belt rank is sufficient...", 0, false);
-        scheduleDelayedStudentBeltRankIsSufficientCheck(0);
-        scheduleDelayedTextUpdate("Checking class availability...", 2000, false);
-        scheduleDelayedClassSizeCheck(2000);
-        scheduleDelayedTextUpdate("Enrolling in class...", 4000, false);
+        scheduleDelayedTextUpdate("Checking you aren't already enrolled in this class...", 0, false);
+        scheduleDelayedStudentIsntAlreadyEnrolledCheck(0);
+        scheduleDelayedTextUpdate("Checking your belt rank is sufficient...", 2000, false);
+        scheduleDelayedStudentBeltRankIsSufficientCheck(2000);
+        scheduleDelayedTextUpdate("Checking class availability...", 4000, false);
+        scheduleDelayedClassSizeCheck(4000);
+        scheduleDelayedTextUpdate("Enrolling in class...", 6000, false);
         scheduleDelayedEnrollUser(6000);
-        scheduleDelayedTextUpdate("", 6000, true);
     }
 
 
@@ -74,15 +76,12 @@ public class ClassesEnrollClass {
         enrollDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         enrollDialog.pack();
         enrollDialog.setLocationRelativeTo(topFrame);
-        enrollDialog.setSize(250, 200);
+        enrollDialog.setSize(350, 200);
     }
 
     private void scheduleDelayedClassSizeCheck(int delay) {
         ActionListener listener = event -> {
             if (!shouldContinue) {
-                if (enrollDialog.isVisible()) {
-                    enrollDialog.setVisible(false);
-                }
                 return;
             }
             ClassHelper classHelper = new ClassHelper();
@@ -105,9 +104,6 @@ public class ClassesEnrollClass {
     private void scheduleDelayedStudentBeltRankIsSufficientCheck(int delay) {
         ActionListener listener = event -> {
             if (!shouldContinue) {
-                if (enrollDialog.isVisible()) {
-                    enrollDialog.setVisible(false);
-                }
                 return;
             }
             ClassHelper classHelper = new ClassHelper();
@@ -122,12 +118,34 @@ public class ClassesEnrollClass {
         t.start();
     }
 
+
+
+    private void scheduleDelayedStudentIsntAlreadyEnrolledCheck(int delay) {
+        ActionListener listener = event -> {
+            if (!shouldContinue) {
+                return;
+            }
+            Response response = gym.getClassesUserEnrolledInByEmail(gym.getUser().getEmail());
+
+            ClassHelper helper = new ClassHelper();
+
+            if (response.isFailure()
+                    || helper.userIsAlreadyEnrolledInClass((ArrayList<GymClassEntity>)response.getValue(),
+                    selectedClass.getId())) {
+                shouldContinue = false;
+                scheduleDelayedTextUpdate("", 0, true);
+            }
+
+        };
+        Timer t = new Timer(delay, listener);
+        t.setRepeats(false);
+        t.start();
+
+    }
+
     private void scheduleDelayedEnrollUser(int delay) {
         ActionListener listener = event -> {
             if (!shouldContinue) {
-                if (enrollDialog.isVisible()) {
-                    enrollDialog.setVisible(false);
-                }
                 return;
             }
             Response response = gym.enrollUser(selectedClass.getId(), gym.getUser().getEmail());
@@ -135,8 +153,9 @@ public class ClassesEnrollClass {
                 infoText.setText(response.getMsg());
                 shouldContinue = false;
             } else {
-                infoText.setText("User Enrolled");
+                infoText.setText("User Enrolled!");
             }
+            scheduleDelayedTextUpdate("", 1000, true);
         };
         Timer t = new Timer(delay, listener);
         t.setRepeats(false);

@@ -12,6 +12,7 @@ import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.database.util.SqlConstants;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.ui.LoginBox;
+import org.sqlite.SQLiteException;
 
 /**
  * ---CreateMethods
@@ -486,11 +487,22 @@ public class Gym {
     public Response enrollUser(int classId, String userEmail) {
         try {
             conn.getDcq().insertEnrolledUser(classId, userEmail);
+        } catch (SQLiteException e) {
+            return Response.failure("Student is already enrolled in this class!");
         } catch (SQLException e) {
             e.printStackTrace();
             return Response.failure("Error: could not find class id or useremail");
         }
         return Response.success("Added student");
+    }
+
+    public Response getClassesUserEnrolledInByEmail(String userEmail) {
+        try {
+            return Response.success("Retrieved users enrolled classes",
+                    conn.getDrq().getClassesUserEnrolledInByEmail(userEmail));
+        } catch (SQLException e) {
+            return Response.failure("User does not exist!");
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.ui.App;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ClassHelper {
     public boolean classIsNotFull(GymClassEntity gce) throws SQLException {
@@ -13,6 +14,16 @@ public class ClassHelper {
 
     public boolean userHasSufficientTrainingToEnroll(GymClassEntity classSelected, UserEntity loggedInUser) {
         return loggedInUser.getTrainingBelt().rank.ordinal() >= classSelected.getMinBeltEntityRequired().rank.ordinal();
+    }
+
+    public boolean userIsAlreadyEnrolledInClass(ArrayList<GymClassEntity> usersCurrentEnrolledClasses,
+                                                int classIdAttemptingToEnrollIn) {
+        for (GymClassEntity gymClassEntity : usersCurrentEnrolledClasses) {
+            if (gymClassEntity.getId() == classIdAttemptingToEnrollIn) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

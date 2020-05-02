@@ -1,5 +1,7 @@
 package main.java.memoranda.date;
 
+import java.sql.SQLException;
+
 /**
  * The interface Date listener.
  */
@@ -11,6 +13,6 @@ public interface DateListener {
      *
      * @param date the date
      */
-    void dateChange(CalendarDate date);
+    void dateChange(CalendarDate date) throws SQLException;
 
 }

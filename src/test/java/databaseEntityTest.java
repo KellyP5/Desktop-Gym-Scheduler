@@ -1,12 +1,15 @@
 package test.java;
 
-import main.java.memoranda.database.*;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.EnrolledUserEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.util.Local;
 import org.junit.*;
-
-import javax.management.relation.Role;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAmount;
 
 import static org.junit.Assert.*;
 
@@ -23,6 +26,7 @@ public class databaseEntityTest {
     public static TrainerAvailabilityEntity tae1;
     public static UserEntity udt1;
     public static RoleEntity ur1;
+    private static String imageUrl;
 
     /**
      * Sets up for database object tests
@@ -31,7 +35,6 @@ public class databaseEntityTest {
     public static void setUp() {
         be1 = new BeltEntity("");
         ur1 = new RoleEntity(RoleEntity.UserRole.trainer);
-
     }
 
     /**
@@ -67,7 +70,7 @@ public class databaseEntityTest {
      * Tests Gym Class Entity
      */
     @Test
-    public void gymClassEntity()  {
+    public void gymClassEntity() throws SQLException {
         ldt1 = LocalDateTime.now();
         gce1 = new GymClassEntity(1, 1, ldt1, ldt1,
                 "kjpetron@asu.edu",
@@ -113,9 +116,6 @@ public class databaseEntityTest {
 
     }
 
-
-
-
     /**
      * Tests trainer availbility Entity
      */
@@ -129,7 +129,29 @@ public class databaseEntityTest {
 
         assertEquals(start, tae1.getStartDateTime());
         assertEquals(end, tae1.getEndDateTime());
+    }
 
+    /**
+     * Tests times and conversions for use with the DB.
+     */
+    @Test
+    public void getTimeAndConvert() {
+        String[] times = Local.getTimes();
+        String[] actualTimes = new String[]{"0500", "0600", "0700", "0800", "0900",
+                "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800"
+                , "1900", "2000", "2100"};
+        assertEquals(times, actualTimes);
+        double time = 6.0;
+        assertEquals(time, Local.getDoubleTime("0600"), 0.0);
+    }
 
+    /**
+     * Ensures max class sizes is returning properly for DB formatting.
+     */
+    @Test
+    public void getClassSizes() {
+        String classSize[] =
+                {"3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+        assertEquals(classSize, Local.getMaxClassSize());
     }
 }

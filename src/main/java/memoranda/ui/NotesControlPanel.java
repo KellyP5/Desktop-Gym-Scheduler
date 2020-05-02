@@ -14,6 +14,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 /**
  * The type Notes control panel.
@@ -164,7 +165,11 @@ public class NotesControlPanel extends JPanel {
         ppOpenNote.setText(Local.getString("Go to note"));
         ppOpenNote.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ppOpenNote_actionPerformed(e);
+                try {
+                    ppOpenNote_actionPerformed(e);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         ppOpenNote.setEnabled(false);
@@ -274,8 +279,13 @@ public class NotesControlPanel extends JPanel {
     class PopupListener extends MouseAdapter {
 
         public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2)
-                setActiveNote();
+            if (e.getClickCount() == 2) {
+                try {
+                    setActiveNote();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
 
         public void mousePressed(MouseEvent e) {
@@ -296,7 +306,7 @@ public class NotesControlPanel extends JPanel {
     /**
      * Sets active note.
      */
-    void setActiveNote() {
+    void setActiveNote() throws SQLException {
         Note note = (Note) notesList.getNote(notesList.getSelectedIndex());
         CurrentDate.set(note.getDate());
 		CurrentNote.set(note,true);
@@ -386,7 +396,7 @@ public class NotesControlPanel extends JPanel {
      *
      * @param e the e
      */
-    void ppOpenNote_actionPerformed(ActionEvent e) {
+    void ppOpenNote_actionPerformed(ActionEvent e) throws SQLException {
         setActiveNote();
     }
 

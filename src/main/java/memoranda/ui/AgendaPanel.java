@@ -1,8 +1,8 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.History;
-import main.java.memoranda.database.GymClassEntity;
-import main.java.memoranda.database.UserEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
@@ -12,6 +12,8 @@ import main.java.memoranda.util.Local;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -36,6 +38,13 @@ public class AgendaPanel extends JPanel {
 	 * The Border layout 1.
 	 */
 	BorderLayout borderLayout1 = new BorderLayout();
+
+	boolean trainerView = false;
+
+	boolean studentView = true;
+
+	Gym gym = Gym.getInstance();
+	private UserEntity loggedUser = gym.getUser();
 
 	/**
 	 * The Panel.
@@ -63,6 +72,8 @@ public class AgendaPanel extends JPanel {
 	 * The Scroll pane.
 	 */
 	JScrollPane scrollPane;
+	private JButton trainerViewClassBut;
+	private JButton studentViewClassBut;
 
 	/**
 	 * Instantiates a new Agenda panel.
@@ -153,10 +164,13 @@ public class AgendaPanel extends JPanel {
 	 */
 	private ArrayList<ArrayList<String>> _getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
 		//TEMPORARY will need to be changed to the actual once the logged user can be checked
-/*		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrq().
-				getAllClassesTrainerIsTeachingByEmail(email);*/
-		ArrayList<GymClassEntity> gymClassEntities = Gym.getEnrolledClassesByEmailAndDate(email,selectedCalendarDate);
-
+		ArrayList<GymClassEntity> gymClassEntities = null;
+		if(trainerView == true) {
+			gymClassEntities = App.conn.getDrq().
+					getAllClassesTrainerIsTeachingByEmail(email);
+		}else if(studentView == true) {
+			gymClassEntities = Gym.getEnrolledClassesByEmailAndDate(email,selectedCalendarDate);
+		}
 		if (gymClassEntities!=null) {
 			ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
 			for (int i = 0; i < gymClassEntities.size(); i++) {
@@ -214,42 +228,88 @@ public class AgendaPanel extends JPanel {
 	void initToolBar() {
 		toolBar.setFloatable(false);
 
+		trainerViewClassBut = new JButton("Training Schedule");
+		studentViewClassBut = new JButton("Personal Schedule");
 
-		historyBackB.setAction(History.historyBackAction);
-		historyBackB.setFocusable(false);
-		historyBackB.setBorderPainted(false);
-		historyBackB.setToolTipText(Local.getString("History back"));
-		historyBackB.setRequestFocusEnabled(false);
-		historyBackB.setPreferredSize(new Dimension(24, 24));
-		historyBackB.setMinimumSize(new Dimension(24, 24));
-		historyBackB.setMaximumSize(new Dimension(24, 24));
-		historyBackB.setText("");
+		Color color = Color.decode("#16034f");
+		trainerViewClassBut.setBackground(color);
+		trainerViewClassBut.setForeground(Color.WHITE);
+		trainerViewClassBut.setEnabled(true);
+		trainerViewClassBut.setMaximumSize(new Dimension(130, 24));
+		trainerViewClassBut.setMinimumSize(new Dimension(130, 24));
+		trainerViewClassBut.setToolTipText(Local.getString("Training Schedule"));
+		trainerViewClassBut.setRequestFocusEnabled(false);
+		trainerViewClassBut.setPreferredSize(new Dimension(130, 24));
+		trainerViewClassBut.setFocusable(false);
+		trainerViewClassBut.setBorderPainted(false);
+		trainerViewClassBut.setFont(new Font("Arial", Font.PLAIN, 10));
 
-		historyForwardB.setAction(History.historyForwardAction);
-		historyForwardB.setBorderPainted(false);
-		historyForwardB.setFocusable(false);
-		historyForwardB.setPreferredSize(new Dimension(24, 24));
-		historyForwardB.setRequestFocusEnabled(false);
-		historyForwardB.setToolTipText(Local.getString("History forward"));
-		historyForwardB.setMinimumSize(new Dimension(24, 24));
-		historyForwardB.setMaximumSize(new Dimension(24, 24));
-		historyForwardB.setText("");
+		studentViewClassBut.setBackground(color);
+		studentViewClassBut.setForeground(Color.WHITE);
+		studentViewClassBut.setEnabled(true);
+		studentViewClassBut.setMaximumSize(new Dimension(130, 24));
+		studentViewClassBut.setMinimumSize(new Dimension(130, 24));
+		studentViewClassBut.setToolTipText(Local.getString("Personal Schedule"));
+		studentViewClassBut.setRequestFocusEnabled(false);
+		studentViewClassBut.setPreferredSize(new Dimension(130, 24));
+		studentViewClassBut.setFocusable(false);
+		studentViewClassBut.setBorderPainted(false);
 
-		toolBar.add(historyBackB, null);
-		toolBar.add(historyForwardB, null);
+
+		studentViewClassBut.setFont(new Font("Arial", Font.PLAIN, 10));
+
+		if(gym.getUserRole().userRole == RoleEntity.UserRole.admin
+				||gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
+
+		toolBar.add(studentViewClassBut);
+		toolBar.addSeparator(new Dimension(2, 24));
+
+
+		toolBar.add(trainerViewClassBut);
+		}
 		//toolBar.addSeparator(new Dimension(8, 24));
 		this.add(toolBar, BorderLayout.NORTH);
+		studentViewClassBut.setEnabled(false);
+		toolBarListeners();
 	}
+
+	void toolBarListeners(){
+		this.studentViewClassBut.addActionListener(new ActionListener(){
+
+			public void actionPerformed( ActionEvent aActionEvent ) {
+				System.out.println("DEBUG: student view selected");
+				studentView = true;
+				trainerView = false;
+				refresh(CurrentDate.get());
+				studentViewClassBut.setEnabled(false);
+				trainerViewClassBut.setEnabled(true);
+			}});
+		this.trainerViewClassBut.addActionListener(e -> {
+			if(e.getSource() == trainerViewClassBut) {
+				System.out.println("DEBUG: trainer view selected");
+				studentView = false;
+				trainerView = true;
+				refresh(CurrentDate.get());
+				studentViewClassBut.setEnabled(true);
+				trainerViewClassBut.setEnabled(false);
+			}
+		});
+	}
+
+
 
 	/**
 	 * Sets up our event listener for keeping our date current and what we are displaying to the user.
 	 */
 	void initEventListeners() {
-		CurrentDate.addDateListener(new DateListener() {
-			public void dateChange(CalendarDate d) {
-				if (isActive)
-					refresh(d);
-			}
+		studentViewClassBut.addActionListener((e)->{
+			System.out.println("Debug: removeClassBut TODO");
+			//TODO
+		});
+		CurrentDate.addDateListener(d -> {
+
+			if (isActive)
+				refresh(d);
 		});
 	}
 
@@ -341,7 +401,7 @@ public class AgendaPanel extends JPanel {
 		instructorBelt.setBorder(BorderFactory.createEmptyBorder(0,0,0,25));
 
 		toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
-		//initToolBar(); // reinitiates tool bar
+		initToolBar(); // reinitiates tool bar
 		toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
 		toolBar.add(instructorBelt); //adds the instructor belt jlabel to toolbar
 	}

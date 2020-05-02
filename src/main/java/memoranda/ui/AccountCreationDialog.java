@@ -1,11 +1,9 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.database.RoleEntity;
-import main.java.memoranda.database.SqlConnection;
-import main.java.memoranda.database.UserEntity;
-import main.java.memoranda.database.util.DbReadQueries;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.gym.Gym;
 
-import javax.management.relation.Role;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,7 +18,7 @@ import java.util.Arrays;
 public class AccountCreationDialog extends JFrame {
 
     App app;
-
+    Gym gym;
     JPanel accountCreate;
     ImageIcon globoLogo;
     JLabel logo;
@@ -43,6 +41,7 @@ public class AccountCreationDialog extends JFrame {
 
     public AccountCreationDialog() {
 
+        gym = Gym.getInstance();
         accountCreate = new JPanel();
         globoLogo = new ImageIcon("src/main/resources/ui/globo.jpg");
         logo = new JLabel();
@@ -344,17 +343,19 @@ public class AccountCreationDialog extends JFrame {
             } else {
                 System.out.println("Attempting to create account with E-mail: " + email.getText());
                 try {
-                    RoleEntity role;
+                    BeltEntity belt;
+                    // Add new trainer to database
                     if (trainerButton.isSelected()) {
-                        role = new RoleEntity(RoleEntity.UserRole.trainer);
+                        belt = new BeltEntity(BeltEntity.Rank.white);
+                        gym.createTrainer(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), belt);
+                    // Add new customer to database
                     } else {
-                        role = new RoleEntity(RoleEntity.UserRole.customer);
+                        gym.createCustomer(email.getText(), firstName.getText(), lastName.getText(), pass.getText());
                     }
-                    // Add new user to database
-                    LoginBox.conn.getDcq().insertUser(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), role);
+                    LoginBox.conn.getDcq().insertUserImage(email.getText(),"src/main/resources/ui/Placeholder.png");
                     dispose();
                     createdSuccessfully();
-                } catch (SQLException | IOException ex) {
+                } catch (IOException ex) {
                     throwInputError("An account already exists with that email.");
                 }
             }

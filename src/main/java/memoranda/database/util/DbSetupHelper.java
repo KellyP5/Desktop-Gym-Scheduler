@@ -1,10 +1,15 @@
 package main.java.memoranda.database.util;
 
-import main.java.memoranda.database.*;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.database.queries.DbCreateQueries;
+import main.java.memoranda.database.queries.DbReadQueries;
 
 /*
 Utility class with many helpful methods for setup and configuration of the real db and test db
@@ -95,6 +100,15 @@ public class DbSetupHelper {
                 + "    FOREIGN KEY(ClassId) REFERENCES GYMCLASS(Id) ON DELETE CASCADE\n"
                 + ");";
         createTable(enrolledUsersSql, "EnrolledUser");
+
+        //create USERIMAGE
+        String userImageSql = "CREATE TABLE IF NOT EXISTS USERIMAGE (\n"
+                + "    Email text NOT NULL,\n"
+                + "    ImageUrl text NOT NULL COLLATE NOCASE,\n"
+                + "    PRIMARY KEY(Email),\n"
+                + "    FOREIGN KEY(Email) REFERENCES USER(Email) ON DELETE CASCADE\n"
+                + ");";
+        createTable(userImageSql, "USERIMAGE");
     }
     /*
     adds sample data to the database at databaseURL, this method is tightly coupled with the create
@@ -141,6 +155,7 @@ public class DbSetupHelper {
         sqlDropStatements.add("DROP TABLE IF EXISTS ENROLLEDUSER");
         sqlDropStatements.add("DROP TABLE IF EXISTS USER");
         sqlDropStatements.add("DROP TABLE IF EXISTS GYMCLASS");
+        sqlDropStatements.add("DROP TABLE IF EXISTS USERIMAGE");
 
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         Statement statement  = conn.createStatement();

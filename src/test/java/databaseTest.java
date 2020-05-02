@@ -1,32 +1,34 @@
 package test.java;
 
-import main.java.memoranda.database.*;
-import main.java.memoranda.database.util.DbCreateQueries;
-import main.java.memoranda.database.util.DbReadQueries;
-import main.java.memoranda.database.util.DbUpdateQueries;
-import main.java.memoranda.database.util.SqlConstants;
-
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import org.junit.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import main.java.memoranda.database.SqlConnection;
+import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.database.queries.DbCreateQueries;
+import main.java.memoranda.database.queries.DbDeleteQueries;
+import main.java.memoranda.database.queries.DbReadQueries;
+import main.java.memoranda.database.queries.DbUpdateQueries;
+import main.java.memoranda.database.util.SqlConstants;
+import org.junit.After;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class databaseTest {
     public static SqlConnection sqlConnection = null;
     public static DbCreateQueries dcq = null;
     public static DbReadQueries drq = null;
     public static DbUpdateQueries duq = null;
+    public static DbDeleteQueries dbd = null;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -35,17 +37,62 @@ public class databaseTest {
         dcq = sqlConnection.getDcqTest();
         drq = sqlConnection.getDrqTest();
         duq = sqlConnection.getDuqTest();
+        dbd = sqlConnection.getDbdTest();
         sqlConnection.getDbSetupHelperTest().deleteTestTables();
         sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
     }
 
     @After
     public void tearDown() throws Exception {
-        //sqlConnection.getDbSetupHelperTest().closeDatabase();
         sqlConnection.getDbSetupHelperTest().deleteTestTables();
         sqlConnection.getDbSetupHelperTest().createNeujahrskranzTables();
         SqlConnection.close();
+    }
 
+    @Test
+    public void insertUserImageTest() throws SQLException {
+        dcq.insertUser("pam@gym.com", "Pam", "Halpert", "pass", new RoleEntity(RoleEntity.UserRole.customer));
+        String image = "/ui/resources/ui/pam.jpg";
+        dcq.insertUserImage("pam@gym.com", image);
+        assertTrue(drq.getUserImage("pam@gym.com").equals(image));
+    }
+
+    @Test
+    public void getNumberOfStudentsEnrolledInClassEqualsZeroTest() throws SQLException {
+        dcq.insertUser("kellye@gym.com", "Kelly", "Ellis", "pass", new RoleEntity(RoleEntity.UserRole.trainer),
+                new BeltEntity(BeltEntity.Rank.green), new BeltEntity(BeltEntity.Rank.green));
+        dcq.insertClass(1, 1, "05/01/2020", 12.0, 13.0, "kellye@gym.com",
+                20, new BeltEntity(BeltEntity.Rank.green), "kellye@gym.com");
+
+        int numStudents = drq.getNumberOfStudentsEnrolledInClass(1);
+        assertTrue(numStudents == 0);
+    }
+
+    @Test
+    public void getNumberOfStudentsEnrolledInClassEqualsTwoTest() throws SQLException {
+        dcq.insertUser("kellye@gym.com", "Kelly", "Ellis", "pass", new RoleEntity(RoleEntity.UserRole.trainer),
+                new BeltEntity(BeltEntity.Rank.green), new BeltEntity(BeltEntity.Rank.green));
+        dcq.insertUser("student1@gym.com", "Student", "One", "pass", new RoleEntity(RoleEntity.UserRole.customer));
+        dcq.insertUser("student2@gym.com", "Student", "Two", "pass", new RoleEntity(RoleEntity.UserRole.customer));
+
+        dcq.insertClass(1, 1, "05/01/2020", 12.0, 13.0, "kellye@gym.com",
+                20, new BeltEntity(BeltEntity.Rank.green), "kellye@gym.com");
+        dcq.insertEnrolledUser(1, "student1@gym.com");
+        dcq.insertEnrolledUser(1, "student2@gym.com");
+
+        int numStudents = drq.getNumberOfStudentsEnrolledInClass(1);
+        assertTrue(numStudents == 2);
+    }
+
+    @Test
+    public void updateUserImageTest() throws SQLException {
+        dcq.insertUser("pam@gym.com", "Pam", "Halpert", "pass", new RoleEntity(RoleEntity.UserRole.customer));
+        String image = "/ui/resources/ui/pam.jpg";
+        dcq.insertUserImage("pam@gym.com", image);
+
+        String imageUpdated = "/ui/resources/ui/dwight.jpg";
+        duq.updateUserImage("pam@gym.com", imageUpdated);
+        assertTrue(drq.getUserImage("pam@gym.com").equals(imageUpdated));
     }
 
     @Test
@@ -65,6 +112,9 @@ public class databaseTest {
 
         assertEquals(userOriginal, userFromDb);
     }
+
+
+    //This test blows up the database, so I commented it out.
 
     @Test
     public void gymClassInsertedThenRetrievedFromDbIsEqual() throws SQLException {
@@ -162,7 +212,7 @@ public class databaseTest {
     }
 
     @Test
-    public void test1000Inserts_drq() throws SQLException{
+    public void test100Inserts_drq() throws SQLException{
         RoleEntity re = new RoleEntity(RoleEntity.UserRole.admin);
         BeltEntity be = new BeltEntity(BeltEntity.Rank.black3);
 
@@ -174,7 +224,7 @@ public class databaseTest {
                 be);
 
 
-        for(int i = 0;i< 1000;i++){
+        for(int i = 0;i< 100;i++){
             UserEntity ue1 = new UserEntity("kevin",
                     "kevin","kevin",
                     "kevin@kevin.com"+i,
@@ -193,8 +243,8 @@ public class databaseTest {
 
         ArrayList<UserEntity> ues = drq.getAllUsers();
 
-        assertEquals(1000,ues.size());
-        assertEquals(expected.getEmail()+499,ues.get(499).getEmail());
+        assertEquals(100,ues.size());
+        assertEquals(expected.getEmail()+59,ues.get(59).getEmail());
     }
 
     @Test
@@ -221,6 +271,8 @@ public class databaseTest {
                 minBelt,
                 "kevin@kevin.com");
     }
+
+    //This test blows up the database, so I commented it out.
 
     @Test
     public void gettingAllClassesBySpecificTrainerReturnsAllClassesExpected() throws SQLException {
@@ -307,6 +359,7 @@ public class databaseTest {
         assertEquals(classesByJack.get(0).getTrainerEmail(), "jack@gmail.com");
     }
 
+
     @Test
     public void deleteUser() throws SQLException {
         RoleEntity trainer = new RoleEntity(RoleEntity.UserRole.trainer);
@@ -320,7 +373,8 @@ public class databaseTest {
                 userOriginal.getRole(),
                 userOriginal.getBelt(),
                 userOriginal.getTrainingBelt());
-        dcq.deleteUser(userOriginal.getEmail());
+
+        dbd.deleteUser(userOriginal.getEmail());
         UserEntity userFromDb = drq.getUserByEmail(userOriginal.getEmail());
         assertNull(userFromDb);
     }

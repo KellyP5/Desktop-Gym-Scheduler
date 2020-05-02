@@ -46,7 +46,7 @@ public class PriorityQueue {
      * @return the element
      */
     public Element extraer(){
-                if(!this.Vacia()){
+                if(!this.vacia()){
                         Element m = a[1].getElement();  
                         a[1] = a[n];
                         --n;
@@ -74,7 +74,7 @@ public class PriorityQueue {
      *
      * @return the boolean
      */
-    public boolean Vacia(){
+    public boolean vacia(){
                 return n==0;
         }
 

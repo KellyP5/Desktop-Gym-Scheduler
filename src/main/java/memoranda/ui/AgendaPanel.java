@@ -430,28 +430,13 @@ public class AgendaPanel extends JPanel {
 			//add right padding to belt display
 			instructorBelt.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
 
-<<<<<<< HEAD
+
 			toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
 			initToolBar(); // reinitiates tool bar
 			toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
 			toolBar.add(instructorBelt); //adds the instructor belt jlabel to toolbar
 		}
-=======
-		JLabel instructorBelt = new JLabel();
-		Font labelFont = instructorBelt.getFont(); //creats Font to change font size
-		instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
-		UserEntity user = gym.getUser();
-		String beltText = user.getTrainingBelt().toString();
-		instructorBelt.setText("User: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
-				beltText.substring(0,1).toUpperCase() + beltText.substring(1));
-		//add right padding to belt display
-		instructorBelt.setBorder(BorderFactory.createEmptyBorder(0,0,0,25));
 
-		toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
-		//initToolBar(); // reinitiates tool bar
-		toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
-		toolBar.add(instructorBelt); //adds the instructor belt jlabel to toolbar
->>>>>>> origin/develop
 	}
 
 	/**

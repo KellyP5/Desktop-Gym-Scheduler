@@ -51,7 +51,6 @@ public class ClassesEnrollClass {
         successIcon = new ImageIcon(successGifLocation);
 
         createGuiElements();
-
         scheduleUpdatesToGui();
         enrollDialog.setVisible(true);
     }
@@ -88,8 +87,7 @@ public class ClassesEnrollClass {
         }
         return false;
     }
-
-
+    
     private void scheduleUpdatesToGui() {
         scheduleDelayedTextUpdate("Checking you aren't already enrolled in this class...", 0);
         scheduleDelayedStudentIsntAlreadyEnrolledCheck(1000);
@@ -100,7 +98,6 @@ public class ClassesEnrollClass {
         scheduleDelayedTextUpdate("Enrolling in class...", 6000);
         scheduleDelayedEnrollUser(7000);
     }
-
 
     private void createGuiElements() {
         //setup gif
@@ -171,15 +168,12 @@ public class ClassesEnrollClass {
         t.start();
     }
 
-
-
     private void scheduleDelayedStudentIsntAlreadyEnrolledCheck(int delay) {
         ActionListener listener = event -> {
             if (!shouldUpdateText) {
                 return;
             }
             Response response = gym.getClassesUserEnrolledInByEmail(gym.getUser().getEmail());
-
 
             if (response.isFailure()
                     || userIsAlreadyEnrolledInClass((ArrayList<GymClassEntity>)response.getValue(),
@@ -194,7 +188,6 @@ public class ClassesEnrollClass {
         Timer t = new Timer(delay, listener);
         t.setRepeats(false);
         t.start();
-
     }
 
     private void scheduleDelayedEnrollUser(int delay) {
@@ -212,7 +205,6 @@ public class ClassesEnrollClass {
         Timer t = new Timer(delay, listener);
         t.setRepeats(false);
         t.start();
-
     }
 
     private void scheduleDelayedTextUpdate(String text, int delay) {

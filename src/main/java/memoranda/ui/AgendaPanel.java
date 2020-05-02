@@ -153,12 +153,7 @@ public class AgendaPanel extends JPanel {
 
 		//Set up event listener for selecting a row
 		classesTable.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 0));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 1));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 2));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 3));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 4));
-			System.out.println();
+
 		});
 	}
 
@@ -171,7 +166,6 @@ public class AgendaPanel extends JPanel {
 	 * @throws SQLException sql exception if database connection fails
 	 */
 	private ArrayList<ArrayList<String>> _getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
-		//TEMPORARY will need to be changed to the actual once the logged user can be checked
 		ArrayList<GymClassEntity> gymClassEntities = null;
 		if(trainerView == true) {
 			gymClassEntities = App.conn.getDrq().
@@ -216,7 +210,6 @@ public class AgendaPanel extends JPanel {
 	 * @throws SQLException the sql exception
 	 */
 
-	//Functionality will need to be fixed in seperate user story
 	void initToolBar() {
 		toolBar.setFloatable(false);
 
@@ -259,7 +252,6 @@ public class AgendaPanel extends JPanel {
 
 				toolBar.add(trainerViewClassBut);
 			}
-			//toolBar.addSeparator(new Dimension(8, 24));
 			this.add(toolBar, BorderLayout.NORTH);
 			if (studentView == true) { //keeps the same button selected when the calendar date is refreshed.
 				studentViewClassBut.setEnabled(false);
@@ -281,8 +273,7 @@ public class AgendaPanel extends JPanel {
 	void toolBarListeners(){
 		this.studentViewClassBut.addActionListener(new ActionListener(){
 
-			public void actionPerformed( ActionEvent aActionEvent ) {
-				System.out.println("DEBUG: student view selected");
+			public void actionPerformed( ActionEvent ActionEvent ) {
 				studentView = true;
 				trainerView = false;
 				refresh(CurrentDate.get());
@@ -291,7 +282,6 @@ public class AgendaPanel extends JPanel {
 			}});
 		this.trainerViewClassBut.addActionListener(e -> {
 			if(e.getSource() == trainerViewClassBut) {
-				System.out.println("DEBUG: trainer view selected");
 				studentView = false;
 				trainerView = true;
 				refresh(CurrentDate.get());
@@ -308,8 +298,7 @@ public class AgendaPanel extends JPanel {
 	 */
 	void initEventListeners() {
 		studentViewClassBut.addActionListener((e)->{
-			System.out.println("Debug: removeClassBut TODO");
-			//TODO
+
 		});
 		CurrentDate.addDateListener(d -> {
 
@@ -330,12 +319,7 @@ public class AgendaPanel extends JPanel {
 		String[][] data = null;
 		LocalDate convertedDate = _convertDateToLocalDateTime(date);
 
-
 		classesTable.removeAll();
-
-		//NOTE: A check will need to be put here to check and see if the logged user is a trainer or not.
-		//If they are not a trainer, the table should not be displayed.
-
 		ArrayList<ArrayList<String>> d = null;
 		ArrayList<ArrayList<String>> temp;
 		try {
@@ -364,7 +348,6 @@ public class AgendaPanel extends JPanel {
 
 		//that way we can pass this into our JTable constructor
 		if (data == null) {
-			//columns will not display info when user is not logged in (will be functional when logged user can be checked)
 			classesTable.setModel(new DefaultTableModel(null, _COLUMNNAMES));
 		} else {
 			//loads the trainer's class data to the table
@@ -394,8 +377,7 @@ public class AgendaPanel extends JPanel {
 
 	private void updateTrainerBeltDisplay() {
 
-		//A check will need to be added here to check to see if the currently logged
-		//user is a trainer or not.
+
 		if(gym.getUser() != null) {
 			JLabel instructorBelt = new JLabel();
 			Font labelFont = instructorBelt.getFont(); //creats Font to change font size

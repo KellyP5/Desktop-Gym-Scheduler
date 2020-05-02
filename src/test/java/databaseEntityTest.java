@@ -6,6 +6,8 @@ import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
 import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.gym.Gym;
+import main.java.memoranda.gym.Response;
 import main.java.memoranda.util.Local;
 import org.junit.*;
 import java.sql.SQLException;
@@ -27,6 +29,7 @@ public class databaseEntityTest {
     public static UserEntity udt1;
     public static RoleEntity ur1;
     private static String imageUrl;
+    public static Gym gym;
 
     /**
      * Sets up for database object tests
@@ -35,6 +38,7 @@ public class databaseEntityTest {
     public static void setUp() {
         be1 = new BeltEntity("");
         ur1 = new RoleEntity(RoleEntity.UserRole.trainer);
+        gym = Gym.getInstance();
     }
 
     /**
@@ -153,5 +157,38 @@ public class databaseEntityTest {
         String classSize[] =
                 {"3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
         assertEquals(classSize, Local.getMaxClassSize());
+    }
+
+    @Test
+    public void createAdminTest() {
+        Response r;
+        r = gym.createAdmin("admin@gym.com", "admin", "gym", "1234");
+        assertTrue(r.isFailure());
+        r = gym.createAdmin("admin2@gym.com", "admin", "gym", "1234");
+        assertTrue(r.isSuccess());
+        r = gym.createAdmin("admin2@gym.com", "admin", "gym", "1234");
+        assertTrue(r.isFailure());
+    }
+
+    @Test
+    public void createCustomerTest() {
+        Response r;
+        r = gym.createAdmin("jim@gym.com", "jim", "gym", "1234");
+        assertTrue(r.isFailure());
+        r = gym.createAdmin("customer@gym.com", "customer", "gym", "1234");
+        assertTrue(r.isSuccess());
+        r = gym.createAdmin("customer@gym.com", "customer", "gym", "1234");
+        assertTrue(r.isFailure());
+    }
+
+    @Test
+    public void createTrainerTest() {
+        Response r;
+        r = gym.createAdmin("jim@gym.com", "jim", "gym", "1234");
+        assertTrue(r.isFailure());
+        r = gym.createAdmin("trainer@gym.com", "trainer", "gym", "1234");
+        assertTrue(r.isSuccess());
+        r = gym.createAdmin("trainer@gym.com", "trainer", "gym", "1234");
+        assertTrue(r.isFailure());
     }
 }

@@ -27,12 +27,13 @@ public class ClassTable extends DefaultTableModel {
     private DailyItemsPanel parentRef;
     private int room;
     private ArrayList<GymClassEntity> classes;
-    DefaultTableModel dm;
+    DefaultTableModel dm, removeClass;
     private GymClassEntity selectedClass;
 
     /**
      * Constructor
-     * @param ref Uses DailyItemspanel to snag CurrentDate attribute
+     *
+     * @param ref  Uses DailyItemspanel to snag CurrentDate attribute
      * @param room Is the room number of the class table
      */
     public ClassTable(DailyItemsPanel ref, int room) throws SQLException {
@@ -45,11 +46,11 @@ public class ClassTable extends DefaultTableModel {
 
     /**
      * Main initialization code for our ClassTable class
-     * */
+     */
     private void init() throws SQLException {
 
         LocalDate date = LocalDate.of(parentRef.currentDate.getYear(),
-                parentRef.currentDate.getMonth()+1,
+                parentRef.currentDate.getMonth() + 1,
                 parentRef.currentDate.getDay());
         initTable(date);
 
@@ -57,7 +58,7 @@ public class ClassTable extends DefaultTableModel {
         classTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean
-                                                           isSelected, boolean hasFocus, int row, int col) {
+                    isSelected, boolean hasFocus, int row, int col) {
                 super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
 
                 classTable.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
@@ -78,25 +79,26 @@ public class ClassTable extends DefaultTableModel {
 
     /**
      * Initializes the table
+     *
      * @param pDate the date the table will use.
      */
     private void initTable(LocalDate pDate) throws SQLException {
         //this.classes = App.conn.getDrqTest().getAllClassesByDate(parentRef.currentDate);
         //LocalDate date = LocalDate.of(2020, 4,11);
         this.date = pDate;
-        try{
+        try {
             this.classes = App.conn.getDrq().getAllClassesByDate(pDate);
-        }catch(SQLException c){
+        } catch (SQLException c) {
             c.printStackTrace();
         }
 
-        String[] columnNames = {"Time", "Trainer", "MinBelt","MaxSize","NumStudents"};
+        String[] columnNames = {"Time", "Trainer", "MinBelt", "MaxSize", "NumStudents"};
 
         Collections.sort(this.classes);
 
         ArrayList<ArrayList<String>> al = new ArrayList<ArrayList<String>>();
-        for(int i = 0;i< this.classes.size();i++){
-            if(this.classes.get(i).getRoomNumber()==this.room) {
+        for (int i = 0; i < this.classes.size(); i++) {
+            if (this.classes.get(i).getRoomNumber() == this.room) {
                 ArrayList<String> e = new ArrayList<>();
                 e.add(this.classes.get(i).getStartDateTime().toString()); //time
                 e.add(this.classes.get(i).getTrainerEmail());//trainer
@@ -110,11 +112,11 @@ public class ClassTable extends DefaultTableModel {
         }
 
         String[][] data = new String[al.size()][];
-        for(int i = 0;i<al.size();i++){
+        for (int i = 0; i < al.size(); i++) {
             ArrayList<String> current = al.get(i);
 
             String[] copy = new String[current.size()];
-            for(int j = 0;j< current.size();j++){
+            for (int j = 0; j < current.size(); j++) {
                 copy[j] = current.get(j);
             }
             data[i] = copy;
@@ -144,11 +146,11 @@ public class ClassTable extends DefaultTableModel {
     /**
      * Initializes all the action listeneres for this class.
      */
-    private void initActionListeners(){
+    private void initActionListeners() {
         CurrentDate.addDateListener(new DateListener() {
             public void dateChange(CalendarDate d) throws SQLException {
-                System.out.println("public void dateChange(CalendarDate d): "+d.toString());
-                date = LocalDate.of(d.getYear(),d.getMonth()+1,d.getDay());
+                System.out.println("public void dateChange(CalendarDate d): " + d.toString());
+                date = LocalDate.of(d.getYear(), d.getMonth() + 1, d.getDay());
                 refresh();
             }
         });
@@ -171,10 +173,10 @@ public class ClassTable extends DefaultTableModel {
      */
     void refresh() throws SQLException {
 
-        try{
+        try {
             this.classes = App.conn.getDrq().getAllClassesByDate(date);
 
-        }catch(SQLException ecp){
+        } catch (SQLException ecp) {
 
             ecp.printStackTrace();
         }
@@ -190,9 +192,9 @@ public class ClassTable extends DefaultTableModel {
         Collections.sort(this.classes);
 
         //add all the rows from the list
-        for(int i = 0;i< this.classes.size();i++){
+        for (int i = 0; i < this.classes.size(); i++) {
             //test if this classtable is the table to display the class
-            if(this.classes.get(i).getRoomNumber()==this.room){
+            if (this.classes.get(i).getRoomNumber() == this.room) {
                 int num = this.classes.get(i).getNumberOfStudentsEnrolledInClass(this.classes.get(i).getId());
                 dm.addRow(new Object[]{this.classes.get(i).getStartDateTime().toString(),
                         this.classes.get(i).getTrainerEmail(),
@@ -222,4 +224,11 @@ public class ClassTable extends DefaultTableModel {
         }
     }
 
+
+    public void deleteClass() {
+        DefaultTableModel model = (DefaultTableModel) this.classTable.getModel();
+        model.removeRow(classTable.getSelectedRow());
+
+    }
 }
+

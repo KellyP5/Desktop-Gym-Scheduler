@@ -1,47 +1,48 @@
 package main.java.memoranda.ui.classes;
 
 
+import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.gym.Gym;
+import main.java.memoranda.gym.Response;
+
+import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import javax.swing.*;
 
-import main.java.memoranda.database.entities.GymClassEntity;
-import main.java.memoranda.gym.Gym;
-import main.java.memoranda.gym.Response;
-import main.java.memoranda.util.Local;
+
 
 public class ClassesDeleteClass extends JDialog {
 
-    ClassesPanel topLevelReference;
     LocalDate date;
+    ClassesPanel topLevelReference;
     private JPanel deleteClass;
     private JButton deleteButton;
-    private boolean _remove;
     JLabel fillOutForm;
+    GymClassEntity selectedClass;
+    ClassTable classTable = null;
+
 
     /**
      * ClassesDeleteClass constructor for our delete class popup.
-     *
-     *
      */
-    public ClassesDeleteClass(ClassesPanel ref, Component rel, LocalDate startDate) {
+    public ClassesDeleteClass(ClassesPanel ref, Component rel, LocalDate currentDate, GymClassEntity gce) {
 
-
+        if (gce == null) {
+            throwInputError("You have not selected a class from the Classes Pane");
+            return;
+        }
         this.topLevelReference = ref;
-
-
+        selectedClass = gce;
         initGuiComponents();
-        actionEventHandler();
         getContentPane().add(deleteClass);
         setVisible(true);
         setLocationRelativeTo(null);
-
+        actionEventHandler();
 
     }
 
@@ -57,10 +58,7 @@ public class ClassesDeleteClass extends JDialog {
 
         deleteButton = new JButton("DELETE");
         deleteButton.setBounds(90, 100, 120, 20);
-
-
         deleteClass.setLayout(null);
-
         deleteClass.add(fillOutForm);
         deleteClass.add(deleteButton);
         deleteClass.setBackground(new Color(230, 230, 230));
@@ -70,7 +68,7 @@ public class ClassesDeleteClass extends JDialog {
     /**
      * actionEventHandler handles mouse events.
      */
-    public void actionEventHandler(){
+    public void actionEventHandler() {
         /**
          * Manages delete button entry box.
          */
@@ -104,28 +102,24 @@ public class ClassesDeleteClass extends JDialog {
     }
 
     /**
+     * Throws JOptionPane window on error.
+     *
+     * @param error Message to display to the user
+     */
+    public void throwInputError(String error) {
+        final JFrame parent = new JFrame();
+        JOptionPane.showMessageDialog(parent, error);
+    }
+
+
+    /**
      * classDelete deletes class from the schedule.
+     *
      * @throws SQLException Throws exception the time is already set
      */
     public void classDelete() throws SQLException {
 
-
-
-        double startTime = Local.getDoubleTime(toString());
-        LocalDate date = this.date;
-        System.out.println(date.toString());
-        Gym gym = Gym.getInstance();
-        GymClassEntity room = null;
-
-        Response availability = gym.deleteClass(date, startTime , room.getRoomNumber());
-        /**
-         * Popup window that returns appropriate success or fail message.
-         */
-        Object[] option = {"OK"};
-        int x = JOptionPane.showOptionDialog(null, availability.getMsg(),
-                "Your Availability", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,
-                null, option, option[0]);
+        this.classTable.deleteClass();
 
     }
-
 }

@@ -4,6 +4,7 @@ import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.ui.DailyItemsPanel;
 import main.java.memoranda.ui.ExceptionDialog;
+import main.java.memoranda.ui.usermanagment.UserManagementRemoveUser;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;
@@ -253,8 +254,9 @@ public class ClassesPanel extends JPanel {
         });
         removeClassBut.addActionListener((e)->{
             new ClassesDeleteClass(this, removeClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
-                    parentPanelReference.currentDate.getMonth()+1,
-                    parentPanelReference.currentDate.getDay()));
+                                parentPanelReference.currentDate.getMonth()+1,
+                                parentPanelReference.currentDate.getDay()), parentPanelReference.getSelectedClass());
+
         });
         setAvailabilityBut.addActionListener((e)->{
             new ClassesSetAvailability(this, setAvailabilityBut, LocalDate.of(parentPanelReference.currentDate.getYear(),

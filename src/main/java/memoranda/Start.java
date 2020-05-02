@@ -10,6 +10,8 @@ package main.java.memoranda;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.ui.LoginBox;
@@ -30,7 +32,7 @@ public class Start {
      * @param args the input arguments
      */
     public static void main(String[] args) throws IOException, SQLException {
-        gym = new Gym();
+        gym = Gym.getInstance();
 
         if ((args.length == 0) || (!args[0].equals("-m"))) {
             login = new LoginBox();

@@ -2,26 +2,38 @@ Develop: [![Build Status](https://travis-ci.com/amehlhase316/Neujahrskranz.svg?t
 
 Master: [![Build Status](https://travis-ci.com/amehlhase316/Neujahrskranz.svg?token=DEpki1Lns9D95cqpWXRP&branch=master)](https://travis-ci.com/amehlhase316/Neujahrskranz)
 
-Project SER316
+### Globo Gym - Team Neujahrskranz
+#### SER316 Spring 2020
 
+Welcome to Globo Gym, the best gym scheduling app on the market.
 
-This is the initial dump for the SER316 project. It is a slightly modified version of the Memoranda project from memoranda.sf.net
+To run this program, clone the github repository, open a command line, and use `gradle run`.
 
-The purpose of this project is to enhance the Memoranda application.
+When the program runs you'll find yourself immersed in the glory that is Globo Gym's scheduling app. 
 
-Memoranda is a project that has largely been dormant since 2007, so why are we using it? This codebase has been used in the past, it is of sufficient size and scope to challenge your skills in understanding a complete application (it has somewhere in the neighborhood of 25k lines of code). It also has features that just about anyone who has ever used a calendaring application can understand. 
+First, if you're a new user, please create an account for yourself via the Login screen's Create Account button.
+Once your account is created and your user information is stored in the database, log in to the application with your new
+credentials.
 
-In the docs directory is an initial set of analysis models - class diagrams and sequence diagrams in UML, that a previous team did as part of their solution process. These were included only in the event that you may want to use these as a head start on your design and implementation work. You are absolutely not required to use or implement anything in the analysis document!
+Once logged in, you'll find yourself landing on the Classes page. This page shows you a list of all classes being held
+in the gym for the current day. To see past classes or future classes, use the calendar on the top left to navigate to a
+different day. The classes are held in 4 different rooms, as shown in the Classes page. Green classes are open to more students
+enrolling, and red classes are full. As a user you can use the buttons on the top of the Classes page to enroll in a class, schedule a class, or edit a class.
 
-Your first step should be to clone the github repository (easiest way is to clone directly into your Eclipse Workspace folder). You can watch the short video on how to clone and run Memoranda: https://youtu.be/mNPek5NABpI.
+To navigate to the Agenda page, click the `Agenda` icon in the top left corner. This page shows you your schedule of classes
+that you're enrolled in or are teaching for the current day. Again, to see the schedule of a different day, use the calendar in the top left.
 
-You should then be able to run the project. The included Gradle script and Wrapper should work. You should be able to use "gradle run" in the command line to run Memorande through Gradle. In due course you will need to add things to the Gradle file (eg. add Unit Test).
+For user convenience, the Notes page allows you to take and keep notes on anything your heart desires.
 
-Start of with changing little things to get to know Memoranda (before the project starts) and just play around. 
+The last page in the program is the User Management page. This page shows every user currently stored in Globo Gym's database.
+Admins can add new users, remove old users, or edit current users' information on this page.
 
-After that go back to the initial version and start your SCRUM process and document all changes through GitHub and Taiga (like I said, if it isn’t in GitHub/taiga it does not count).
+Have fun using Globo Gym!
 
-Good luck and have fun!
-
-Dr. Mehlhase
-
+#### Developers:
+- Alex Mack
+- Kevin Somers
+- Rita Barrilleaux
+- Kelly Petrone
+- Kevin Wilkinson
+- Kelly Ellis

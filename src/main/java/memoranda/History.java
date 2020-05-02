@@ -10,6 +10,7 @@ package main.java.memoranda;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+import java.sql.SQLException;
 import java.util.Vector;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -181,7 +182,7 @@ public class History {
         }
     }
 
-    private static void notifyListeners(HistoryItem n) {
+    private static void notifyListeners(HistoryItem n) throws SQLException {
         for (int i = 0; i < historyListeners.size(); i++)            
                  ((HistoryListener) historyListeners.get(i)).historyWasRolledTo(n);
     }
@@ -210,8 +211,12 @@ public class History {
             setEnabled(false);
         }
 
-        public void actionPerformed(ActionEvent e) {            
-            notifyListeners(rollBack());
+        public void actionPerformed(ActionEvent e) {
+            try {
+                notifyListeners(rollBack());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             update();
             historyForwardAction.update();
         }
@@ -258,8 +263,12 @@ public class History {
             setEnabled(false);
         }
 
-        public void actionPerformed(ActionEvent e) {            
-            notifyListeners(rollForward());
+        public void actionPerformed(ActionEvent e) {
+            try {
+                notifyListeners(rollForward());
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             update();
             historyBackAction.update();
         }

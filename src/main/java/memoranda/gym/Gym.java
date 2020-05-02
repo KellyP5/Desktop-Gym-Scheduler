@@ -11,6 +11,7 @@ import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
 import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.database.util.SqlConstants;
 import main.java.memoranda.ui.App;
+import main.java.memoranda.ui.LoginBox;
 
 /**
  * ---CreateMethods
@@ -31,8 +32,10 @@ import main.java.memoranda.ui.App;
 public class Gym {
 
     //This variable will be the currently logged in user.
-    private UserEntity user;
+    private static UserEntity user;
     private static SqlConnection conn;
+    private LoginBox login;
+    private static Gym gym;
 
     public enum UserRole {
         admin,
@@ -40,7 +43,7 @@ public class Gym {
         customer
     }
 
-    public Gym() {
+    private Gym() {
 
         this.user = null;
         this.conn = null;
@@ -53,17 +56,21 @@ public class Gym {
     }
 
 
-    //TODO
-    public boolean login() {
+    public static Gym getInstance() {
+        if (gym == null) {
+            gym = new Gym();
+        }
+        return gym;
 
-        //insert login code
+    }
 
-        //assign this.user;
-
-
-
-        //TODO
-        return false;
+    /**
+     * sets the gym and user objects to null
+     * so that a new one can be created upon logging back in
+     */
+    public static void logout(){
+        gym = null;
+        user = null;
     }
 
     /**
@@ -72,13 +79,24 @@ public class Gym {
      * @return the Role Entity
      */
     public RoleEntity getUserRole() {
-        try {
-            this.user = App.conn.getDrq().getUserByEmail("admin@gym.com");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        this.user.setRole(new RoleEntity("admin"));
+
         return user.getRole();
+    }
+
+    /**
+     * Gets the currently logged in user
+     * @return The user
+     */
+    public UserEntity getUser() {
+        return this.user;
+    }
+
+    /**
+     * Sets the logged in user
+     * @param user The currently logged in user
+     */
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     //TODO needs refactoring
@@ -136,6 +154,7 @@ public class Gym {
             if (!ue.isTrainer()) {
                 return Response.failure("Error: User is not a trainer.");
             }
+
             ArrayList<TrainerAvailabilityEntity> curAvail =
                 conn.getDrq().getTrainerDateTimeAvailabilityByEmail(email);
 

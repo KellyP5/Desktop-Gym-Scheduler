@@ -72,6 +72,23 @@ public class DbUpdateQueries {
     }
 
     /**
+     * Updates the user's image in the database, after the image has been changed
+     * @param email The user's email
+     * @param imageUrl The path to the image
+     * @throws SQLException
+     */
+    public void updateUserImage(String email, String imageUrl) throws SQLException {
+        Connection conn = DriverManager.getConnection(_dbUrl);
+        String query = "UPDATE USERIMAGE SET ImageURL = ? where Email = ?";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.setString(1, imageUrl);
+        pstmt.setString(2, email);
+        pstmt.executeUpdate();
+        pstmt.close();
+        conn.close();
+    }
+
+    /**
      * Updates a class in the DB. Does a check if a class into the moving room
      * and time already exists. If it does, returns false.
      * @param roomNumber

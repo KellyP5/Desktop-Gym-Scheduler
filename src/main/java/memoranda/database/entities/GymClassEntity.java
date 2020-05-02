@@ -1,5 +1,8 @@
 package main.java.memoranda.database.entities;
 
+import main.java.memoranda.ui.App;
+
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -16,11 +19,11 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
     private int _maxClassSize;
     private BeltEntity _minBeltEntityRequired;
     private String _createdByEmail;
-
+    private int _numStudents;
 
     public GymClassEntity(int id, int _roomNumber, LocalDateTime _startDateTime,
                           LocalDateTime _endDateTime, String _trainerEmail, int _maxClassSize,
-                          BeltEntity _minBeltEntityRequired, String _createdByEmail) {
+                          BeltEntity _minBeltEntityRequired, String _createdByEmail) throws SQLException {
         _Id = id;
         this._roomNumber = _roomNumber;
         this._startDateTime = _startDateTime;
@@ -29,10 +32,28 @@ public class GymClassEntity implements Comparable<GymClassEntity> {
         this._maxClassSize = _maxClassSize;
         this._minBeltEntityRequired = _minBeltEntityRequired;
         this._createdByEmail = _createdByEmail;
+        //this._numStudents = getNumberOfStudentsEnrolledInClass(id);
     }
 
     public int getId() {
         return _Id;
+    }
+
+    public int getNumberOfStudentsEnrolledInClass(int classId) throws SQLException {
+        if (App.conn.getDrq().getNumberOfStudentsEnrolledInClass(classId) != 0) {
+            this._numStudents = App.conn.getDrq().getNumberOfStudentsEnrolledInClass(classId);
+        } else {
+            this._numStudents = 0;
+        }
+        return this._numStudents;
+    }
+
+    public int getNumStudents() {
+        return this._numStudents;
+    }
+
+    public void setNumStudents(int num) {
+        this._numStudents = num;
     }
 
     public void printGymClass() {

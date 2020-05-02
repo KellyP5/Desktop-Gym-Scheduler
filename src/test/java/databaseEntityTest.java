@@ -8,7 +8,7 @@ import main.java.memoranda.database.entities.TrainerAvailabilityEntity;
 import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.util.Local;
 import org.junit.*;
-
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
@@ -26,6 +26,7 @@ public class databaseEntityTest {
     public static TrainerAvailabilityEntity tae1;
     public static UserEntity udt1;
     public static RoleEntity ur1;
+    private static String imageUrl;
 
     /**
      * Sets up for database object tests
@@ -34,7 +35,6 @@ public class databaseEntityTest {
     public static void setUp() {
         be1 = new BeltEntity("");
         ur1 = new RoleEntity(RoleEntity.UserRole.trainer);
-
     }
 
     /**
@@ -70,7 +70,7 @@ public class databaseEntityTest {
      * Tests Gym Class Entity
      */
     @Test
-    public void gymClassEntity()  {
+    public void gymClassEntity() throws SQLException {
         ldt1 = LocalDateTime.now();
         gce1 = new GymClassEntity(1, 1, ldt1, ldt1,
                 "kjpetron@asu.edu",
@@ -115,9 +115,6 @@ public class databaseEntityTest {
         assertEquals("customer", re3.toString());
 
     }
-
-
-
 
     /**
      * Tests trainer availbility Entity

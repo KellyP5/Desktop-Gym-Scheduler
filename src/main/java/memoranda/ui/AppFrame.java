@@ -9,7 +9,12 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+
 import java.io.IOException;
+
+import java.sql.SQLException;
+
+
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
@@ -22,6 +27,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Local;
 
 /**
@@ -57,6 +64,8 @@ public class AppFrame extends JFrame {
     //Help menu that shows the about page inside top toolbar
     private JMenu jMenuHelp = new JMenu();
     private JMenuItem jMenuHelpAbout = new JMenuItem();
+
+    Gym gym = Gym.getInstance();
 
     public AppFrame() throws IOException {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
@@ -143,9 +152,18 @@ public class AppFrame extends JFrame {
 
         this.logoutButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //TODO
-                //LOGOUT FUNCTION WILL BE CALLED HERE.
-                //System.out.println("DEBUG: Test");
+
+
+            App.closeWindow();
+                try {
+                    gym.logout();
+                    LoginBox login = new LoginBox();
+                    login.toFront();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
+
             }
         });
     }

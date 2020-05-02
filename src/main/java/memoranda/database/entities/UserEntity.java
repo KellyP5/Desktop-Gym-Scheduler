@@ -210,12 +210,12 @@ public class UserEntity {
 
 
     public boolean isTrainer(){
-        return this.getRole().toString().compareTo("trainer")==0;
+        return this.getRole().toString().toLowerCase().compareTo("trainer")==0;
     }
 
-    public boolean isCustomer() {return this.getRole().toString().compareTo("customer")==0;}
+    public boolean isCustomer() {return this.getRole().toString().toLowerCase().compareTo("customer")==0;}
 
-    public boolean isAdmin() {return this.getRole().toString().compareTo("admin")==0;}
+    public boolean isAdmin() {return this.getRole().toString().toLowerCase().compareTo("admin")==0;}
 
     /**
      * Checks if two users are equal to each other

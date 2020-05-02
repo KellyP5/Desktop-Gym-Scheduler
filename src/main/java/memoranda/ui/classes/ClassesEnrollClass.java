@@ -1,8 +1,10 @@
 package main.java.memoranda.ui.classes;
 
 import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.gym.Response;
+import main.java.memoranda.ui.App;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,6 +40,26 @@ public class ClassesEnrollClass {
         scheduleUpdatesToGui();
         enrollDialog.setVisible(true);
     }
+
+    public boolean classIsNotFull(GymClassEntity gce) throws SQLException {
+        return App.conn.getDrq().getNumberOfStudentsEnrolledInClass(gce.getId()) < gce.getMaxClassSize();
+    }
+
+    public boolean userHasSufficientTrainingToEnroll(GymClassEntity classSelected, UserEntity loggedInUser) {
+        return loggedInUser.getTrainingBelt().rank.ordinal() >= classSelected.getMinBeltEntityRequired().rank.ordinal();
+    }
+
+    public boolean userIsAlreadyEnrolledInClass(ArrayList<GymClassEntity> usersCurrentEnrolledClasses,
+                                                int classIdAttemptingToEnrollIn) {
+        for (GymClassEntity gymClassEntity : usersCurrentEnrolledClasses) {
+            if (gymClassEntity.getId() == classIdAttemptingToEnrollIn) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
     private void scheduleUpdatesToGui() {
         scheduleDelayedTextUpdate("Checking you aren't already enrolled in this class...", 0, false);
@@ -84,9 +106,8 @@ public class ClassesEnrollClass {
             if (!shouldContinue) {
                 return;
             }
-            ClassHelper classHelper = new ClassHelper();
             try {
-                if (!classHelper.classIsNotFull(selectedClass)) {
+                if (!classIsNotFull(selectedClass)) {
                     infoText.setText("Class is full!");
                     shouldContinue = false;
                 }
@@ -106,9 +127,8 @@ public class ClassesEnrollClass {
             if (!shouldContinue) {
                 return;
             }
-            ClassHelper classHelper = new ClassHelper();
 
-            if (!classHelper.userHasSufficientTrainingToEnroll(selectedClass, gym.getUser())) {
+            if (!userHasSufficientTrainingToEnroll(selectedClass, gym.getUser())) {
                 infoText.setText("You dont have sufficient belt rank training to enroll in this class!");
                 shouldContinue = false;
             }
@@ -127,10 +147,9 @@ public class ClassesEnrollClass {
             }
             Response response = gym.getClassesUserEnrolledInByEmail(gym.getUser().getEmail());
 
-            ClassHelper helper = new ClassHelper();
 
             if (response.isFailure()
-                    || helper.userIsAlreadyEnrolledInClass((ArrayList<GymClassEntity>)response.getValue(),
+                    || userIsAlreadyEnrolledInClass((ArrayList<GymClassEntity>)response.getValue(),
                     selectedClass.getId())) {
                 shouldContinue = false;
                 scheduleDelayedTextUpdate("", 0, true);

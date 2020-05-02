@@ -348,6 +348,7 @@ public class AccountCreationDialog extends JFrame {
                     if (trainerButton.isSelected()) {
                         belt = new BeltEntity(BeltEntity.Rank.white);
                         gym.createTrainer(email.getText(), firstName.getText(), lastName.getText(), pass.getText(), belt);
+
                     // Add new customer to database
                     } else {
                         gym.createCustomer(email.getText(), firstName.getText(), lastName.getText(), pass.getText());
@@ -367,7 +368,7 @@ public class AccountCreationDialog extends JFrame {
     /**
      * Popup window that tells the user the account was created successfully
      */
-    public void createdSuccessfully() throws IOException {
+    public void createdSuccessfully() throws IOException, SQLException {
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, "Account was created successfully!",
                 "Account Creation", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);

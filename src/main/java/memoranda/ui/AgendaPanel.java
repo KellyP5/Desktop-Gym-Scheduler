@@ -330,7 +330,7 @@ public class AgendaPanel extends JPanel {
 	 */
 	public void refresh(CalendarDate date) {
 
-		updateTrainerBeltDisplay();
+
 		String[][] data = null;
 		LocalDate convertedDate = _convertDateToLocalDateTime(date);
 

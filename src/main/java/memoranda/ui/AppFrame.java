@@ -31,6 +31,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Local;
 
 /**
@@ -66,6 +68,8 @@ public class AppFrame extends JFrame {
     //Help menu that shows the about page inside top toolbar
     private JMenu jMenuHelp = new JMenu();
     private JMenuItem jMenuHelpAbout = new JMenuItem();
+
+    Gym gym = Gym.getInstance();
 
     public AppFrame() throws IOException {
         enableEvents(AWTEvent.WINDOW_EVENT_MASK);
@@ -156,6 +160,7 @@ public class AppFrame extends JFrame {
 
             App.closeWindow();
                 try {
+                    gym.logout();
                     LoginBox login = new LoginBox();
                     login.toFront();
                 } catch (SQLException ex) {

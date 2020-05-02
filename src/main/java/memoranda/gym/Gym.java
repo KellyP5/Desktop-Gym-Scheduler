@@ -64,6 +64,11 @@ public class Gym {
 
     }
 
+    public static void logout(){
+        gym = null;
+        user = null;
+    }
+
     /**
      * Returns Role Entity.
      *

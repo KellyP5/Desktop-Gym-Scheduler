@@ -129,18 +129,18 @@ public class UserManagementEditUser extends JDialog {
                 File f = chooser.getSelectedFile();
                 if (f != null) {
                     String fileName = f.getAbsolutePath();
-                    name = f.getName();
+                    _name = f.getName();
                     try {
                         ImageIcon image = new ImageIcon(scaleImage(200, 200, ImageIO.read(new File(fileName))));
                         _imageBox.setIcon(image);
                         java.nio.file.Files.copy(
                                 new java.io.File(fileName).toPath(),
-                                new java.io.File("src/main/resources/ui/" + name).toPath(),
+                                new java.io.File("src/main/resources/ui/" + _name).toPath(),
                                 StandardCopyOption.REPLACE_EXISTING,
                                 StandardCopyOption.COPY_ATTRIBUTES,
                                 LinkOption.NOFOLLOW_LINKS
                         );
-                        _imageUrl = "src/main/resources/ui/" + name;
+                        _imageUrl = "src/main/resources/ui/" + _name;
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -288,9 +288,9 @@ public class UserManagementEditUser extends JDialog {
                     try {
                         updateUser(role, belt);
                         // Save the selected image
-                        if (name != null) {
-                            _selectedUser.setImageUrl("src/main/resources/ui/" + name);
-                            _imageUrl = "src/main/resources/ui/" + name;
+                        if (_name != null) {
+                            _selectedUser.setImageUrl("src/main/resources/ui/" + _name);
+                            _imageUrl = "src/main/resources/ui/" + _name;
                             App.conn.getDuq().updateUserImage(_selectedUser.getEmail(), _imageUrl);
                         }
                         _imageBox.repaint();

@@ -216,27 +216,28 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 #### Kelly Petrone:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/149
+    - https://github.com/amehlhase316/Neujahrskranz/pull/150
+    - https://github.com/amehlhase316/Neujahrskranz/pull/153
+    - https://github.com/amehlhase316/Neujahrskranz/pull/168
+    - https://github.com/amehlhase316/Neujahrskranz/pull/170
 
    **GitHub links to your Unit Tests (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/176
 
   **GitHub links to your Code Reviews (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/148
+    - https://github.com/amehlhase316/Neujahrskranz/pull/167
 
   **How did you contribute to Static Analysis:
 
-    - link1
-    - link2
+    - When coding my Tasks, I would run checkstyle and spotbugs and make changes based on the results of those tests to minimize introducing new static analysis errors.
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - As a team during meetings we worked together to update and dynamically develop our quality policy documentation. This included adapting a new static analysis policy and updating our quality policy documentation to reflect new checklists items and removing ones we didn't think were necessary. 
     
 #### Rita Barrilleaux:
   **Links to GitHub commits with main code contribution (up to 5 links):

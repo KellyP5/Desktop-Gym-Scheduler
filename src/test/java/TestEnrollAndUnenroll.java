@@ -7,6 +7,14 @@ import java.util.ArrayList;
 
 public class TestEnrollAndUnenroll {
 
+    Gym gym;
+
+    @Before
+    public void setUp() {
+        gym = Gym.getInstance();
+
+    }
+
     @AfterClass
     public static void tearDown() {
         //TODO clean up any changes gym instance made to the real db
@@ -14,14 +22,13 @@ public class TestEnrollAndUnenroll {
 
     @Test
     public void testUnEnrollingUnknownUserIsFailure() {
-        Gym gym = Gym.getInstance();
+
         Response response = gym.unenrollCustomer("nonexistantemailformadeupuser@gmail.com", 3333);
         assert(response.isFailure());
     }
 
     @Test
     public void testEnrollingKnownUserIsSucess() {
-        Gym gym = Gym.getInstance();
         gym.createCustomer("sdlfjkj2345223523452@yahoo.com", "John", "smith", "foo");
 
         Response response = gym.enrollUser(1, "sdlfjkj2345223523452@yahoo.com");
@@ -29,12 +36,12 @@ public class TestEnrollAndUnenroll {
         Response enrollTest = gym.getClassesUserEnrolledInByEmail("sdlfjkj2345223523452@yahoo.com");
         ArrayList<GymClassEntity> classesEnrolled = (ArrayList<GymClassEntity>)enrollTest.getValue();
         assert(classesEnrolled.size() == 1);
+        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 1);
         gym.deleteUser("sdlfjkj2345223523452@yahoo.com");
     }
 
     @Test
     public void testUnEnrollingKnownUserIsSuccess() {
-        Gym gym = Gym.getInstance();
         gym.createCustomer("sdlfjkj2345223523452@yahoo.com", "John", "smith", "foo");
 
         gym.enrollUser(1, "sdlfjkj2345223523452@yahoo.com");
@@ -42,23 +49,25 @@ public class TestEnrollAndUnenroll {
         Response unenRollResponse = gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 1);
         assert(unenRollResponse.isSuccess());
 
+        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 1);
         gym.deleteUser("sdlfjkj2345223523452@yahoo.com");
     }
 
     @Test
     public void testEnrollUserInManyClasses() {
-        Gym gym = Gym.getInstance();
         gym.createCustomer("sdlfjkj2345223523452@yahoo.com", "John", "smith", "foo");
 
+        gym.enrollUser(0, "sdlfjkj2345223523452@yahoo.com");
         gym.enrollUser(1, "sdlfjkj2345223523452@yahoo.com");
         gym.enrollUser(2, "sdlfjkj2345223523452@yahoo.com");
-        gym.enrollUser(3, "sdlfjkj2345223523452@yahoo.com");
 
         Response enrollTest = gym.getClassesUserEnrolledInByEmail("sdlfjkj2345223523452@yahoo.com");
         ArrayList<GymClassEntity> classesEnrolled = (ArrayList<GymClassEntity>)enrollTest.getValue();
         assert(classesEnrolled.size() == 3);
 
+        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 0);
+        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 1);
+        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 2);
         gym.deleteUser("sdlfjkj2345223523452@yahoo.com");
     }
-
 }

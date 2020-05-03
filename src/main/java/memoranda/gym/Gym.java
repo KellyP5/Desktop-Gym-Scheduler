@@ -500,6 +500,10 @@ public class Gym {
         return Response.success("Added student");
     }
 
+    /**Get all classes a user is enrolled in by email.
+     * @param userEmail email of the user which we're retrieving classes for
+     * @return
+     */
     public Response getClassesUserEnrolledInByEmail(String userEmail) {
         try {
             return Response.success("Retrieved users enrolled classes",
@@ -507,6 +511,34 @@ public class Gym {
         } catch (SQLException e) {
             return Response.failure("User does not exist!");
         }
+    }
+
+    /**Attempt to unenroll a student (customer) from a class.
+     * @param userEmail email of the user attempting to unenroll in a class
+     * @param classId class id that the user is attempting to be unenrolled from
+     * @return
+     * @throws SQLException
+     */
+    public Response unenrollCustomer(String userEmail, int classId) {
+        try {
+            if (!userIsEnrolledInClass(userEmail, classId)) {
+                return Response.failure("User is not enrolled in that class");
+            }
+            conn.getDbd().unenrollUser(userEmail, classId);
+            return Response.success("Unenrolled from class");
+        } catch (SQLException e) {
+            return Response.failure("User not found");
+        }
+    }
+
+    private boolean userIsEnrolledInClass(String userEmail, int classId) throws SQLException {
+        ArrayList<GymClassEntity> classesUserEnrolledIn = conn.getDrq().getClassesUserEnrolledInByEmail(userEmail);
+        for (GymClassEntity gymClassEntity : classesUserEnrolledIn) {
+            if (gymClassEntity.getId() == classId) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

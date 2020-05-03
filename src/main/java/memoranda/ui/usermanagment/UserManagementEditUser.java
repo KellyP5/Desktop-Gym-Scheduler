@@ -59,6 +59,7 @@ public class UserManagementEditUser extends JDialog {
     private String _roleString;
     private String _beltString;
     private UserEntity _selectedUser;
+    private String _name;
 
     /**
      * Constructor for our Edit User popup. Creates the GUI box that displays the user's information
@@ -105,13 +106,8 @@ public class UserManagementEditUser extends JDialog {
         _imageUrl = _selectedUser.getUserImageFromDB();
 
         // Gets the user's image to display on their profile page
-        /*
-        if (App.conn.getDrq().getUserImageUrl(_selectedUser.getEmail()) != null) {
-            _imageUrl = App.conn.getDrq().getUserImageUrl(_selectedUser.getEmail());
-        }
-
-         */
         _image = new ImageIcon(scaleImage(200, 200, ImageIO.read(new File(_imageUrl))));
+
         _imageBox.setIcon(_image);
 
         _newImageButton = new JButton();
@@ -131,23 +127,27 @@ public class UserManagementEditUser extends JDialog {
                 JFileChooser chooser = new JFileChooser();
                 chooser.showOpenDialog(null);
                 File f = chooser.getSelectedFile();
-                String fileName = f.getAbsolutePath();
-                String name = f.getName();
-                try {
-                    ImageIcon image = new ImageIcon(scaleImage(200, 200, ImageIO.read(new File(fileName))));
-                    _imageBox.setIcon(image);
-                    java.nio.file.Files.copy(
-                            new java.io.File(fileName).toPath(),
-                            new java.io.File("src/main/resources/ui/" + name).toPath(),
-                            StandardCopyOption.REPLACE_EXISTING,
-                            StandardCopyOption.COPY_ATTRIBUTES,
-                            LinkOption.NOFOLLOW_LINKS
-                    );
-                    _selectedUser.setImageUrl("src/main/resources/ui/" + name);
-                    _imageUrl = "src/main/resources/ui/" + name;
-                    App.conn.getDuq().updateUserImage(_selectedUser.getEmail(), _imageUrl);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                if (f != null) {
+                    String fileName = f.getAbsolutePath();
+                    _name = f.getName();
+                    try {
+                        ImageIcon image = new ImageIcon(scaleImage(200, 200, ImageIO.read(new File(fileName))));
+                        _imageBox.setIcon(image);
+                        java.nio.file.Files.copy(
+                                new java.io.File(fileName).toPath(),
+                                new java.io.File("src/main/resources/ui/" + _name).toPath(),
+                                StandardCopyOption.REPLACE_EXISTING,
+                                StandardCopyOption.COPY_ATTRIBUTES,
+                                LinkOption.NOFOLLOW_LINKS
+                        );
+                        _imageUrl = "src/main/resources/ui/" + _name;
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    // The user didn't choose an image, reset it to the placeholder
+                    _imageUrl = "src/main/resources/ui/Placeholder.png";
+                    return;
                 }
             }
         });
@@ -166,6 +166,11 @@ public class UserManagementEditUser extends JDialog {
                 _imageBox.setIcon(image);
                 _selectedUser.setImageUrl(placeHolderPath);
                 _imageUrl = placeHolderPath;
+                try {
+                    App.conn.getDuq().updateUserImage(_selectedUser.getEmail(), _imageUrl);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
                 _imageBox.repaint();
             }
         });
@@ -282,6 +287,12 @@ public class UserManagementEditUser extends JDialog {
                 if (_emailBox.getText().equals(_selectedUser.getEmail())) {
                     try {
                         updateUser(role, belt);
+                        // Save the selected image
+                        if (_name != null) {
+                            _selectedUser.setImageUrl("src/main/resources/ui/" + _name);
+                            _imageUrl = "src/main/resources/ui/" + _name;
+                            App.conn.getDuq().updateUserImage(_selectedUser.getEmail(), _imageUrl);
+                        }
                         _imageBox.repaint();
                     } catch (SQLException ex) {
                         ex.printStackTrace();

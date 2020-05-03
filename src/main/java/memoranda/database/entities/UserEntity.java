@@ -76,11 +76,15 @@ public class UserEntity {
         return this._imageUrl;
     }
 
+    /**
+     * Gets the user's image path from the database
+     * @return The string of the image path
+     * @throws SQLException If something goes wrong querying the db
+     */
     public String getUserImageFromDB() throws SQLException {
         this._imageUrl = App.conn.getDrq().getUserImage(this._email);
         return this._imageUrl;
     }
-
 
     /**
      * Sets the user's email
@@ -210,8 +214,12 @@ public class UserEntity {
 
 
     public boolean isTrainer(){
-        return this.getRole().toString().compareTo("trainer")==0;
+        return this.getRole().toString().toLowerCase().compareTo("trainer")==0;
     }
+
+    public boolean isCustomer() {return this.getRole().toString().toLowerCase().compareTo("customer")==0;}
+
+    public boolean isAdmin() {return this.getRole().toString().toLowerCase().compareTo("admin")==0;}
 
     /**
      * Checks if two users are equal to each other

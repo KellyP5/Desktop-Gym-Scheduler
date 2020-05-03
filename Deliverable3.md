@@ -191,27 +191,28 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 #### Kevin Somers:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/commit/2d25c9c909f686f0ea324e87f635d3be04db0ef8
+    - https://github.com/amehlhase316/Neujahrskranz/commit/236798aaa06df6716c41a33761b8e57677e67394
+    - https://github.com/amehlhase316/Neujahrskranz/commit/f2d97f72bdaf5495b14ff7fdd77f093829b9864f
 
    **GitHub links to your Unit Tests (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/commit/d09a593f9ce486b0720543bd3506b4a0929d60fb
 
   **GitHub links to your Code Reviews (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/182
+    - https://github.com/amehlhase316/Neujahrskranz/pull/178
+    - https://github.com/amehlhase316/Neujahrskranz/pull/177
 
   **How did you contribute to Static Analysis:
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/commit/a3c4e54d7d9527c2ed21f35ee682ac8550940b42
+    - https://github.com/amehlhase316/Neujahrskranz/commit/8740b8d31937ac56d683e5f5ce2b8fcd3667b886
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    I didn't really contribute any changes to the quality policy documentation this sprint, but I did adhere to the guidelines.  In particular we have a git policy/protocol and I followed that protocol exactly in terms of what we name branches, how and when we merge or create a PR and so on.
     
 #### Kelly Petrone:
   **Links to GitHub commits with main code contribution (up to 5 links):
@@ -322,7 +323,7 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 - [ ] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Kelly Ellis
-  - [ ] Kevin Somers
+  - [X] Kevin Somers
   - [ ] Kelly Petrone
   - [ ] Rita Barrilleaux
   - [X] Alex Mack

@@ -45,6 +45,7 @@ public class DbDeleteQueries {
         conn.close();
     }
 
+
     /**Unenroll a user from a class by deleting them from the ENROLLEDUSER table.
      *
      * @param userEmail email of the user which will be unenrolled

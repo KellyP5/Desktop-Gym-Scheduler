@@ -272,9 +272,8 @@ public class ClassesPanel extends JPanel {
                 parentPanelReference.currentDate.getDay()), parentPanelReference.getSelectedClass());
         });
         removeClassBut.addActionListener((e)->{
-            new ClassesDeleteClass(this, removeClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
-                    parentPanelReference.currentDate.getMonth()+1,
-                    parentPanelReference.currentDate.getDay()), parentPanelReference.getSelectedClass());
+            System.out.println("Debug: removeClassBut TODO");
+            //TODO
         });
         setAvailabilityBut.addActionListener((e)->{
             new ClassesSetAvailability(this, setAvailabilityBut, LocalDate.of(parentPanelReference.currentDate.getYear(),

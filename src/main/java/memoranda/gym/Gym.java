@@ -479,14 +479,14 @@ public class Gym {
      * @param startTime  The start time.
      * @return
      */
-    public Response deleteClass(LocalDate startDate, double startTime, int roomNumber ) {
+    public Response deleteClass( LocalDate startDate,double startTime,int roomNumber ) {
 
         try {
 
             String str = startDate.format(SqlConstants.DBDATEFORMAT);
             conn.getDbd().deleteClass(roomNumber, str, startTime);
 
-            return Response.success("Class is deleted.");
+            return Response.failure("Success: Class might be deleted.");
 
         } catch (SQLException ecp) {
             ecp.printStackTrace();

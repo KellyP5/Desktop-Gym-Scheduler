@@ -1,5 +1,16 @@
 package main.java.memoranda.ui;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+
+import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.entities.UserEntity;
@@ -8,16 +19,6 @@ import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Local;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 
 
 /**

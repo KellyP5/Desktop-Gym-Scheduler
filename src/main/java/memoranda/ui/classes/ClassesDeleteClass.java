@@ -5,6 +5,7 @@ import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.gym.Response;
 import main.java.memoranda.util.Local;
+import main.java.memoranda.database.entities.GymClassEntity;
 
 
 import javax.swing.*;
@@ -15,7 +16,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 
 public class ClassesDeleteClass extends JDialog {
@@ -123,19 +125,24 @@ public class ClassesDeleteClass extends JDialog {
     public void classDelete() throws SQLException {
 
 
-        double start = Local.getDoubleTime(toString());
-
+        String time = selectedClass.getStartTimeAsString();
+        double start = Local.getDoubleTime(time);
         LocalDate date = this.date;
+        String str = date.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT));
         System.out.println(date.toString());
         Gym gym = Gym.getInstance();
-        int rooms = room.getRoomNumber();
+        int rooms = selectedClass.getRoomNumber();
         Response delete = gym.deleteClass(date, start, rooms);
         Object[] option = {"OK"};
-        int x = JOptionPane.showOptionDialog(null, delete.getMsg(),
+        int x = JOptionPane.showOptionDialog(null, "delete.getMsg()",
                 "Deleted", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,
                 null, option, option[0]);
+        if (x == JOptionPane.OK_OPTION) {
+            topLevelReference.refresh();
+            dispose();
+        }
 
-        classTable.refresh();
+        topLevelReference.refresh();
 
     }
 }

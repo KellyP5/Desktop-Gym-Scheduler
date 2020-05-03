@@ -2,6 +2,8 @@ package main.java.memoranda.gym;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import main.java.memoranda.database.SqlConnection;
 import main.java.memoranda.database.entities.BeltEntity;
@@ -479,12 +481,12 @@ public class Gym {
      * @param startTime  The start time.
      * @return
      */
-    public Response deleteClass( LocalDate startDate,double startTime,int roomNumber ) {
+    public Response deleteClass( LocalDate startDate, double startTime,int roomNumber ) {
 
         try {
 
             String str = startDate.format(SqlConstants.DBDATEFORMAT);
-            conn.getDbd().deleteClass(roomNumber, str, startTime);
+            conn.getDbd().deleteClass(roomNumber, startDate, startTime);
 
             return Response.failure("Success: Class might be deleted.");
 

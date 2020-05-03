@@ -42,5 +42,9 @@ public class Start {
             app = new App(false, login.conn);
         }
     }
+
+    public static Gym getGym() {
+        return gym;
+    }
 }
 

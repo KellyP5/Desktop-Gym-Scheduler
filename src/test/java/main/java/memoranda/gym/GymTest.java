@@ -177,7 +177,6 @@ public class GymTest {
         Response res5 = gym.readGetClass(ld, startTime, 1337);
 
         assertEquals("Error: Class not found.", res5.getMsg());
-
     }
 
     /**
@@ -186,11 +185,11 @@ public class GymTest {
     @Test
     public void testSetUser() {
 
+
         gym1.setUser(new UserEntity("test1", "testlast", "password", "email@mail.com",
                 new RoleEntity("trainer"), new BeltEntity("black"), new BeltEntity("Black")));
         assertEquals(gym1.getUser().getFirstName(), ("test1"));
         assertEquals(gym1.getUser().getLastName(), "testlast");
-
 
     }
 

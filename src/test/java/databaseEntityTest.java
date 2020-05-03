@@ -39,6 +39,12 @@ public class databaseEntityTest {
         be1 = new BeltEntity("");
         ur1 = new RoleEntity(RoleEntity.UserRole.trainer);
         gym = Gym.getInstance();
+
+        gym.deleteUser("admin@gym.com");
+        gym.deleteUser("admin2@gym.com");
+        gym.deleteUser("customer@gym.com");
+        gym.deleteUser("trainer@gym.com");
+        gym.deleteUser("jim@gym.com");
     }
 
     /**
@@ -162,33 +168,35 @@ public class databaseEntityTest {
     @Test
     public void createAdminTest() {
         Response r;
-        r = gym.createAdmin("admin@gym.com", "admin", "gym", "1234");
-        assertTrue(r.isFailure());
         r = gym.createAdmin("admin2@gym.com", "admin", "gym", "1234");
         assertTrue(r.isSuccess());
         r = gym.createAdmin("admin2@gym.com", "admin", "gym", "1234");
         assertTrue(r.isFailure());
+
+        gym.deleteUser("admin@gym.com");
+        gym.deleteUser("admin2@gym.com");
     }
 
     @Test
     public void createCustomerTest() {
         Response r;
-        r = gym.createAdmin("jim@gym.com", "jim", "gym", "1234");
-        assertTrue(r.isFailure());
         r = gym.createAdmin("customer@gym.com", "customer", "gym", "1234");
         assertTrue(r.isSuccess());
         r = gym.createAdmin("customer@gym.com", "customer", "gym", "1234");
         assertTrue(r.isFailure());
+
+        gym.deleteUser("customer@gym.com");
+        gym.deleteUser("jim@gym.com");
     }
 
     @Test
     public void createTrainerTest() {
         Response r;
-        r = gym.createAdmin("jim@gym.com", "jim", "gym", "1234");
-        assertTrue(r.isFailure());
         r = gym.createAdmin("trainer@gym.com", "trainer", "gym", "1234");
         assertTrue(r.isSuccess());
         r = gym.createAdmin("trainer@gym.com", "trainer", "gym", "1234");
         assertTrue(r.isFailure());
+
+        gym.deleteUser("trainer@gym.com");
     }
 }

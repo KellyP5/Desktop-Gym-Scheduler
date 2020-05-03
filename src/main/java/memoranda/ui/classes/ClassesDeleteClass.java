@@ -42,6 +42,7 @@ public class ClassesDeleteClass extends JDialog {
         }
 
         this.topLevelReference = ref;
+        this.date = currentDate;
         selectedClass = gce;
         initGuiComponents();
         getContentPane().add(deleteClass);
@@ -134,7 +135,7 @@ public class ClassesDeleteClass extends JDialog {
         int rooms = selectedClass.getRoomNumber();
         Response delete = gym.deleteClass(date, start, rooms);
         Object[] option = {"OK"};
-        int x = JOptionPane.showOptionDialog(null, "delete.getMsg()",
+        int x = JOptionPane.showOptionDialog(null, delete.getMsg(),
                 "Deleted", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,
                 null, option, option[0]);
         if (x == JOptionPane.OK_OPTION) {

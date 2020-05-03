@@ -76,11 +76,15 @@ public class UserEntity {
         return this._imageUrl;
     }
 
+    /**
+     * Gets the user's image path from the database
+     * @return The string of the image path
+     * @throws SQLException If something goes wrong querying the db
+     */
     public String getUserImageFromDB() throws SQLException {
         this._imageUrl = App.conn.getDrq().getUserImage(this._email);
         return this._imageUrl;
     }
-
 
     /**
      * Sets the user's email

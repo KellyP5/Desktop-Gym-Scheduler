@@ -243,27 +243,25 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 #### Rita Barrilleaux:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/commit/d7e626c9614713257df0e2aa0c09a2d3b5cc34c8
+    - https://github.com/amehlhase316/Neujahrskranz/commit/422673fb1d7770b640751e70358d9d396a5eb2fd
 
    **GitHub links to your Unit Tests (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/commit/282b9f9e1d2af2cd0fab5589c84e2497dbfa8dc7
 
   **GitHub links to your Code Reviews (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/181
+    - https://github.com/amehlhase316/Neujahrskranz/pull/157
 
   **How did you contribute to Static Analysis:
 
-    - link1
-    - link2
+    While working on the project I was just trying to make sure I follow all quality policies. I would check Travis CI every time when I     did commits to make sure there are no mistakes that violate quality policies in the code
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - Did not do any contribution or changes for quality policy this sprint, however always participated in team meeting and discussions  to about quality policies and the project overall.
     
 #### Alex Mack:
   **Links to GitHub commits with main code contribution (up to 5 links):
@@ -331,6 +329,6 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
   - [X] Kelly Ellis
   - [X] Kevin Somers
   - [ ] Kelly Petrone
-  - [ ] Rita Barrilleaux
+  - [X] Rita Barrilleaux
   - [X] Alex Mack
   - [X] Kevin Wilkinson

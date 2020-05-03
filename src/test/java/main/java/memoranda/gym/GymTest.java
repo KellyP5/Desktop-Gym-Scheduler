@@ -172,7 +172,7 @@ public class GymTest {
 
         Response res4 = gym.deleteClass(ld, startTime, 1337);
 
-        assertEquals("Success: Class might be deleted.", res4.getMsg());
+        assertEquals("Class is deleted.", res4.getMsg());
 
         Response res5 = gym.readGetClass(ld, startTime, 1337);
 

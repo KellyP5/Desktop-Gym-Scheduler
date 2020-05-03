@@ -1,5 +1,16 @@
 package main.java.memoranda.ui;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+
+import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.entities.UserEntity;
@@ -8,16 +19,6 @@ import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Local;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 
 
 /**
@@ -27,7 +28,9 @@ import java.util.ArrayList;
  */
 public class AgendaPanel extends JPanel {
 
+
     private final String[] _COLUMNNAMES = {"Date", "Duration", "Room Number", "Max Class Size", "Belt Requirement"};
+
 
     /**
      * The Is active.
@@ -43,12 +46,16 @@ public class AgendaPanel extends JPanel {
     boolean studentView = true;
 
     Gym gym = Gym.getInstance();
+
     private UserEntity loggedUser = gym.getUser();
+
 
     /**
      * The Panel.
      */
     JPanel panel;
+
+
 
     /**
      * The Tool bar.
@@ -72,12 +79,15 @@ public class AgendaPanel extends JPanel {
      */
     JScrollPane scrollPane;
 
+    UserEntity loggedInUser;
+
 
     private JButton trainerViewClassBut;
     private JButton studentViewClassBut;
 
 
-    UserEntity loggedInUser;
+
+
 
 
 
@@ -177,7 +187,9 @@ public class AgendaPanel extends JPanel {
             ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
             for (int i = 0; i < gymClassEntities.size(); i++) {
                 /*creates an array list of array lists that hold strings of information for each individual
+
                 *class for the passed trainer.*/
+
                 if (gymClassEntities.get(i).getEndDateTime().toLocalDate().isAfter(selectedCalendarDate.minusDays(1))) {
                     //the if statement will only add the information to the array if the class end time is after the current time.
                     LocalTime startTime = gymClassEntities.get(i).getStartDateTime().toLocalTime();
@@ -383,6 +395,7 @@ public class AgendaPanel extends JPanel {
             Font labelFont = instructorBelt.getFont(); //creats Font to change font size
             instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
             UserEntity user = gym.getUser();
+
             RoleEntity.UserRole userRole = user.getRole().userRole;
 
             if (userRole == RoleEntity.UserRole.trainer) {
@@ -395,6 +408,7 @@ public class AgendaPanel extends JPanel {
             //adds right padding to belt display
             instructorBelt.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
 
+
             toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
             initToolBar(); // reinitiates tool bar
             toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
@@ -404,6 +418,7 @@ public class AgendaPanel extends JPanel {
     }
 
     /**
+<<<<<<< HEAD
      * Gets the name and the belt from the Gym class to pass to updateTrainerBeltDisplay
      * @return userInfo a string of the User's fname + lName + belt.
      */
@@ -422,6 +437,8 @@ public class AgendaPanel extends JPanel {
 
 
     /**
+=======
+>>>>>>> origin/develop
      * This method is called to set the panel as active or inactive.
      *
      * @param isa is the state the panel is being put in.
@@ -429,5 +446,6 @@ public class AgendaPanel extends JPanel {
     public void setActive(boolean isa) {
         isActive = isa;
     }
+
 
 }

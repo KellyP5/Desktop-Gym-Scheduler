@@ -283,8 +283,8 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 
   **How did you contribute to Static Analysis:
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/193/commits/4c49d5a77cccd2b0a58cc20482a9148b90e8b673
+    - https://github.com/amehlhase316/Neujahrskranz/pull/193/commits/0cc453113a8bef3246f8869df9cce2407b7d9808
  
  **What was your main contribution to the Quality Policy documentation?:
 

@@ -3,6 +3,7 @@ package main.java.memoranda.ui;
 import main.java.memoranda.database.entities.BeltEntity;
 import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.gym.Gym;
+import org.sqlite.SQLiteException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -358,11 +359,24 @@ public class AccountCreationDialog extends JFrame {
                     createdSuccessfully();
                 } catch (IOException ex) {
                     throwInputError("An account already exists with that email.");
+                } catch (SQLiteException sq) {
+                    emailAlreadyInUse();
                 }
             }
         } else {
             throwInputError("Select the type of account to create");
         }
+    }
+
+    /**
+     * Popup window that alerts the user that the email they entered
+     * is already in use in the database, so they have to choose a
+     * new email to use.
+     */
+    public void emailAlreadyInUse() {
+        Object[] option = {"OK"};
+        JOptionPane.showOptionDialog(null, "The email you entered is already in use.",
+                "Email Already In Use", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE, null, option, option[0]);
     }
 
     /**

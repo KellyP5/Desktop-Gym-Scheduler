@@ -49,7 +49,7 @@ I would also advise you to already fill out the Contributions section (End of sp
 |---|---|---|---|--|--|
 |4/23/2020   | 6  | See below   |  0% completed | Passing: develop, master | 
 |  4/25/2020 | 6  | See Below  | 0% completed  | Passing: develop, master |  |
-|   |   |   |   |  |  |
+| 4/28/2020  | 6  | See Below  | 9% completed  | Passing: develop, master |  |
 
 ### Meeting Summary:
 
@@ -161,27 +161,32 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 #### Kelly Ellis:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/commit/440543446eb917f0856c883611ee3212dc0ebbe9
+    - https://github.com/amehlhase316/Neujahrskranz/commit/1db2b032985b04b805adfc0ba79855b139ac7122   
+    - https://github.com/amehlhase316/Neujahrskranz/commit/b048cc94632cfb9c60fb826e9f234662a7b33726
+    - https://github.com/amehlhase316/Neujahrskranz/commit/104fb348b203e33db68cff6a6278658307dab921  
+    - https://github.com/amehlhase316/Neujahrskranz/commit/cc8b3cbb710ef5d93d0bec0d35624ccfef1842c4
 
    **GitHub links to your Unit Tests (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/commit/58eb32c22e54a56dc276620d7e30f68e7f80e0e2
 
   **GitHub links to your Code Reviews (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/154
+    - https://github.com/amehlhase316/Neujahrskranz/pull/172
 
   **How did you contribute to Static Analysis:
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/169/commits/744b0ddcd2ada86309d5e402e7fe86c6e31628f8
+    - Checkstyle reports went from 13552 to 13508, and Spotbugs reports went from 291 to 271.
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - As a team we decided to keep the majority of our Quality Policy the same for this sprint, and implemented
+    our Continuous Integration and Static Analysis portions of our policy. We decided that it was reasonable for 
+    each team member to fix 20 SA errors this sprint, and that we would all ensure that the develop and master
+    branches always pass the Travis CI builds.
     
 #### Kevin Somers:
   **Links to GitHub commits with main code contribution (up to 5 links):

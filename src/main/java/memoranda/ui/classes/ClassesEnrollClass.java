@@ -1,5 +1,6 @@
 package main.java.memoranda.ui.classes;
 
+
 import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.gym.Gym;
@@ -87,7 +88,7 @@ public class ClassesEnrollClass {
         }
         return false;
     }
-    
+
     private void scheduleUpdatesToGui() {
         scheduleDelayedTextUpdate("Checking you aren't already enrolled in this class...", 0);
         scheduleDelayedStudentIsntAlreadyEnrolledCheck(1000);

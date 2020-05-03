@@ -23,7 +23,7 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class databaseTest {
+public class DatabaseTest {
     public static SqlConnection sqlConnection = null;
     public static DbCreateQueries dcq = null;
     public static DbReadQueries drq = null;

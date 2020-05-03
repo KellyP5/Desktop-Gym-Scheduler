@@ -12,9 +12,7 @@ public class TestEnrollAndUnenroll {
     @Before
     public void setUp() {
         gym = Gym.getInstance();
-        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 1);
-        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 2);
-        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 3);
+
     }
 
     @AfterClass
@@ -38,6 +36,7 @@ public class TestEnrollAndUnenroll {
         Response enrollTest = gym.getClassesUserEnrolledInByEmail("sdlfjkj2345223523452@yahoo.com");
         ArrayList<GymClassEntity> classesEnrolled = (ArrayList<GymClassEntity>)enrollTest.getValue();
         assert(classesEnrolled.size() == 1);
+        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 1);
         gym.deleteUser("sdlfjkj2345223523452@yahoo.com");
     }
 
@@ -50,6 +49,7 @@ public class TestEnrollAndUnenroll {
         Response unenRollResponse = gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 1);
         assert(unenRollResponse.isSuccess());
 
+        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 1);
         gym.deleteUser("sdlfjkj2345223523452@yahoo.com");
     }
 
@@ -57,20 +57,17 @@ public class TestEnrollAndUnenroll {
     public void testEnrollUserInManyClasses() {
         gym.createCustomer("sdlfjkj2345223523452@yahoo.com", "John", "smith", "foo");
 
+        gym.enrollUser(0, "sdlfjkj2345223523452@yahoo.com");
         gym.enrollUser(1, "sdlfjkj2345223523452@yahoo.com");
         gym.enrollUser(2, "sdlfjkj2345223523452@yahoo.com");
-        gym.enrollUser(3, "sdlfjkj2345223523452@yahoo.com");
 
         Response enrollTest = gym.getClassesUserEnrolledInByEmail("sdlfjkj2345223523452@yahoo.com");
         ArrayList<GymClassEntity> classesEnrolled = (ArrayList<GymClassEntity>)enrollTest.getValue();
-        System.out.println("ENROLLED IN SIZE: " + classesEnrolled.size());
-        assert(classesEnrolled.size() == 2);
+        assert(classesEnrolled.size() == 3);
 
+        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 0);
         gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 1);
         gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 2);
-        gym.unenrollCustomer("sdlfjkj2345223523452@yahoo.com", 3);
         gym.deleteUser("sdlfjkj2345223523452@yahoo.com");
-
     }
-
 }

@@ -1,13 +1,23 @@
 package main.java.memoranda.gym;
 
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
 import main.java.memoranda.database.entities.BeltEntity;
+import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.entities.UserEntity;
+import org.junit.Before;
 import org.junit.Test;
 
 public class GymTest {
+
+    Gym gym1;
+    @Before
+    public void setUp(){
+        gym1 = Gym.getInstance();
+    }
+
 
     @Test
     public void testCreateReadDeleteTrainer(){
@@ -139,6 +149,50 @@ public class GymTest {
         Response res5 = gym.readGetClass(ld,startTime,1337);
 
         assertEquals("Error: Class not found.",res5.getMsg());
+
+    }
+
+    @Test
+    public void testSetUser(){
+
+        gym1.setUser(new UserEntity("test1", "testlast", "password", "email@mail.com",
+                new RoleEntity("trainer"), new BeltEntity("black"), new BeltEntity("Black")));
+        assertEquals(gym1.getUser().getFirstName(), ("test1"));
+        assertEquals(gym1.getUser().getLastName(), "testlast");
+
+
+    }
+
+    @Test
+    public void testGetUserRole(){
+        gym1.setUser(new UserEntity("test1", "testlast", "password", "email@mail.com",
+                new RoleEntity("trainer"), new BeltEntity("black"), new BeltEntity("Black")));
+        assertEquals(gym1.getUserRole(), new RoleEntity("trainer"));
+        gym1.setUser(new UserEntity("test1", "testlast", "password", "email@mail.com",
+                new RoleEntity("admin"), new BeltEntity("black"), new BeltEntity("Black")));
+        assertEquals(gym1.getUserRole(), new RoleEntity("admin"));
+        gym1.setUser(new UserEntity("test1", "testlast", "password", "email@mail.com",
+                new RoleEntity("customer"), new BeltEntity("black"), new BeltEntity("Black")));
+        assertEquals(gym1.getUserRole(), new RoleEntity("customer"));
+    }
+
+    @Test
+    public void testLogout(){
+        gym1.setUser(new UserEntity("test1", "testlast", "password", "email@mail.com",
+                new RoleEntity("trainer"), new BeltEntity("black"), new BeltEntity("Black")));
+        gym1.logout();
+        assertTrue(gym1.getUser() == null);
+    }
+
+    @Test
+    public void testGetInstance(){
+        gym1.setUser(new UserEntity("test1", "testlast", "password", "email@mail.com",
+                new RoleEntity("trainer"), new BeltEntity("black"), new BeltEntity("Black")));
+        gym1 = Gym.getInstance();
+        assertTrue(gym1.getUser().getFirstName().equalsIgnoreCase("test1"));
+        gym1.logout();
+        gym1 = Gym.getInstance();
+        assertTrue(gym1.getUser() == null);
 
     }
 

@@ -267,18 +267,18 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 #### Alex Mack:
   **Links to GitHub commits with main code contribution (up to 5 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/178
 
    **GitHub links to your Unit Tests (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/183
+    
 
   **GitHub links to your Code Reviews (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/186
+    - https://github.com/amehlhase316/Neujahrskranz/pull/187
+    - https://github.com/amehlhase316/Neujahrskranz/pull/174
 
   **How did you contribute to Static Analysis:
 
@@ -287,7 +287,8 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - As a team, during meetings we worked to establish the quality policy in terms of static analysys whichw as added
+      this sprint. 
     
 #### Kevin Wilkinson:
   **Links to GitHub commits with main code contribution (up to 5 links):
@@ -324,7 +325,7 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
   - [ ] Kevin Somers
   - [ ] Kelly Petrone
   - [ ] Rita Barrilleaux
-  - [ ] Alex Mack
+  - [X] Alex Mack
   - [ ] Kevin Wilkinson
 - [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
   - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)

@@ -28,6 +28,7 @@ import main.java.memoranda.util.Local;
  */
 public class AgendaPanel extends JPanel {
 
+
     private final String[] _COLUMNNAMES = {"Date", "Duration", "Room Number", "Max Class Size", "Belt Requirement"};
 
     /**
@@ -408,5 +409,6 @@ public class AgendaPanel extends JPanel {
     public void setActive(boolean isa) {
         isActive = isa;
     }
+
 
 }

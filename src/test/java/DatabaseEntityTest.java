@@ -40,7 +40,6 @@ public class DatabaseEntityTest {
         ur1 = new RoleEntity(RoleEntity.UserRole.trainer);
         gym = Gym.getInstance();
 
-        gym.deleteUser("admin@gym.com");
         gym.deleteUser("admin2@gym.com");
         gym.deleteUser("customer@gym.com");
         gym.deleteUser("trainer@gym.com");
@@ -173,7 +172,6 @@ public class DatabaseEntityTest {
         r = gym.createAdmin("admin2@gym.com", "admin", "gym", "1234");
         assertTrue(r.isFailure());
 
-        gym.deleteUser("admin@gym.com");
         gym.deleteUser("admin2@gym.com");
     }
 

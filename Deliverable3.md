@@ -293,28 +293,34 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
     
 #### Kevin Wilkinson:
   **Links to GitHub commits with main code contribution (up to 5 links):
-
-    - link1
-    - link2
+  
+    - https://github.com/amehlhase316/Neujahrskranz/commit/87cad11eecb0eef0129cb59fd4f009346da78a66
+    - https://github.com/amehlhase316/Neujahrskranz/commit/51eadd23958b0583a34dcc35502879e80450013e
+    - https://github.com/amehlhase316/Neujahrskranz/commit/ec78c383faaaddb1b9e17e72aa4cb9fdc892caac
+    - https://github.com/amehlhase316/Neujahrskranz/commit/730c7fdbd37018148ef5d8884291c6f5224a551b
+    - https://github.com/amehlhase316/Neujahrskranz/commit/bc2e9a4c894cad86f72d80b8ca448100b802f13c
+    - https://github.com/amehlhase316/Neujahrskranz/commit/ec78c383faaaddb1b9e17e72aa4cb9fdc892caac
 
    **GitHub links to your Unit Tests (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/commit/8d1dfa98ca562f38ab87294732066c42a740c7d9
+    - https://github.com/amehlhase316/Neujahrskranz/commit/058ec0af5bc28f9ae71a3bc66f95bae3ea622d34
 
   **GitHub links to your Code Reviews (up to 3 links):
 
-    - link1
-    - link2
+    - https://github.com/amehlhase316/Neujahrskranz/pull/151
+    - https://github.com/amehlhase316/Neujahrskranz/pull/161
+    - https://github.com/amehlhase316/Neujahrskranz/pull/163
+    - https://github.com/amehlhase316/Neujahrskranz/pull/165
+    - https://github.com/amehlhase316/Neujahrskranz/pull/166
 
   **How did you contribute to Static Analysis:
 
-    - link1
-    - link2
+    -https://github.com/amehlhase316/Neujahrskranz/pull/162
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - info
+    - Made sure the documentation was updated for sprint 3.
   
 ## 4: Checklist for you to see if you are done
 - [ ] Filled out the complete form from above, all fields are filled and written in full sentences
@@ -327,4 +333,4 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
   - [ ] Kelly Petrone
   - [ ] Rita Barrilleaux
   - [X] Alex Mack
-  - [ ] Kevin Wilkinson
+  - [X] Kevin Wilkinson

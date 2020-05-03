@@ -3,7 +3,10 @@ package main.java.memoranda.database.queries;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
+
 import main.java.memoranda.database.util.EnforcedConnection;
+import main.java.memoranda.database.util.SqlConstants;
 
 public class DbDeleteQueries {
 
@@ -14,15 +17,16 @@ public class DbDeleteQueries {
         this._dbUrl = dbUrl;
     }
 
-    public void deleteClass(int roomNumber, String startDate, double startTime)
+    public void deleteClass(int roomNumber, LocalDate startDate, double startTime)
         throws SQLException {
+        String strDate = startDate.format(SqlConstants.DBDATEFORMAT);
         String sql = "DELETE FROM GYMCLASS WHERE RoomNumber=? AND " +
             "StartDate=? AND " +
-            "StartTime=?;";
+            "StartTime=?";
         Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, roomNumber);
-        pstmt.setString(2, startDate);
+        pstmt.setString(2, strDate);
         pstmt.setDouble(3, startTime);
         pstmt.executeUpdate();
         pstmt.close();

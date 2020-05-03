@@ -1,12 +1,16 @@
 package test.java.memoranda.date;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.sql.SQLException;
 
 
 /**
@@ -42,10 +46,13 @@ public class DateTest {
     }
 
     @Test
-    public void equalsTest() {
+    public void equalsTest() throws SQLException {
         assertTrue(test1.equals(test3));
         assertFalse(test1.equals(test2));
         assertFalse(test4.equals(test3));
+        test4.set(new CalendarDate(3,5,2020));
+        assertFalse(test4.equals(new CalendarDate(3,5,2020)));
+
     }
 
 

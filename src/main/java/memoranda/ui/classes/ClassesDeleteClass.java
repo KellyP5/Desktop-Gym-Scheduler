@@ -4,6 +4,8 @@ package main.java.memoranda.ui.classes;
 import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.gym.Response;
+import main.java.memoranda.util.Local;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +26,8 @@ public class ClassesDeleteClass extends JDialog {
     private JButton deleteButton;
     JLabel fillOutForm;
     GymClassEntity selectedClass;
-    ClassTable classTable = null;
+    ClassTable classTable;
+    GymClassEntity room;
 
 
     /**
@@ -119,7 +122,23 @@ public class ClassesDeleteClass extends JDialog {
      */
     public void classDelete() throws SQLException {
 
-        this.classTable.deleteClass();
+
+        double start = Local.getDoubleTime(toString());
+
+        LocalDate date = this.date;
+        System.out.println(date.toString());
+        Gym gym = Gym.getInstance();
+
+        int rooms = room.getRoomNumber();
+        Response delete = gym.deleteClass(date, start, rooms);
+        Object[] option = {"OK"};
+        int x = JOptionPane.showOptionDialog(null, delete.getMsg(),
+                "Deleted", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, option, option[0]);
+      //  classTable.refresh();
+
+     //   this.classTable.deleteClass(selectedClass);
+        topLevelReference.refresh();
 
     }
 }

@@ -6,6 +6,8 @@ import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
 import main.java.memoranda.date.DateListener;
+import main.java.memoranda.gym.Gym;
+import main.java.memoranda.gym.Response;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.ui.DailyItemsPanel;
 
@@ -225,9 +227,10 @@ public class ClassTable extends DefaultTableModel {
     }
 
 
-    public void deleteClass() {
-        DefaultTableModel model = (DefaultTableModel) this.classTable.getModel();
-        model.removeRow(classTable.getSelectedRow());
+    public void deleteClass(GymClassEntity selectedClass) {
+      //  DefaultTableModel model = (DefaultTableModel) this.classTable.getModel();
+      //  model.removeRow(classTable.getSelectedRow());
+
 
     }
 }

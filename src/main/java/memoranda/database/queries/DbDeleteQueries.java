@@ -44,4 +44,22 @@ public class DbDeleteQueries {
         pstmt.close();
         conn.close();
     }
+
+
+    /**Unenroll a user from a class by deleting them from the ENROLLEDUSER table.
+     *
+     * @param userEmail email of the user which will be unenrolled
+     * @param classId class id of the class the user will be unenrolled from.
+     * @throws SQLException
+     */
+    public void unenrollUser(String userEmail, int classId) throws SQLException {
+        String sql = "DELETE FROM ENROLLEDUSER WHERE UserEmail=? AND ClassId=?";
+        Connection conn = EnforcedConnection.getEnforcedCon(_dbUrl);
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, userEmail);
+        pstmt.setInt(2, classId);
+        pstmt.executeUpdate();
+        pstmt.close();
+        conn.close();
+    }
 }

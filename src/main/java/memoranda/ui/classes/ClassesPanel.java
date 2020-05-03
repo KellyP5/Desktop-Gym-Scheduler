@@ -281,12 +281,18 @@ public class ClassesPanel extends JPanel {
                     parentPanelReference.currentDate.getDay()));
         });
         enrollClassButt.addActionListener((e)->{
-            System.out.println("Debug: enrollClassButt TODO");
-            //TODO
+            new ClassesEnrollClass(this,
+                        LocalDate.of(parentPanelReference.currentDate.getYear(),
+                        parentPanelReference.currentDate.getMonth()+1,
+                        parentPanelReference.currentDate.getDay()),
+                    parentPanelReference.getSelectedClass());
         });
         cancelEnrollmentBut.addActionListener((e)->{
-            System.out.println("Debug: cancelEnrollmentBut TODO");
-            //TODO
+            new ClassesCancelEnrollment(this,
+                    LocalDate.of(parentPanelReference.currentDate.getYear(),
+                            parentPanelReference.currentDate.getMonth()+1,
+                            parentPanelReference.currentDate.getDay()),
+                    parentPanelReference.getSelectedClass());
         });
     }
 

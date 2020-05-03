@@ -382,8 +382,8 @@ public class AgendaPanel extends JPanel {
 			JLabel instructorBelt = new JLabel();
 			Font labelFont = instructorBelt.getFont(); //creats Font to change font size
 			instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
-			UserEntity user = LoginBox.getUser();
-			String beltText = user.getTrainingBelt().toString();
+			UserEntity user = gym.getUser();
+			String beltText = gym.getUser().getBelt().toString();
 			if (gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
 				instructorBelt.setText("Trainer: " + gym.getUser().getFirstName() + " " + gym.getUser().getLastName() + " Belt: " +
 						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));

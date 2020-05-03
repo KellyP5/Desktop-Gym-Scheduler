@@ -418,7 +418,7 @@ public class AgendaPanel extends JPanel {
     }
 
     /**
-<<<<<<< HEAD
+
      * Gets the name and the belt from the Gym class to pass to updateTrainerBeltDisplay
      * @return userInfo a string of the User's fname + lName + belt.
      */
@@ -437,8 +437,7 @@ public class AgendaPanel extends JPanel {
 
 
     /**
-=======
->>>>>>> origin/develop
+
      * This method is called to set the panel as active or inactive.
      *
      * @param isa is the state the panel is being put in.

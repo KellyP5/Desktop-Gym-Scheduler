@@ -383,20 +383,17 @@ public class AgendaPanel extends JPanel {
 			Font labelFont = instructorBelt.getFont(); //creats Font to change font size
 			instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
 			UserEntity user = gym.getUser();
-			String beltText = gym.getUser().getBelt().toString();
-			if (gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
-				instructorBelt.setText("Trainer: " + gym.getUser().getFirstName() + " " + gym.getUser().getLastName() + " Belt: " +
-						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
-			} else if (gym.getUserRole().userRole == RoleEntity.UserRole.customer) {
-				instructorBelt.setText("User: " + gym.getUser().getFirstName() + " " + gym.getUser().getLastName() + " Belt: " +
-						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
-			} else if (gym.getUserRole().userRole == RoleEntity.UserRole.admin) {
-				instructorBelt.setText("Admin: " + gym.getUser().getFirstName() + " " + gym.getUser().getLastName() + " Belt: " +
-						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
-			}
-			//add right padding to belt display
-			instructorBelt.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
+			RoleEntity.UserRole userRole = user.getRole().userRole;
 
+			if (userRole == RoleEntity.UserRole.trainer) {
+				instructorBelt.setText("Trainer: " + _getNameAndBelt());
+			} else if (userRole == RoleEntity.UserRole.customer) {
+				instructorBelt.setText("User: " + _getNameAndBelt());
+			} else if (userRole == RoleEntity.UserRole.admin) {
+				instructorBelt.setText("Admin: " + _getNameAndBelt());
+			}
+			//adds right padding to belt display
+			instructorBelt.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
 
 			toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
 			initToolBar(); // reinitiates tool bar
@@ -405,6 +402,21 @@ public class AgendaPanel extends JPanel {
 		}
 
 	}
+
+	/**
+	 * Gets the name and the belt from the Gym class to pass to updateTrainerBeltDisplay
+	 * @return userInfo a string of the User's fname + lName + belt.
+	 */
+
+	private String _getNameAndBelt(){
+		UserEntity user = gym.getUser();
+		String beltText = user.getBelt().toString();
+		String userInfo =  user.getFirstName().substring(0,1).toUpperCase() + user.getFirstName().substring(1)
+				+ " " + user.getLastName().substring(0,1).toUpperCase() + user.getLastName().substring(1) + " Belt: " +
+				beltText.substring(0, 1).toUpperCase() + beltText.substring(1);
+		return userInfo;
+	}
+
 
 	/**
 	 * This method is called to set the panel as active or inactive.

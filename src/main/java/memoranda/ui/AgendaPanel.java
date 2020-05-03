@@ -411,9 +411,12 @@ public class AgendaPanel extends JPanel {
 	private String _getNameAndBelt(){
 		UserEntity user = gym.getUser();
 		String beltText = user.getBelt().toString();
-		String userInfo =  user.getFirstName().substring(0,1).toUpperCase() + user.getFirstName().substring(1)
-				+ " " + user.getLastName().substring(0,1).toUpperCase() + user.getLastName().substring(1) + " Belt: " +
-				beltText.substring(0, 1).toUpperCase() + beltText.substring(1);
+		String userInfo =  user.getFirstName().substring(0,1).toUpperCase()
+				+ user.getFirstName().substring(1)
+				+ " " + user.getLastName().substring(0,1).toUpperCase()
+				+ user.getLastName().substring(1) + " Belt: " +
+				beltText.substring(0, 1).toUpperCase()
+				+ beltText.substring(1);
 		return userInfo;
 	}
 

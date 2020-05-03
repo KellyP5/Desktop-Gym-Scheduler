@@ -174,7 +174,7 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
   **GitHub links to your Code Reviews (up to 3 links):
 
     - https://github.com/amehlhase316/Neujahrskranz/pull/154
-    - https://github.com/amehlhase316/Neujahrskranz/pull/172
+    - https://github.com/amehlhase316/Neujahrskranz/pull/183
 
   **How did you contribute to Static Analysis:
 
@@ -322,14 +322,9 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 - [ ] User Stories that were not completed, were left in the Sprint and a copy created
 - [ ] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
-  - [ ] Kelly Ellis
+  - [X] Kelly Ellis
   - [X] Kevin Somers
   - [ ] Kelly Petrone
   - [ ] Rita Barrilleaux
   - [X] Alex Mack
   - [ ] Kevin Wilkinson
-- [ ] The original of this file was copied for the next Sprint (needed for all but last Sprint where you do not need to copy it anymore)
-  - [ ] Basic information (part 1) for next Sprint was included (meaning Spring Planning is complete)
-  - [ ] All User Stories have acceptance tests
-  - [ ] User Stories in your new Sprint Backlog have initial tasks which are in New
-  - [ ] You know how to proceed

@@ -212,7 +212,7 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
  
  **What was your main contribution to the Quality Policy documentation?:
 
-    - I didn't really contribute any changes to the quality policy documentation this sprint, but I did adhere to the guidelines.  In particular we have a git policy/protocol and I followed that protocol exactly in terms of what we name branches, how and when we merge or create a PR and so on.
+    I didn't really contribute any changes to the quality policy documentation this sprint, but I did adhere to the guidelines.  In particular we have a git policy/protocol and I followed that protocol exactly in terms of what we name branches, how and when we merge or create a PR and so on.
     
 #### Kelly Petrone:
   **Links to GitHub commits with main code contribution (up to 5 links):
@@ -322,7 +322,7 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 - [ ] Your Quality Policies are accurate and up to date
 - [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [ ] Kelly Ellis
-  - [ ] Kevin Somers
+  - [X] Kevin Somers
   - [ ] Kelly Petrone
   - [ ] Rita Barrilleaux
   - [ ] Alex Mack

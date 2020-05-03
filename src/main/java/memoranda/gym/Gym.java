@@ -12,6 +12,7 @@ import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.database.util.SqlConstants;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.ui.LoginBox;
+import org.sqlite.SQLiteException;
 
 /**
  * ---CreateMethods
@@ -55,11 +56,22 @@ public class Gym {
         }
     }
 
+
     public static Gym getInstance() {
         if (gym == null) {
             gym = new Gym();
         }
         return gym;
+
+    }
+
+    /**
+     * sets the gym and user objects to null
+     * so that a new one can be created upon logging back in
+     */
+    public static void logout(){
+        gym = null;
+        user = null;
     }
 
     /**
@@ -68,6 +80,7 @@ public class Gym {
      * @return the Role Entity
      */
     public RoleEntity getUserRole() {
+
         return user.getRole();
     }
 
@@ -480,6 +493,64 @@ public class Gym {
             return Response.failure("Error: SQL error.");
         }
 
+    }
+
+    /**Enroll the user provided into the class with the id passed.
+     * @param classId class id of where this user will be added as a student
+     * @param userEmail email of the student that will be enrolling
+     * @return
+     */
+    public Response enrollUser(int classId, String userEmail) {
+        try {
+            conn.getDcq().insertEnrolledUser(classId, userEmail);
+        } catch (SQLiteException e) {
+            return Response.failure("Student is already enrolled in this class!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Response.failure("Error: could not find class id or useremail");
+        }
+        return Response.success("Added student");
+    }
+
+    /**Get all classes a user is enrolled in by email.
+     * @param userEmail email of the user which we're retrieving classes for
+     * @return
+     */
+    public Response getClassesUserEnrolledInByEmail(String userEmail) {
+        try {
+            return Response.success("Retrieved users enrolled classes",
+                    conn.getDrq().getClassesUserEnrolledInByEmail(userEmail));
+        } catch (SQLException e) {
+            return Response.failure("User does not exist!");
+        }
+    }
+
+    /**Attempt to unenroll a student (customer) from a class.
+     * @param userEmail email of the user attempting to unenroll in a class
+     * @param classId class id that the user is attempting to be unenrolled from
+     * @return
+     * @throws SQLException
+     */
+    public Response unenrollCustomer(String userEmail, int classId) {
+        try {
+            if (!userIsEnrolledInClass(userEmail, classId)) {
+                return Response.failure("User is not enrolled in that class");
+            }
+            conn.getDbd().unenrollUser(userEmail, classId);
+            return Response.success("Unenrolled from class");
+        } catch (SQLException e) {
+            return Response.failure("User not found");
+        }
+    }
+
+    private boolean userIsEnrolledInClass(String userEmail, int classId) throws SQLException {
+        ArrayList<GymClassEntity> classesUserEnrolledIn = conn.getDrq().getClassesUserEnrolledInByEmail(userEmail);
+        for (GymClassEntity gymClassEntity : classesUserEnrolledIn) {
+            if (gymClassEntity.getId() == classId) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

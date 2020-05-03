@@ -1,17 +1,18 @@
 package main.java.memoranda.ui;
 
-import main.java.memoranda.History;
 import main.java.memoranda.database.entities.GymClassEntity;
+import main.java.memoranda.database.entities.RoleEntity;
 import main.java.memoranda.database.entities.UserEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.date.CurrentDate;
-import main.java.memoranda.date.DateListener;
 import main.java.memoranda.gym.Gym;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -36,6 +37,13 @@ public class AgendaPanel extends JPanel {
 	 * The Border layout 1.
 	 */
 	BorderLayout borderLayout1 = new BorderLayout();
+
+	boolean trainerView = false;
+
+	boolean studentView = true;
+
+	Gym gym = Gym.getInstance();
+	private UserEntity loggedUser = gym.getUser();
 
 	/**
 	 * The Panel.
@@ -64,7 +72,14 @@ public class AgendaPanel extends JPanel {
 	 */
 	JScrollPane scrollPane;
 
-	Gym gym = Gym.getInstance();
+
+	private JButton trainerViewClassBut;
+	private JButton studentViewClassBut;
+
+
+	UserEntity loggedInUser;
+
+
 
 	/**
 	 * Instantiates a new Agenda panel.
@@ -87,6 +102,8 @@ public class AgendaPanel extends JPanel {
 	 */
 	void jbInit() throws Exception {
 		this.setLayout(borderLayout1);
+
+		loggedInUser = Gym.getInstance().getUser();
 
 		initToolBar();
 
@@ -136,12 +153,7 @@ public class AgendaPanel extends JPanel {
 
 		//Set up event listener for selecting a row
 		classesTable.getSelectionModel().addListSelectionListener(listSelectionEvent -> {
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 0));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 1));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 2));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 3));
-			System.out.print((String) classesTable.getModel().getValueAt(classesTable.getSelectedRow(), 4));
-			System.out.println();
+
 		});
 	}
 
@@ -154,11 +166,13 @@ public class AgendaPanel extends JPanel {
 	 * @throws SQLException sql exception if database connection fails
 	 */
 	private ArrayList<ArrayList<String>> _getClassDataForTrainer(String email, LocalDate selectedCalendarDate) throws SQLException {
-		//TEMPORARY will need to be changed to the actual once the logged user can be checked
-/*		ArrayList<GymClassEntity> gymClassEntities = App.conn.getDrq().
-				getAllClassesTrainerIsTeachingByEmail(email);*/
-		ArrayList<GymClassEntity> gymClassEntities = Gym.getEnrolledClassesByEmailAndDate(email,selectedCalendarDate);
-
+		ArrayList<GymClassEntity> gymClassEntities = null;
+		if(trainerView == true) {
+			gymClassEntities = App.conn.getDrq().
+					getAllClassesTrainerIsTeachingByEmail(email);
+		}else if(studentView == true) {
+			gymClassEntities = Gym.getEnrolledClassesByEmailAndDate(email,selectedCalendarDate);
+		}
 		if (gymClassEntities!=null) {
 			ArrayList<ArrayList<String>> classInfo = new ArrayList<>();
 			for (int i = 0; i < gymClassEntities.size(); i++) {
@@ -188,23 +202,7 @@ public class AgendaPanel extends JPanel {
 		}
 	}
 
-	/**
-	 * Gets trainer belt.
-	 *
-	 * @param email the email
-	 * @return the trainer belt
-	 * @throws SQLException the sql exception
-	 */
-	public String getTrainerBelt(String email) throws SQLException {
-		//TEMPORARY will need to be changed to the real DB once logged users can be checked.
-		UserEntity user = App.conn.getDrq().getUserByEmail(email);
-		if (user == null){
-			throw new SQLException("User " + email + " does not exist in the database!");
-		}
-		String belt = App.conn.getDrq().getUserByEmail(email).getBelt().rank.toString();
-		return belt;
 
-	}
 
 	/**
 	 * Init tool bar.
@@ -212,46 +210,100 @@ public class AgendaPanel extends JPanel {
 	 * @throws SQLException the sql exception
 	 */
 
-	//Functionality will need to be fixed in seperate user story
 	void initToolBar() {
 		toolBar.setFloatable(false);
 
+		trainerViewClassBut = new JButton("Training Schedule");
+		studentViewClassBut = new JButton("Personal Schedule");
 
-		historyBackB.setAction(History.historyBackAction);
-		historyBackB.setFocusable(false);
-		historyBackB.setBorderPainted(false);
-		historyBackB.setToolTipText(Local.getString("History back"));
-		historyBackB.setRequestFocusEnabled(false);
-		historyBackB.setPreferredSize(new Dimension(24, 24));
-		historyBackB.setMinimumSize(new Dimension(24, 24));
-		historyBackB.setMaximumSize(new Dimension(24, 24));
-		historyBackB.setText("");
+		Color color = Color.decode("#16034f");
+		trainerViewClassBut.setBackground(color);
+		trainerViewClassBut.setForeground(Color.WHITE);
+		trainerViewClassBut.setEnabled(true);
+		trainerViewClassBut.setMaximumSize(new Dimension(130, 24));
+		trainerViewClassBut.setMinimumSize(new Dimension(130, 24));
+		trainerViewClassBut.setToolTipText(Local.getString("Training Schedule"));
+		trainerViewClassBut.setRequestFocusEnabled(false);
+		trainerViewClassBut.setPreferredSize(new Dimension(130, 24));
+		trainerViewClassBut.setFocusable(false);
+		trainerViewClassBut.setBorderPainted(false);
+		trainerViewClassBut.setFont(new Font("Arial", Font.PLAIN, 10));
 
-		historyForwardB.setAction(History.historyForwardAction);
-		historyForwardB.setBorderPainted(false);
-		historyForwardB.setFocusable(false);
-		historyForwardB.setPreferredSize(new Dimension(24, 24));
-		historyForwardB.setRequestFocusEnabled(false);
-		historyForwardB.setToolTipText(Local.getString("History forward"));
-		historyForwardB.setMinimumSize(new Dimension(24, 24));
-		historyForwardB.setMaximumSize(new Dimension(24, 24));
-		historyForwardB.setText("");
+		studentViewClassBut.setBackground(color);
+		studentViewClassBut.setForeground(Color.WHITE);
+		studentViewClassBut.setEnabled(true);
+		studentViewClassBut.setMaximumSize(new Dimension(130, 24));
+		studentViewClassBut.setMinimumSize(new Dimension(130, 24));
+		studentViewClassBut.setToolTipText(Local.getString("Personal Schedule"));
+		studentViewClassBut.setRequestFocusEnabled(false);
+		studentViewClassBut.setPreferredSize(new Dimension(130, 24));
+		studentViewClassBut.setFocusable(false);
+		studentViewClassBut.setBorderPainted(false);
 
-		toolBar.add(historyBackB, null);
-		toolBar.add(historyForwardB, null);
-		//toolBar.addSeparator(new Dimension(8, 24));
-		this.add(toolBar, BorderLayout.NORTH);
+
+		studentViewClassBut.setFont(new Font("Arial", Font.PLAIN, 10));
+		if(gym.getUser() != null) {
+			if (gym.getUserRole().userRole == RoleEntity.UserRole.admin
+					|| gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
+
+				toolBar.add(studentViewClassBut);
+				toolBar.addSeparator(new Dimension(2, 24));
+
+
+				toolBar.add(trainerViewClassBut);
+			}
+			this.add(toolBar, BorderLayout.NORTH);
+			if (studentView == true) { //keeps the same button selected when the calendar date is refreshed.
+				studentViewClassBut.setEnabled(false);
+				trainerViewClassBut.setEnabled(true);
+			} else {
+				trainerViewClassBut.setEnabled(false);
+				studentViewClassBut.setEnabled(true);
+			}
+
+			toolBarListeners();
+
+		}
 	}
+
+	/**
+	 * listeners for the personal schedule and training schedule buttons
+	 */
+
+	void toolBarListeners(){
+		this.studentViewClassBut.addActionListener(new ActionListener(){
+
+			public void actionPerformed( ActionEvent ActionEvent ) {
+				studentView = true;
+				trainerView = false;
+				refresh(CurrentDate.get());
+				studentViewClassBut.setEnabled(false);
+				trainerViewClassBut.setEnabled(true);
+			}});
+		this.trainerViewClassBut.addActionListener(e -> {
+			if(e.getSource() == trainerViewClassBut) {
+				studentView = false;
+				trainerView = true;
+				refresh(CurrentDate.get());
+				studentViewClassBut.setEnabled(true);
+				trainerViewClassBut.setEnabled(false);
+			}
+		});
+	}
+
+
 
 	/**
 	 * Sets up our event listener for keeping our date current and what we are displaying to the user.
 	 */
 	void initEventListeners() {
-		CurrentDate.addDateListener(new DateListener() {
-			public void dateChange(CalendarDate d) {
-				if (isActive)
-					refresh(d);
-			}
+		studentViewClassBut.addActionListener((e)->{
+
+		});
+		CurrentDate.addDateListener(d -> {
+
+			if (isActive)
+				refresh(d);
 		});
 	}
 
@@ -261,16 +313,13 @@ public class AgendaPanel extends JPanel {
 	 * @param date the date
 	 */
 	public void refresh(CalendarDate date) {
+
+
 		updateTrainerBeltDisplay();
 		String[][] data = null;
 		LocalDate convertedDate = _convertDateToLocalDateTime(date);
 
-
 		classesTable.removeAll();
-
-		//NOTE: A check will need to be put here to check and see if the logged user is a trainer or not.
-		//If they are not a trainer, the table should not be displayed.
-
 		ArrayList<ArrayList<String>> d = null;
 		ArrayList<ArrayList<String>> temp;
 		try {
@@ -299,7 +348,6 @@ public class AgendaPanel extends JPanel {
 
 		//that way we can pass this into our JTable constructor
 		if (data == null) {
-			//columns will not display info when user is not logged in (will be functional when logged user can be checked)
 			classesTable.setModel(new DefaultTableModel(null, _COLUMNNAMES));
 		} else {
 			//loads the trainer's class data to the table
@@ -327,25 +375,35 @@ public class AgendaPanel extends JPanel {
 	 * @throws SQLException the sql exception
 	 */
 
-	private void updateTrainerBeltDisplay(){
+	private void updateTrainerBeltDisplay() {
 
-		//A check will need to be added here to check to see if the currently logged
-		//user is a trainer or not.
 
-		JLabel instructorBelt = new JLabel();
-		Font labelFont = instructorBelt.getFont(); //creats Font to change font size
-		instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
-		UserEntity user = gym.getUser();
-		String beltText = user.getTrainingBelt().toString();
-		instructorBelt.setText("User: " + user.getFirstName() + " " + user.getLastName() + " Belt: " +
-				beltText.substring(0,1).toUpperCase() + beltText.substring(1));
-		//add right padding to belt display
-		instructorBelt.setBorder(BorderFactory.createEmptyBorder(0,0,0,25));
+		if(gym.getUser() != null) {
+			JLabel instructorBelt = new JLabel();
+			Font labelFont = instructorBelt.getFont(); //creats Font to change font size
+			instructorBelt.setFont(new Font(labelFont.getName(), labelFont.getStyle(), 20)); //sets font size
+			UserEntity user = LoginBox.getUser();
+			String beltText = user.getTrainingBelt().toString();
+			if (gym.getUserRole().userRole == RoleEntity.UserRole.trainer) {
+				instructorBelt.setText("Trainer: " + gym.getUser().getFirstName() + " " + gym.getUser().getLastName() + " Belt: " +
+						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
+			} else if (gym.getUserRole().userRole == RoleEntity.UserRole.customer) {
+				instructorBelt.setText("User: " + gym.getUser().getFirstName() + " " + gym.getUser().getLastName() + " Belt: " +
+						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
+			} else if (gym.getUserRole().userRole == RoleEntity.UserRole.admin) {
+				instructorBelt.setText("Admin: " + gym.getUser().getFirstName() + " " + gym.getUser().getLastName() + " Belt: " +
+						beltText.substring(0, 1).toUpperCase() + beltText.substring(1));
+			}
+			//add right padding to belt display
+			instructorBelt.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 25));
 
-		toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
-		//initToolBar(); // reinitiates tool bar
-		toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
-		toolBar.add(instructorBelt); //adds the instructor belt jlabel to toolbar
+
+			toolBar.removeAll(); //clears the toolbar so multiple jlabels aren't added when page reloads
+			initToolBar(); // reinitiates tool bar
+			toolBar.add(Box.createHorizontalGlue()); //moves text to the far right of task bar
+			toolBar.add(instructorBelt); //adds the instructor belt jlabel to toolbar
+		}
+
 	}
 
 	/**

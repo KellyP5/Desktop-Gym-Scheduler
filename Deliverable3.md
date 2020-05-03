@@ -112,15 +112,16 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 
 **What do you think is the value you created this Sprint?**
 
-> Your Answer
+> This sprint we improved the robustness of the program, increased testing, and improved the quality of the code.
 
 **Do you think you worked enough and that you did what was expected of you?**
 
-> Your Answer
+> We spent a considerable amount of time and effort on this project, and we implemented everything that was required of us.
 
 **Would you say you met the customers’ expectations? Why, why not?**
 
-> Your Answer
+> We did meet the customers' expectations, since we finished all of the user stories and finished the program with all of the
+necessary requirements.
 
 ### Sprint Retrospective
 
@@ -128,31 +129,29 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
 
 **Did you meet your sprint goal?**
 
-> Your Answer
+> We did meet our sprint goal. We finished implementing all of the GUI elements, refactored old memoranda code, and put the cherry
+on top.
 
 **Did you complete all stories on your Spring Backlog?**
 
-> Your Answer
+> Yes we did.
 
 **If not, what went wrong?**
 
-> Your Answer
+> N/A
 
 **Did you work at a consistent rate of speed, or velocity? (Meaning did you work during the whole Sprint or did you start working when the deadline approached.)**
 
-> Your Answer
+> We worked at a consistent speed, even though we had challenges and obstacles like massive individual assignments during this sprint.
+Our Burndown chart looks great.
 
 **Did you deliver business value?**
 
-> Your Answer
-
-**Are there things the team thinks it can do better in the next Sprint?**
-
-> Your Answer
+> We did deliver business value. We delivered a completed product that meets all of the requirements.
 
 **How do you feel at this point? Get a pulse on the optimism of the team.**
 
-> Your Answer
+> We feel good about the work we did and the progress we made on this project.
 
 ### Contributions:
 
@@ -321,14 +320,14 @@ I have not started yet, I plan on doing the task where I cut out a lot of stuff 
     - Made sure the documentation was updated for sprint 3.
   
 ## 4: Checklist for you to see if you are done
-- [ ] Filled out the complete form from above, all fields are filled and written in full sentences
-- [ ] Read the kickoff again to make sure you have all the details
-- [ ] User Stories that were not completed, were left in the Sprint and a copy created
-- [ ] Your Quality Policies are accurate and up to date
-- [ ] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
+- [X] Filled out the complete form from above, all fields are filled and written in full sentences
+- [X] Read the kickoff again to make sure you have all the details
+- [X] User Stories that were not completed, were left in the Sprint and a copy created
+- [X] Your Quality Policies are accurate and up to date
+- [X] **Individual** Survey was submitted **individually** (create checkboxes below -- see Canvas to get link)
   - [X] Kelly Ellis
   - [X] Kevin Somers
-  - [ ] Kelly Petrone
+  - [X] Kelly Petrone
   - [X] Rita Barrilleaux
   - [X] Alex Mack
   - [X] Kevin Wilkinson

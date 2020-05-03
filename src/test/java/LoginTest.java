@@ -11,7 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class loginTest {
+public class LoginTest {
 
     static LoginBox login;
     public static SqlConnection sqlConnection;

@@ -29,16 +29,16 @@ public class ClassesDeleteClass extends JDialog {
     ClassTable classTable;
     GymClassEntity room;
 
-
-    /**
-     * ClassesDeleteClass constructor for our delete class popup.
-     */
+        /**
+         * ClassesDeleteClass constructor for our delete class popup.
+         */
     public ClassesDeleteClass(ClassesPanel ref, Component rel, LocalDate currentDate, GymClassEntity gce) {
 
         if (gce == null) {
             throwInputError("You have not selected a class from the Classes Pane");
             return;
         }
+
         this.topLevelReference = ref;
         selectedClass = gce;
         initGuiComponents();
@@ -128,17 +128,14 @@ public class ClassesDeleteClass extends JDialog {
         LocalDate date = this.date;
         System.out.println(date.toString());
         Gym gym = Gym.getInstance();
-
         int rooms = room.getRoomNumber();
         Response delete = gym.deleteClass(date, start, rooms);
         Object[] option = {"OK"};
         int x = JOptionPane.showOptionDialog(null, delete.getMsg(),
                 "Deleted", JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE,
                 null, option, option[0]);
-      //  classTable.refresh();
 
-     //   this.classTable.deleteClass(selectedClass);
-        topLevelReference.refresh();
+        classTable.refresh();
 
     }
 }

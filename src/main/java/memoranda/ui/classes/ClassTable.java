@@ -228,8 +228,8 @@ public class ClassTable extends DefaultTableModel {
 
 
     public void deleteClass(GymClassEntity selectedClass) {
-      //  DefaultTableModel model = (DefaultTableModel) this.classTable.getModel();
-      //  model.removeRow(classTable.getSelectedRow());
+        DefaultTableModel model = (DefaultTableModel) this.classTable.getModel();
+        model.removeRow(classTable.getSelectedRow());
 
 
     }

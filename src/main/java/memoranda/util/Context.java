@@ -1,9 +1,4 @@
 package main.java.memoranda.util;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import main.java.memoranda.ui.AppFrame;
-
 /**
  * <p>Title: </p>
  * <p>Description: </p>
@@ -22,14 +17,14 @@ public class Context {
      */
     public static LoadableProperties context = new LoadableProperties();
   
-  static {
+/*  static {
     CurrentStorage.get().restoreContext();
     AppFrame.addExitListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CurrentStorage.get().storeContext();
             }
         });
-  }
+  }*/
 
     /**
      * Get object.

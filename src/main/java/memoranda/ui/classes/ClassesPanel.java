@@ -1,17 +1,27 @@
 package main.java.memoranda.ui.classes;
 
+import main.java.memoranda.Start;
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.ui.DailyItemsPanel;
 import main.java.memoranda.ui.ExceptionDialog;
 import main.java.memoranda.util.Local;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class ClassesPanel extends JPanel {
 
     private DailyItemsPanel parentPanelReference = null;
 
     private JToolBar topToolBar = new JToolBar();
+
+    private LocalDate date;
+
+    private Gym gym = Gym.getInstance();
 
     private JButton schedNewClassBut;//all the buttons for the top bar
     private JButton editClassBut;
@@ -20,6 +30,8 @@ public class ClassesPanel extends JPanel {
     private JButton enrollClassButt;
     private JButton cancelEnrollmentBut;
     private JButton removeClassBut;
+
+    private JPanel colorKey;
 
     private JPanel classesPanelTop;//contains scroll panes 1,2
     private JPanel classesPanelBot;//contains scroll panes 3,4
@@ -32,12 +44,17 @@ public class ClassesPanel extends JPanel {
 
     private ClassTable room1;
     private ClassTable room2;
-
     private ClassTable room3;
     private ClassTable room4;
 
+    private UserEntity loggedInUser;
+
     public ClassesPanel(DailyItemsPanel _parentPanel) {
         try {
+            loggedInUser = Gym.getInstance().getUser();
+            date = LocalDate.of(_parentPanel.currentDate.getYear(),
+                    _parentPanel.currentDate.getMonth()+1,
+                    _parentPanel.currentDate.getDay());
             parentPanelReference = _parentPanel;
 
             init();
@@ -49,7 +66,10 @@ public class ClassesPanel extends JPanel {
     /**
      * Main init method for the ClassesPanel
      */
-    private void init() {
+    private void init() throws SQLException {
+        date = LocalDate.of(parentPanelReference.currentDate.getYear(),
+                parentPanelReference.currentDate.getMonth()+1,
+                parentPanelReference.currentDate.getDay());
         this.setLayout(new BorderLayout());
         topToolBar.setFloatable(false);
 
@@ -59,6 +79,17 @@ public class ClassesPanel extends JPanel {
 
         initRooms();//each room handles its own action listener
 
+    }
+
+    /**
+     * Refreshes each of the rooms on the Classes Panel.
+     * Used when classes are edited or added.
+     */
+    public void refresh() throws SQLException {
+        room1.refresh();
+        room2.refresh();
+        room3.refresh();
+        room4.refresh();
     }
 
     /**
@@ -159,21 +190,63 @@ public class ClassesPanel extends JPanel {
         cancelEnrollmentBut.setEnabled(true);
         cancelEnrollmentBut.setFont( new Font("Arial", Font.PLAIN, 10));
 
-        //place all the buttons
-        topToolBar.add(schedNewClassBut, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(schedPriClassBut, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(editClassBut, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(removeClassBut, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(setAvailabilityBut, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(enrollClassButt, null);
-        topToolBar.addSeparator(new Dimension(2, 24));
-        topToolBar.add(cancelEnrollmentBut, null);
+        // Add the key for the color of the classes
+        // Green = Open, Red = Full
+        this.colorKey = new JPanel();
+        JLabel open = new JLabel("Open");
+
+        JPanel whiteOpen = new JPanel();
+        whiteOpen.setPreferredSize(new Dimension(10,10));
+        whiteOpen.setBackground(Color.WHITE);
+
+        JLabel full = new JLabel("Full");
+
+        JPanel redClosed = new JPanel();
+        redClosed.setPreferredSize(new Dimension(10,10));
+        redClosed.setBackground(Color.RED);
+
+        JLabel key = new JLabel("Key: ");
+        colorKey.add(key);
+        colorKey.add(open);
+        colorKey.add(whiteOpen);
+        colorKey.add(full);
+        colorKey.add(redClosed);
+
+        //places buttons based on the logged in users role
+        loggedInUser = Start.getGym().getUser();
+        if (loggedInUser.isTrainer()) {
+            topToolBar.add(schedPriClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(removeClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(setAvailabilityBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(enrollClassButt, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(cancelEnrollmentBut, null);
+        } else if (loggedInUser.isCustomer()) {
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(enrollClassButt, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(cancelEnrollmentBut, null);
+        } else {
+            topToolBar.add(schedNewClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(schedPriClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(editClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(removeClassBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(setAvailabilityBut, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(enrollClassButt, null);
+            topToolBar.addSeparator(new Dimension(2, 24));
+            topToolBar.add(cancelEnrollmentBut, null);
+        }
         this.add(topToolBar, BorderLayout.NORTH);
+
+        this.setVisible(true);
     }
 
     /**
@@ -184,39 +257,50 @@ public class ClassesPanel extends JPanel {
     private void initActionListenersTopToolBar(){
 
         schedNewClassBut.addActionListener((e)->{
-            System.out.println("Debug: schedNewClassBut TODO");
-            //TODO
+            new ClassesSchedNewClass(this, schedNewClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                    parentPanelReference.currentDate.getMonth()+1,
+                    parentPanelReference.currentDate.getDay()));
         });
         schedPriClassBut.addActionListener((e)->{
-            System.out.println("Debug: schedPriClassBut TODO");
-            //TODO
+            new ClassesSchedPrivClass(this, schedNewClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                    parentPanelReference.currentDate.getMonth()+1,
+                    parentPanelReference.currentDate.getDay()));
         });
         editClassBut.addActionListener((e)->{
-            System.out.println("Debug: editClassBut TODO");
-            //TODO
+            new ClassesEditExistingClass(this, schedNewClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                parentPanelReference.currentDate.getMonth()+1,
+                parentPanelReference.currentDate.getDay()), parentPanelReference.getSelectedClass());
         });
         removeClassBut.addActionListener((e)->{
-            System.out.println("Debug: removeClassBut TODO");
-            //TODO
+            new ClassesDeleteClass(this, removeClassBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                    parentPanelReference.currentDate.getMonth()+1,
+                    parentPanelReference.currentDate.getDay()), parentPanelReference.getSelectedClass());
         });
         setAvailabilityBut.addActionListener((e)->{
-            System.out.println("Debug: setAvailabilityBut TODO");
-            //TODO
+            new ClassesSetAvailability(this, setAvailabilityBut, LocalDate.of(parentPanelReference.currentDate.getYear(),
+                    parentPanelReference.currentDate.getMonth()+1,
+                    parentPanelReference.currentDate.getDay()));
         });
         enrollClassButt.addActionListener((e)->{
-            System.out.println("Debug: enrollClassButt TODO");
-            //TODO
+            new ClassesEnrollClass(this,
+                        LocalDate.of(parentPanelReference.currentDate.getYear(),
+                        parentPanelReference.currentDate.getMonth()+1,
+                        parentPanelReference.currentDate.getDay()),
+                    parentPanelReference.getSelectedClass());
         });
         cancelEnrollmentBut.addActionListener((e)->{
-            System.out.println("Debug: cancelEnrollmentBut TODO");
-            //TODO
+            new ClassesCancelEnrollment(this,
+                    LocalDate.of(parentPanelReference.currentDate.getYear(),
+                            parentPanelReference.currentDate.getMonth()+1,
+                            parentPanelReference.currentDate.getDay()),
+                    parentPanelReference.getSelectedClass());
         });
     }
 
     /**
      * All code associated with initializing the class tables.
      */
-    private void initRooms(){
+    private void initRooms() throws SQLException {
 
         room1 = new ClassTable(this.parentPanelReference,1);
         room2 = new ClassTable(this.parentPanelReference,2);
@@ -232,13 +316,20 @@ public class ClassesPanel extends JPanel {
         this.classesPanelBot= new JPanel(new FlowLayout());
 
         this.classesPanelTop.add(this.room1ScrollPane);
+        // Add titles to rooms
+        this.room1ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 1", TitledBorder.CENTER, TitledBorder.TOP));
         this.classesPanelTop.add(this.room2ScrollPane);
+        this.room2ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 2", TitledBorder.CENTER, TitledBorder.TOP));
         this.classesPanelBot.add(this.room3ScrollPane);
+        this.room3ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 3", TitledBorder.CENTER, TitledBorder.TOP));
         this.classesPanelBot.add(this.room4ScrollPane);
-
+        this.room4ScrollPane.setBorder(BorderFactory.createTitledBorder (BorderFactory.createEtchedBorder(),
+                "Room 4", TitledBorder.CENTER, TitledBorder.TOP));
+        
         this.add(classesPanelTop, BorderLayout.CENTER);
         this.add(classesPanelBot, BorderLayout.SOUTH);
-
     }
-
 }

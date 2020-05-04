@@ -107,4 +107,4 @@ Reviewer Name: ________________
   > Team members will contribute to the massive backlog of StaticAnaylsis bugs by submitting at least 20 SA fixes caught by checkstyle and 20 SA fixes to spotbugs. If there aren't any bugs, then team members will obviously not need to contribute to fixing any more. The dedicated SA fixes will be created on a seperate branch with SA-Task#, where the task number is created with a storyless task on the taiga board. This will be done so that we can accruately show off our progression as we tackle these bugs.
   
 **Continuous Integration**  (due start Sprint 3)
-  > Your Continuous Integration policy
+  > For continuous integration, we will make sure that the Travis CI develop build passes with each pull into the develop branch. At the end of the sprint, we will also make sure that the build passes for the pull into the master branch.

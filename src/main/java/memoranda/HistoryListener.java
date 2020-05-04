@@ -8,6 +8,8 @@
  */
 package main.java.memoranda;
 
+import java.sql.SQLException;
+
 /**
  * The interface History listener.
  */
@@ -23,6 +25,6 @@ public interface HistoryListener {
      *
      * @param item the item
      */
-    void historyWasRolledTo(HistoryItem item);
+    void historyWasRolledTo(HistoryItem item) throws SQLException;
 
 }

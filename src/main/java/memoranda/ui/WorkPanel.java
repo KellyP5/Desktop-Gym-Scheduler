@@ -1,5 +1,7 @@
 package main.java.memoranda.ui;
 
+import main.java.memoranda.database.entities.UserEntity;
+import main.java.memoranda.gym.Gym;
 import main.java.memoranda.ui.usermanagment.UserManagement;
 import main.java.memoranda.util.Context;
 import main.java.memoranda.util.Local;
@@ -68,9 +70,13 @@ public class WorkPanel extends JPanel {
      * The Border 1.
      */
     Border border1;
+	/**
+	 * Currently logged in user
+	 */
+	private Gym gym = Gym.getInstance();
+	private UserEntity loggedInUser;
 
-
-    /**
+	/**
      * Instantiates a new Work panel.
      */
     public WorkPanel() {
@@ -112,11 +118,18 @@ public class WorkPanel extends JPanel {
 		this.add(panel, BorderLayout.CENTER);
 		panel.add(dailyItemsPanel, "DAILYITEMS");
 
-		toolBar.add(agendaB, null);
-		toolBar.add(classesB, null);
-		toolBar.add(tasksB, null);
-		toolBar.add(notesB, null);
-		toolBar.add(userMgmt, null);
+		loggedInUser = gym.getUser();
+		if (loggedInUser.isAdmin()) {
+			toolBar.add(agendaB, null);
+			toolBar.add(classesB, null);
+			toolBar.add(notesB, null);
+			toolBar.add(userMgmt, null);
+		} else {
+			toolBar.add(agendaB, null);
+			toolBar.add(classesB, null);
+			toolBar.add(notesB, null);
+		}
+
 		currentB = agendaB;
 		// Default blue color
 		currentB.setBackground(new Color(215, 225, 250));
@@ -134,7 +147,6 @@ public class WorkPanel extends JPanel {
 	void initAllPanels(){
 		initUserManagment();
 		initClasses();
-		initTasks();
 		initNotes();
 		initAgenda();
 	}
@@ -200,34 +212,6 @@ public class WorkPanel extends JPanel {
 								"/ui/icons/events.png")));
 		classesB.setOpaque(false);
 		classesB.setMargin(new Insets(0, 0, 0, 0));
-
-	}
-
-	void initTasks(){
-		tasksB.setSelected(true);
-		tasksB.setFont(new java.awt.Font("Dialog", 1, 10));
-		tasksB.setMargin(new Insets(0, 0, 0, 0));
-		tasksB.setIcon(
-				new ImageIcon(
-						main.java.memoranda.ui.AppFrame.class.getResource(
-								"/ui/icons/tasks.png")));
-		tasksB.setVerticalTextPosition(SwingConstants.BOTTOM);
-		tasksB.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tasksB_actionPerformed(e);
-			}
-		});
-		tasksB.setVerticalAlignment(SwingConstants.TOP);
-		tasksB.setText(Local.getString("Tasks"));
-		tasksB.setHorizontalTextPosition(SwingConstants.CENTER);
-		tasksB.setFocusPainted(false);
-		tasksB.setBorderPainted(false);
-		tasksB.setContentAreaFilled(false);
-		tasksB.setPreferredSize(new Dimension(50, 50));
-		tasksB.setMinimumSize(new Dimension(30, 30));
-		tasksB.setOpaque(false);
-		tasksB.setMaximumSize(new Dimension(80, 60));
-		tasksB.setBackground(Color.white);
 
 	}
 
@@ -302,6 +286,8 @@ public class WorkPanel extends JPanel {
 				notesB_actionPerformed(null);
 			else if (pan.equals("TASKS"))
 				tasksB_actionPerformed(null);
+			else if (pan.equals("AGENDA"))
+				agendaB_actionPerformed(null);
 			else if (pan.equals("CLASSES"))
 				classesB_actionPerformed(null);
 			else if (pan.equals("USERMANAGMENT"))

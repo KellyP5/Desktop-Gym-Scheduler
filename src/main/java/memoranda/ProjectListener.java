@@ -13,7 +13,6 @@ public interface ProjectListener {
      * @param tl  the tl
      * @param rl  the rl
      */
-    void projectChange(Project prj, NoteList nl, TaskList tl, ResourcesList rl);
 
     /**
      * Project was changed.

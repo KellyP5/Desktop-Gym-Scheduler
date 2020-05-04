@@ -7,16 +7,14 @@
  */
 package main.java.memoranda;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Vector;
 
-import main.java.memoranda.database.GymClassEntity;
+import main.java.memoranda.database.entities.GymClassEntity;
 import main.java.memoranda.date.CalendarDate;
 import main.java.memoranda.ui.App;
 import main.java.memoranda.util.CurrentStorage;
